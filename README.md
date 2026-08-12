@@ -123,6 +123,7 @@ including the bad test you recovered from — plus the ask itself.
 | File | What it is |
 |---|---|
 | `students/<name>/profile.md` | Everything about you, with every line tagged by source |
+| `students/<name>/criteria.md` | What you're looking for — the checklist your list is measured against |
 | `students/<name>/colleges.md` | The list, with the reasoning and the numbers |
 | `students/<name>/research/*.md` | A cited dossier per school |
 | `students/<name>/essays/…` | Brief, then every draft and review, never overwritten |
@@ -196,7 +197,11 @@ python3 -m pip install openpyxl python-docx requests markdown
 python3 -m unittest discover -s college-apps/tests
 ```
 
-48 tests, mostly pinning date arithmetic — which aid year a January deadline belongs to,
+**Design docs:** [`design.md`](college-apps/docs/design.md) for architecture and the
+reasoning behind it, [`data-model.md`](college-apps/docs/data-model.md) for the data
+contract — every file, who writes it, and what may change it.
+
+63 tests, mostly pinning date arithmetic — which aid year a January deadline belongs to,
 what happens when a student starts eight weeks late, what happens when a deadline is
 mistyped. That logic is where a bug costs a family real money, so it isn't left to
 spot-checking.

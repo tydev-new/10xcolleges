@@ -1,7 +1,11 @@
-# Data model — one folder per student
+# Data contract — one folder per student
 
 Everything about one student lives in `students/<slug>/`, where `<slug>` is lowercase-
 hyphenated (`maya-rodriguez`). Skills read and write these files; nothing else is state.
+
+This document is binding. `design.md` explains the architecture around it.
+
+## Layout
 
 ```
 students/maya-rodriguez/
@@ -14,7 +18,7 @@ students/maya-rodriguez/
 │   └── <college-slug>.md   # one cited dossier per college
 ├── essays/
 │   └── <college-slug>--<prompt-slug>/
-│       ├── brief.md        # rubric + angle options + outline
+│       ├── brief.md        # FIXED rubric + LIVING angle (see below)
 │       ├── draft-01.md     # student's or agent's, labeled either way
 │       ├── review-01.md    # feedback on draft-01
 │       └── draft-02.md ...
@@ -23,10 +27,74 @@ students/maya-rodriguez/
 │   └── request--<teacher-slug>.md
 ├── out/
 │   ├── tracker.xlsx
-│   ├── packet.docx
-│   └── package.html
-└── meta.json               # small machine-readable index (see below)
+│   ├── package.html
+│   └── packet.docx
+├── meta.json               # machine-readable index of the college list
+└── packet.json             # extraction the .docx builder renders
 ```
+
+## Mutability classes
+
+Most defects in this system have been mutability errors — something treated as changeable
+that wasn't, or as fixed when it moved. Every file belongs to exactly one class.
+
+| Class | Rule | Why |
+|---|---|---|
+| **Append-only** | Add entries; never edit or remove an existing one. Corrections are new dated entries. | The record of what someone actually said is evidence. A tidied paraphrase isn't. |
+| **Immutable** | Written once. A change means a new numbered file. | The sequence *is* the history — of improvement, and of authorship. |
+| **Fixed-source** | Changes only when the external source changes, or when we transcribed it wrong. Never in response to our own work. | Something outside us defines it. Editing it to fit what we produced is rationalization. |
+| **Living** | Edit freely as understanding improves; retire rather than delete where the audit trail matters. | It records a person's evolving intent, which genuinely changes. |
+| **Index** | Machine-readable mirror of a Living file. Must be re-synced whenever its source changes. | Scripts can't parse prose; two representations must not disagree. |
+| **Derived** | Never hand-edit. Regenerate from source. | Edits are silently destroyed on the next build. |
+
+## Every file
+
+| Path | Class | Written by | Changes when |
+|---|---|---|---|
+| `profile.md` | Living | student-intake | New information about the student |
+| `criteria.md` | Living (Retired table) | student-intake, college-list | The student's wants change |
+| `colleges.md` | Living | college-list | Schools added, cut, or re-tiered |
+| `conversations.md` | **Append-only** | every skill | After any substantive exchange |
+| `feedback.md` | **Append-only** | counselor-package, college-app | Parent or counselor input arrives |
+| `research/<college>.md` | Living | college-research | Re-researched, or a source updates |
+| `essays/<e>/brief.md` | **Split** — see below | essay-coach | Depends on which half |
+| `essays/<e>/draft-NN.md` | **Immutable** | essay-coach / student | Never. Write `draft-NN+1.md` |
+| `essays/<e>/review-NN.md` | **Immutable** | essay-coach | Never. Write `review-NN+1.md` |
+| `recs/brag-sheet--<t>.md` | Living | rec-request | Before sending to that teacher |
+| `recs/request--<t>.md` | Living | rec-request | Before the student sends it |
+| `counselor-questions.md` | Living | counselor-package | Before each package send |
+| `meta.json` | **Index** | college-app (owner) | Immediately after `colleges.md` changes |
+| `packet.json` | **Index** | counselor-package | Before regenerating the .docx |
+| `out/tracker.xlsx` | **Derived** | `make_tracker.py` | Regenerate; never edit |
+| `out/package.html` | **Derived** | `build_package.py` | Regenerate; never edit |
+| `out/package.pdf` | **Derived** | `build_package.py` | Regenerate; never edit |
+| `out/packet.docx` | **Derived** | `fill_packet.py` | Regenerate; never edit |
+
+Shipped with the plugin, read-only to a session:
+
+| Path | Class | Changes when |
+|---|---|---|
+| `config/calendar.json` | Living (human-edited) | A real-world date moves — verify each summer |
+| `templates/student/` | Fixed-source | The scaffold itself is revised |
+| `templates/criteria-worksheet.md` | Fixed-source | The worksheet is revised |
+| `docs/*.md` | Fixed-source | Deliberate design change |
+
+### brief.md is deliberately split
+
+The only file with two classes, because its halves answer to different authorities:
+
+| Half | Class | Contains | May change when |
+|---|---|---|---|
+| **Fixed** | Fixed-source | Prompt, rubric, word count, format | The college revises it, we misread it, or we learn what the reader weighs (CDS §C7) |
+| **Living** | Living | Angle, outline, draft mode | The essay evolves |
+
+**A draft never justifies changing the rubric.** If a draft fails a criterion, the draft is
+wrong. A rubric that relaxes to fit what was written has stopped being a standard.
+
+Contrast `criteria.md`, which is fully Living: a college prompt is external and fixed,
+while a student's preferences are their own and legitimately change. Same mechanic —
+written down, re-read in full before every pass — different mutability, because the
+sources differ.
 
 ## profile.md
 

@@ -2,6 +2,12 @@
 
 Claude Code skills for helping high school students apply to college.
 
+## Start here
+
+- `${CLAUDE_PLUGIN_ROOT}/docs/design.md` — architecture, diagrams, and the reasoning
+- `${CLAUDE_PLUGIN_ROOT}/docs/data-model.md` — the binding data contract, incl. what may
+  change each file. Check a file's mutability class before writing to it.
+
 ## Working style
 
 Read `${CLAUDE_PLUGIN_ROOT}/docs/voice.md` before talking to a student. Plain-spoken, encouraging, specific,
@@ -11,7 +17,7 @@ realistic about odds. You're a counselor, not a chatbot and not a hype man.
 
 ```
 skills/             8 skills — college-app is the orchestrator, 7 specialists
-docs/               voice.md, data-model.md, citations.md — read by every skill
+docs/               voice · citations · data-model (contract) · design (why)
 config/             calendar.json — dates and offsets, editable without touching code
 scripts/            deterministic generators (Scorecard, xlsx, docx, HTML package)
 tests/              date-logic and citation-integrity tests (stdlib unittest)
