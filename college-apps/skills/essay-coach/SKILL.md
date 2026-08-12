@@ -33,7 +33,19 @@ record of whose words ended up in the application.
 
 ## Always start with the brief
 
-Whatever mode the student picks later, you start here. Write `brief.md`:
+Whatever mode the student picks later, you start here. Write `brief.md`.
+
+The brief has two halves, and they answer to different things:
+
+| | Comes from | Changes when |
+|---|---|---|
+| **Fixed** — the prompt, the rubric, word count and format | The college | The *college* changes it, or you got it wrong the first time |
+| **Living** — the angle, the outline, the draft mode | The student | The essay evolves |
+
+Keep them under separate headings in the file. The distinction is load-bearing: the
+rubric is derived from the prompt, and the prompt does not care how the draft is going.
+
+### Fixed — from the college
 
 **1. What the prompt is actually asking.** Restate it in one plain sentence. Most prompts
 ask something narrower than they appear to. "Describe a challenge you've faced" is not
@@ -41,7 +53,10 @@ asking about the challenge — it's asking how you think when things go wrong.
 
 **2. The rubric.** What a strong response does, as 4–6 checkable criteria. Derive them
 from the prompt and from the school's CDS §C7 weighting if you have it, not from generic
-essay advice. For example, for a why-us supplement:
+essay advice. These are the standard every later draft is held to, so write them to be
+checkable — a criterion you can't answer yes or no about is decoration.
+
+For example, for a why-us supplement:
 
 | Criterion | What it looks like |
 |---|---|
@@ -51,7 +66,9 @@ essay advice. For example, for a why-us supplement:
 | Fits the length | 150 words means ~3 sentences of setup, tops |
 | Not swappable | If you could paste the school's name out and another in, it fails |
 
-**3. Word count and format**, from the college's own page.
+**3. Word count and format**, from the college's own page, with the retrieval date.
+
+### Living — from the student
 
 **4. Three or four angles** drawn from *their* material, each one sentence, each honestly
 assessed. Then say which you'd pick and why:
@@ -135,8 +152,8 @@ Line-editing an agent draft does not.
 
 ## Reviewing a draft
 
-**Re-read `brief.md` first, every single time.** It holds the rubric, the angle the
-student chose, and the outline they agreed to — and it is the standard the draft gets
+**Re-read `brief.md` first, every single time.** It holds the rubric the prompt demands,
+plus the angle and outline the student chose — together, the standard this draft gets
 measured against. Reviewing from a fresh read of the draft alone is how coaching drifts:
 by round three you end up polishing sentences in an essay that quietly stopped answering
 the prompt, and nobody notices because nobody re-checked the rubric.
@@ -148,11 +165,37 @@ So open every review by scoring the draft against the brief's criteria, briefly:
 > Two-way — missing entirely; you say what you'd get, never what you'd bring.
 > Under 150 words — you're at 190.
 
+### The rubric does not move
+
+A draft can never justify changing a rubric criterion. If a draft fails "specific to this
+school," the draft is wrong — the criterion isn't negotiable, because it came from the
+prompt and the prompt hasn't changed.
+
+This matters more than it sounds. A rubric that softens to accommodate whatever the
+student wrote isn't a standard, it's a post-hoc rationalization, and talking yourself into
+why the essay you already wrote is fine is the single most common way essay coaching
+fails. The rubric's whole value is that it's the part that doesn't move.
+
+The rubric changes only when the *source* changes, never in response to a draft:
+
+- the college revised the prompt or the word limit (cite the page and the retrieval date)
+- you misread it the first time — correcting an error, not drifting
+- you found the school's CDS §C7 and now know what they actually weigh
+
+Record any such change with the reason, so "we added a criterion in October" is
+explainable later.
+
+### The angle does move
+
 If the draft has drifted from the chosen angle, say so before anything else. Sometimes
-the drift is an improvement — the essay found a better subject than the one you planned.
-When that happens, **update `brief.md`** to record the new angle and the reasoning, so the
-next review measures against where the essay actually is rather than where it started.
-The brief is a living document, not a decision you made once in September.
+that drift is an improvement — the essay found a better subject than the one you planned.
+When it is, update the **Living** half of `brief.md` with the new angle and outline and
+the reasoning, so the next review measures against where the essay actually is.
+
+Be honest about which of the two is happening. "This drifted somewhere better" and "this
+drifted because it was easier to write" look identical on the page and are opposite
+problems. The test is the rubric: a better angle still satisfies the criteria. An easier
+one usually quietly stopped answering the prompt.
 
 Then structure the rest of every review the same way:
 
