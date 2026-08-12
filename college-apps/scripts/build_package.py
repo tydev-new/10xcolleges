@@ -109,6 +109,12 @@ def md(text):
     return MD.convert(html.escape(text or "", quote=False))
 
 
+# Matches a TODO whether it sits at line start or as a list item ("- TODO:", "* TODO:",
+# "1. TODO:"). Both forms occur in the templates, and counting only the bare form
+# silently under-reports how much is still open.
+TODO_RE = re.compile(r"^\s*(?:[-*+]|\d+[.)])?\s*TODO:", re.M)
+
+
 def read(p):
     return p.read_text() if p.exists() else ""
 
@@ -134,11 +140,29 @@ def section_snapshot(profile):
     if not profile:
         return '<p class="todo">No profile.md yet — run the student-intake skill.</p>'
     body = strip_h1(profile)
-    todos = len(re.findall(r"^\s*TODO:", body, re.M))
+    todos = len(TODO_RE.findall(body))
     out = md(demote(body, 1))
     if todos:
         out += (f'<p class="todo">{todos} item(s) still marked TODO in the profile — '
                 "these are open questions, not oversights.</p>")
+    return out
+
+
+def section_criteria(sd):
+    """What the student said they wanted — the checklist the list is measured against.
+
+    Placed before the list so a counselor reads the criteria first and can react to the
+    reasoning rather than only to the school names.
+    """
+    text = read(sd / "criteria.md")
+    if not text.strip():
+        return ('<p class="todo">No criteria.md yet — run student-intake, or have the '
+                "student fill in the criteria worksheet.</p>")
+    todos = len(TODO_RE.findall(text))
+    out = md(demote(strip_h1(text)))
+    if todos:
+        out += (f'<p class="todo">{todos} open question(s) in the criteria — these are '
+                "things that would sharpen the list but aren't settled yet.</p>")
     return out
 
 
@@ -386,6 +410,7 @@ def build(sd, meta):
         "on.</p></div>",
         "<h2>Where we'd value your input</h2>", section_asks(sd, meta),
         "<h2>Student snapshot</h2>", section_snapshot(profile),
+        "<h2>What they're looking for</h2>", section_criteria(sd),
         "<h2>The list</h2>", section_list(colleges),
         "<h2>College research</h2>", section_research(sd, colleges),
         "<h2>Essays</h2>", section_essays(sd),

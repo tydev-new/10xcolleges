@@ -32,12 +32,41 @@ Read each file directly (PDFs and DOCX both work with the Read tool) and transcr
 If a packet is blank or mostly blank, that's fine and common. Say so without judgment and
 fill it through conversation instead — that is often a better packet anyway.
 
+## Part 1b — offer the worksheet
+
+Some students talk easily. Others freeze at "so what are you looking for?" and do much
+better with something to fill in. Offer both:
+
+> We can do this two ways — talk it through, or I give you a worksheet to fill in first
+> and we start from your answers. The worksheet is about fifteen minutes and it's worth
+> doing with a parent, because the money questions go faster that way. Either's fine.
+
+The worksheet is `${CLAUDE_PLUGIN_ROOT}/templates/criteria-worksheet.md` — copy it into
+the student's folder for them to fill in. If their school already gave them a
+questionnaire, form, or spreadsheet covering the same ground, read that instead. Never
+make someone answer the same question twice because it arrived in the wrong format.
+
+Either way the answers land in the same place: `criteria.md`.
+
 ## Part 2 — the interview
 
 Not a form. A conversation, over as many turns as it takes. **Ask two or three questions
 at a time, never a wall of them.** Follow what they actually say — if a throwaway line
 about their job at the garden center is more alive than anything in their activities list,
 chase it.
+
+**Write criteria down as they surface — during the conversation, not after.** Anything
+that would include or exclude a school goes straight into `criteria.md` as a row, tagged
+with the source and date: budget into Hard filters, "I don't want to be cold" into
+Deal-breakers in their own words, "I'd like to be near a city" into Preferences as Nice.
+
+Do this in the moment, because the phrasing degrades fast. "I don't want to be the least
+prepared person in the room" is a usable criterion; your later paraphrase of it —
+"prefers a supportive academic environment" — is not.
+
+When something changes, move the old row to **Retired** with the reason rather than
+overwriting it. The trail of what stopped mattering, and why, is the most useful thing in
+the file three months later.
 
 Open with something that isn't about college:
 
@@ -99,9 +128,19 @@ useful sentence of the session.
 ## Write it down
 
 Update `profile.md`, append to `conversations.md` with today's date and their actual
-quotes, and update `meta.json` basics. Then tell them what's still `TODO:` and what
-happens next.
+quotes, make sure `criteria.md` reflects everything they told you, and update `meta.json`
+basics. Then tell them what's still `TODO:` and what happens next.
+
+Read the criteria back to them before you finish — it's short, and it's the thing the
+whole list will be built from:
+
+> Here's what I've got as your hard filters: under $25k a year, has real mechanical
+> engineering, close enough to drive home. Deal-breakers: nowhere cold, and nowhere the
+> social life runs through Greek life. Preferences: smaller classes matters a lot to you,
+> near a city would be nice. Anything wrong or missing?
+
+They will correct something. That correction is worth more than anything you inferred.
 
 Hand off to `college-list` once direction, constraints, and numbers are known. You do not
-need every `TODO:` closed to start a list — you need the budget, the numbers, and a rough
-direction.
+need every `TODO:` closed to start a list — you need the budget, the numbers, a rough
+direction, and a `criteria.md` with something in it.

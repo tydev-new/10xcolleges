@@ -8,6 +8,7 @@ students/maya-rodriguez/
 ├── profile.md              # THE source of truth about the student
 ├── conversations.md        # append-only log of what the student said
 ├── feedback.md             # parent + counselor input, attributed and dated
+├── criteria.md             # what they're looking for — the list's rubric
 ├── colleges.md             # the list: tier, why, status
 ├── research/
 │   └── <college-slug>.md   # one cited dossier per college
@@ -52,6 +53,19 @@ already expects, plus an interview section the packet doesn't have. Sections, in
 
 Mark anything unknown as `TODO:` on its own line. Skills scan for `TODO:` to know what to
 ask next. Never fill a `TODO:` with a guess.
+
+## criteria.md
+
+The college list's equivalent of an essay brief: hard filters, deal-breakers in the
+student's own words, weighted preferences, and a Retired table for criteria that stopped
+applying. `college-list` re-reads it in full before every list operation, which is what
+keeps a growing list from drifting off what the student actually asked for.
+
+Rows are never deleted — they move to Retired with a reason. When a student and a parent
+disagree, both rows stay, both tagged. Never merge them into an invented compromise.
+
+Seed it from the interview, or from `templates/criteria-worksheet.md`, or from whatever
+form the student's school already gave them.
 
 ## Provenance
 
@@ -133,6 +147,7 @@ Improving the package means improving these files — it has no content of its o
 | Path | Appears as |
 |---|---|
 | `profile.md` | Student snapshot (with a `TODO:` count) |
+| `criteria.md` | What they're looking for, before the list itself |
 | `meta.json` → `colleges[]` | The list, with tier balance warnings |
 | `research/*.md` | Collapsible dossier per school |
 | `essays/*/brief.md` | The rubric and chosen angle — what a counselor can still change |

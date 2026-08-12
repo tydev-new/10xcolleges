@@ -9,6 +9,70 @@ Read `${CLAUDE_PLUGIN_ROOT}/docs/voice.md`, `${CLAUDE_PLUGIN_ROOT}/docs/citation
 profile is mostly `TODO:` — especially budget and GPA — go do `student-intake` instead.
 A list built on guesses wastes everyone's fall.
 
+## Always start from criteria.md
+
+`students/<slug>/criteria.md` is to the college list what `brief.md` is to an essay: an
+explicit, living checklist that gets re-read **in full, every time** the list is built or
+rebalanced. Without it, the criteria live scattered across the profile and get reassembled
+from memory on each pass — which is how a list ends up with four schools that violate
+something the student said clearly in August.
+
+**Re-read it before every list operation.** Adding a school, cutting one, re-tiering,
+responding to counselor feedback — all of it starts by reading the criteria file top to
+bottom. This is the same discipline as re-reading the essay brief before a review, for
+the same reason.
+
+If `criteria.md` doesn't exist yet, build it before building any list — either from the
+interview (`student-intake` owns that) or by handing the student
+`${CLAUDE_PLUGIN_ROOT}/templates/criteria-worksheet.md` to fill in. If they already have a
+form, spreadsheet, or questionnaire from their school, read that and seed the rows from it
+instead of making them answer everything twice.
+
+### Keeping it current
+
+The file changes constantly, and every change is an edit to the file, not a mental note:
+
+- **Student says something new** → add a row, tagged `[student <date>]`.
+- **Something turns out not to matter** → move it to **Retired** with the reason. Never
+  delete. In November, when someone asks why an "in-state only" list has three
+  out-of-state schools, the Retired table is the answer.
+- **Student and parent disagree** → keep both rows, both tagged, and say out loud that
+  they conflict. Do not average a $25k ceiling and a $40k ceiling into $32k.
+- **A criterion is really two** → split it. "Not too big" usually means one thing about
+  class size and another about social anonymity, and they filter differently.
+
+### Using it to build
+
+1. **Hard filters cut first.** A school failing any hard filter does not go on the list
+   "to keep options open." That's what the filter is for.
+2. **Deal-breakers are hard filters** written in the student's own words. Treat them with
+   the same force.
+3. **Preferences score, never eliminate.** Weight them Strong or Nice.
+4. **Every school entry names the match.** One line: which criteria it satisfies and which
+   it misses, by number, so the reasoning is auditable rather than vibes.
+
+> **Michigan State** — meets H1 (net price $18k), H2 (ABET ME), H3 (90 min away).
+> Strong on P1 (honors college keeps intro classes small). Misses P4 — this is a big
+> school and you said you didn't want to feel anonymous.
+
+**Never compute a numeric fit score.** "Michigan State: 82% match" is the same false
+precision as an admission percentage, and it invites the student to sort by a number that
+doesn't mean anything. Name what matches and what doesn't; let them weigh it.
+
+### When the filters are too tight
+
+If the hard filters leave fewer than about five plausible schools, stop and say so rather
+than quietly returning a thin list:
+
+> Your filters right now are under $25k, ABET mechanical engineering, within a day's
+> drive, and no school over 15,000 students. Together those leave four schools, and two
+> are reaches. Something has to give — my read is the size cap is the softest of the four,
+> since the honors colleges at the bigger schools would solve most of what you're worried
+> about. Want to try relaxing that one and see what opens up?
+
+Propose *which* filter to relax and why. That's the counselor move — a student staring at
+four criteria doesn't know which one is cheap to give up.
+
 ## What tiers actually mean
 
 Tier by *this student's* numbers against *that school's* admitted range, not by prestige.
@@ -51,9 +115,9 @@ supplements get written badly. Fewer than 6 is fragile. Say so, then respect the
 
 Start from the student, never from a rankings list.
 
-1. **Pull the hard filters** from `profile.md` — budget ceiling, distance, size, the
-   turn-offs. These eliminate, and they eliminate first. A school that violates a stated
-   turn-off does not go on the list to "keep options open."
+1. **Apply the hard filters and deal-breakers** from `criteria.md`. These eliminate, and
+   they eliminate first. A school that violates a stated turn-off does not go on the list
+   to "keep options open."
 2. **Anchor on the academics.** Does the school actually have the program? A student who
    wants biomedical engineering needs the ABET-accredited BME degree, not a biology
    department with a health-professions advisor. Verify the program exists, by name.
@@ -83,6 +147,10 @@ One entry per school:
 
 ```markdown
 ## University of Michigan — Reach
+
+**Against your criteria:** Meets H1 (net price $10.9k, under your $20k ceiling), H2
+(ABET mechanical engineering), H3 (90 min from home). Strong on P2 (hands-on shop
+culture). Misses P4 — 34,000 undergrads, and you said you didn't want to feel anonymous.
 
 **Why it's here:** Top-5 mechanical engineering with a machine shop culture that matches
 how you actually like to work. You said you want out of the house but not out of the

@@ -37,8 +37,8 @@ just a rankings printout.
 
 | Stage | Skill | Done when |
 |---|---|---|
-| 1. Who is this student | `student-intake` | `profile.md` has few `TODO:` lines left |
-| 2. Where should they apply | `college-list` | 8–12 schools, ≥2 real safeties, tiers justified |
+| 1. Who is this student | `student-intake` | `profile.md` has few `TODO:` lines left, `criteria.md` has rows |
+| 2. Where should they apply | `college-list` | 8–12 schools, ≥2 real safeties, each traced to `criteria.md` |
 | 3. What are those schools actually like | `college-research` | A cited dossier per school |
 | 4. What do they write | `essay-coach` | Briefs, then drafts, iterating |
 | 5. Who vouches for them | `rec-request` | Brag sheets + asks, ≥6 weeks before deadlines |
@@ -55,8 +55,9 @@ look at what's missing and propose the next stage — one suggestion, not a menu
 Route to `student-intake` when: starting out, a packet/PDF to process, profile has many
 `TODO:`s, or the student mentions new activities, scores, or a changed major.
 
-Route to `college-list` when: they want schools, the list is unbalanced, or they ask
-"where should I apply."
+Route to `college-list` when: they want schools, the list is unbalanced, they ask
+"where should I apply," or they state a new preference or deal-breaker (it becomes a
+`criteria.md` row, and the list gets re-checked against it).
 
 Route to `college-research` when: they name a specific school, ask about cost, admit rate,
 or "is X good for Y major."

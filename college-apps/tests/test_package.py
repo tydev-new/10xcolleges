@@ -108,3 +108,42 @@ class HeadingDemotion(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
+
+class TodoDetection(unittest.TestCase):
+    """Templates write TODOs both bare and as list items; both must count."""
+
+    def test_counts_bare_and_bulleted_forms(self):
+        for line in ("TODO: confirm budget",
+                     "- TODO: confirm budget",
+                     "  * TODO: confirm budget",
+                     "1. TODO: confirm budget"):
+            with self.subTest(line=line):
+                self.assertEqual(len(bp.TODO_RE.findall(line)), 1)
+
+    def test_does_not_match_prose_mentioning_todo(self):
+        self.assertEqual(bp.TODO_RE.findall("we should TODO: nothing here"), [])
+
+
+class CriteriaSection(unittest.TestCase):
+    def setUp(self):
+        self.tmp = tempfile.TemporaryDirectory()
+        self.sd = Path(self.tmp.name)
+
+    def tearDown(self):
+        self.tmp.cleanup()
+
+    def test_missing_criteria_prompts_rather_than_failing(self):
+        out = bp.section_criteria(self.sd)
+        self.assertIn("criteria worksheet", out)
+
+    def test_criteria_content_and_open_questions_surface(self):
+        (self.sd / "criteria.md").write_text(
+            "# List criteria\n\n## Hard filters\n\n"
+            "| # | Criterion | Value |\n|---|---|---|\n"
+            "| H1 | Net price | under $25k |\n\n"
+            "## Open questions\n\n- TODO: confirm car needed\n"
+        )
+        out = bp.section_criteria(self.sd)
+        self.assertIn("under $25k", out)
+        self.assertIn("open question(s)", out)
