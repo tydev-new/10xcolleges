@@ -1,0 +1,50 @@
+{
+  "_about": "Shared calendar facts for the application cycle. Edit this file when a date moves — no Python changes needed. The rules for *computing* dates (which aid year a deadline belongs to, how a late start compresses) live in scripts/make_tracker.py, because prose instructions get re-derived and re-derived date arithmetic is how you get a nine-month error nobody notices.",
+  "_maintenance": "Verify the aid dates each summer before the cycle starts. The _note fields are read by the skills and surfaced to students, so keep them accurate rather than decorative.",
+
+  "aid": {
+    "fafsa_opens": "10-01",
+    "fafsa_note": "Historically Oct 1. Moved to Dec 31 for the 2024-25 cycle during FAFSA simplification, then back toward Oct 1. Verify before each cycle — this one moves more than anything else here.",
+    "css_profile_opens": "10-01",
+    "css_suggested_by": "10-15",
+    "css_note": "Only some colleges require the CSS Profile. Check each school before telling a family to file it."
+  },
+
+  "rules": {
+    "recommender_lead_weeks": 6,
+    "spring_cutoff_month": 7,
+    "spring_cutoff_note": "A deadline in January through June belongs to the aid cycle that opened the PREVIOUS October — the student matriculates that fall. Deadlines in July through December belong to the cycle opening that same October.",
+    "plan_runway_weeks": 10,
+    "runway_note": "The backward plan assumes 10 weeks. A shorter runway compresses the sequence proportionally rather than generating overdue tasks."
+  },
+
+  "backward_plan": [
+    { "weeks_before": 10, "task": "Finalize decision to apply to {college}", "category": "Decision", "owner": "Student" },
+    { "weeks_before": 9,  "task": "Ask recommenders (needs 6+ weeks lead time)", "category": "Recs", "owner": "Student" },
+    { "weeks_before": 8,  "task": "Send brag sheet + resume to each recommender", "category": "Recs", "owner": "Student" },
+    { "weeks_before": 7,  "task": "Research {college}: program fit, why-us specifics", "category": "Research", "owner": "Student" },
+    { "weeks_before": 6,  "task": "Draft supplemental essay(s) for {college}", "category": "Essays", "owner": "Student" },
+    { "weeks_before": 4,  "task": "Revise supplements — second draft", "category": "Essays", "owner": "Student" },
+    { "weeks_before": 3,  "task": "Request counselor letter + send transcript", "category": "Recs", "owner": "Student" },
+    { "weeks_before": 3,  "task": "Confirm test score send (if submitting scores)", "category": "Testing", "owner": "Student" },
+    { "weeks_before": 2,  "task": "Final proofread of {college} application", "category": "Essays", "owner": "Student" },
+    { "weeks_before": 2,  "task": "Pay fee or submit fee waiver", "category": "Admin", "owner": "Family" },
+    { "weeks_before": 1,  "task": "Confirm recommenders have submitted", "category": "Recs", "owner": "Student" },
+    { "weeks_before": 0,  "task": "SUBMIT {college} application", "category": "Submit", "owner": "Student" }
+  ],
+
+  "profile_tasks": [
+    { "weeks_before_earliest": 12, "task": "Finalize balanced list: 2+ true safeties you'd be happy at", "category": "Decision", "owner": "Student" },
+    { "weeks_before_earliest": 11, "task": "Draft main personal statement (Common App)", "category": "Essays", "owner": "Student" },
+    { "weeks_before_earliest": 6,  "task": "Personal statement final draft", "category": "Essays", "owner": "Student" }
+  ],
+
+  "key_dates_defaults": [
+    { "what": "SAT/ACT test date (if testing)", "notes": "Register ~5 weeks ahead. Last useful date is usually October of senior year." },
+    { "what": "FAFSA opens", "notes": "Historically Oct 1 — verify, it has moved. File as early as you can." },
+    { "what": "Early deadlines (EA/ED)", "notes": "Usually Nov 1 or Nov 15." },
+    { "what": "Regular deadlines", "notes": "Usually Jan 1 – Feb 1." },
+    { "what": "Decisions release", "notes": "Mid-March to April 1." },
+    { "what": "National reply date", "notes": "May 1. Deposit at exactly one school." }
+  ]
+}

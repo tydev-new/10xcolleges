@@ -1,0 +1,8 @@
+# Student records — a minor's academic, financial, and personal data. Never commit.
+students/
+
+.venv/
+.cache/
+__pycache__/
+*.pyc
+.DS_Store
