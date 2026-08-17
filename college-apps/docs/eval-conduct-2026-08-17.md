@@ -157,3 +157,10 @@ above and one measurement gap. Corrections:
    `4df4c31` → `28f3305` → `fa22661` → `4fe8e41` → `2b9b5c5` (post-review fixes:
    whole-workspace snapshots, clip-visibility, resume keyed on snapshots — these
    affect legs after r4; r5 is the first leg run on them).
+5. **One residual the fix-pass verification named, recorded for the next leg:**
+   commit `2b9b5c5` edited three skill bodies (essay-coach's restored marker texts,
+   college-list's list-size guidance, app-tracker's ED line) *after* c3–c9's last
+   measurement — small additive edits, but by this repo's own described-≠-produced
+   rule, the next conduct leg should run on them. Likewise, c3/c4's single-change
+   attributions are isolated by argument (both v2 bullets were present in r3), not
+   by measurement; only c10's is measurement-isolated.

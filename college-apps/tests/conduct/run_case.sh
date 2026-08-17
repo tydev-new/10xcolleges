@@ -31,7 +31,9 @@ for t in $(seq 1 "$TRIALS"); do
     if [ -s "$run.jsonl" ] && [ -d "$run-ws" ]; then
         echo "skip  $run (already complete)"; continue
     fi
-    rm -f "$run.jsonl" "$run.txt" "$run.skills.txt" "$run.check.txt"
+    rm -f "$run.jsonl" "$run.txt" "$run.skills.txt" "$run.check.txt" \
+          "$run.verdict.json" "$run.judge-prompt.txt"  # stale verdicts must not
+          # survive a forced re-run — judge_case.py skips runs that have one
 
     ws="$(mktemp -d)"
     mkdir -p "$ws/students"
