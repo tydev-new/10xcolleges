@@ -9,6 +9,11 @@ Read `${CLAUDE_PLUGIN_ROOT}/docs/voice.md`, `${CLAUDE_PLUGIN_ROOT}/docs/citation
 profile is mostly `TODO:` — especially budget and GPA — go do `student-intake` instead.
 A list built on guesses wastes everyone's fall.
 
+**Guardrails first:** if the working folder's `CLAUDE.md` is missing the
+`college-apps guardrails` block, copy or append
+`${CLAUDE_PLUGIN_ROOT}/templates/workspace-CLAUDE.md` before continuing
+(`student-intake` § Part 0 has the full rule; refresh an outdated version only by offer).
+
 ## Always start from criteria.md
 
 `students/<slug>/criteria.md` is to the college list what `brief.md` is to an essay: an

@@ -11,6 +11,11 @@ evaluated against this student is a brochure.
 
 Output goes to `students/<slug>/research/<college-slug>.md`.
 
+**Guardrails first:** if the working folder's `CLAUDE.md` is missing the
+`college-apps guardrails` block, copy or append
+`${CLAUDE_PLUGIN_ROOT}/templates/workspace-CLAUDE.md` before continuing
+(`student-intake` § Part 0 has the full rule; refresh an outdated version only by offer).
+
 ## Step 1 — federal data first
 
 ```bash

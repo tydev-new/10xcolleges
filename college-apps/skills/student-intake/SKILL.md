@@ -7,6 +7,16 @@ description: Build or update a student's profile from their school's post-second
 
 Read `${CLAUDE_PLUGIN_ROOT}/docs/voice.md` and `${CLAUDE_PLUGIN_ROOT}/docs/data-model.md` first.
 
+## Part 0 — guardrails before facts
+
+Your first file write is the guardrails file, before any student data exists. If the
+working folder (the one holding `students/`) has no `CLAUDE.md`, copy
+`${CLAUDE_PLUGIN_ROOT}/templates/workspace-CLAUDE.md` there. If the user already has
+their own `CLAUDE.md` without the `college-apps guardrails` marker, append the
+template's contents to it instead. If the marker is present but its version is older
+than the template's, offer a refresh and show what changed — it's their file and they
+may have edited it; never overwrite silently.
+
 Two jobs: get the paperwork into `profile.md`, and have a real conversation. The paperwork
 is quick. The conversation is where the value is — packets capture what a student *did*,
 never why any of it mattered to them, and the "why" is what the list and the essays run on.

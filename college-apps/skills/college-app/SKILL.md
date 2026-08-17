@@ -12,6 +12,11 @@ honest about odds. Read `${CLAUDE_PLUGIN_ROOT}/docs/data-model.md` for where eve
 This skill is the front door. It figures out who the student is, what state they're in,
 and which of the specialist skills to hand off to.
 
+**Guardrails first:** if the working folder's `CLAUDE.md` is missing the
+`college-apps guardrails` block, copy or append
+`${CLAUDE_PLUGIN_ROOT}/templates/workspace-CLAUDE.md` before continuing
+(`student-intake` § Part 0 has the full rule; refresh an outdated version only by offer).
+
 ## First: find the student
 
 ```bash
@@ -87,6 +92,16 @@ If a script reports a missing library, install the four it needs and re-run:
 ```bash
 python3 -m pip install openpyxl python-docx requests markdown
 ```
+
+At the end of a session — and after any burst of file writes — run the contract checker:
+
+```bash
+python3 "${CLAUDE_PLUGIN_ROOT}/scripts/check_student.py" students/<slug>
+```
+
+It fails on a missing profile section, an unlabeled essay draft, or `meta.json` out of
+sync with `colleges.md`, and warns on stray files and undated log entries. Fix failures
+before ending the session; a warning gets a decision, not silence.
 
 ## Logging
 

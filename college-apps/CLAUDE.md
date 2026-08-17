@@ -42,6 +42,10 @@ python3 -m unittest discover -s "${CLAUDE_PLUGIN_ROOT}/tests"    # run after tou
 
 ## Always
 
+- **The workspace guardrails file comes first.** The user's working folder gets the
+  `college-apps guardrails` block from `${CLAUDE_PLUGIN_ROOT}/templates/workspace-CLAUDE.md`
+  before any student data is written — intake writes it; every skill repairs it if
+  missing; an outdated version is refreshed only by offer.
 - **Run scripts with `python3 "${CLAUDE_PLUGIN_ROOT}/scripts/<name>.py"`.** They resolve
   their own config and templates from the plugin root, so the working directory is free
   to be the user's own folder — which is where `students/` belongs.

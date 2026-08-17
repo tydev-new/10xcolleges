@@ -131,6 +131,7 @@ including the bad test you recovered from — plus the ask itself.
 | `students/<name>/out/tracker.xlsx` | Deadlines plus a task list built backwards from each one |
 | `students/<name>/out/package.html` | A counselor-ready review document (prints to PDF) |
 | `students/<name>/out/packet.docx` | Your school's own packet, filled in |
+| `CLAUDE.md` (your working folder) | The standing guardrails, written once at setup — yours to edit |
 
 Everything lives in your working folder as plain files you can read, edit, and keep.
 

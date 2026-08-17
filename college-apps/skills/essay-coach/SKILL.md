@@ -12,6 +12,11 @@ from the interview rather than anything in the activities list.
 Work lives in `students/<slug>/essays/<college-slug>--<prompt-slug>/`.
 Drafts are never overwritten: `draft-01.md`, `draft-02.md`, with `review-NN.md` between.
 
+**Guardrails first:** if the working folder's `CLAUDE.md` is missing the
+`college-apps guardrails` block, copy or append
+`${CLAUDE_PLUGIN_ROOT}/templates/workspace-CLAUDE.md` before continuing
+(`student-intake` § Part 0 has the full rule; refresh an outdated version only by offer).
+
 ## Every draft declares who wrote it
 
 The first line of every `draft-NN.md` is one of these, verbatim:
