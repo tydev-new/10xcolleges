@@ -217,24 +217,7 @@ def section_research(sd, colleges):
     return "".join(parts)
 
 
-# Every draft must declare who wrote it, in its first few lines. An agent-drafted
-# essay is indistinguishable from a student's once the header is dropped, so the
-# declaration cannot be inferred after the fact — it has to be present at write time
-# and checked mechanically. See check_draft_labels().
-PROVENANCE = [
-    ("AGENT FIRST DRAFT", "agent", "Agent-drafted scaffolding — student has not yet rewritten"),
-    ("EXAMPLE", "example", "Illustrative sample on another topic — not for submission"),
-    ("STUDENT DRAFT", "student", "Student's own writing"),
-]
-
-
-def draft_provenance(text):
-    """Return (kind, label) from the draft's declared header, or (None, None)."""
-    head = "\n".join((text or "").splitlines()[:6]).upper()
-    for marker, kind, label in PROVENANCE:
-        if marker in head:
-            return kind, label
-    return None, None
+from provenance import draft_provenance  # noqa: E402  (shared with check_student.py)
 
 
 def check_draft_labels(sd):

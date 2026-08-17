@@ -86,6 +86,7 @@ python3 "${CLAUDE_PLUGIN_ROOT}/scripts/scorecard.py" quota
 python3 "${CLAUDE_PLUGIN_ROOT}/scripts/make_tracker.py" students/<slug>
 python3 "${CLAUDE_PLUGIN_ROOT}/scripts/fill_packet.py" students/<slug>
 python3 "${CLAUDE_PLUGIN_ROOT}/scripts/build_package.py" students/<slug> --pdf
+python3 "${CLAUDE_PLUGIN_ROOT}/scripts/check_student.py" students/<slug>   # contract check — run at session close
 ```
 
 ## Student privacy

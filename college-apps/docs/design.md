@@ -234,16 +234,34 @@ Being honest about this is more useful than pretending everything is guaranteed.
 | Probe years track the calendar | **Code** + test | `scorecard.py` |
 | Aid year maps to matriculation, not deadline year | **Code** + test | `make_tracker.py` |
 | Config shape matches what code expects | **Test** | `test_dates.py` |
-| Never invent a fact about a college or student | *Discipline* | every skill |
+| Required profile sections exist (unknowns are `TODO:`, not absences) | **Code** — check fails | `check_student.py` |
+| Draft provenance present at session close, not only at package build | **Code** — check fails | `check_student.py` |
+| `meta.json` in sync with `colleges.md` | **Code** — check fails | `check_student.py` |
+| Stray files flagged before they become a second source of truth | **Code** — warns | `check_student.py` |
+| Append-only log entries carry dates | **Code** — warns | `check_student.py` |
+| Guardrails present before any skill loads | *Discipline* — every skill repairs it | `templates/workspace-CLAUDE.md` |
+| Never invent a fact about a college or student | *Discipline* | every skill + workspace `CLAUDE.md` |
 | Citations carry source + vintage | *Discipline* | `citations.md` |
 | Append-only files are never rewritten | *Discipline* | `data-model.md` |
 | criteria.md / brief.md re-read before each pass | *Discipline* | the two skills |
-| No numeric fit or admission scores | *Discipline* | `voice.md` |
+| No numeric fit or admission scores | *Discipline* | `voice.md` + workspace `CLAUDE.md` |
 
 The *Discipline* rows are where the real risk sits. Each is stated in the skill that would
 violate it, at the point of violation, with the reason — instructions with a stated reason
 survive paraphrase better than bare rules. Anything on that list that later becomes
 checkable should move up to Code.
+
+**Where the discipline lives matters.** A skill's body loads only when its description
+matches what the user said — so a guardrail that lives only in a skill fires only when
+the model already judged that skill relevant. The rules that must hold *before any skill
+loads* — never invent a fact about the student or a college, no chance percentages,
+authorship, privacy — therefore also live in a ~300-word guardrails block that intake
+copies into the user's own `CLAUDE.md` at setup (`templates/workspace-CLAUDE.md`, version-
+marked, refreshed only by offer since the file is theirs). Every skill treats a missing
+block as the first thing to repair. Open assumption, to verify on-platform: that an
+installed plugin's own `CLAUDE.md` is *not* in an end user's context — the sibling
+10xjobs project measured exactly that on Cowork, which is why the copy-at-setup
+mechanism exists at all.
 
 ---
 
@@ -279,5 +297,6 @@ remains tells them what to do first.
 - **A new calendar fact** → `config/calendar.json`, with a `_note` saying why.
 - **A new date rule** → Python plus a test in `tests/test_dates.py`. Never prose.
 - **A new student file** → add it to the contract table in `data-model.md` with its
-  mutability class, and to `build_package.py` if a counselor should see it.
+  mutability class, to the manifest in `check_student.py` (or the checker will flag it
+  as stray), and to `build_package.py` if a counselor should see it.
 - **A new external source** → add its precedence to `citations.md` first.

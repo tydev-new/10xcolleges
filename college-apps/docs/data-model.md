@@ -77,7 +77,17 @@ Shipped with the plugin, read-only to a session:
 | `config/calendar.json` | Living (human-edited) | A real-world date moves — verify each summer |
 | `templates/student/` | Fixed-source | The scaffold itself is revised |
 | `templates/criteria-worksheet.md` | Fixed-source | The worksheet is revised |
+| `templates/workspace-CLAUDE.md` | Fixed-source | The guardrails are revised (bump the version marker) |
 | `docs/*.md` | Fixed-source | Deliberate design change |
+
+The copy of `workspace-CLAUDE.md` written into the *user's* working folder is the
+deliberate exception to shipped-means-read-only: shipped once at setup, then theirs —
+Living, refreshed only by offer.
+
+**Enforcement:** `scripts/check_student.py students/<slug>` checks this contract where
+code can reach it — required profile sections (schema read from the template), draft
+provenance headers, `meta.json` ↔ `colleges.md` sync, the file manifest (stray files
+warn), and dated entries in the append-only logs. Run it at session close.
 
 ### brief.md is deliberately split
 
@@ -115,9 +125,18 @@ already expects, plus an interview section the packet doesn't have. Sections, in
 9. **Reflections** — the packet's five questions, in the student's own words. Preserve
    their phrasing; do not smooth it out. This is essay raw material.
 10. **Goals and direction** — intended major(s), career thinking, and how sure they are.
-11. **What excites / what turns them off** — from the interview. Verbatim quotes.
-12. **Constraints** — budget ceiling and who set it, distance from home, size preference,
+11. **What excites them** — from the interview. Verbatim quotes.
+12. **What turns them off** — same. The most under-asked question in the process.
+13. **Constraints** — budget ceiling and who set it, distance from home, size preference,
     religious or cultural requirements, need for specific support services, athletics.
+14. **Context that doesn't show up elsewhere** — work hours, family responsibilities,
+    anything that explains the record — and whether they want it disclosed, which is
+    their call alone.
+
+The authoritative heading list is `templates/student/profile.md` — the checker reads the
+schema from the template itself, so this prose and the enforced list can't quietly
+diverge. (They already had, once: this list said 12 sections while the template shipped
+14. Found 2026-08-17, the day the checker was built.)
 
 Mark anything unknown as `TODO:` on its own line. Skills scan for `TODO:` to know what to
 ask next. Never fill a `TODO:` with a guess.
