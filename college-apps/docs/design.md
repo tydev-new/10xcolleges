@@ -3,6 +3,11 @@
 How this system is put together and why. For the *data* rules — what each file is and
 what may change it — see `data-model.md`, which is the binding contract.
 
+Precedence for every design judgment: `../../PRINCIPLES.md` → this doc →
+`data-model.md` and the skills. A conflict anywhere in the chain means the chain is
+wrong — fix it, don't pick a winner ad hoc. The principles below are this layer's
+application of that constitution, not a second one.
+
 This document deliberately does **not** restate what individual skills do. The skills are
 the specification; they're what the model reads at runtime. Anything duplicated here would
 drift the first time a skill changed. What lives here is what no single skill can say:
@@ -297,6 +302,20 @@ discouraging and tells them nothing; the same sequence squeezed into the runway 
 remains tells them what to do first.
 
 ---
+
+## Assumptions still live
+
+What the design currently takes on faith, and how we'd know each one is wrong. An
+assumption that fails moves its mechanism, not just its wording.
+
+| # | Assumption | How we'd know it's wrong |
+|---|---|---|
+| A1 | An installed plugin's own `CLAUDE.md` is NOT in an end user's Cowork context — why the workspace guardrails copy exists | one on-platform session with the installed plugin; if it loads after all, shrink the mechanism to the version marker |
+| A2 | Skill descriptions route correctly on natural student phrasing | misroutes in dogfood; a routing conduct case on descriptions alone |
+| A3 | Students actually iterate on essays (3–5 rounds happen) | dogfood: how often a round 2+ happens; briefs with one draft and silence |
+| A4 | Families answer the budget question when asked early | budget still `TODO:` three sessions after intake |
+| A5 | The session-close checker instruction is followed (its rows are prose-triggered) | conduct runs missing `.check.txt` conduct; failures found at package build that session close should have caught |
+| A6 | A compressed late-start plan is followed rather than ignored | dogfood: tracker tasks aging without status changes |
 
 ## Extending it
 

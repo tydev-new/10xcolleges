@@ -4,9 +4,13 @@ Claude Code skills for helping high school students apply to college.
 
 ## Start here
 
+- `PRINCIPLES.md` (repo root) — the constitution; top of the precedence chain
 - `${CLAUDE_PLUGIN_ROOT}/docs/design.md` — architecture, diagrams, and the reasoning
 - `${CLAUDE_PLUGIN_ROOT}/docs/data-model.md` — the binding data contract, incl. what may
   change each file. Check a file's mutability class before writing to it.
+- `${CLAUDE_PLUGIN_ROOT}/docs/PROCESS.md` — **read before building or changing any
+  skill**: design gate → build → independent review → dogfood → conduct case → dated
+  record. `docs/README.md` says which docs govern and which are records.
 
 ## Working style
 
