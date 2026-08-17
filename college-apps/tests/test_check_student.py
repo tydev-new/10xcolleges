@@ -161,10 +161,13 @@ class MetaSync(Workspace):
 
     def test_off_format_heading_fails_naming_the_format(self):
         # A heading the regex can't parse must be reported as a format problem,
-        # not as a phantom "not in colleges.md" mismatch pointing at meta.json.
+        # not as a phantom "not in colleges.md" mismatch pointing at meta.json —
+        # the school usually IS there, under the bad heading.
         self._meta_college()
         self._list_college("## University of Michigan — Target (EA)")
-        self.assertTrue(any("doesn't match the format" in f for f in self.fails()))
+        fails = self.fails()
+        self.assertTrue(any("doesn't match the format" in f for f in fails))
+        self.assertFalse(any("not in colleges.md" in f for f in fails))
 
     def test_endash_in_school_name_parses(self):
         self._meta_college(name="University of Wisconsin–Madison")

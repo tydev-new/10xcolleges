@@ -239,7 +239,7 @@ independent review of the Phase 1–2 commits.*
 
 ### Phase 2 — a workspace checker *(the code half of the contract)*
 
-`scripts/check_student.py --workspace students/<slug>`:
+`scripts/check_student.py students/<slug>`:
 
 - required `profile.md` sections present (schema from `data-model.md`);
   unknown values are `TODO:` lines, not missing sections — FAIL

@@ -137,9 +137,11 @@ def check_meta_sync(sd, fails):
         meta_entries[name.lower()] = (name, tier)
 
     list_entries = {}
+    unparsed = 0
     for h in re.finditer(r"^##\s+(.+?)\s*$", read(sd / "colleges.md"), re.M):
         m = COLLEGE_HEADING.match(h.group(1))
         if not m:
+            unparsed += 1
             fails.append(f"colleges.md heading '## {h.group(1)}' doesn't match the "
                          "format '## School Name — Reach|Target|Safety' — anything "
                          "else (a plan, a note) belongs in the entry's body")
@@ -152,8 +154,12 @@ def check_meta_sync(sd, fails):
 
     for key, (name, tier) in meta_entries.items():
         if key not in list_entries:
-            fails.append(f"'{name}' is in meta.json but not in colleges.md — "
-                         "the index has drifted from its source")
+            # With an unparseable heading present, the school may well be there
+            # under the bad heading — a "missing" claim would point the fixer at
+            # the wrong file. The format FAIL above already blocks the run.
+            if not unparsed:
+                fails.append(f"'{name}' is in meta.json but not in colleges.md — "
+                             "the index has drifted from its source")
         elif tier in TIERS and list_entries[key][1] != tier:
             fails.append(f"'{name}' is tier '{tier}' in meta.json but "
                          f"'{list_entries[key][1]}' in colleges.md")

@@ -21,7 +21,11 @@ PROVENANCE = [
     ("STUDENT DRAFT", "student", "Student's own writing"),
 ]
 
-_MARKER = re.compile(r"^\s*(?:>\s*)?\**\s*(AGENT FIRST DRAFT|STUDENT DRAFT|EXAMPLE)\b")
+# Built from PROVENANCE so a new marker can't be added to the list without the
+# regex seeing it — one owner, even inside one file.
+_MARKER = re.compile(r"^\s*(?:>\s*)?\**\s*("
+                     + "|".join(re.escape(m) for m, _, _ in PROVENANCE)
+                     + r")\b")
 
 
 def draft_provenance(text):
