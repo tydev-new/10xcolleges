@@ -1,6 +1,6 @@
 ---
 name: college-app
-description: Start or resume college application work with a high school student — intake, building a balanced college list, researching schools, essay coaching, recommendation requests, deadline tracking, and counselor packages. Use when someone mentions applying to college, a college list, safety/target/reach schools, Common App, supplemental essays, a counselor packet or brag sheet, recommendation letters, or application deadlines. Also use to check where a student stands or what to do next.
+description: Start or resume college application work with a high school student — intake, building a balanced college list, researching schools, essay coaching, recommendation requests, deadline tracking, and counselor packages. Use when someone mentions applying to college, a college list, safety/target/reach schools, Common App, supplemental essays, a counselor packet or brag sheet, recommendation letters, or application deadlines. Also use to check where a student stands or what to do next, and when a student asks to change, remove, tidy, or keep private anything in their files, conversation log, or history.
 ---
 
 # College application counselor
