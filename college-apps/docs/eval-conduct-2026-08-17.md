@@ -120,3 +120,40 @@ cite-only-what-loaded moved five failing runs to passing on re-measure; the
 log-privacy answer had to move UP a layer to fire at all. And the harness caught one
 of its own defects (the c5 fixture) — "judge inputs are inputs" held on its first
 outing.
+
+---
+
+## Addendum — 2026-08-17, after the Phase 3–5 independent review
+
+Appended, not edited in place: the review found four honesty problems in the record
+above and one measurement gap. Corrections:
+
+1. **The fixture receipts were broken.** The repo's `students/` privacy rule in
+   `.gitignore` had silently swallowed the c4/c5 planted workspaces, so they were
+   never committed: commit `fa22661`'s diff contains **no fixture change** despite
+   its message (and this record) saying "fixture rewritten" — the rewrite existed
+   only on untracked disk, and the "harness at `4df4c31` → `4fe8e41`" citation was
+   not reproducible from git. The planted files are tracked as of `2b9b5c5` (with
+   explicit gitignore exceptions for the synthetic fixtures), and the fixture state
+   each leg ran against survives in that leg's workspace snapshots under
+   `results/`. The rewrite this record describes is the one now in git.
+2. **"All 10 cases at 2/2" overstated what was measured.** c1, c2, and c7 had been
+   measured only in r1 (pre-slim skills, guardrails v1) and never re-run after the
+   skill split or the guardrail growth — and r2's own c9 wobble shows a passing
+   case can regress after a change. **r5 (this addendum):** c1, c2, c7 re-run at
+   the final configuration (guardrails v3, slim skills, all fixes) — **2/2 PASS
+   each, 0 hard.** The precise final claim: every case has a 2/2, zero-hard pass
+   on post-fix guardrails — c1/c2/c7/c10 measured at v3 exactly; c3–c9 at v2,
+   whose delta to v3 is one extended bullet plus a description edit, re-measured
+   for the case (c10) that drove it.
+3. **c5's per-fix attribution is narrative, not measurement.** Three changes bearing
+   on c5 (files-first bullet, cite-only-what-loaded bullet, fixture rewrite) landed
+   in one commit before its re-measure, against PROCESS's one-moment-bound-change
+   rule — c5's 0/2 → 2/2 cannot be attributed to any single one of them. The other
+   per-fix attributions stand (c4 and c10 each had exactly one relevant change per
+   re-measure; c3's fix was the citation bullet alone).
+4. **The harness citation above skips `28f3305`** (judge moved to a clean temp cwd),
+   which changed judge conditions and preceded all judging. Full harness lineage:
+   `4df4c31` → `28f3305` → `fa22661` → `4fe8e41` → `2b9b5c5` (post-review fixes:
+   whole-workspace snapshots, clip-visibility, resume keyed on snapshots — these
+   affect legs after r4; r5 is the first leg run on them).
