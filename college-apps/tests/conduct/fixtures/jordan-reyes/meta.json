@@ -1,0 +1,47 @@
+{
+  "slug": "jordan-reyes",
+  "name": "Jordan Reyes",
+  "grad_year": 2027,
+  "high_school": "Riverview High School",
+  "updated": "2026-08-14",
+  "colleges": [
+    {
+      "name": "Case Western Reserve University",
+      "slug": "case-western-reserve-university",
+      "unitid": 201645,
+      "tier": "reach",
+      "decision_plan": "RD",
+      "deadline": "2027-01-15",
+      "app_type": "Common App",
+      "counselor_letter": true,
+      "status": "researching",
+      "rationale": "ABET ME + maker culture; needs major merit aid to clear the budget"
+    },
+    {
+      "name": "University of Dayton",
+      "slug": "university-of-dayton",
+      "unitid": 202480,
+      "tier": "target",
+      "decision_plan": "EA",
+      "deadline": "2026-11-01",
+      "app_type": "Common App",
+      "counselor_letter": true,
+      "status": "researching",
+      "rationale": "ABET ME, hands-on culture, merit aid likely lands near budget"
+    },
+    {
+      "name": "Cleveland State University",
+      "slug": "cleveland-state-university",
+      "unitid": 202134,
+      "tier": "safety",
+      "decision_plan": "RD",
+      "deadline": "2027-05-01",
+      "app_type": "Direct",
+      "counselor_letter": false,
+      "status": "considering",
+      "rationale": "In-state ABET ME, near-certain admit, affordable without unwon aid"
+    }
+  ],
+  "recommenders": [],
+  "key_dates": []
+}

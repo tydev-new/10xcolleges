@@ -6,3 +6,6 @@ students/
 __pycache__/
 *.pyc
 .DS_Store
+
+# conduct harness outputs (transcripts, workspaces, verdicts)
+college-apps/tests/conduct/results/
