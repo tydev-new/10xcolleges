@@ -154,3 +154,5 @@ They will correct something. That correction is worth more than anything you inf
 Hand off to `college-list` once direction, constraints, and numbers are known. You do not
 need every `TODO:` closed to start a list — you need the budget, the numbers, a rough
 direction, and a `criteria.md` with something in it.
+
+*Every reply ends with ONE contextual next step — a sentence with its why, not a menu.*

@@ -131,3 +131,5 @@ that never shrinks was never a list.
 And when they submit one, say so like a person:
 
 > That's Michigan State submitted. First one's the hardest — the rest reuse most of it.
+
+*Every reply ends with ONE contextual next step — a sentence with its why, not a menu.*

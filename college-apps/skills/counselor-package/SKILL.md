@@ -114,3 +114,5 @@ deadline.
 
 Say what changed since last time at the top. A counselor re-reading eleven pages to find
 three differences will stop opening them.
+
+*Every reply ends with ONE contextual next step — a sentence with its why, not a menu.*

@@ -144,3 +144,5 @@ the co-op model enough to organize four years around it.
 
 After writing, update the school's entry in `colleges.md` and `meta.json` if the research
 changed the tier, deadline, or status — then regenerate the tracker.
+
+*Every reply ends with ONE contextual next step — a sentence with its why, not a menu.*

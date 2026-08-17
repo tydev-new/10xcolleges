@@ -155,3 +155,5 @@ Track in `meta.json` under `recommenders`, then regenerate the tracker.
 It happens, and it's usually a kindness — a teacher who doesn't think they can write a
 strong letter is doing the student a favor by declining. Don't let the student read it as
 rejection. Move to the next name and don't push the first one.
+
+*Every reply ends with ONE contextual next step — a sentence with its why, not a menu.*
