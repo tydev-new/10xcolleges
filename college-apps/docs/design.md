@@ -311,7 +311,7 @@ assumption that fails moves its mechanism, not just its wording.
 | # | Assumption | How we'd know it's wrong |
 |---|---|---|
 | A1 | An installed plugin's own `CLAUDE.md` is NOT in an end user's Cowork context — why the workspace guardrails copy exists | one on-platform session with the installed plugin; if it loads after all, shrink the mechanism to the version marker |
-| A2 | Skill descriptions route correctly on natural student phrasing | misroutes in dogfood; a routing conduct case on descriptions alone |
+| A2 | Skill descriptions route correctly on natural student phrasing | misroutes in dogfood; a routing conduct case on descriptions alone. *First evidence against, 2026-08-17: no skill fired for "clean up my log" in any c10 conduct run — see `eval-conduct-2026-08-17.md`* |
 | A3 | Students actually iterate on essays (3–5 rounds happen) | dogfood: how often a round 2+ happens; briefs with one draft and silence |
 | A4 | Families answer the budget question when asked early | budget still `TODO:` three sessions after intake |
 | A5 | The session-close checker instruction is followed (its rows are prose-triggered) | conduct runs missing `.check.txt` conduct; failures found at package build that session close should have caught |
