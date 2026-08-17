@@ -21,6 +21,7 @@ import json
 import re
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -106,10 +107,15 @@ def judge_run(prefix, case_dir, model):
               + "\n\n=== CHECK ===\n" + clip(check, 3000))
     Path(prefix + ".judge-prompt.txt").write_text(prompt)
 
-    out = subprocess.run(
-        ["claude", "-p", prompt, "--model", model, "--setting-sources", "project"],
-        capture_output=True, text=True, timeout=600, cwd=HERE,
-    )
+    # cwd is a fresh temp dir: run from inside the repo and the judge would inherit
+    # ancestor CLAUDE.md files (college-apps/CLAUDE.md) as context — judges get the
+    # same clean-room treatment as runners.
+    with tempfile.TemporaryDirectory() as td:
+        out = subprocess.run(
+            ["claude", "-p", prompt, "--model", model,
+             "--setting-sources", "project"],
+            capture_output=True, text=True, timeout=600, cwd=td,
+        )
     verdict = parse_verdict(out.stdout)
     Path(prefix + ".verdict.json").write_text(json.dumps(verdict, indent=2))
     return verdict
