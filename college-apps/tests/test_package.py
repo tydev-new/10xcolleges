@@ -42,6 +42,16 @@ class DraftProvenance(unittest.TestCase):
         text = "> **AGENT FIRST DRAFT — scaffolding.**\n\nThe STUDENT DRAFT process..."
         self.assertEqual(bp.draft_provenance(text)[0], "agent")
 
+    def test_prose_containing_example_is_not_a_declaration(self):
+        # A marker counts only at the start of a line — "For example, ..." is
+        # prose, and treating it as an EXAMPLE header would false-pass both gates.
+        text = "For example, my summer at the garden center taught me patience."
+        self.assertIsNone(bp.draft_provenance(text)[0])
+
+    def test_prose_before_a_real_marker_does_not_confuse_it(self):
+        text = "> **STUDENT DRAFT**\n\nAn example I keep returning to is the bike stand."
+        self.assertEqual(bp.draft_provenance(text)[0], "student")
+
 
 class LabelEnforcement(unittest.TestCase):
     def setUp(self):

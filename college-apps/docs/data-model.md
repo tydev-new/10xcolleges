@@ -53,6 +53,7 @@ that wasn't, or as fixed when it moved. Every file belongs to exactly one class.
 |---|---|---|---|
 | `profile.md` | Living | student-intake | New information about the student |
 | `criteria.md` | Living (Retired table) | student-intake, college-list | The student's wants change |
+| `criteria-worksheet.md` | Living (optional) | student-intake copies it; the student fills it in | Answers get folded into `criteria.md` |
 | `colleges.md` | Living | college-list | Schools added, cut, or re-tiered |
 | `conversations.md` | **Append-only** | every skill | After any substantive exchange |
 | `feedback.md` | **Append-only** | counselor-package, college-app | Parent or counselor input arrives |
@@ -219,9 +220,11 @@ Every `draft-NN.md` opens with exactly one of these, in its first few lines:
 > **EXAMPLE — … Do not submit any part of this.**
 ```
 
-`build_package.py` refuses to build if any draft lacks one. This is enforced rather than
-trusted because an unlabeled agent draft is byte-for-byte indistinguishable from a
-student's, and the counselor package would present it as the student's own work.
+Enforced twice: `check_student.py` fails the workspace at session close — the day the
+draft was written — and `build_package.py` refuses to build weeks later, the last line
+of defense before a counselor sees it. Enforced rather than trusted because an unlabeled
+agent draft is byte-for-byte indistinguishable from a student's, and the counselor
+package would present it as the student's own work.
 
 A student rewriting an agent draft creates a **new file** with a `STUDENT DRAFT` header
 rather than editing the agent's. The sequence of files is the record of whose words

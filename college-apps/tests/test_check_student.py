@@ -137,11 +137,63 @@ class MetaSync(Workspace):
         (self.sd / "meta.json").write_text("{not json")
         self.assertTrue(any("does not parse" in f for f in self.fails()))
 
+    def test_missing_meta_with_populated_list_fails(self):
+        # The maximal desync: index deleted, list full — must not pass clean.
+        (self.sd / "meta.json").unlink()
+        self._list_college()
+        self.assertTrue(any("meta.json is missing" in f for f in self.fails()))
+
+    def test_duplicate_list_entries_fail(self):
+        self._meta_college()
+        self._list_college("## University of Michigan — Target")
+        self._list_college("## University of Michigan — Reach")
+        self.assertTrue(any("more than once" in f for f in self.fails()))
+
+    def test_duplicate_meta_entries_fail(self):
+        meta = dict(META)
+        meta["colleges"] = [
+            {"name": "University of Michigan", "tier": "target", "status": "researching"},
+            {"name": "university of michigan", "tier": "reach", "status": "researching"},
+        ]
+        (self.sd / "meta.json").write_text(json.dumps(meta))
+        self._list_college()
+        self.assertTrue(any("more than once" in f for f in self.fails()))
+
+    def test_off_format_heading_fails_naming_the_format(self):
+        # A heading the regex can't parse must be reported as a format problem,
+        # not as a phantom "not in colleges.md" mismatch pointing at meta.json.
+        self._meta_college()
+        self._list_college("## University of Michigan — Target (EA)")
+        self.assertTrue(any("doesn't match the format" in f for f in self.fails()))
+
+    def test_endash_in_school_name_parses(self):
+        self._meta_college(name="University of Wisconsin–Madison")
+        self._list_college("## University of Wisconsin–Madison — Target")
+        self.assertEqual(self.fails(), [])
+
 
 class Manifest(Workspace):
     def test_stray_markdown_warns(self):
         (self.sd / "colleges-v2.md").write_text("# a second list")
         self.assertTrue(any("colleges-v2.md" in w for w in self.warns()))
+
+    def test_nested_copy_of_contract_name_warns(self):
+        # Path.match is right-anchored; a naive matcher accepts backup/profile.md
+        # as profile.md — the exact second-source-of-truth this check exists for.
+        (self.sd / "backup").mkdir()
+        (self.sd / "backup" / "profile.md").write_text("# old profile")
+        self.assertTrue(any("backup/profile.md" in w for w in self.warns()))
+
+    def test_draft_outside_essays_warns(self):
+        d = self.sd / "drafts" / "essays" / "michigan--why-us"
+        d.mkdir(parents=True)
+        (d / "draft-01.md").write_text("unlabeled")
+        self.assertTrue(any("drafts/essays" in w for w in self.warns()))
+
+    def test_nested_out_files_are_never_stray(self):
+        (self.sd / "out" / "assets").mkdir(parents=True)
+        (self.sd / "out" / "assets" / "chart.png").write_text("")
+        self.assertEqual(self.warns(), [])
 
     def test_contract_files_do_not_warn(self):
         (self.sd / "counselor-questions.md").write_text("# Questions")

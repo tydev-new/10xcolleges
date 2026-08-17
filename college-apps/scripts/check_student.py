@@ -11,7 +11,9 @@ FAIL (exit 1 — fix before ending the session):
   - an essay draft with no provenance header. build_package.py also refuses these,
     but package build is weeks after the draft was written; session close is not.
   - meta.json and colleges.md disagree (different schools, or different tiers).
-  - meta.json is unparseable, or a college carries an unknown tier/status.
+  - meta.json is missing or unparseable, a college carries an unknown tier/status,
+    a school is listed twice, or a colleges.md heading doesn't parse as
+    '## School Name — Reach|Target|Safety'.
 
 WARN (printed — decide, don't ignore):
   - a file the contract doesn't know about (a stray `colleges-v2.md` is how a second
@@ -24,6 +26,7 @@ Usage:
 """
 
 import argparse
+import fnmatch
 import json
 import re
 import sys
@@ -38,19 +41,20 @@ STATUSES = {"considering", "researching", "committed-to-apply", "in-progress",
             "submitted", "decided", "withdrawn"}
 
 # The contract's file manifest, as patterns relative to the student folder.
-# out/ is derived — anything in it is legitimate and regenerable.
+# Matching is anchored to the whole relative path, segment by segment — a bare
+# "profile.md" means the root-level file only. A nested copy of a contract name
+# (backup/profile.md, old/colleges.md) is exactly the second-source-of-truth
+# case this check exists to catch, so it must NOT match.
 MANIFEST = [
     "profile.md", "conversations.md", "feedback.md", "criteria.md", "colleges.md",
     "counselor-questions.md", "criteria-worksheet.md", "meta.json", "packet.json",
     "research/*.md",
     "essays/*/brief.md", "essays/*/draft-*.md", "essays/*/review-*.md",
     "recs/brag-sheet--*.md", "recs/request--*.md",
-    "out/*",
 ]
 
 # colleges.md entries look like:  ## School Name — Reach|Target|Safety
-COLLEGE_HEADING = re.compile(r"^##\s+(.+?)\s*[—–-]+\s*(reach|target|safety)\s*$",
-                             re.M | re.I)
+COLLEGE_HEADING = re.compile(r"^(.+?)\s*[—–-]+\s*(reach|target|safety)\s*$", re.I)
 
 ISO_DATED_HEADING = re.compile(r"^\d{4}-\d{2}-\d{2}\b")
 
@@ -102,6 +106,10 @@ def check_drafts(sd, fails):
 def check_meta_sync(sd, fails):
     meta_path = sd / "meta.json"
     if not meta_path.exists():
+        # Required: the template ships it, and without the index every check
+        # downstream of it would silently vacuously pass.
+        fails.append("meta.json is missing — every student folder carries the "
+                     "machine-readable index (the template ships one)")
         return
     try:
         meta = json.loads(meta_path.read_text())
@@ -123,12 +131,24 @@ def check_meta_sync(sd, fails):
         if status and status not in STATUSES:
             fails.append(f"meta.json: '{name}' has status '{status}' — "
                          f"must be one of {sorted(STATUSES)}")
+        if name.lower() in meta_entries:
+            fails.append(f"meta.json lists '{name}' more than once — one entry "
+                         "per school")
         meta_entries[name.lower()] = (name, tier)
 
     list_entries = {}
-    for m in COLLEGE_HEADING.finditer(read(sd / "colleges.md")):
-        list_entries[m.group(1).strip().lower()] = (m.group(1).strip(),
-                                                    m.group(2).lower())
+    for h in re.finditer(r"^##\s+(.+?)\s*$", read(sd / "colleges.md"), re.M):
+        m = COLLEGE_HEADING.match(h.group(1))
+        if not m:
+            fails.append(f"colleges.md heading '## {h.group(1)}' doesn't match the "
+                         "format '## School Name — Reach|Target|Safety' — anything "
+                         "else (a plan, a note) belongs in the entry's body")
+            continue
+        name, tier = m.group(1).strip(), m.group(2).lower()
+        if name.lower() in list_entries:
+            fails.append(f"colleges.md lists '{name}' more than once — two entries "
+                         "for one school will disagree eventually; merge them")
+        list_entries[name.lower()] = (name, tier)
 
     for key, (name, tier) in meta_entries.items():
         if key not in list_entries:
@@ -143,12 +163,26 @@ def check_meta_sync(sd, fails):
                          "update meta.json, then regenerate the tracker")
 
 
+def _in_manifest(rel):
+    """Anchored, segment-wise match — Path.match is right-anchored and would let
+    backup/profile.md pass as profile.md, defeating the point of the check."""
+    parts = rel.parts
+    if parts[0] == "out":
+        return True  # derived — anything under out/, at any depth, is regenerable
+    for pat in MANIFEST:
+        pat_parts = pat.split("/")
+        if len(pat_parts) == len(parts) and all(
+                fnmatch.fnmatchcase(a, b) for a, b in zip(parts, pat_parts)):
+            return True
+    return False
+
+
 def check_strays(sd, warns):
     for f in sorted(sd.rglob("*")):
         if not f.is_file() or f.name == ".gitkeep":
             continue
         rel = f.relative_to(sd)
-        if not any(rel.match(pat) for pat in MANIFEST):
+        if not _in_manifest(rel):
             warns.append(f"unrecognized file {rel} — if it holds student facts it is "
                          "a second source of truth; fold it into the owning file (see "
                          "docs/data-model.md) or add it to the contract deliberately")

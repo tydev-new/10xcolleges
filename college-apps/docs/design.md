@@ -246,6 +246,13 @@ Being honest about this is more useful than pretending everything is guaranteed.
 | criteria.md / brief.md re-read before each pass | *Discipline* | the two skills |
 | No numeric fit or admission scores | *Discipline* | `voice.md` + workspace `CLAUDE.md` |
 
+The **Code** rows split further, and honesty requires saying so: the build-refusal rows
+(`build_package.py`, `make_tracker.py`) are unavoidable — they sit in the tool path and
+no one can forget them. The `check_student.py` rows fire only when the checker is run;
+the session-close instruction in `college-app` is what runs it, so those rows are
+code-checked but prose-triggered. If the trigger proves unreliable, the fix is a
+measured one (a conduct case), not a stronger adjective here.
+
 The *Discipline* rows are where the real risk sits. Each is stated in the skill that would
 violate it, at the point of violation, with the reason — instructions with a stated reason
 survive paraphrase better than bare rules. Anything on that list that later becomes

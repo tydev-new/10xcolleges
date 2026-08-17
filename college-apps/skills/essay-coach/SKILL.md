@@ -29,8 +29,9 @@ The first line of every `draft-NN.md` is one of these, verbatim:
 
 This is not a formality. Once the header is gone, an agent-written draft is
 indistinguishable from a student's, and the counselor package would present it as the
-student's own work. `build_package.py` refuses to build if any draft lacks one, so a
-missing header stops the package rather than quietly misrepresenting the student.
+student's own work. `check_student.py` fails the workspace at session close if any draft
+lacks a header, and `build_package.py` refuses to build — so a missing header is caught
+the day it happens, and can never quietly misrepresent the student.
 
 When the student rewrites an agent draft, the rewrite is a **new file** with a
 `STUDENT DRAFT` header — never an edit to the agent's file. That distinction is the whole

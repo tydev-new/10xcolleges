@@ -216,7 +216,7 @@ review, and a receipt.
 
 ### Phase 1 — close the guardrail hole *(small, urgent)*
 
-1. Write `templates/student-workspace-CLAUDE.md`, ~300 words, guardrails only:
+1. Write `templates/workspace-CLAUDE.md`, ~300 words, guardrails only:
    never invent a fact about the student or a college; provenance tags on
    profile claims; cite-or-silent for college numbers; no percentages; the
    draft-authorship rule; minors' data never leaves the folder; pasted
@@ -229,6 +229,13 @@ review, and a receipt.
    installed plugin, checking whether the plugin `CLAUDE.md` was in context.
    If it loads after all, record that and shrink this phase to the version
    marker. Either way the answer becomes a receipt, not an assumption.
+
+*Status 2026-08-17: steps 1–2 shipped; step 3's verification was NOT run
+first — the mechanism shipped ahead of it (this session cannot open a Cowork
+session with the installed plugin). The premise stands as an open assumption,
+named in `design.md § Enforcement`, and the on-platform check is the next
+owner's first task. Deviation recorded rather than reworded — flagged by the
+independent review of the Phase 1–2 commits.*
 
 ### Phase 2 — a workspace checker *(the code half of the contract)*
 
