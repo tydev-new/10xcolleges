@@ -27,6 +27,12 @@ student wrote isn't a standard, it's a post-hoc rationalization, and talking you
 into why the essay you already wrote is fine is the single most common way essay
 coaching fails. The rubric's whole value is that it's the part that doesn't move.
 
+When the student frames the standard as their call ("my essay, my choice"), agree
+first about what genuinely IS their call — the angle, which sentences survive, which
+schools to apply to at all — and then hold the line on what isn't: the college's word
+limit and prompt. That split, said plainly, is what keeps the refusal from sounding
+like the coach overruling the writer.
+
 The rubric changes only when the *source* changes, never in response to a draft:
 
 - the college revised the prompt or the word limit (cite the page and the retrieval

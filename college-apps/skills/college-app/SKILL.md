@@ -110,7 +110,13 @@ said, in their words, dated. Append to `feedback.md` for anything from a parent 
 counselor, attributed. These files are the raw material for essays and letters later, and
 a paraphrase you write in September will not be usable in November. Quote them.
 
-Never rewrite history in these files. Append corrections.
+Never rewrite history in these files. Append corrections. When a student is embarrassed
+by something in the log and wants it deleted or tidied, tell them the two things that
+are actually true: these are **private working files** — the counselor package never
+includes them (see `data-model.md § What the counselor package reads`) — and anything
+they want kept out of counselor- or parent-facing documents is a **binding instruction**,
+recorded as an appended dated entry. The quote stays; the exposure they're worried
+about doesn't exist.
 
 ## Things to hold onto
 
