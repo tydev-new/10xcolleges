@@ -1,7 +1,7 @@
 # 10xcolleges — what it is, and how we build it
 
 Written in plain language on purpose: if something can't be explained in this style,
-it's too complex to ship (rule 12). When a design and this document disagree, one of
+it's too complex to ship (rule 14). When a design and this document disagree, one of
 them is wrong. Precedence for every judgment: this file →
 `college-apps/docs/design.md` → `college-apps/docs/data-model.md` and the skills. A
 conflict anywhere in the chain means the chain is wrong — fix it, don't pick a winner

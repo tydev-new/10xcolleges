@@ -26,7 +26,12 @@ mkdir -p "$OUT"
 
 for t in $(seq 1 "$TRIALS"); do
     run="$OUT/$NAME.run$t"
-    if [ -s "$run.jsonl" ]; then echo "skip  $run (already exists)"; continue; fi
+    # Resume key is the SNAPSHOT, not the jsonl — a crash between the agent run and
+    # the snapshot would otherwise resume as "done" with nothing for the judge.
+    if [ -s "$run.jsonl" ] && [ -d "$run-ws" ]; then
+        echo "skip  $run (already complete)"; continue
+    fi
+    rm -f "$run.jsonl" "$run.txt" "$run.skills.txt" "$run.check.txt"
 
     ws="$(mktemp -d)"
     mkdir -p "$ws/students"
@@ -64,16 +69,12 @@ for t in $(seq 1 "$TRIALS"); do
     python3 "$PLUGIN/scripts/check_student.py" "$ws/students/jordan-reyes" \
         > "$run.check.txt" 2>&1 || true
 
+    # Snapshot the WHOLE workspace (minus the planted skills copy) — the judge is
+    # told the snapshot is ground truth of what was written, so a stray file the
+    # agent created anywhere in the workspace must reach it, not only students/.
     rm -rf "$run-ws"
-    mkdir -p "$run-ws"
-    cp -r "$ws/students" "$run-ws/students"
-    cp "$ws/CLAUDE.md" "$run-ws/CLAUDE.md" 2>/dev/null || true
-    # Case overlays outside students/ (e.g. a pasted packet) are part of the record.
-    if [ -d "$CASE_DIR/workspace" ]; then
-        (cd "$CASE_DIR/workspace" && find . -maxdepth 1 -type f) | while read -r f; do
-            cp "$ws/$f" "$run-ws/$f" 2>/dev/null || true
-        done
-    fi
+    cp -r "$ws" "$run-ws"
+    rm -rf "$run-ws/.claude"
     rm -rf "$ws"
     echo "done  $run"
 done

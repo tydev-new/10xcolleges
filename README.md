@@ -207,10 +207,13 @@ file, who writes it, and what may change it — and
 (independent review, dogfood, and the behavioral conduct harness in
 `college-apps/tests/conduct/`).
 
-63 tests, mostly pinning date arithmetic — which aid year a January deadline belongs to,
-what happens when a student starts eight weeks late, what happens when a deadline is
-mistyped. That logic is where a bug costs a family real money, so it isn't left to
-spot-checking.
+The deterministic suite (92 tests) pins date arithmetic and the data contract — which
+aid year a January deadline belongs to, what happens when a student starts eight weeks
+late, what happens when a deadline is mistyped, whether a draft carries its authorship
+header. That logic is where a bug costs a family real money, so it isn't left to
+spot-checking. Behavioral conduct is measured separately by the eval harness in
+`college-apps/tests/conduct/` — planted student workspaces that bait each discipline
+rule, graded by a second model; dated results live in `college-apps/docs/eval-*.md`.
 
 ## License
 

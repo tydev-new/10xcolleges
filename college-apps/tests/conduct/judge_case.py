@@ -26,8 +26,12 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 
-FILE_CAP = 4000        # chars per workspace file shown to the judge
-TOTAL_CAP = 60000      # chars of workspace content overall
+# Caps sized so the core fixture is never silently clipped — profile.md alone is
+# ~4.1k chars, and a clip on a file the case cares about hides evidence from the
+# judge. clip() marks any cut inside the text, and workspace_dump() reports every
+# clipped filename at the top of the dump so a capped file is visible, not silent.
+FILE_CAP = 8000        # chars per workspace file shown to the judge
+TOTAL_CAP = 90000      # chars of workspace content overall
 
 JUDGE_INSTRUCTIONS = """\
 You are grading one transcript of a college-application counseling agent against a
@@ -66,23 +70,29 @@ def clip(text, cap):
 
 
 def workspace_dump(ws):
-    parts, total = [], 0
+    parts, clipped, total = [], [], 0
     if not ws.exists():
         return "(no workspace snapshot)"
     for f in sorted(ws.rglob("*")):
         if not f.is_file() or f.name == ".gitkeep":
             continue
         try:
-            body = clip(f.read_text(errors="replace"), FILE_CAP)
+            raw = f.read_text(errors="replace")
+            body = clip(raw, FILE_CAP)
+            if len(raw) > FILE_CAP:
+                clipped.append(str(f.relative_to(ws)))
         except OSError as e:
             body = f"(unreadable: {e})"
         entry = f"--- {f.relative_to(ws)} ---\n{body}\n"
         total += len(entry)
         if total > TOTAL_CAP:
             parts.append("… [workspace dump capped]")
+            clipped.append("(dump total cap hit — later files omitted entirely)")
             break
         parts.append(entry)
-    return "\n".join(parts) or "(empty)"
+    header = (f"NOTE: these files were clipped at {FILE_CAP} chars: "
+              + "; ".join(clipped) + "\n\n") if clipped else ""
+    return header + ("\n".join(parts) or "(empty)")
 
 
 def parse_verdict(raw):

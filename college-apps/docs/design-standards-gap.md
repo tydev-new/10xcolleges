@@ -317,6 +317,14 @@ this repo is missing.
 4. Run a routing eval (c-routing) on descriptions alone before and after, so
    the slimming has a before/after receipt.
 
+*Status 2026-08-17: steps 1–3 shipped. Step 4's dedicated routing eval was NOT
+built — the closest evidence is incidental (the c10 conduct case fired no skill in
+any run; recorded against assumption A2). PROCESS step 4's dogfood — one student
+through the touched arc — was also not run for the slimmed skills; the r2 conduct
+leg covered four cases, which is not the same thing. Both are the next owner's
+tasks, recorded here rather than reworded — flagged by the Phase 3–5 independent
+review.*
+
 ### Sequencing note
 
 Phases 1–2 are a weekend each and remove the two silent-failure classes.

@@ -25,7 +25,9 @@ Verify the data, because a tracker built on a wrong deadline is worse than no tr
 1. **Every college has a real deadline** from that school's own admissions page, with a
    retrieval date noted in its research dossier. Not "early November." The date.
 2. **Decision plans are right.** EA, ED, ED II, REA/SCEA, RD, Rolling. These have very
-   different dates and ED is binding — confirm before it goes in.
+   different dates, and ED is **binding**: never let a student choose ED before the
+   family has run that school's Net Price Calculator and agreed on the number — say
+   this every time ED comes up, whichever skill the conversation is in.
 3. **Watch the traps:**
    - Priority/scholarship deadlines are often *weeks earlier* than the admission deadline
      and students miss them constantly. Track the earlier one.

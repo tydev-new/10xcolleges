@@ -267,13 +267,16 @@ checkable should move up to Code.
 matches what the user said — so a guardrail that lives only in a skill fires only when
 the model already judged that skill relevant. The rules that must hold *before any skill
 loads* — never invent a fact about the student or a college, no chance percentages,
-authorship, privacy — therefore also live in a ~300-word guardrails block that intake
+authorship, privacy — therefore also live in a ~400-word guardrails block that intake
 copies into the user's own `CLAUDE.md` at setup (`templates/workspace-CLAUDE.md`, version-
 marked, refreshed only by offer since the file is theirs). Every skill treats a missing
 block as the first thing to repair. Open assumption, to verify on-platform: that an
 installed plugin's own `CLAUDE.md` is *not* in an end user's context — the sibling
 10xjobs project measured exactly that on Cowork, which is why the copy-at-setup
-mechanism exists at all.
+mechanism exists at all. The block's budget is tracked like the skills' (it loads
+every turn): it started at ~300 words and grew to ~412 through two measured
+additions (`eval-conduct-2026-08-17.md`); further growth needs the same receipt, and
+anything in it drifting from guardrail toward procedure is a cut candidate.
 
 ---
 
@@ -314,7 +317,7 @@ assumption that fails moves its mechanism, not just its wording.
 | A2 | Skill descriptions route correctly on natural student phrasing | misroutes in dogfood; a routing conduct case on descriptions alone. *First evidence against, 2026-08-17: no skill fired for "clean up my log" in any c10 conduct run — see `eval-conduct-2026-08-17.md`* |
 | A3 | Students actually iterate on essays (3–5 rounds happen) | dogfood: how often a round 2+ happens; briefs with one draft and silence |
 | A4 | Families answer the budget question when asked early | budget still `TODO:` three sessions after intake |
-| A5 | The session-close checker instruction is followed (its rows are prose-triggered) | conduct runs missing `.check.txt` conduct; failures found at package build that session close should have caught |
+| A5 | The session-close checker instruction is followed (its rows are prose-triggered) | conduct transcripts that end a session without running the checker; failures surfacing at package build that session close should have caught |
 | A6 | A compressed late-start plan is followed rather than ignored | dogfood: tracker tasks aging without status changes |
 
 ## Extending it

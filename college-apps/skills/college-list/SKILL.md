@@ -54,6 +54,8 @@ Never state a numeric admission probability for an individual.
 **8–12 schools; roughly a third each tier; at least two safeties the student would
 genuinely be happy to attend.** Test that directly — "if this was where you were
 going, how do you feel?" A grimace means it's a backup they'll resent; find another.
+More than 15 schools usually means the list has no thesis (and guarantees bad
+supplements); fewer than 6 is fragile. Say so, then respect their choice.
 
 1. Apply the hard filters and deal-breakers from `criteria.md`. They eliminate first.
 2. Anchor on the academics — verify the actual program exists, by name (ABET

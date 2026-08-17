@@ -24,8 +24,14 @@ The first line of every `draft-NN.md` is one of these, verbatim:
 
 ```markdown
 > **STUDENT DRAFT**
-> **AGENT FIRST DRAFT — built from your intake and our conversations. …**
-> **EXAMPLE — a different student, a different topic. Do not submit any part of this. …**
+
+> **AGENT FIRST DRAFT — built from your intake and our conversations. This is
+> scaffolding, not your essay. Rewrite it in your own words before it goes anywhere
+> near an application. Check every fact: if I got something wrong or put words in
+> your mouth, say so and I'll cut it.**
+
+> **EXAMPLE — a different student, a different topic. Do not submit any part of this.
+> It's here to show what specificity looks like, not what to say.**
 ```
 
 This is not a formality. Once the header is gone, an agent-written draft is

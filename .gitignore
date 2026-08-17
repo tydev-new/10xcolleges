@@ -1,6 +1,13 @@
 # Student records — a minor's academic, financial, and personal data. Never commit.
 students/
 
+# …except the conduct harness's SYNTHETIC planted students — fixtures, not people.
+# Without these exceptions the privacy rule silently swallows the planted case
+# workspaces and a fresh clone gets cases that test nothing (found 2026-08-17 by
+# the Phase 3-5 independent review).
+!college-apps/tests/conduct/cases/*/workspace/students/
+!college-apps/tests/conduct/cases/*/workspace/students/**
+
 .venv/
 .cache/
 __pycache__/
