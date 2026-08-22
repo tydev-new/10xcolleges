@@ -1,4 +1,4 @@
-# Vendored from tydev-new/10xjobs-cowork `kit/` at 9e205ad (2026-08-22)
+# Vendored from tydev-new/10xjobs-cowork `kit/` at 221a8d2 (2026-08-22)
 
 One-way copy. `docs/skill-shape.md` and `docs/PROCESS.md` were vendored
 alongside (the kit reads them in place in its home repo). To update: copy
