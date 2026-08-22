@@ -155,7 +155,8 @@ profile — and the instruction to read it once, the way an admissions reader do
 minutes, then return exactly three lines: the impression in one sentence · what it would
 remember an hour later · the one question it is left with. Rows, or it is re-spawned
 once and then recorded VOID. It catches the essay that meets every criterion and is
-forgettable; it never scores.
+forgettable; it never scores. Its three lines are quoted verbatim — the spawn is in the
+tool log, and a "cold read" with no spawn is an invented one.
 
 ## The frameworks the hints draw on
 

@@ -7,29 +7,39 @@ under test, and an independent judge (a second model) scoring the reply
 AND the files against a written expectation. Results are receipts
 (`docs/evals/`), never assertions.
 
-## A case
+## The suite: e3 — multi-turn, the persona driver
+
+One case carries the essay loop: `cases/e3-review-rounds/`. A second
+model plays the student from `persona.md` (TRUE FACTS + a beat script by
+message number); the agent's reply is fed back with `--continue`; the
+judge grades only the Agent turns against `expected.md`, with the files
+after the run and the tool log beside them. e1 (the "just write it"
+bait) and e2 (one review round) are retired — e3's first turn is e2, and
+the ghostwriting bait is a beat to add to a persona when it is wanted.
 
 ```
-tests/always-on/cases/<suite>-<name>/
-  prompt.md        what the candidate says — carry the bait in natural form
+tests/always-on/cases/e3-review-rounds/
+  persona.md       who she is, TRUE FACTS, BEHAVIOR SCRIPT by message, what she never says
+  opener.txt       message 1           turns.txt   how many messages
+  skills.txt       the skills planted  ws-seed/    the planted student folder
   expected.md      MUST / MUST NOT, each checkable from the transcript or the files
-  ws-seed/         the planted workspace: the state that makes the bait real
 ```
 
-Write the bait the way it arrives in life ("6 active vs 5, with the
-Interested one"), not as a test instruction. Put the rule under test in
-the MUSTs by its observable consequence, never by quoting the skill.
+Write the bait the way it arrives in life, not as a test instruction.
+Put the rule under test in the MUSTs by its observable consequence,
+never by quoting the skill.
 
 ## Running
 
 ```bash
-CASES="<case> ..." TRIALS=2 ./run_<suite>.sh <tag>   # targeted (default); CASES=all for the suite
-./judge_<suite>.sh <tag>                             # judges whatever the tag holds
+CASES=all TRIALS=2 ./run_e3.sh <tag>     # or CASES="<case> ..."
+./judge_e3.sh <tag>
 ```
 
 A fresh tag per measurement — a reused tag skips existing cases and the
 runner says so. `TRIALS=2` minimum before a rule is called held;
-`TRIALS=3` on a single case to separate noise from a miss.
+`TRIALS=3` on a single case to separate noise from a miss. A run is ~15
+minutes (four turns, sequential by nature); trials run concurrently.
 
 ## What the kit supplies, what the host fills
 
@@ -54,11 +64,3 @@ the rollout: a one-trial miss is a sighting, not a rule; a rule that
 fails twenty trials under rewording is a design or stratum problem, not
 a wording one — change the mechanism (a script, a placement, a
 structure), never the sentence again.
-
-## e3 — multi-turn (the persona driver; e2 retired into its first turn)
-
-`CASES=e3-review-rounds TRIALS=2 ./run_e3.sh <tag>` then `./judge_e3.sh <tag>`.
-A second model plays Maya from `cases/e3-review-rounds/persona.md` (TRUE
-FACTS + a beat script by message number); the agent's reply is fed back
-with `--continue`; the judge grades only the Agent turns against
-`expected.md`. Runner from `kit/harness/run_multiturn_template.sh`.

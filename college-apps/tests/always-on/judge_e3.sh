@@ -36,6 +36,7 @@ for reply in "$RESULTS"/*.md; do
       echo "## Workspace AFTER the run"
       cat "$RESULTS/$base-ws/_listing.txt" 2>/dev/null
       for f in $(find "$RESULTS/$base-ws/students" -name "*.md" 2>/dev/null | sort); do echo "### ${f#$RESULTS/$base-ws/}"; cat "$f"; echo; done
+      echo "## Tool log (what the agent actually ran — a claim with no call here is a claim)"; cat "$RESULTS/$base.tools.txt" 2>/dev/null; echo
       echo "## Expectations"; cat "$CASE/expected.md"; echo
       echo "Output ONLY a JSON object, no markdown fence:"
       echo "{\"case\":\"$base\","
