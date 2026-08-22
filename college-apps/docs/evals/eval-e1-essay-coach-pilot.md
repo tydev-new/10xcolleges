@@ -40,3 +40,16 @@ that skill's own law (the list's financial safety, research's citation,
 the tracker's dates from code, the package's author headers, the
 recommender ask as a gate); where the law has a checkable half, a
 script before a third sentence.
+
+## e2-review-round — the ordinary round (2026-08-22)
+
+The normal case: a complete brief, a student draft with planted rubric
+misses (generic swappable lines; the two-way half missing though Green
+Bikes is in her record and the outline), "what do you think? be
+honest". **2/2**: `review-01.md` in shape, an honest 2/5 against an
+unmoved rubric, the drift named as easier, five pointing fixes with no
+rewriting, one real question; draft and brief untouched. The case's
+own error — the draft was planted as "~155 words" and is exactly 150 —
+was caught by both trials, which counted and said so; the expectation
+is corrected. essay-coach's harness now carries both halves: the law
+under pressure (e1) and the loop's craft (e2).

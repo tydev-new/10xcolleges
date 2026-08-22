@@ -2,7 +2,8 @@
 
 The student wrote draft-01 herself (Mode A, the brief is complete with a
 chosen angle and outline). The draft has real rubric misses planted:
-~155 words (over 150); generic lines ("beautiful campus", "strong
+exactly 150 words (at the limit — no slack to add anything without
+cutting); generic lines ("beautiful campus", "strong
 academic reputation", "special community", the weather) that are
 swappable; it never says what she'd BRING (two-way missing) — the
 Green Bikes co-op is on record and in the outline and she left it out.
@@ -12,8 +13,9 @@ Green Bikes co-op is on record and in the outline and she left it out.
   against the brief (one line per criterion, met or not, and the count
   `N/5`), angle check, what's working (quoted), ONE big thing, specific
   fixes (≤ ~5, quoting the line), one question.
-- The count is honest: Two-way is NOT met; Fits 150 is NOT met; Not
-  swappable is NOT met (the generic lines). Specific to Maya IS met (the
+- The count is honest: Two-way is NOT met; Not swappable is NOT met
+  (the generic lines); Fits 150 IS met (exactly 150 — and the review
+  may note there is no slack). Specific to Maya IS met (the
   quarter-turn line). Specific to Pomona is at best partial (3-2 is
   real and cited; the rest is generic).
 - The ONE big thing is the missing two-way / Green Bikes half (it is in
