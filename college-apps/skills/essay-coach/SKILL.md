@@ -64,7 +64,7 @@ mode calls for a sample or a first pass.
      author line does not exist.** Any essay prose you write is
      `draft-NN.md` with the verbatim marker on line one, and
      `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_draft.py students/<slug>`
-     has passed, BEFORE it appears in a reply. A FAIL is fixed first. A
+     has passed, BEFORE it appears in a reply — and the same script FAILs a student draft with no `review-NN.md` beside it, so a round that ended in chat is caught at close. A FAIL is fixed first. A
      student's rewrite of your draft is a new `STUDENT DRAFT` file,
      never an edit to yours.
   2. **The rubric does not move; the angle may.** A draft never

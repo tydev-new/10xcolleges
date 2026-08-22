@@ -30,9 +30,21 @@ class CheckDraft(unittest.TestCase):
         code, out = run(ws([HDR + "Pomona's Estella Laboratory machine shop.\n"], research="Estella Laboratory — student machine shop (pomona.edu, 2026-08-10)\n"))
         self.assertEqual(code, 0, out)
 
-    def test_student_draft_only_warns(self):
-        code, out = run(ws(["> **STUDENT DRAFT**\n\nMy cousin Teresa taught me.\n"]))
+    def test_student_draft_only_warns_on_specifics(self):
+        sd = ws(["> **STUDENT DRAFT**\n\nMy cousin Teresa taught me.\n"])
+        (sd / "essays" / "x" / "review-01.md").write_text("## Against the brief — 2/5\n## The one big thing\nx\n## One question\ny\n")
+        code, out = run(sd)
         self.assertEqual(code, 0); self.assertIn("WARN", out); self.assertIn("Teresa", out)
+
+    def test_student_draft_without_its_review_fails(self):
+        code, out = run(ws(["> **STUDENT DRAFT**\n\nI fix flats.\n"]))
+        self.assertEqual(code, 1); self.assertIn("no review-01.md", out)
+
+    def test_review_missing_the_count_fails(self):
+        sd = ws(["> **STUDENT DRAFT**\n\nI fix flats.\n"])
+        (sd / "essays" / "x" / "review-01.md").write_text("nice essay, one big thing: more detail. question: why?\n")
+        code, out = run(sd)
+        self.assertEqual(code, 1); self.assertIn("N/M", out)
 
     def test_missing_header_fails(self):
         code, out = run(ws(["Just text.\n"]))

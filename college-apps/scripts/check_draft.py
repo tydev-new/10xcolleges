@@ -19,6 +19,9 @@ For every draft-NN.md under a student's essays/:
   WARN  a STUDENT DRAFT with a specific not in the record (it is theirs to
         write; the coach asks, never edits — but the counselor package
         will show it, so name it)
+  FAIL  a STUDENT DRAFT with no review-NN.md beside it, or a review without
+        the N/M count, the one big thing, and the question — a review that
+        lived only in chat is not a round
 
     python3 check_draft.py students/<slug>          # all essays
     python3 check_draft.py students/<slug> --essay pomona--why-us
@@ -112,6 +115,33 @@ def main():
                     what = "the student's own — ask, never edit; the package will show it" if kind == "student" \
                         else "not in profile.md / conversations.md / research/ — invented or recalled; cut it, or get it from the student and append it"
                     findings.append((level, f"{rel} ({kind}): specifics not in the record — {missing[:8]}{' …' if len(missing) > 8 else ''} — {what}"))
+    # every draft has its review — a review that lived only in chat is not a
+    # round (e2, 2026-08-22: two trials critiqued in the reply, wrote no
+    # review-01.md, and one reported a check that never ran)
+    if os.path.isdir(base):
+        for e in sorted(os.listdir(base)):
+            if a.essay and e != a.essay:
+                continue
+            ed = os.path.join(base, e)
+            if not os.path.isdir(ed):
+                continue
+            drafts = sorted(f for f in os.listdir(ed) if re.match(r"draft-\d+\.md$", f))
+            for f in drafts:
+                nn = f[len("draft-"):-3]
+                rv = os.path.join(ed, f"review-{nn}.md")
+                text = open(os.path.join(ed, f), encoding="utf-8").read()
+                kind, _ = draft_provenance(text)
+                if kind != "student":
+                    continue                       # the agent's own drafts are not reviewed, rewritten
+                if not os.path.exists(rv):
+                    findings.append(("FAIL", f"essays/{e}/{f}: no review-{nn}.md — a review is a file in its shape, not a chat critique"))
+                    continue
+                r = open(rv, encoding="utf-8").read()
+                missing = [k for k, pat in (("the N/M count", r"\b\d+\s*/\s*\d+\b"),
+                                            ("the one big thing", r"(?i)one big thing"),
+                                            ("the question", r"(?i)question")) if not re.search(pat, r)]
+                if missing:
+                    findings.append(("FAIL", f"essays/{e}/review-{nn}.md: missing {missing} — the review shape is schema.md's"))
     for level, msg in findings:
         print(f"{level}  {msg}")
     if not findings:
