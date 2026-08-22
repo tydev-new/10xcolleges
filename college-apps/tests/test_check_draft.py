@@ -4,8 +4,10 @@ from pathlib import Path
 S = Path(__file__).resolve().parent.parent / "scripts" / "check_draft.py"
 HDR = "> **AGENT FIRST DRAFT — built from your intake and our conversations. This is scaffolding, not your essay. Rewrite it in your own words before it goes anywhere near an application. Check every fact: if I got something wrong or put words in your mouth, say so and I'll cut it.**\n\n"
 
-def ws(drafts, profile="- Robotics team; drivetrain lead [packet]\n- Bike shop summers [student]\n", research=None):
+def ws(drafts, profile="- Robotics team; drivetrain lead [packet]\n- Bike shop summers [student]\n", research=None, rounds=True):
     sd = Path(tempfile.mkdtemp()) / "students" / "s"; e = sd / "essays" / "x"; e.mkdir(parents=True)
+    if rounds:
+        (e / "brief.md").write_text("## Fixed\n- rubric\n## Living\n### Rounds\n| round | date | N/M | the one big thing | student's choice |\n|---|---|---|---|---|\n| 1 | 2026-08-22 | 2/5 | x | — |\n")
     (sd / "profile.md").write_text(profile); (sd / "conversations.md").write_text("- 'I fix flats' [student]\n")
     if research:
         (sd / "research").mkdir(); (sd / "research" / "pomona.md").write_text(research)
@@ -61,6 +63,13 @@ class CheckDraft(unittest.TestCase):
     def test_missing_header_fails(self):
         code, out = run(ws(["Just text.\n"]))
         self.assertEqual(code, 1); self.assertIn("no author header", out)
+
+
+    def test_review_without_its_rounds_row_fails(self):
+        sd = ws(["> **STUDENT DRAFT**\n\nI fix flats.\n"], rounds=False)
+        (sd / "essays" / "x" / "review-01.md").write_text("## Student's read\n—\n## Against the brief — 2/5\n## Angle check\nholds\n## Cold reader\nVOID\n## The one big thing\nx\n## One question\ny\n")
+        code, out = run(sd)
+        self.assertEqual(code, 1); self.assertIn("Rounds", out)
 
 if __name__ == "__main__":
     unittest.main()

@@ -54,3 +54,19 @@ the rollout: a one-trial miss is a sighting, not a rule; a rule that
 fails twenty trials under rewording is a design or stratum problem, not
 a wording one — change the mechanism (a script, a placement, a
 structure), never the sentence again.
+
+## Multi-turn cases — the persona driver
+
+A single turn can only see a conversation's first line. For a skill that
+IS a conversation (intake, a review round, a debrief), use
+`run_multiturn_template.sh`: a second model plays the person from
+`persona.md`, the agent's reply is fed back with `--continue`, and the
+judge reads the whole transcript plus the files.
+
+`persona.md` has three parts: who they are (voice, situation); **TRUE
+FACTS** they may draw on — and nothing else, so the judge can tell an
+invented fact from a given one; and a **BEHAVIOR SCRIPT** of beats by
+message number ("message 2: give your own read of the draft — say
+'specific to Pomona — yes' even though it isn't"; "message 4: paste a
+second draft that fixes one thing"). The simulator is told which beats
+are due and never to repeat itself. `turns.txt` sets the length.

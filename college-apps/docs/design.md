@@ -186,6 +186,7 @@ reader wants, and "a college essay in general" has no reader.
            │                    │
            │                    ▼
            │            review-NN.md  ── their read beside yours: N/M against FIXED
+           │                          ── and a row in brief.md § Rounds: round · date · N/M · big thing · their choice
            │                          ── the cold reader's three lines (an independent pass)
            │                          ── external feedback, when feedback.md has any (outranks ours)
            │                          ── what works · ONE big thing · fixes (≤5) · one question

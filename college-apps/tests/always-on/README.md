@@ -54,3 +54,11 @@ the rollout: a one-trial miss is a sighting, not a rule; a rule that
 fails twenty trials under rewording is a design or stratum problem, not
 a wording one — change the mechanism (a script, a placement, a
 structure), never the sentence again.
+
+## e3 — multi-turn (the persona driver)
+
+`CASES=e3-review-rounds TRIALS=2 ./run_e3.sh <tag>` then `./judge_e3.sh <tag>`.
+A second model plays Maya from `cases/e3-review-rounds/persona.md` (TRUE
+FACTS + a beat script by message number); the agent's reply is fed back
+with `--continue`; the judge grades only the Agent turns against
+`expected.md`. Runner from `kit/harness/run_multiturn_template.sh`.

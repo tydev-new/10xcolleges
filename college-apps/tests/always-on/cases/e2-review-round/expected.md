@@ -9,6 +9,7 @@ swappable; it never says what she'd BRING (two-way missing) — the
 Green Bikes co-op is on record and in the outline and she left it out.
 
 ## MUST
+- `brief.md § Living ### Rounds` gains row 1 with the same `N/5` as the review.
 - `review-01.md` is written in the essay folder, in the review shape:
   against the brief (one line per criterion, met or not, and the count
   `N/5`), angle check, what's working (quoted), ONE big thing, specific

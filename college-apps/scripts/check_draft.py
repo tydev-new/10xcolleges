@@ -165,6 +165,14 @@ def main():
                                             ("the question", r"(?i)question")) if not re.search(pat, r)]
                 if missing:
                     findings.append(("FAIL", f"essays/{e}/review-{nn}.md: missing {missing} — the review shape is schema.md's"))
+                # the count trail: brief.md § Rounds has this review's row (the
+                # ceiling is read from the table, not from opening every review)
+                bp = os.path.join(ed, "brief.md")
+                brief = open(bp, encoding="utf-8").read() if os.path.exists(bp) else ""
+                rounds = re.search(r"###\s*Rounds(.*?)(?=^##|\Z)", brief, re.S | re.M)
+                rows = [l for l in (rounds.group(1).splitlines() if rounds else []) if re.match(r"\s*\|\s*\d+\s*\|", l)]
+                if not any(re.match(r"\s*\|\s*%d\s*\|" % int(nn), l) for l in rows):
+                    findings.append(("FAIL", f"essays/{e}/brief.md: no `### Rounds` row for review {nn} — append `| {int(nn)} | <date> | N/M | <one big thing> | <their choice or —> |`"))
     for level, msg in findings:
         print(f"{level}  {msg}")
     if not findings:

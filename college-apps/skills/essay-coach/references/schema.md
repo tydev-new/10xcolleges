@@ -21,8 +21,8 @@ refuses to build a package containing a draft without one.
   - the outline for the chosen angle — beats, not sentences
   - the draft mode chosen (A: they write · B: sample first · C: agent
     first pass), re-asked at each new essay
-  - dated lines for every change to either half, with the reason ("we
-    added a criterion in October" is explainable later)
+  - dated lines for every change to either half, with the reason ("we added a criterion in October" is explainable later)
+  - **`### Rounds`** — the count trail, one row per review, appended the turn the review is written: `| round | date | N/M | the one big thing | student's choice |` (`student's choice` = what they decided to act on, or `—` until they say). The ceiling is two rows with the same `N/M`; this table is what it is read from, so a fresh session can see it without opening every review.
 
 ## `draft-NN.md` — immutable; the first line declares the author
 
