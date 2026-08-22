@@ -35,6 +35,10 @@ class CheckRecord(unittest.TestCase):
         code, out = run(ws(profile=PROFILE + "- TODO: budget — probably engineering money\n"))
         self.assertEqual(code, 1); self.assertIn("TODO carrying a value", out)
 
+    def test_labelled_todo_with_a_value_fails(self):
+        code, out = run(ws(profile=PROFILE + "- **Intended major:** TODO: probably engineering\n- **Class rank:** TODO: 12\n"))
+        self.assertEqual(code, 1); self.assertEqual(out.count("TODO carrying a value"), 2, out)
+
     def test_retired_row_in_template_shape_passes(self):
         code, out = run(ws(criteria=CRITERIA + "| P1 | near a city | \"not IN a city, an hour away is fine\" [student 2026-08-22] | 2026-08-22 |\n"))
         self.assertEqual(code, 0, out)

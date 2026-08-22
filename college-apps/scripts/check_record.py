@@ -68,8 +68,8 @@ def check(sd):
         text = open(p, encoding="utf-8").read()
         for n, s, kind in content_lines(text, fname):
             body = s.lstrip("-* ").strip()
-            if body.startswith("TODO:"):
-                rest = body[5:].strip()
+            if "TODO:" in body:  # bare `- TODO: …` or labelled `- **GPA:** TODO: …`
+                rest = body.split("TODO:", 1)[1].strip()
                 if re.search(r"\$\s?\d|(?<![\w-])\d+(\.\d+)?(?![\w-])|\b(probably|maybe|likely|i think|guess)\b", re.sub(r"\d{4}-\d{2}-\d{2}", "", rest), re.I):
                     findings.append(("FAIL", f"{fname}:{n}: a TODO carrying a value — a blank is a TODO, never a guess: `{s[:80]}`"))
                 continue

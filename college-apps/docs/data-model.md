@@ -99,25 +99,13 @@ sources differ.
 ## profile.md
 
 Mirrors the school's Post-Secondary Options Packet, because that is what the counselor
-already expects, plus an interview section the packet doesn't have. Sections, in order:
-
-1. **Basics** — name, email, phone, grad year, high school, GPA (weighted + unweighted if
-   known), test scores and test-optional intent, state of residence, citizenship status if
-   relevant to aid.
-2. **Senior year classes** — first and second semester.
-3. **Teachers who know you well** — name, subject, grade taught, what they saw you do.
-4. **School activities** — group, grades involved, hours/week, role, what actually happened.
-5. **Outside activities** — same shape. Jobs and family responsibilities count and are
-   often underreported; ask directly.
-6. **Hobbies** — including the ones that "don't count." They frequently become the essay.
-7. **Honors and awards** — with level (school / regional / state / national).
-8. **Work experience** — employer, grades, position, hours.
-9. **Reflections** — the packet's five questions, in the student's own words. Preserve
-   their phrasing; do not smooth it out. This is essay raw material.
-10. **Goals and direction** — intended major(s), career thinking, and how sure they are.
-11. **What excites / what turns them off** — from the interview. Verbatim quotes.
-12. **Constraints** — budget ceiling and who set it, distance from home, size preference,
-    religious or cultural requirements, need for specific support services, athletics.
+already expects, plus the interview sections the packet doesn't have. **The section list
+is `templates/student/profile.md`, as shipped — the one copy.** Briefly: basics (GPA
+weighted *and* unweighted, scores and testing intent, residency if it affects aid), senior
+classes, teachers who know you, school and outside activities (hours and what actually
+happened — jobs and family responsibilities count and are underreported), hobbies, honors,
+work, the packet's reflections verbatim, goals and direction, what excites / what turns
+them off (quotes), constraints, and context that shows up nowhere else.
 
 Mark anything unknown as `TODO:` on its own line. Skills scan for `TODO:` to know what to
 ask next. Never fill a `TODO:` with a guess.

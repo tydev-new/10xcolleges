@@ -15,7 +15,7 @@ Scored by `references/eval.md`; shapes in `references/schema.md`.
 | Must be true | Where |
 |---|---|
 | The four gate items — `check_record.py` counts them: a budget **and who set it** (a guess is 0) · unweighted GPA, and scores or the plan to test · a direction, with how sure ("undecided" counts) · one row in each of Hard filters and Deal-breakers | `criteria.md`, `profile.md` |
-| Documents transcribed into the data-model sections, each line tagged | `profile.md` |
+| Documents transcribed into the template's sections, each line tagged | `profile.md` |
 | What they said, dated, verbatim — the raw material the essays run on | `conversations.md` |
 | A changed answer retires the old row with its reason — nothing overwritten | `criteria.md § Retired criteria` |
 | What is still `TODO:` is said out loud, and what happens next | the reply |
@@ -42,7 +42,7 @@ what just arrived, not by asking.
 ### Documents (a sequence)
 
 **Runs when** a file is in the folder or pasted. Read it whole;
-transcribe into `profile.md` under the data-model's sections; tag every
+transcribe into `profile.md` under the template's sections; tag every
 line (`[packet]`, `[transcript]`, `[worksheet]`); reflection answers go
 in **verbatim** — "I fixed the robot a lot" is essay material only in
 their grammar; every blank is `TODO:` on its own line. Quantify
