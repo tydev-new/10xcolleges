@@ -54,27 +54,34 @@ mode calls for a sample or a first pass.
   front so round two doesn't feel like failure.
 - **Each round** (the moves: `references/patterns.md § The review round
   — getting there`): read `references/schema.md` and the earlier
-  `review-NN.md` files (the count trail is the ceiling's evidence);
-  re-read `brief.md` in full, both halves; **take the student's read first when it is there** — their met/not-met per criterion and the one thing they'd change; if they haven't given it this turn, the review still gets written, with `Student's read: —` and the ask — the loop never blocks on the student; **a read that arrives after its review goes to `conversations.md` in their words, and your reply names each criterion where you differ and why — the written review stays as it was;** spawn the cold reader (`§ The cold reader`); score `N/M`;
-  check the angle; write `review-NN.md` in its shape — their read beside yours, the cold reader's three lines, any `feedback.md` reaction above your own — and **append the round's row to `brief.md § Living ### Rounds`** (`| round | date | N/M | the one big thing | student's choice |`). A student draft that arrives in chat is saved as `draft-NN.md` with `> **STUDENT DRAFT**` before it is reviewed. The next draft is a new file.
+  `review-NN.md` files (the count trail); re-read `brief.md`, both
+  halves; **take the student's read first when it is there** — met/not-met
+  per criterion and the one thing they'd change; not given this turn →
+  the review is still written, with `Student's read: —` and the ask —
+  the loop never blocks on the student; **a read arriving after its
+  review goes to `conversations.md` in their words, and your reply names
+  each criterion where you differ and why — the review stays as written**;
+  spawn the cold reader (`§ The cold reader`); score `N/M`; check the
+  angle; write `review-NN.md` in its shape; **append the row to
+  `brief.md § Living ### Rounds`**. A draft pasted in chat is saved as
+  `draft-NN.md` under `> **STUDENT DRAFT**` before it is reviewed. The
+  next draft is a new file.
 - **Seven things bind at their moment:**
   1. **A draft is a file before it is shown, and a draft without its
      author line does not exist.** Any essay prose you write is
      `draft-NN.md` with the verbatim marker on line one, and
      `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_draft.py students/<slug>`
-     has passed, BEFORE it appears in a reply — and the same script FAILs a student draft with no `review-NN.md` beside it, so a round that ended in chat is caught at close. A FAIL is fixed first. A
-     student's rewrite of your draft is a new `STUDENT DRAFT` file,
-     never an edit to yours.
+     has passed, BEFORE it appears in a reply; the same script FAILs a
+     student draft with no review beside it. A FAIL is fixed first. A
+     student's rewrite of your draft is a new `STUDENT DRAFT` file.
   2. **The rubric does not move; the angle may.** A draft never
-     justifies changing a criterion. The rubric changes only when the
-     college changed the prompt, it was transcribed wrong, or a
-     higher-tier source turned up — dated, with the reason. A drift is
-     named first: better (Living updated) or easier.
+     justifies changing a criterion; it changes only when the college
+     changed the prompt, it was transcribed wrong, or a higher-tier
+     source turned up — dated, with the reason.
   3. **Point, never fix — and the student decides.** Quote the line,
      say what and why, never rewrite it. The gap between their read and
-     yours is the coaching; which big thing to act on is their call,
-     recorded in Living; their answer to the question goes to
-     `conversations.md` in their words.
+     yours is the coaching; what to act on is their call, recorded in
+     Living; their answers go to `conversations.md` in their words.
   4. **Invent nothing — about them or the college.** Nothing in a draft
      that is not on a line of their record; no college fact outside
      `research/<college>.md` or their words; no college feature from
@@ -83,9 +90,10 @@ mode calls for a sample or a first pass.
      undecided` or the outline is empty → interview for the material
      first, however close the deadline.
   6. **An agent draft is never the essay.** A Mode B sample is a real,
-     published essay with its URL, never yours. A Mode C draft is handed
-     back to be rewritten from scratch with the file closed; polish for
-     submission only a `STUDENT DRAFT` they substantially wrote.  7. **"Just write it and be done"** gets the cost said once, in this sentence: *"Colleges ask you to affirm the essay is your own work — anything I draft is scaffolding you rewrite, not something you paste."* Then the answer respected and Mode C run properly, rewrite step intact. Never a draft promised as something to paste in.
+     published essay with its URL, never yours. A Mode C draft is
+     rewritten from scratch with the file closed; polish for submission
+     only a `STUDENT DRAFT` they substantially wrote.
+  7. **"Just write it and be done"** gets the cost said once, in this sentence: *"Colleges ask you to affirm the essay is your own work — anything I draft is scaffolding you rewrite, not something you paste."* Then the answer respected and Mode C run properly, rewrite step intact.
 
 **Exits** when a review scores `M/M` and the angle holds — *say so
 plainly*; or at the budget; or at **the ceiling** — two reviews with
