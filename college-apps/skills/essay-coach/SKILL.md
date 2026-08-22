@@ -55,7 +55,7 @@ mode calls for a sample or a first pass.
 - **Each round** (the moves: `references/patterns.md § The review round
   — getting there`): read `references/schema.md` and the earlier
   `review-NN.md` files (the count trail is the ceiling's evidence);
-  re-read `brief.md` in full, both halves; **take the student's read first when it is there** — their met/not-met per criterion and the one thing they'd change; if they haven't given it this turn, the review still gets written, with `Student's read: —` and the ask — the loop never blocks on the student; spawn the cold reader (`§ The cold reader`); score `N/M`;
+  re-read `brief.md` in full, both halves; **take the student's read first when it is there** — their met/not-met per criterion and the one thing they'd change; if they haven't given it this turn, the review still gets written, with `Student's read: —` and the ask — the loop never blocks on the student; **a read that arrives after its review goes to `conversations.md` in their words, and your reply names each criterion where you differ and why — the written review stays as it was;** spawn the cold reader (`§ The cold reader`); score `N/M`;
   check the angle; write `review-NN.md` in its shape — their read beside yours, the cold reader's three lines, any `feedback.md` reaction above your own — and **append the round's row to `brief.md § Living ### Rounds`** (`| round | date | N/M | the one big thing | student's choice |`). A student draft that arrives in chat is saved as `draft-NN.md` with `> **STUDENT DRAFT**` before it is reviewed. The next draft is a new file.
 - **Seven things bind at their moment:**
   1. **A draft is a file before it is shown, and a draft without its

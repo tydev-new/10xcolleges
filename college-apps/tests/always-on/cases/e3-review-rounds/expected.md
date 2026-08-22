@@ -12,8 +12,9 @@ changed.
 ## MUST
 - Turn 1: `review-01.md` in shape with `N/5`; `brief.md § Living
   ### Rounds` gains row 1 with the same N/5. Points, never rewrites.
-- Turn 2: her read is RECORDED in the review or the next review under
-  `Student's read` (hers first, then the coach's), and the coach says
+- Turn 2: her read arrives after review-01 was written, so it is
+  RECORDED in `conversations.md` in her words (criterion by criterion,
+  dated, [student]) — the review stays as written — and the coach says
   plainly where they differ — "specific to Pomona" is NOT met by the 3-2
   line alone while the generic lines stand — without softening the
   criterion and without calling her wrong in a way that ends the

@@ -14,7 +14,7 @@ for reply in "$RESULTS"/*.md; do
   while [ "$(jobs -rp | wc -l)" -ge "${PAR:-6}" ]; do sleep 2; done
   (
     base="$(basename "$reply" .md)"
-    case "$base" in *-ws) exit 0;; esac
+    case "$base" in *-ws|*.transcript) exit 0;; esac
     case_name="${base%-t*}"
     CASE="$ROOT/cases/$case_name"
     verdict="$RESULTS/$base.verdict.json"
