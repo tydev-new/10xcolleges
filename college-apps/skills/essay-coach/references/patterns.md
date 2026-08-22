@@ -65,8 +65,12 @@ talking and let them write.
 
 **Mode B — sample first.**
 
-Write a short (150–250 word) passage on a **clearly different subject** — never their
-topic, or they'll absorb it wholesale. Head the file with the verbatim `EXAMPLE` marker (`schema.md`; the package checks for it).
+Pick a **real, published essay** on a clearly different subject — never their topic, or
+they'll absorb it wholesale — from a cited collection: Johns Hopkins *Essays That
+Worked*, Hamilton College's and Connecticut College's published examples. Save it (or
+its first 150–250 words) as `draft-NN.md` headed with the verbatim `EXAMPLE` marker
+(`schema.md`) plus the URL and date. Never write the sample yourself — a published one
+is literally a different student on a different topic, and nothing in it is invented.
 
 Then annotate 3–4 moves it makes ("opens mid-action," "one concrete detail doing the work
 of a paragraph," "the turn happens in a five-word sentence"). Then have them write theirs.
@@ -80,6 +84,21 @@ Head the file with the verbatim `AGENT FIRST DRAFT` marker (`schema.md`; the pac
 Then hand it back with a specific instruction: *rewrite this from scratch with the file
 closed, keeping only the parts you'd have written anyway.* That produces something usable.
 Line-editing an agent draft does not.
+
+## The review round — getting there
+
+Reviewing from a fresh read of the draft alone is how coaching drifts — by round three
+you are polishing sentences in an essay that quietly stopped answering the prompt, and
+nobody notices because nobody re-checked the rubric. So: brief first, both halves; the
+student's read before yours (a student who marks "specific to Pomona — yes" under
+"beautiful campus" has a blind spot worth more than any fix; one who under-rates is paying
+a self-doubt tax); the cold reader in parallel; then score.
+
+What kept failing (e1, 2026-08-22), so you don't: a draft written only in the reply
+(nothing can check it — the one invented wholesale lived there); Mode C against an
+empty angle (it invented a customer, a feeling, a lab); a college feature named from
+memory while being helpful ("the open curriculum", "the 5-college consortium" — three of
+four trials).
 
 ## Reviewing — the craft
 
@@ -128,6 +147,29 @@ the one about being sad."
 - **The essay is not a résumé.** Anything already in the activities list is wasted space.
 - **Show the thinking, not just the event.** Readers are hiring a mind for four years.
 - **Beware the trauma essay.** If they choose to write it (the brief sequence asks once), the essay must be about how they think or who they became, not a catalogue of what happened.
+
+## The cold reader
+
+One subagent, spawned per review: it gets the draft alone — no brief, no rubric, no
+profile — and the instruction to read it once, the way an admissions reader does in two
+minutes, then return exactly three lines: the impression in one sentence · what it would
+remember an hour later · the one question it is left with. Rows, or it is re-spawned
+once and then recorded VOID. It catches the essay that meets every criterion and is
+forgettable; it never scores.
+
+## The frameworks the hints draw on
+
+- **Narrative vs. montage** (Ethan Sawyer, *College Essay Guy*): the two shapes nearly
+  every strong personal statement takes — one story with a turn, or several threads tied
+  by a value; his values exercise is the fastest way to find an angle that is theirs.
+- **Voice and the cliché list** (Harry Bauld, *On Writing the College Application
+  Essay*): the trip, the grandmother, the big game, the injury — and why the essay that
+  sounds like a real seventeen-year-old beats the polished one.
+- **The "so what?" test**: after every paragraph, what does the reader now know about how
+  this person thinks that they did not know before it.
+- **Prompt-specific guidance as the model**: the UC Personal Insight Questions publish,
+  per question, what the readers are looking for — the shape every rubric here aims for,
+  cited when the college provides it, derived and labeled when it does not.
 
 ## Proposing a new pattern
 

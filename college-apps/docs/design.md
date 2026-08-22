@@ -139,60 +139,127 @@ and repeatedly.
 
 ---
 
-## The two iteration loops
+## First release — intake and the essay loop
 
-Both work the same way, and the symmetry is deliberate: **an explicit written standard,
-re-read in full before every pass, so the work can't drift off what was agreed.**
+Students get value from two skills before anything else exists: `student-intake`
+(who they are and what they want, source-tagged) and `essay-coach` (one essay at a
+time, to a standard the college set). Everything else in the arc — the list, research,
+the tracker, recs, the package, the aid plan — builds on those two files and those two
+habits. They ship first, to the shape in `skill-shape.md`, each with its conduct cases
+(`tests/always-on/`), and the rest follow in the order their laws suggest.
 
-### Essay loop
+## The iteration loops
 
-```
-   prompt ──▶ brief.md ┬─ FIXED   prompt · rubric · word count   ← from the college
-                       └─ LIVING  angle · outline · draft mode   ← from the student
-                            │
-                            ▼
-                  student picks a mode:  A write · B sample · C agent-drafts
-                            │
-                            ▼
-        ┌────────▶  draft-NN.md   (declares its author — enforced)
-        │                │
-        │                ▼
-        │        re-read brief.md IN FULL
-        │                │
-        │                ▼
-        │        review-NN.md  ── score against FIXED rubric
-        │                │      ── what works · one big thing · fixes · a question
-        │                │
-        └────────────────┘  3–5 rounds
-```
+Three loops iterate against a written standard; everything else in the arc runs once to
+an exit or a gate. The loops share one shape — **an explicit written standard, owned by
+the student or set by the college, re-read in full before every pass; an append-only or
+immutable record of each round; a score that is a count; a ceiling that hands the decision
+back to the student instead of bending the standard.**
 
-The asymmetry is the whole design: **a draft can never justify relaxing the rubric.** A
-rubric that softens to fit what was written isn't a standard, it's a rationalization. The
-angle may move (the essay found a better subject); the rubric moves only when the college
-changes the prompt or we misread it.
+### The essay loop
 
-### List loop
+One loop per essay. A student works several essays for several schools in parallel —
+each is its own folder, its own brief, its own draft/review sequence, and the loop
+tracks exactly one. Nothing crosses folders except the student's record
+(`profile.md`, `conversations.md`) and the college's research file.
+
+**Prerequisites, before the loop opens:** the prompt, verbatim, and the target — a named
+college, or the Common App personal statement (`essays/common-app--<prompt-slug>/`).
+No prompt, no brief. No target, no rubric: the rubric is derived from what *that*
+reader wants, and "a college essay in general" has no reader.
 
 ```
-   interview / worksheet ──▶ criteria.md ┬─ hard filters   (cut)
-                                         ├─ deal-breakers  (cut, in their words)
-                                         ├─ preferences    (score, weighted)
-                                         └─ RETIRED        (kept with the reason)
-                                              │
-                     ┌────────────────────────┘
-                     ▼
-        re-read criteria.md IN FULL before every list operation
-                     │
-                     ▼
-        colleges.md — each entry names which criteria it meets and misses
+   prompt + target ──▶ brief.md ┬─ FIXED   prompt, restated · rubric (each criterion with
+                                │          its SOURCE tier) · word count + retrieval date
+                                └─ LIVING  angles · chosen · outline · draft mode
+                                     │
+                                     ▼
+                      student chooses the mode:  A write · B sample · C first pass
+                                     │
+           ┌────────────▶  draft-NN.md  ── author on line one (code-enforced)
+           │                    │        ── check_draft.py passed BEFORE it is shown
+           │                    ▼
+           │            student's read: their own N/M + the one thing they'd change
+           │                    │
+           │                    ▼
+           │            re-read brief.md IN FULL — both halves
+           │                    │
+           │                    ▼
+           │            review-NN.md  ── their read beside yours: N/M against FIXED
+           │                          ── the cold reader's three lines (an independent pass)
+           │                          ── external feedback, when feedback.md has any (outranks ours)
+           │                          ── what works · ONE big thing · fixes (≤5) · one question
+           │                    │             (the answer → conversations.md, in their words)
+           └────────────────────┘   3–5 rounds, said up front
+                                     ceiling: two reviews with the same count →
+                                     a different angle, mode, or an interview — never a relaxed criterion
 ```
 
-**Where the two loops differ, and why:** an essay rubric is external and fixed — the
-college wrote the prompt and doesn't care how it's going. List criteria are the student's
-own and genuinely mutable — a student is allowed to decide they'd move further from home.
-So `criteria.md` is fully living (with a Retired table for the audit trail) while
-`brief.md` is only half living. Same mechanic, different mutability, because the sources
-differ.
+**The rubric has sources, like every other fact.** Most colleges publish no scoring rubric
+for an essay; what exists is used verbatim and cited, and the rest is derived and says so:
+
+| Tier | Source | Example |
+|---|---|---|
+| 1 | the college's own guidance for the prompt — "what we're looking for", verbatim, with URL and date | the UC Personal Insight Questions' per-question guidance; MIT's and the Common App's prompt notes |
+| 2 | the Common Data Set § C7 — how much the essay weighs at that school | "Application Essay: Very Important" (CDS 2024-25) |
+| 3 | reader-training material that became public | the reader guidelines surfaced in the Harvard SFFA case |
+| 4 | derived — our reading of what a strong answer to this prompt does | the why-us table in `essay-coach/references/eval.md` |
+
+`college-research` fetches tiers 1–2 into the dossier so the brief can cite them; a
+criterion with no tier above 4 is legitimate, and labeled.
+
+**The student is in the loop, not at the end of it.** They choose the angle (and often
+overrule ours, rightly); they choose the mode; they score their own draft against the
+rubric *before* seeing the review — the gap between their read and ours is the coaching,
+not the fixes; they decide which "one big thing" to act on; their answer to the review's
+question is new material, appended in their words. A draft's author is declared on its
+first line and the package refuses to build without it — that is the student's
+ownership made mechanical.
+
+**Feedback comes from three places, ranked.** A teacher's or counselor's reaction in
+`feedback.md` outranks the coach's review. An independent **cold reader** — a subagent
+reading the draft the way an admissions reader does, in two minutes, without the brief —
+returns three lines (the impression, what it remembers, the one question it is left with)
+and catches what a rubric cannot: an essay that meets every criterion and is forgettable.
+The coach's review is the third tier and the only one that scores.
+
+**Mode B samples are real, published essays, cited** — the *Essays That Worked*
+collections (Johns Hopkins, Hamilton, Connecticut College) — never ones the agent writes.
+"A different student, a different topic" is then literally true, nothing is invented, and
+the EXAMPLE header carries its URL.
+
+**The frameworks the hints draw on** are named in `essay-coach/references/patterns.md`
+with attribution: narrative vs. montage structure and the values exercise (Ethan Sawyer),
+voice and the cliché list (Harry Bauld), the "so what?" test, and the UC guidance as the
+model of prompt-specific criteria.
+
+**What code holds** — `check_draft.py`: the author header, and every name, number, and
+quoted phrase in an agent draft present in the student's record or a research file. What
+code cannot see — an invented feeling, a sensory detail — stays with the coach, which is
+why the draft is a file *before* it is shown: a draft that exists only in a reply is
+ready-to-paste by construction and nothing can check it. Measured (e1, 2026-08-22): four
+prose rules held the law 2/2, then more rules under deadline pressure broke it 0/2 and
+0/3; the file-first rule and the script held it 3/3.
+
+### The list loop
+
+`criteria.md` — hard filters, deal-breakers in the student's words, weighted preferences,
+the family's ceiling, a Retired table that keeps every dropped row with its reason — is
+re-read in full before every list operation; `colleges.md` names, per school, which
+criteria it meets and misses, dated. A safety is all three: numbers above the range,
+admission near-certain, affordable without a scholarship not yet won. Two rebalances that
+move nothing → the criteria conflict goes to the student as a decision (a $25k ceiling
+and a $40k one are never averaged). Where the two standards differ: an essay rubric is
+external and fixed — the college wrote the prompt; list criteria are the student's own and
+genuinely mutable — so `criteria.md` is fully living with an audit trail while `brief.md`
+is only half living.
+
+### The aid loop *(not built; promise 5)*
+
+The family's ceiling against each school's net price from its own calculator, the aid
+calendar on the tracker, outside scholarships found and dated, merit never counted before
+it is in writing. Its record is `aid.md`; its ceiling is two revisions with the same gap
+between the ceiling and the cheapest school → the family's decision.
 
 ---
 

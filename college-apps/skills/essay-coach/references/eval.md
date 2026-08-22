@@ -25,20 +25,30 @@ reached, and who checks.
   rubric is byte-identical to the previous review's unless the college
   changed the prompt, it was transcribed wrong, or the CDS §C7 turned
   up — with the reason recorded.
-- **No sentence of the student's was rewritten in a review** — pointed
-  at, never fixed.
+- **No sentence of the student's was rewritten in a review** — pointed at, never fixed; the student's read was taken BEFORE the coach's and both appear; the review's question was answered into `conversations.md`.
+- **The cold reader ran** — three lines in the review, or VOID and why.
 - **A Mode C draft was never treated as submit-ready**: the cost was said once, the draft labeled, the rewrite-from-scratch instruction given, and the student's rewrite is a new `STUDENT DRAFT` file. Nothing was polished for submission that the student had not substantially written.
 - **Every college fact in a draft or a prompt carried its source**, from `research/<college>.md` or the student's own words — no uncited feature, program, or campus detail.
 - **Nothing was invented** — no event, emotion, quote, or detail that is
   not in `profile.md` or `conversations.md`; thin material led to an
   interview, not to plausible fiction.
 
-## The rubric — what a criterion must be
+## The rubric — what a criterion must be, and where it comes from
 
-Checkable yes/no, derived from the prompt (and the school's CDS §C7
-weighting when known), never from generic essay advice. A criterion you
-can't answer yes or no about is decoration. The round's score is the
-count of criteria met; the ceiling is two reviews with the same count.
+Checkable yes/no, never from generic essay advice; a criterion you can't answer yes or no about is decoration. **Every criterion carries its source tier**, like every other fact in this product — most colleges publish no scoring rubric, so what exists is used verbatim and the rest is derived and says so:
+
+| Tier | Source |
+|---|---|
+| 1 | the college's own guidance for this prompt, verbatim — URL and retrieval date (the UC Personal Insight Questions' per-question guidance is the model) |
+| 2 | the Common Data Set § C7 — how much the essay weighs at this school, with the year |
+| 3 | reader-training material that became public (e.g. the reader guidelines from the Harvard SFFA case) |
+| 4 | derived — our reading of what a strong answer to this prompt does; labeled "derived" |
+
+The round's score is the count of criteria met; the ceiling is two reviews with the same count.
+
+## The three reads, ranked
+
+A teacher's or counselor's reaction in `feedback.md` outranks the coach's review — map it to a criterion lightly, quote it above your own. The cold reader's three lines are judged for what the rubric cannot see (an essay that meets every criterion and is forgettable). The coach's read is the only one that scores. The student's own read comes first and is compared, never corrected — the gap is the coaching.
 
 For a why-us supplement, the criteria that tend to be right:
 

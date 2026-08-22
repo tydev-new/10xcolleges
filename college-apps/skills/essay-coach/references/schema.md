@@ -1,6 +1,6 @@
 # Essay coaching — the file shapes
 
-One folder per essay, `students/<slug>/essays/<college-slug>--<prompt-slug>/`.
+One folder per essay, `students/<slug>/essays/<college-slug>--<prompt-slug>/` (`common-app--<prompt-slug>/` for the personal statement); a student's parallel essays are parallel folders, and the loop in `../SKILL.md` tracks one.
 Three kinds of file, each with the mutability the data model assigns
 (`${CLAUDE_PLUGIN_ROOT}/docs/data-model.md`): the brief is split, drafts
 and reviews are immutable — a change is a new numbered file, and the
@@ -12,9 +12,7 @@ refuses to build a package containing a draft without one.
 
 - `## Fixed` — from the college; changes only when the college changes it
   or it was transcribed wrong:
-  - the prompt, restated in one plain sentence (what it is actually asking)
-  - **the rubric** — 4–6 criteria, each checkable yes/no, derived from the
-    prompt and the school's CDS §C7 weighting when known
+  - the prompt, restated in one plain sentence (what it is actually asking)  - **the rubric** — 4–6 criteria, each checkable yes/no, **each with its source tier** (`eval.md § The rubric`): 1 the college's own prompt guidance, verbatim + URL + date · 2 CDS §C7 (year) · 3 public reader guidance · 4 derived — labeled so
   - word count and format, from the college's own page, with the
     retrieval date
 - `## Living` — from the student; changes as the essay evolves:
@@ -43,12 +41,13 @@ the whole record of whose words ended up in the application.
 
 ## `review-NN.md` — immutable; one per draft, in this shape
 
-- **Against the brief** — one line per rubric criterion, met or not, then
-  the count: `N/M criteria met` (the round's score)
+- **The student's read** — their own met / not met per criterion and the one thing they would change, captured BEFORE the coach's read; then **Against the brief** — one line per criterion, met or not, and the count `N/M` (the round's score); the gap between the two reads, named
+- **Cold reader** — three lines from the independent pass: the impression, what it remembers, the one question it is left with (or `VOID` and why)
+- **External feedback** — when `feedback.md` carries a teacher's or counselor's reaction to this draft, quoted here above the coach's read; it outranks the coach
 - **Angle check** — on the chosen angle, or drifted: somewhere better
   (Living updated, with the reason) or somewhere easier (named)
 - **What's working** — two or three things, quoted exactly
-- **The one big thing** — one change, stated plainly
+- **The one big thing** — one change, stated plainly; the student's choice if they pick a different one, recorded in Living
 - **Specific fixes** — line-level, quoting the line, at most ~5
 - **One question** — something you genuinely don't know
 
