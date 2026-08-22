@@ -26,13 +26,25 @@ class CheckDraft(unittest.TestCase):
         code, out = run(ws([HDR + "Pomona's Estella Laboratory, where I'd spend 4 years.\n"]))
         self.assertEqual(code, 1); self.assertIn("Estella", out); self.assertIn("'4'", out)
 
-    def test_a_college_fact_with_a_research_file_passes(self):
+    def test_a_college_fact_with_a_CITED_research_line_passes(self):
         code, out = run(ws([HDR + "Pomona's Estella Laboratory machine shop.\n"], research="Estella Laboratory — student machine shop (pomona.edu, 2026-08-10)\n"))
         self.assertEqual(code, 0, out)
 
+    def test_an_uncited_research_line_is_not_a_source(self):
+        code, out = run(ws([HDR + "Pomona's Estella Laboratory machine shop.\n"], research="Estella Laboratory — student machine shop\n"))
+        self.assertEqual(code, 1); self.assertIn("Estella", out)
+
+    def test_a_paraphrased_header_fails(self):
+        code, out = run(ws(["> **AGENT FIRST DRAFT — scaffolding to rewrite in your own voice.**\n\nI fix flats.\n"]))
+        self.assertEqual(code, 1); self.assertIn("paraphrased", out)
+
+    def test_number_words_count(self):
+        code, out = run(ws([HDR + "After three years of rebuilding it.\n"]))
+        self.assertEqual(code, 1); self.assertIn("three", out)
+
     def test_student_draft_only_warns_on_specifics(self):
         sd = ws(["> **STUDENT DRAFT**\n\nMy cousin Teresa taught me.\n"])
-        (sd / "essays" / "x" / "review-01.md").write_text("## Against the brief — 2/5\n## The one big thing\nx\n## One question\ny\n")
+        (sd / "essays" / "x" / "review-01.md").write_text("## Student's read\n—\n## Against the brief — 2/5\n## Angle check\nholds\n## Cold reader\nVOID\n## The one big thing\nx\n## One question\ny\n")
         code, out = run(sd)
         self.assertEqual(code, 0); self.assertIn("WARN", out); self.assertIn("Teresa", out)
 
