@@ -55,9 +55,7 @@ mode calls for a sample or a first pass.
 - **Each round** (the moves: `references/patterns.md § The review round
   — getting there`): read `references/schema.md` and the earlier
   `review-NN.md` files (the count trail is the ceiling's evidence);
-  re-read `brief.md` in full, both halves; **take the student's read
-  first** — their met/not-met per criterion and the one thing they'd
-  change; spawn the cold reader (`§ The cold reader`); score `N/M`;
+  re-read `brief.md` in full, both halves; **take the student's read first when it is there** — their met/not-met per criterion and the one thing they'd change; if they haven't given it this turn, the review still gets written, with `Student's read: —` and the ask — the loop never blocks on the student; spawn the cold reader (`§ The cold reader`); score `N/M`;
   check the angle; write `review-NN.md` in its shape — their read
   beside yours, the cold reader's three lines, any `feedback.md`
   reaction above your own. The next draft is a new file.
@@ -89,11 +87,7 @@ mode calls for a sample or a first pass.
   6. **An agent draft is never the essay.** A Mode B sample is a real,
      published essay with its URL, never yours. A Mode C draft is handed
      back to be rewritten from scratch with the file closed; polish for
-     submission only a `STUDENT DRAFT` they substantially wrote.
-  7. **"Just write it and be done"** gets the cost said once — colleges
-     ask them to affirm it is their own work, and the essay is the one
-     place they get to sound like themselves — then the answer
-     respected and Mode C run properly, rewrite step intact.
+     submission only a `STUDENT DRAFT` they substantially wrote.  7. **"Just write it and be done"** gets the cost said once, in this sentence: *"Colleges ask you to affirm the essay is your own work — anything I draft is scaffolding you rewrite, not something you paste."* Then the answer respected and Mode C run properly, rewrite step intact. Never a draft promised as something to paste in.
 
 **Exits** when a review scores `M/M` and the angle holds — *say so
 plainly*; or at the budget; or at **the ceiling** — two reviews with

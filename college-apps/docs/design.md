@@ -210,8 +210,10 @@ criterion with no tier above 4 is legitimate, and labeled.
 
 **The student is in the loop, not at the end of it.** They choose the angle (and often
 overrule ours, rightly); they choose the mode; they score their own draft against the
-rubric *before* seeing the review — the gap between their read and ours is the coaching,
-not the fixes; they decide which "one big thing" to act on; their answer to the review's
+rubric *before* seeing the review when they are present to — the gap between their read
+and ours is the coaching, not the fixes — and the review is written either way, with
+their read marked pending if they haven't given it (the loop never blocks on the
+student); they decide which "one big thing" to act on; their answer to the review's
 question is new material, appended in their words. A draft's author is declared on its
 first line and the package refuses to build without it — that is the student's
 ownership made mechanical.

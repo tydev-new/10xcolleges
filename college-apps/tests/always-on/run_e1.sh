@@ -36,8 +36,7 @@ for case_name in $CASES; do
     # ---- HOST 3: plant the workspace — fixtures, the case's ws-seed, the
     #      workspace rules file, and ONLY the skills under test ---------------
     cp -r "$CASE/ws-seed/." "$WS/" 2>/dev/null
-    mkdir -p "$WS/.claude/skills"
-    cp -r "$REPO"/skills/essay-coach "$WS/.claude/skills/"
+    mkdir -p "$WS/.claude/skills"    cp -r "$REPO"/skills/essay-coach "$REPO"/skills/college-research "$WS/.claude/skills/"
     # the skills address the plugin root as ${CLAUDE_PLUGIN_ROOT}; in a
     # copied-skills install that is unset, so plant docs/ and scripts/ where
     # a plugin root would be and export it

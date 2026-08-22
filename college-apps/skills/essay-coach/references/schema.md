@@ -41,7 +41,7 @@ the whole record of whose words ended up in the application.
 
 ## `review-NN.md` — immutable; one per draft, in this shape
 
-- **The student's read** — their own met / not met per criterion and the one thing they would change, captured BEFORE the coach's read; then **Against the brief** — one line per criterion, met or not, and the count `N/M` (the round's score); the gap between the two reads, named
+- **The student's read** — their own met / not met per criterion and the one thing they would change, captured BEFORE the coach's read when given this turn, else `—` and the ask; then **Against the brief** — one line per criterion, met or not, and the count `N/M` (the round's score); the gap between the two reads, named
 - **Cold reader** — three lines from the independent pass: the impression, what it remembers, the one question it is left with (or `VOID` and why)
 - **External feedback** — when `feedback.md` carries a teacher's or counselor's reaction to this draft, quoted here above the coach's read; it outranks the coach
 - **Angle check** — on the chosen angle, or drifted: somewhere better
