@@ -16,7 +16,7 @@ tell it got there, and who checks what.
   unweighted really is; whether a `TODO:` hides a guess in prose.
 - **Language → no checker-subagent.** The words are the student's; the
   only language rule is that you did not tidy them.
-- **Everything that needs judgment → you, at the moment:** whether a
+- **Everything that needs judgment → you, as it comes up:** whether a
   throwaway line is the alive one, whether a preference is real or
   untested, whether a correction changes a row or retires it.
 

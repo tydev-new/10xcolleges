@@ -38,14 +38,15 @@ sometimes more than one (PRINCIPLES, promise 3). Scored by
     first). Thin material is a reason to interview, not a reason to
     draft.
 - **Optional:** `research/<college>.md` — the college's own guidance
-  for the prompt, its CDS §C7 weight (rubric source tiers 1–2), and the
-  things that exist only at that school · `feedback.md` — a teacher's or
+  for the prompt and its CDS §C7 weight (the two best rubric sources —
+  `references/eval.md § The rubric`), and the things that exist only at
+  that school · `feedback.md` — a teacher's or
   counselor's read of a draft, which outranks yours.
 
 ## The loop and the sequence
 
-The brief is written once per essay and its Fixed half never changes.
-The essay itself is the loop. What just happened tells you which you are
+The brief is a sequence (it runs once per essay) and its Fixed half
+never changes. The essay is the loop (it repeats until it exits). What just happened tells you which you are
 in: no `brief.md` → write the brief; a brief with no draft mode chosen →
 finish the brief at the question; a draft, a chosen mode, or "review
 this" → the essay loop. The craft — finding angles, the three draft
@@ -76,59 +77,60 @@ Record the choice.
 ### The essay (the loop)
 
 **Runs when** a draft arrives in this essay's folder, or the chosen
-mode calls for a sample or a first pass.
+mode calls for a sample or first pass.
 
 - **Standard:** `brief.md § Fixed` — the rubric with its source tiers,
   at the word count. **Budget:** 3–5 rounds, said up front so round two
-  doesn't feel like failure.
+  doesn't feel like failing.
 - **Each round** (the moves: `references/patterns.md § The review round
   — getting there`): read `references/schema.md` and the earlier
   `review-NN.md` files (the score trail). Re-read `brief.md`, both
   halves. **Take the student's own read first when they give it** —
   met or not per criterion, and the one thing they'd change. Not
-  given this turn → write the review anyway with `Student's read: —`
-  and ask; the loop never waits on the student. **A read that arrives
+  given this turn → write the review anyway, `Student's read: —`, and
+  ask; the loop never waits on the student. **A read that arrives
   after its review goes into `conversations.md` in their words, and
   your reply names each criterion where you disagree and why; the
   written review stays as it is.** Spawn the cold reader (`§ The cold
-  reader`). Score `N/M`. Check the angle. Write `review-NN.md` in its
+  reader`); score `N/M`; check the angle; write `review-NN.md` in its
   shape. **Add the round's row to `brief.md § Living ### Rounds`.** A
   draft pasted in chat is saved as `draft-NN.md` under
-  `> **STUDENT DRAFT**` before review. The next draft is a new file.
-- **Seven rules, each at its moment:**
+  `> **STUDENT DRAFT**` before review. Each draft is a new file.
+- **Seven rules — each applies at the step it names:**
   1. **A draft is a file before anyone sees it, and a draft without its
      author line does not exist.** Essay prose you write goes in
-     `draft-NN.md` with the exact marker on line one, and
+     `draft-NN.md`, exact marker on line one, and
      `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_draft.py students/<slug>`
-     has passed, BEFORE it appears in a reply. The same script fails a
+     has passed, BEFORE it appears in a reply; the same script fails a
      student draft with no review beside it. Fix a FAIL first. A
      student's rewrite of your draft is a new `STUDENT DRAFT` file.
   2. **The rubric does not change; the angle may.** A draft is never a
      reason to change a criterion — only the college changing the
-     prompt, a copying error, or a better source, dated with the reason.
+     prompt, a copying error, or a higher-tier source (`eval.md § The
+     rubric`), dated, with the reason.
   3. **Point, never fix — and the student decides.** Quote the line, say
-     what is wrong and why, never rewrite it. The gap between their read
+     what's wrong and why, never rewrite it. The gap between their read
      and yours is the coaching; what to act on is their call, recorded
      under Living; their answers go in `conversations.md`, their words.
   4. **Make nothing up — about them or the college.** Nothing goes in a
-     draft that is not on a line of their record. No college fact
+     draft that is not on a line of their record; no college fact
      outside `research/<college>.md` or their own words; never a college
      feature from memory — "want me to research that?" (→
      `college-research`).
   5. **No chosen angle, no draft.** `Chosen: undecided` or an empty
      outline in `brief.md § Living` → interview for material first,
-     however close the deadline.
+     whatever the deadline.
   6. **An agent draft is never the essay.** A Mode B sample is a real,
      published essay with its URL, never yours. A Mode C draft is
-     rewritten from scratch with the file closed. Polish for submission
-     only a `STUDENT DRAFT` they mostly wrote.
-  7. **"Just write it and be done"** gets the cost said once, in this exact sentence: *"Colleges ask you to affirm the essay is your own work — anything I draft is scaffolding you rewrite, not something you paste."* Then respect the answer and run Mode C properly, rewrite step included.
+     rewritten from scratch, file closed. Polish for submission only a
+     `STUDENT DRAFT` they substantially wrote themselves.
+  7. **"Just write it and be done"** gets the cost said once, in this exact sentence: *"Colleges ask you to affirm the essay is your own work — anything I draft is scaffolding you rewrite, not something you paste."* Then respect the answer; run Mode C properly, rewrite step included.
 
 **Exits** when a review scores `M/M` and the angle holds — *say so
-plainly*; or at the budget; or at **the ceiling** — two reviews with
-the same score: change the move — a different angle, a different mode,
-an interview for material, or bring the choice to the student. Never
-loosen a criterion to let a draft pass.
+plainly*; or at the budget; or at **the ceiling** (the loop is stuck) —
+two reviews with the same score: change the move — a different angle,
+mode, or interview for material, or bring the choice to the student.
+Never loosen a criterion to let a draft pass.
 
 ## State
 
@@ -137,7 +139,7 @@ Owns `students/<slug>/essays/<e>/` — one folder per essay, shapes in
 student gives, dated, in their words). Reads everything else. Never
 writes into another essay's folder.
 
-**Hands off:** a deadline or a new prompt → `app-tracker`; a school fact
+**Passes to:** a deadline or a new prompt → `app-tracker`; a school fact
 the why-us needs → `college-research`; the finished essays → the
 counselor package (it reads the author headers).
 

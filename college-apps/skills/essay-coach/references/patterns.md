@@ -72,7 +72,7 @@ Pick a **real, published essay** on a clearly different subject — never
 their topic, or they'll copy it without meaning to — from a cited
 collection: Johns Hopkins *Essays That Worked*, Hamilton College's and
 Connecticut College's published examples. Save it (or its first 150–250
-words) as `draft-NN.md` with the exact `EXAMPLE` marker on top
+words) as `draft-NN.md` with the exact `EXAMPLE` marker on the first line
 (`schema.md`) plus the URL and date. Never write the sample yourself. A
 published one really is a different student on a different topic, and
 nothing in it is made up.
@@ -173,7 +173,7 @@ no brief, no rubric, no profile — and one instruction: read it once, the
 way an admissions reader does in two minutes, then return exactly three
 lines: the impression in one sentence · what it would remember an hour
 later · the one question it is left with. If it doesn't return three
-lines, start it once more; if that fails too, write VOID. It catches the
+lines, start it once more; if that fails too, write VOID and why. It catches the
 essay that meets every criterion and is forgettable; it never scores.
 Its three lines are quoted word for word. The subagent call shows in
 the tool log — a "cold read" with no call behind it is a made-up one.

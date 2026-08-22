@@ -27,8 +27,8 @@ needs. Scored by `references/eval.md`; file shapes in
   `${CLAUDE_PLUGIN_ROOT}/templates/student/`. If there is none, create
   it from the template in the first reply, then carry on. **Read
   `references/schema.md` and `${CLAUDE_PLUGIN_ROOT}/docs/data-model.md`
-  § Provenance before the first write** — that is where the row forms
-  the checker reads are.
+  § Provenance before the first write** — that is where the exact row
+  formats the script checks are written down.
 - **Optional:** a packet, transcript, resume, activities list, or
   Common App export (PDF and DOCX can be read directly); a filled-in
   `${CLAUDE_PLUGIN_ROOT}/templates/criteria-worksheet.md` or the school's
@@ -57,9 +57,10 @@ passes and the `TODO:`s are named in the reply.
 
 **Runs when** the student is talking — with or without documents.
 
-- **Standard:** the gate (four items, above) and the profile's open
-  `TODO:`s. **Budget:** as many turns as it takes; two or three
-  questions a turn, never a wall of them.
+- **Standard:** (what each round is measured against) the gate — the
+  four facts the college list can't start without, listed above — and
+  the profile's open `TODO:`s. **Budget:** as many turns as it takes;
+  two or three questions a turn, never a wall of them.
 - **Each round** (the questions and their order: `references/patterns.md
   § The interview — getting there`): ask two or three questions → **write
   every row the moment it comes up, in their phrasing** — a budget to
@@ -69,7 +70,7 @@ passes and the `TODO:`s are named in the reply.
   `check_record.py` and repeat its `gate N/4` line and what is still
   open → follow whatever was alive in their answer, not the next item
   on a list.
-- **Five rules, each at its moment:**
+- **Five rules — each applies at the step it names:**
   1. **Your paraphrase is not their criterion.** "I don't want to be the
      least prepared person in the room" is a row; "prefers a supportive
      environment" is not. The paraphrase creeps in within the same turn,
@@ -92,10 +93,10 @@ passes and the `TODO:`s are named in the reply.
 
 **Exits** when the gate is `4/4` **and** you have said back what you
 heard in four or five sentences in their language, asked what you got
-wrong, and written down the correction — then hand off to
-`college-list`. Or at **the ceiling** — two rounds with the gate
-unchanged: name the one thing blocking it (usually the money
-conversation), hand it over as homework with the Net Price Calculator,
+wrong, and put the correction into the files — then hand off to
+`college-list`. Or at **the ceiling** (the sign the loop is stuck) —
+two rounds with the gate unchanged: name the one thing blocking it
+(usually the money conversation), hand it over as homework with the Net Price Calculator,
 and stop asking.
 
 ### Update (a sequence)
@@ -107,18 +108,18 @@ named and whether it moves the gate or the list.
 
 ## State
 
-Owns `profile.md`, `criteria.md`, `conversations.md` (append-only) —
+Owns `profile.md`, `criteria.md`, `conversations.md` (add at the end only) —
 shapes in `references/schema.md`. Reads everything else in the folder
 (`meta.json` belongs to `college-app`).
 
-**Hands off:** gate met → `college-list`; a named college →
+**Passes to:** gate met → `college-list`; a named college →
 `college-list`; essay-worthy lines are already in `conversations.md`
 for `essay-coach` to find.
 
 **Session close:** run `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_record.py students/<slug>`
 (it lives at the plugin root, shared with the other skills). Fix FAILs
-before the reply; explain WARNs in it. No checker-subagent — the words
-are the student's. Say what the folder now holds, the script's
+before the reply; for each WARN, say in the reply why it is acceptable.
+No checker-subagent — the words are the student's. Say what the folder now holds, the script's
 `gate N/4`, what is `TODO:`, and the next step.
 
 ## Guardrails

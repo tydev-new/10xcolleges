@@ -16,7 +16,7 @@ it got there, and who checks what.
 - **Language → no checker-subagent.** The student's words are the
   student's; the agent's drafts carry their label. Nothing here is
   checked against a never-say list.
-- **Everything that needs judgment → you, at the moment:** whether a
+- **Everything that needs judgment → you, as it comes up:** whether a
   criterion is really met, whether a drift is better or just easier,
   whether the material is so thin that drafting would mean making
   things up.
@@ -30,7 +30,7 @@ it got there, and who checks what.
 - **Every draft says who wrote it**, exact marker, first line; a
   student rewrite is a new file.
 - **Every review opens against the brief** with the score, and the
-  rubric is identical to the previous review's unless the college
+  rubric is byte-identical to the previous review's unless the college
   changed the prompt, it was copied wrong, or the CDS §C7 turned up —
   with the reason written down.
 - **No sentence of the student's was rewritten in a review** — pointed
@@ -41,8 +41,8 @@ it got there, and who checks what.
 - **A Mode C draft was never treated as ready to submit**: the cost was
   said once, the draft was labeled, the rewrite-from-scratch instruction
   was given, and the student's rewrite is a new `STUDENT DRAFT` file.
-  Nothing was polished for submission that the student had not mostly
-  written.
+  Nothing was polished for submission that the student had not
+  substantially written themselves.
 - **Every college fact in a draft or a prompt had its source** —
   `research/<college>.md` or the student's own words. No uncited
   feature, program, or campus detail.

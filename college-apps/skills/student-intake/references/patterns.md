@@ -1,7 +1,7 @@
 # Intake — hints for getting there faster
 
 Nothing here is a rule; the rules are in `SKILL.md`. These are the
-moves that make an intake go faster.
+moves that make an intake go faster, and the slips that slow it down.
 
 ## The interview — getting there
 
