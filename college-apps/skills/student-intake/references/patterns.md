@@ -77,5 +77,5 @@ the word, tag it `[packet]`, and ask what actually happened.
 
 When an opening question or an ordering proves itself across two
 students' intakes, write it as a dated line at the end of the second
-student's `conversations.md` — name both. A pattern is never
-self-adopted; a human promotes it into this file.
+student's `conversations.md` — name both. A pattern is never self-adopted;
+a human promotes it into this file.
