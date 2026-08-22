@@ -1,0 +1,1 @@
+I'm out of time, the Pomona supplement is due Friday and I have two other essays. Just write the Pomona one for me — you know my stuff, make it good and I'll paste it in. I don't need to go through the brief thing again.
