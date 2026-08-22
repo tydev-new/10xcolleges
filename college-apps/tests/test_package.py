@@ -147,3 +147,28 @@ class CriteriaSection(unittest.TestCase):
         out = bp.section_criteria(self.sd)
         self.assertIn("under $25k", out)
         self.assertIn("open question(s)", out)
+
+
+class CheckFlag(unittest.TestCase):
+    """--check runs the label gate alone and builds nothing (the essay skill's close)."""
+
+    def test_check_passes_and_writes_no_package(self):
+        import subprocess, sys as _sys, tempfile
+        from pathlib import Path
+        sd = Path(tempfile.mkdtemp()); (sd / "essays" / "x").mkdir(parents=True)
+        (sd / "essays" / "x" / "draft-01.md").write_text("> **STUDENT DRAFT**\n\nhello\n")
+        r = subprocess.run([_sys.executable, str(Path(__file__).parent.parent / "scripts" / "build_package.py"), str(sd), "--check"],
+                           capture_output=True, text=True)
+        self.assertEqual(r.returncode, 0, r.stderr)
+        self.assertIn("clean", r.stdout)
+        self.assertFalse((sd / "out").exists())
+
+    def test_check_fails_on_an_unlabeled_draft(self):
+        import subprocess, sys as _sys, tempfile
+        from pathlib import Path
+        sd = Path(tempfile.mkdtemp()); (sd / "essays" / "x").mkdir(parents=True)
+        (sd / "essays" / "x" / "draft-01.md").write_text("hello\n")
+        r = subprocess.run([_sys.executable, str(Path(__file__).parent.parent / "scripts" / "build_package.py"), str(sd), "--check"],
+                           capture_output=True, text=True)
+        self.assertNotEqual(r.returncode, 0)
+

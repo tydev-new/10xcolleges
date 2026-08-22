@@ -432,11 +432,18 @@ def main():
     p.add_argument("student_dir")
     p.add_argument("-o", "--out")
     p.add_argument("--pdf", action="store_true", help="also render PDF via headless Chrome")
+    p.add_argument("--check", action="store_true",
+                   help="only run the draft-label check (the essay skill's session close); build nothing")
     args = p.parse_args()
 
     sd = Path(args.student_dir)
     if not sd.exists():
         sys.exit(f"No such student directory: {sd}")
+    if args.check:
+        check_draft_labels(sd)
+        n = sum(1 for d in (sd / "essays").iterdir() if d.is_dir() for _ in d.glob("draft-*.md")) if (sd / "essays").exists() else 0
+        print(f"draft labels clean: {n} draft(s), every one declares its author")
+        return
     meta_path = sd / "meta.json"
     meta = json.loads(meta_path.read_text()) if meta_path.exists() else {}
 
