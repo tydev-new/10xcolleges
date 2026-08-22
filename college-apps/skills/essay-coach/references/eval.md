@@ -5,10 +5,7 @@ reached, and who checks.
 
 ## Who checks what
 
-- **Structure → `${CLAUDE_PLUGIN_ROOT}/scripts/build_package.py`** (`check_draft_labels`):
-  every draft declares its author in its first line, or the package
-  refuses to build — the one hard stop in this product, because an
-  unlabeled agent draft is indistinguishable from the student's.
+- **Structure → `${CLAUDE_PLUGIN_ROOT}/scripts/check_draft.py`** at every draft and at close: the author header on the first line, and every name, number, and quoted phrase in an agent draft present in `profile.md`, `conversations.md`, or `research/` — the checkable half of "invent nothing". `build_package.py` refuses to build on a missing header — the one hard stop in this product. What code cannot see — an invented feeling, a sensory detail, a role — stays with you.
 - **Language against written rules → no checker-subagent.** The
   student's words are the student's; the agent's drafts carry their
   label. Nothing here is checked against a never-say list.

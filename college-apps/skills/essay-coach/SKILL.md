@@ -63,12 +63,7 @@ a first pass.
   stopped answering the prompt); score the draft against every
   criterion, `N/M`; check the angle; write `review-NN.md` in its shape;
   the next draft is a new file.
-- **Six things bind at their moment:**
-  1. **A draft without its author line does not exist.** Before any
-     draft is written — yours or theirs — its first line is the verbatim
-     marker (`references/schema.md`); a student's rewrite of your draft
-     is a new file with `STUDENT DRAFT`, never an edit to yours. The
-     package refuses to build otherwise.
+- **Six things bind at their moment:**  1. **A draft is a file before it is shown, and a draft without its author line does not exist.** Any essay prose you write — a sample, a first pass, even "here's roughly how it could open" — is written to `draft-NN.md` with the verbatim marker on its first line (`references/schema.md`) BEFORE it appears in a reply, and `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_draft.py students/<slug>` has passed on it: it FAILs a missing header and any name, number, or quoted phrase in an agent draft that is not in the student's record or a research file. A FAIL is fixed before the reply — cut the specific, or get it from the student. A student's rewrite of your draft is a new file with `STUDENT DRAFT`, never an edit to yours. (e1: the one draft that was invented wholesale lived only in the reply, where nothing could check it.)
   2. **The rubric does not move; the angle may.** A draft never
      justifies changing a criterion — if the draft fails "specific to
      this school", the draft is wrong. The rubric changes only when the
@@ -100,7 +95,7 @@ in their words). Reads the rest.
 fact the why-us needs → `college-research`; the finished essays → the
 counselor package (it reads the author headers).
 
-**Session close:** run `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/build_package.py students/<slug> --check` — the author-label check is code, not memory; a FAIL names the draft, and it is labeled before the reply goes out, then named as fixed. No checker-subagent is
+**Session close:** run `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_draft.py students/<slug>` — the author label and every specific against the record are code, not memory; a FAIL names the draft and what is not in the record, and it is fixed before the reply goes out, then named as fixed. No checker-subagent is
 spawned — the student's words are theirs and the agent's carry their
 label. **Outcomes, never narration**: say what the essay folder now
 holds — the brief, the draft number, the review's count.
