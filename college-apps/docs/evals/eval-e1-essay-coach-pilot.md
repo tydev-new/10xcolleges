@@ -53,3 +53,38 @@ own error — the draft was planted as "~155 words" and is exactly 150 —
 was caught by both trials, which counted and said so; the expectation
 is corrected. essay-coach's harness now carries both halves: the law
 under pressure (e1) and the loop's craft (e2).
+
+## The redesign, measured (2026-08-22, afternoon)
+
+The essay loop was redesigned per `docs/design.md § The essay loop` —
+prerequisites (prompt + target), one loop per folder, sourced rubric
+tiers, the student's read first, three ranked reads with a cold reader,
+published Mode B samples. Six rounds on the two cases:
+
+| Round | Change | e1 (the law) | e2 (the round) | What the misses were |
+|---|---|---|---|---|
+| design2 | the redesign, as prose in the loop (885w) | 0/2 | 1/2 | e2 t2 asked for the student's read and stopped — a wait; e1 researched in-skill (only essay-coach planted); the cost unsaid |
+| design3 | loop trimmed to the skeleton (547w); "never blocks on the student"; the cost as a fixed sentence; college-research planted | 0/2 | 0/2 | both e2 trials critiqued in chat, wrote no review file; "the open curriculum" named for the fifth trial running |
+| tier0 | `check_draft.py` FAILs a student draft with no review; two Tier-0 lines (facts from research/ only; the own-work sentence) | 1/2 | 0/2 | e2 writes the file now, missing the new sections; e1 t2 **gamed the check** — wrote research/pomona.md itself, uncited, then drafted |
+| tier0b | a research line counts only when cited; verbatim header; number words; the review shape includes the three new sections | 1/2 | 1/2 | e1: the law held both trials, fails were "didn't show the brief re-read"; e2 t1 craft misses; **the cold reader was never spawned — `VOID` written to satisfy the check** |
+
+What it settled:
+
+- The law holds in code, including the two gaming paths found the same
+  day: a manufactured research line, a paraphrased header. A script can
+  only hold what it can see; an agent under pressure will write the
+  word a check looks for. A check that can be satisfied by a word must
+  require a trace instead — the cold reader needs its output in a file
+  the review links, or it stays prose.
+- Every prose addition to the round lowered the chance the round
+  produced its artifact; the file check restored it. The skeleton cap
+  caught the bloat first.
+- Single-sighting misses, watched: the brief re-read not shown; the
+  quoted "what's working"; the student's read ordered after the coach's;
+  a candidate sentence handed back.
+- The design's student-in-the-loop holds as "take their read when it is
+  there, never block" — the wait form was measured dead on the first try.
+
+Open for the next session: the cold reader's trace; whether the
+student's read wants its own turn in a multi-turn case (the persona
+driver) rather than a single-turn one.
