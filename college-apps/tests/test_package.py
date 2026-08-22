@@ -172,3 +172,19 @@ class CheckFlag(unittest.TestCase):
                            capture_output=True, text=True)
         self.assertNotEqual(r.returncode, 0)
 
+
+class HeaderIsTheFirstLine(unittest.TestCase):
+    """A keyword in the opening lines is not a declaration (review M7, 2026-08-22)."""
+
+    def test_for_example_in_a_student_draft_is_not_an_example(self):
+        kind, _ = bp.draft_provenance("> **STUDENT DRAFT**\n\nFor example, the first time I …")
+        self.assertEqual(kind, "student")
+
+    def test_unlabeled_draft_with_the_word_example_is_unlabeled(self):
+        kind, _ = bp.draft_provenance("For example, the first time I …\n\nmore text")
+        self.assertIsNone(kind)
+
+    def test_blank_lines_before_the_header_are_fine(self):
+        kind, _ = bp.draft_provenance("\n\n> **AGENT FIRST DRAFT — built from …**\n")
+        self.assertEqual(kind, "agent")
+

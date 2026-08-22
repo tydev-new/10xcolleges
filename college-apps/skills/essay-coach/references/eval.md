@@ -30,9 +30,8 @@ reached, and who checks.
   up — with the reason recorded.
 - **No sentence of the student's was rewritten in a review** — pointed
   at, never fixed.
-- **A Mode C draft was never treated as submit-ready**: the cost was
-  said once, the draft labeled, the rewrite-from-scratch instruction
-  given, and the student's rewrite is a new `STUDENT DRAFT` file.
+- **A Mode C draft was never treated as submit-ready**: the cost was said once, the draft labeled, the rewrite-from-scratch instruction given, and the student's rewrite is a new `STUDENT DRAFT` file. Nothing was polished for submission that the student had not substantially written.
+- **Every college fact in a draft or a prompt carried its source**, from `research/<college>.md` or the student's own words — no uncited feature, program, or campus detail.
 - **Nothing was invented** — no event, emotion, quote, or detail that is
   not in `profile.md` or `conversations.md`; thin material led to an
   interview, not to plausible fiction.
@@ -56,7 +55,4 @@ For a why-us supplement, the criteria that tend to be right:
 
 ## The angle, judged
 
-The rubric does not move; the angle may. A drift is *better* when the
-new angle still satisfies the criteria — update Living with the reason.
-A drift is *easier* when it quietly stopped answering the prompt — name
-it before anything else in the review.
+Judge against the loop's rule 2: was a drift named first, and was "better" shown by the criteria still being met rather than asserted?

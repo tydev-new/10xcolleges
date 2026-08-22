@@ -229,11 +229,20 @@ PROVENANCE = [
 
 
 def draft_provenance(text):
-    """Return (kind, label) from the draft's declared header, or (None, None)."""
-    head = "\n".join((text or "").splitlines()[:6]).upper()
-    for marker, kind, label in PROVENANCE:
-        if marker in head:
-            return kind, label
+    """Return (kind, label) from the draft's declared header, or (None, None).
+
+    The header is the FIRST non-empty line, and it must open with the marker as
+    the skill writes it: `> **MARKER`. A keyword anywhere in the opening lines is
+    not a declaration — a student draft that begins "For example, …" is not an
+    EXAMPLE, and an unlabeled draft is not labeled because a word matched."""
+    for line in (text or "").splitlines():
+        if not line.strip():
+            continue
+        head = line.strip().upper()
+        for marker, kind, label in PROVENANCE:
+            if head.startswith("> **" + marker) or head.startswith("**" + marker):
+                return kind, label
+        return None, None
     return None, None
 
 

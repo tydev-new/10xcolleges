@@ -32,8 +32,7 @@ assessed. Then say which you'd pick and why:
 
 An outline for the chosen angle — beats, not sentences.
 
-Show the brief and let them react before anything gets written. They'll often reject your
-favorite angle and be right about it.
+(Shown before anything is written — the sequence's rule.)
 
 ## The three draft modes
 
@@ -67,27 +66,16 @@ talking and let them write.
 **Mode B — sample first.**
 
 Write a short (150–250 word) passage on a **clearly different subject** — never their
-topic, or they'll absorb it wholesale. Head the file (this exact marker; the package checks for it):
-
-> **EXAMPLE — a different student, a different topic. Do not submit any part of this.
-> It's here to show what specificity looks like, not what to say.**
+topic, or they'll absorb it wholesale. Head the file with the verbatim `EXAMPLE` marker (`schema.md`; the package checks for it).
 
 Then annotate 3–4 moves it makes ("opens mid-action," "one concrete detail doing the work
 of a paragraph," "the turn happens in a five-word sentence"). Then have them write theirs.
 
 **Mode C — you draft first.**
 
-Build **only** from material in `profile.md` and `conversations.md`. Invent nothing — no
-events, no feelings, no quotes they didn't say. If the material is thin, stop and
-interview instead of filling gaps with plausible fiction. A drafted essay containing an
-event that never happened is a disaster for the student, not a stylistic problem.
+Build **only** from material in `profile.md` and `conversations.md` (the loop's rule 4). A drafted essay containing an event that never happened is a disaster for the student, not a stylistic problem.
 
-Head the file (this exact marker; the package checks for it):
-
-> **AGENT FIRST DRAFT — built from your intake and our conversations. This is scaffolding,
-> not your essay. Rewrite it in your own words before it goes anywhere near an
-> application. Check every fact: if I got something wrong or put words in your mouth, say
-> so and I'll cut it.**
+Head the file with the verbatim `AGENT FIRST DRAFT` marker (`schema.md`; the package checks for it).
 
 Then hand it back with a specific instruction: *rewrite this from scratch with the file
 closed, keeping only the parts you'd have written anyway.* That produces something usable.
@@ -127,11 +115,7 @@ five — a page of red ink stops being feedback and starts being discouragement.
 "You say you were relieved when you quit. Were you? That's a more interesting essay than
 the one about being sad."
 
-Never rewrite their sentences for them in a review. Point at the problem and let them
-solve it — that's the difference between coaching and ghostwriting, and it's the whole
-reason their essay will sound like a seventeen-year-old instead of a consultant.
-
-Expect 3–5 rounds. Say that up front so round two doesn't feel like failure.
+(Point, never fix — the loop's rule 3. The budget and the ceiling are the loop's.)
 
 ## What good actually looks like
 
@@ -143,10 +127,7 @@ Expect 3–5 rounds. Say that up front so round two doesn't feel like failure.
   Admissions officers read thousands; they know the difference instantly.
 - **The essay is not a résumé.** Anything already in the activities list is wasted space.
 - **Show the thinking, not just the event.** Readers are hiring a mind for four years.
-- **Beware the trauma essay.** A student is never obligated to sell their hardest
-  experience. If they want to write it, help them — but the essay must be about how they
-  think or who they became, not a catalogue of what happened. And check they actually want
-  to. Ask once, take the answer.
+- **Beware the trauma essay.** If they choose to write it (the brief sequence asks once), the essay must be about how they think or who they became, not a catalogue of what happened.
 
 ## Proposing a new pattern
 
