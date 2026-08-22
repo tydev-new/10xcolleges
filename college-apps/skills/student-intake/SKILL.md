@@ -1,146 +1,124 @@
 ---
 name: student-intake
-description: Build or update a student's profile from their school's post-secondary options packet, transcript, resume, or activity list, and by interviewing them about goals, what excites them, and what turns them off. Use when starting with a new student, when a counselor packet or PDF/DOCX needs processing, or when new activities, test scores, awards, or a changed major need to go into the profile.
+description: Use this skill when starting with a new student, when a school packet / transcript / resume / activities list / worksheet needs to go into the profile, or when something about the student changed (new scores, a new activity, a changed major). Builds profile.md (who they are) and criteria.md (what they want) in the student's own words, source-tagged, to the gate the college list needs.
 ---
 
 # Intake — learn the student
 
-Read `${CLAUDE_PLUGIN_ROOT}/docs/voice.md` and `${CLAUDE_PLUGIN_ROOT}/docs/data-model.md` first.
+## Goal
 
-Two jobs: get the paperwork into `profile.md`, and have a real conversation. The paperwork
-is quick. The conversation is where the value is — packets capture what a student *did*,
-never why any of it mattered to them, and the "why" is what the list and the essays run on.
+`profile.md` says who they are and `criteria.md` says what they want —
+**every line in their words, every line tagged with where it came from,
+every blank a `TODO:` and never a guess** — to the gate the list runs on.
+Scored by `references/eval.md`; shapes in `references/schema.md`.
 
-## Part 1 — the documents
+| Must be true | Where |
+|---|---|
+| The four gate items: a budget **and who set it** · unweighted GPA · a rough direction, with how sure · at least one row in each of Hard filters and Deal-breakers | `criteria.md`, `profile.md` |
+| Documents transcribed into the data-model sections, each line tagged | `profile.md` |
+| What they said, dated, verbatim — the raw material the essays run on | `conversations.md` |
+| A changed answer retires the old row with its reason — nothing overwritten | `criteria.md § Retired` |
+| What is still `TODO:` is said out loud, and what happens next | the reply |
 
-Ask what they have. Typically a school packet (like the Post-Secondary Options Packet),
-a transcript, a resume, an activities list, or a Common App export.
+## Prerequisites
 
-Read each file directly (PDFs and DOCX both work with the Read tool) and transcribe into
-`profile.md` under the sections in `${CLAUDE_PLUGIN_ROOT}/docs/data-model.md`. While transcribing:
+- **Required:** a student folder `students/<slug>/` from
+  `${CLAUDE_PLUGIN_ROOT}/templates/student/` — none → create it from the
+  template in the first reply, then proceed. Read
+  `${CLAUDE_PLUGIN_ROOT}/docs/data-model.md` (§ profile.md, § Provenance)
+  before the first write.
+- **Optional:** a packet, transcript, resume, activities list, Common App
+  export (PDF/DOCX read directly); a filled
+  `${CLAUDE_PLUGIN_ROOT}/templates/criteria-worksheet.md` or the school's
+  own form. Nothing in hand → the interview starts from question one,
+  which is fine and common.
 
-- **Preserve their words.** Reflection answers go in verbatim. Do not tidy the grammar,
-  do not upgrade "I fixed the robot a lot" into "iteratively refined the mechanism." That
-  sentence is essay material and it's only useful in their voice.
-- **Tag every line** with `[packet]`, `[transcript]`, etc.
-- **Mark gaps as `TODO:`**, never as a guess. A blank in the packet is information — it
-  usually means they didn't know what to say, which is worth asking about.
-- **Quantify activities** where the packet doesn't: hours per week, weeks per year, years
-  involved. Ask if unknown. Common App asks for exactly this and students always
-  underestimate.
+## Loops and sequences
 
-If a packet is blank or mostly blank, that's fine and common. Say so without judgment and
-fill it through conversation instead — that is often a better packet anyway.
+Documents arrive in any order and are a sequence; the interview is the
+loop; a change later is a sequence. Which one you are in is decided by
+what just arrived, not by asking.
 
-## Part 1b — offer the worksheet
+### Documents (a sequence)
 
-Some students talk easily. Others freeze at "so what are you looking for?" and do much
-better with something to fill in. Offer both:
+**Runs when** a file is in the folder or pasted. Read it whole;
+transcribe into `profile.md` under the data-model's sections; tag every
+line (`[packet]`, `[transcript]`, `[worksheet]`); reflection answers go
+in **verbatim** — "I fixed the robot a lot" is essay material only in
+their grammar; every blank is `TODO:` on its own line. Quantify
+activities (hrs/wk, wks/yr, years) where the packet doesn't — ask, don't
+estimate. **Exits** when `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_record.py
+students/<slug>` passes and the `TODO:`s are named in the reply.
 
-> We can do this two ways — talk it through, or I give you a worksheet to fill in first
-> and we start from your answers. The worksheet is about fifteen minutes and it's worth
-> doing with a parent, because the money questions go faster that way. Either's fine.
+### The interview (the loop)
 
-The worksheet is `${CLAUDE_PLUGIN_ROOT}/templates/criteria-worksheet.md` — copy it into
-the student's folder for them to fill in. If their school already gave them a
-questionnaire, form, or spreadsheet covering the same ground, read that instead. Never
-make someone answer the same question twice because it arrived in the wrong format.
+**Runs when** the student is talking — with or without documents.
 
-Either way the answers land in the same place: `criteria.md`.
+- **Standard:** the gate (four items, above) and the profile's open
+  `TODO:`s. **Budget:** as many turns as it takes; two or three questions
+  a turn, never a wall.
+- **Each round** (the questions and the order: `references/patterns.md
+  § The interview — getting there`): ask two or three → **write every
+  row the moment it surfaces** — a budget to Hard filters, "I don't want
+  to be cold" to Deal-breakers in those words, "near a city" to
+  Preferences as Nice — with its tag and date → append what they said to
+  `conversations.md` verbatim → say `gate N/4` and what's still open →
+  follow what was alive in their answer, not the next item on a list.
+- **Five things bind at their moment:**
+  1. **Their phrasing lands in the file before your reply**, not after
+     the session. "I don't want to be the least prepared person in the
+     room" is a criterion; your later "prefers a supportive environment"
+     is not. The round's rows are in `criteria.md` when the reply goes.
+  2. **A guess is not a number.** A budget the student guessed is a row
+     tagged as their guess, `set by: nobody yet`, and the money
+     conversation becomes the one homework. A GPA quoted without
+     "unweighted" is `TODO: unweighted GPA` until checked — students
+     quote the weighted one and land a tier off.
+  3. **A correction retires, never overwrites.** "No, I said I *don't*
+     want a city" moves the old row to `§ Retired` with the reason and
+     date and adds the new one. The trail is the most useful thing in
+     the file three months on.
+  4. **Never a college name.** Intake has no list; "what about Pomona?"
+     becomes a row (`[student <date>]`, why they named it) handed to
+     `college-list`.
+  5. **Context is asked once, gently, and "rather not" is the answer.**
+     A dip, a job, caring for siblings — note whether they want it
+     disclosed; the answer is theirs.
 
-## Part 2 — the interview
+**Exits** when the gate is `4/4` **and** you have reflected it back in
+four or five sentences in their language, asked what you got wrong, and
+taken the correction — then hand to `college-list`; or at **the
+ceiling** — two rounds with the gate unmoved: name the one thing
+blocking it (usually the money conversation), hand it over as homework
+with the Net Price Calculator, and stop asking.
 
-Not a form. A conversation, over as many turns as it takes. **Ask two or three questions
-at a time, never a wall of them.** Follow what they actually say — if a throwaway line
-about their job at the garden center is more alive than anything in their activities list,
-chase it.
+### Update (a sequence)
 
-**Write criteria down as they surface — during the conversation, not after.** Anything
-that would include or exclude a school goes straight into `criteria.md` as a row, tagged
-with the source and date: budget into Hard filters, "I don't want to be cold" into
-Deal-breakers in their own words, "I'd like to be near a city" into Preferences as Nice.
+**Runs when** something changed — scores, an activity, a major, a
+constraint. Add the line tagged and dated; retire what it replaces with
+the reason; rerun `check_record.py`. **Exits** with the change named
+and whether it moves the gate or the list.
 
-Do this in the moment, because the phrasing degrades fast. "I don't want to be the least
-prepared person in the room" is a usable criterion; your later paraphrase of it —
-"prefers a supportive academic environment" — is not.
+## State
 
-When something changes, move the old row to **Retired** with the reason rather than
-overwriting it. The trail of what stopped mattering, and why, is the most useful thing in
-the file three months later.
+Owned: `profile.md`, `criteria.md`, `conversations.md` (append-only),
+`meta.json` basics — shapes in `references/schema.md`. Read only:
+everything else in the folder.
 
-Open with something that isn't about college:
+**Hands back:** gate met → `college-list`; a named college →
+`college-list`; essay-worthy lines are already in `conversations.md`
+for `essay-coach` to find.
 
-> Before we talk about schools at all — what's a thing you did this year that you'd
-> happily do again tomorrow? Doesn't have to be impressive. Just something you liked.
+**Session close:** run `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_record.py
+students/<slug>`; FAILs fixed before the reply; WARNs defended in it. No
+checker-subagent — the words are the student's. Say what the folder now
+holds, `gate N/4`, what is `TODO:`, and the next step.
 
-### What you need by the end
+## Guardrails
 
-**Direction.** Intended major or field, and *how sure* they are. "Undecided" is a
-legitimate answer and changes the list toward schools with easy internal transfer and
-strong advising — say that out loud, it relieves a lot of anxiety. Ask what they'd study
-if grades and money were no object; the gap between that and their stated major is often
-the real story.
+- Nothing in the files that the student, a parent, a counselor, or a
+  document did not say — and the tag says which.
+- Never tidy their grammar; never fill a `TODO:` with a plausible value.
 
-**What excites them.** Push for the specific. "I like science" is not usable. What was the
-last thing that made them lose track of time? What do they read or watch that nobody
-assigned? What would they do on a Saturday with no obligations?
-
-**What turns them off.** The most under-asked question in this whole process, and it
-narrows a list faster than any preference. Big lectures? Greek life? Cold? Cities? Being
-the smartest person in the room? Being the least smart? A school where everyone is
-pre-professional? Ask directly, and record the answers verbatim — these become hard filters
-in `college-list`.
-
-**Constraints, asked plainly.**
-- *Money.* "Has your family talked about what they can spend per year?" If the answer is
-  no, that is the single most important homework you can assign. Suggest running one
-  school's Net Price Calculator together — it takes twenty minutes and reframes everything.
-  Note who set the number: a student guessing at their family's budget is not a budget.
-- *Distance.* How far from home is fine? What about a flight vs. a drive?
-- *Size.* Have they visited a big campus and a small one? If not, the preference isn't
-  real yet — record it as tentative.
-- Anything non-negotiable: religious, cultural, medical, athletic, family responsibilities.
-
-**The numbers.** GPA weighted and unweighted, rigor of schedule, test scores if any, and
-whether they intend to test. Get these right — the whole tiering depends on them. If they
-don't know their unweighted GPA, have them check; students routinely quote the weighted
-one and land a full tier off.
-
-**Context that doesn't show up anywhere.** Do they work? How many hours? Do they care for
-siblings? Did something happen in 10th grade that explains the dip? Ask gently, once, and
-respect a "rather not." Note whether they want it disclosed — the packet asks this too,
-and the answer is theirs alone.
-
-## Part 3 — reflect it back
-
-Before you finish, tell them what you heard, in four or five sentences, in their language.
-Something like:
-
-> So: you want engineering, but the part you actually light up about is fixing things
-> that are broken, not designing new ones — which is a real distinction and worth
-> remembering. You want out of your hometown but not out of the state. You'd rather be
-> around people who are into something than people who are impressive. And nobody's had
-> the money conversation yet, which we should fix before we build a list.
-
-Ask what you got wrong. They will correct you, and the correction is usually the most
-useful sentence of the session.
-
-## Write it down
-
-Update `profile.md`, append to `conversations.md` with today's date and their actual
-quotes, make sure `criteria.md` reflects everything they told you, and update `meta.json`
-basics. Then tell them what's still `TODO:` and what happens next.
-
-Read the criteria back to them before you finish — it's short, and it's the thing the
-whole list will be built from:
-
-> Here's what I've got as your hard filters: under $25k a year, has real mechanical
-> engineering, close enough to drive home. Deal-breakers: nowhere cold, and nowhere the
-> social life runs through Greek life. Preferences: smaller classes matters a lot to you,
-> near a city would be nice. Anything wrong or missing?
-
-They will correct something. That correction is worth more than anything you inferred.
-
-Hand off to `college-list` once direction, constraints, and numbers are known. You do not
-need every `TODO:` closed to start a list — you need the budget, the numbers, a rough
-direction, and a `criteria.md` with something in it.
+*Every reply ends with ONE contextual next step — a sentence with its
+why, not a menu.*

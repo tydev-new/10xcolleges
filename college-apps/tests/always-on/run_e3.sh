@@ -26,7 +26,7 @@ vault_lock()   { find "$REALWS" -type f -not -path '*/.damaged*' -exec chflags u
 [ -d "$REALWS" ] && { vault_lock; trap vault_unlock EXIT; trap 'vault_unlock; kill 0 2>/dev/null' INT TERM; }
 
 # ---- HOST 2: the suite's cases -----------------------------------------------
-ALL_CASES="e3-review-rounds"
+ALL_CASES="e3-review-rounds i1-intake-rounds"
 CASES="${CASES:-}"
 [ -z "$CASES" ] && { echo "usage: CASES=\"<case> ...\" $0 <tag>   (CASES=all for the suite: $ALL_CASES)" >&2; rmdir "$RESULTS" 2>/dev/null; exit 2; }
 [ "$CASES" = all ] && CASES="$ALL_CASES"
@@ -44,7 +44,7 @@ for case_name in $CASES; do
     for sk in $(cat "$CASE/skills.txt"); do cp -r "$REPO/skills/$sk" "$WS/.claude/skills/"; done
     [ -f "$WS/.claude/skills/essay-coach/SKILL.md" ] || { echo "PLANT FAILED: no SKILL.md in $WS/.claude/skills/essay-coach" >&2; exit 3; }
     # ---- HOST 3: the skills address ${CLAUDE_PLUGIN_ROOT}; plant docs/ scripts/ config/ there
-    mkdir -p "$WS/.claude/plugin-root"; cp -r "$REPO/docs" "$REPO/scripts" "$REPO/config" "$WS/.claude/plugin-root/"
+    mkdir -p "$WS/.claude/plugin-root"; cp -r "$REPO/docs" "$REPO/scripts" "$REPO/config" "$REPO/templates" "$WS/.claude/plugin-root/"
     export CLAUDE_PLUGIN_ROOT="$WS/.claude/plugin-root"
     echo "=== $case_name / trial $trial -> $WS"
     : > "$out.err"; : > "$out.transcript.md"
@@ -58,6 +58,7 @@ for case_name in $CASES; do
         ) > "$out.turn$turn.stream.json" 2>> "$out.err"
       REPLY="$(python3 "$ROOT/extract_text.py" "$out.turn$turn.stream.json")"
       printf '\n## Agent (turn %s)\n%s\n' "$turn" "$REPLY" >> "$out.transcript.md"
+      mkdir -p "$out-ws/after-turn$turn"; cp -r "$WS/students" "$out-ws/after-turn$turn/" 2>/dev/null
       [ "$turn" -eq "$N" ] && break
       SIMP="$(mktemp)"
       { cat "$CASE/persona.md"; echo; echo "=== CONVERSATION SO FAR ==="; cat "$out.transcript.md"

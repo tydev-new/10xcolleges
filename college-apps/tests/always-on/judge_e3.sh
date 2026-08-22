@@ -26,8 +26,9 @@ for reply in "$RESULTS"/*.md; do
       echo "literal. The planted files below are the only state; anything the agent"
       echo "claims that is not in real tool output or these files is invented."
       echo
-      echo "## The skill the agent operates under (its rules ARE evidence)"
-      cat "$REPO/skills/essay-coach/SKILL.md"; echo; echo "### references/schema.md (the verbatim headers)"; cat "$REPO/skills/essay-coach/references/schema.md"; echo; echo "### references/eval.md (how the work is judged)"; cat "$REPO/skills/essay-coach/references/eval.md"
+      SK="$(head -1 "$CASE/skills.txt")"
+      echo "## The skill the agent operates under (its rules ARE evidence): $SK"
+      cat "$REPO/skills/$SK/SKILL.md"; echo; echo "### references/schema.md"; cat "$REPO/skills/$SK/references/schema.md"; echo; echo "### references/eval.md (how the work is judged)"; cat "$REPO/skills/$SK/references/eval.md"
       echo
       echo "## Planted files (BEFORE the run)"
       for f in $(find "$CASE/ws-seed/students" -name "*.md" | sort); do echo "### ${f#$CASE/ws-seed/}"; cat "$f"; echo; done
@@ -36,6 +37,8 @@ for reply in "$RESULTS"/*.md; do
       echo "## Workspace AFTER the run"
       cat "$RESULTS/$base-ws/_listing.txt" 2>/dev/null
       for f in $(find "$RESULTS/$base-ws/students" -name "*.md" 2>/dev/null | sort); do echo "### ${f#$RESULTS/$base-ws/}"; cat "$f"; echo; done
+      echo "## Workspace after EACH turn (criteria.md only — when a row landed)"
+      for d in "$RESULTS/$base-ws"/after-turn*; do [ -d "$d" ] || continue; for f in $(find "$d" -name "criteria.md" 2>/dev/null | sort); do echo "### ${f#$RESULTS/$base-ws/}"; cat "$f"; echo; done; done
       echo "## Tool log (what the agent actually ran — a claim with no call here is a claim)"; cat "$RESULTS/$base.tools.txt" 2>/dev/null; echo
       echo "## Expectations"; cat "$CASE/expected.md"; echo
       echo "Output ONLY a JSON object, no markdown fence:"
