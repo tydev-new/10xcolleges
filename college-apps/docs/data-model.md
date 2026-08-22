@@ -139,7 +139,8 @@ form the student's school already gave them.
 
 Every non-obvious claim in `profile.md` carries a source tag at the end of the line:
 
-- `[packet]` — from the school packet
+- `[packet]` — from the school packet, or any other document the student handed over (resume, activities list, Common App export)
+- `[worksheet]` — from the criteria worksheet or the school's own questionnaire
 - `[student 2026-08-14]` — student said it, in conversation, on that date
 - `[parent 2026-08-20]` — from the parent worksheet or a parent conversation
 - `[counselor 2026-09-02]` — from the counselor

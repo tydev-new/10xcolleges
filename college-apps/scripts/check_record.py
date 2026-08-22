@@ -8,13 +8,15 @@ FAIL  a `TODO:` that carries a value (a number or a dollar amount)
 FAIL  conversations.md dated headers going backwards
 WARN  a GPA line that does not say unweighted (and no TODO for it)
 WARN  a budget row with no "set by"
+Always prints the gate: `gate N/4 — missing: …` (the reply repeats this line).
 Exit 1 on any FAIL, else 0. Prints one line per finding, `OK` when clean.
 """
 import os
 import re
 import sys
 
-TAG = re.compile(r"\[(packet|transcript|worksheet|student(?: \d{4}-\d{2}-\d{2})?|parent(?: \d{4}-\d{2}-\d{2})?|counselor(?: \d{4}-\d{2}-\d{2})?)\]")
+TAG = re.compile(r"\[(packet|transcript|worksheet|(?:student|parent|counselor) \d{4}-\d{2}-\d{2})\]")
+UNDATED = re.compile(r"\[(student|parent|counselor)\]")
 
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -68,14 +70,16 @@ def check(sd):
             body = s.lstrip("-* ").strip()
             if body.startswith("TODO:"):
                 rest = body[5:].strip()
-                if re.search(r"\$\s?\d|(?<![\w-])\d+(\.\d+)?(?![\w-])", re.sub(r"\d{4}-\d{2}-\d{2}", "", rest)):
+                if re.search(r"\$\s?\d|(?<![\w-])\d+(\.\d+)?(?![\w-])|\b(probably|maybe|likely|i think|guess)\b", re.sub(r"\d{4}-\d{2}-\d{2}", "", rest), re.I):
                     findings.append(("FAIL", f"{fname}:{n}: a TODO carrying a value — a blank is a TODO, never a guess: `{s[:80]}`"))
                 continue
             if re.match(r"^\*\*[^*]+:\*\*\s*$", body):  # a label with nothing after it
                 continue
             if "TODO:" in body:
                 continue
-            if not TAG.search(s):
+            if UNDATED.search(s) and not TAG.search(s):
+                findings.append(("FAIL", f"{fname}:{n}: a person's tag needs its date — [student YYYY-MM-DD]: `{s[:80]}`"))
+            elif not TAG.search(s):
                 findings.append(("FAIL", f"{fname}:{n}: no source tag on a content line — [packet] [transcript] [worksheet] [student YYYY-MM-DD] [parent …] [counselor …]: `{s[:80]}`"))
             if fname == "profile.md" and re.search(r"\bGPA\b", body, re.I) and not re.search(r"unweighted", body, re.I):
                 if not re.search(r"TODO:.*unweighted", text, re.I):
@@ -88,6 +92,51 @@ def check(sd):
         if dates != sorted(dates):
             findings.append(("FAIL", "conversations.md: dated headers go backwards — the log is append-only"))
     return findings
+
+
+def section(text, pattern):
+    """Lines under the first `## ` header whose title matches pattern."""
+    out, on = [], False
+    for line in text.splitlines():
+        if line.startswith("## "):
+            on = bool(re.search(pattern, line, re.I))
+            continue
+        if on:
+            out.append(line.strip())
+    return out
+
+
+def claim(lines, pattern):
+    """A tagged, non-TODO line matching pattern, with something after its label."""
+    for l in lines:
+        if "TODO:" in l or not TAG.search(l):
+            continue
+        if re.search(pattern, l, re.I) and re.sub(r"\*\*[^*]*\*\*|\[[^\]]*\]|[-*\s:]", "", l):
+            return True
+    return False
+
+
+def gate(sd):
+    """The four items the list needs; returns (n, missing)."""
+    prof = open(os.path.join(sd, "profile.md"), encoding="utf-8").read() if os.path.exists(os.path.join(sd, "profile.md")) else ""
+    crit = open(os.path.join(sd, "criteria.md"), encoding="utf-8").read() if os.path.exists(os.path.join(sd, "criteria.md")) else ""
+    missing = []
+    hard = [l for l in section(crit, r"hard filters") if l.startswith("|") and re.match(r"\|\s*H\d+\s*\|", l)]
+    money = [l for l in hard if re.search(r"budget|\$\s?\d|per year|/yr", l, re.I)]
+    if not any(re.search(r"set by:\s*(?!nobody)(?!.*guess)\S", l, re.I) and TAG.search(l) for l in money):
+        missing.append("budget with who set it (a guess is 0)")
+    basics = section(prof, r"basics")
+    if not (claim(basics, r"GPA.*unweighted|unweighted.*GPA") and re.search(r"unweighted[^\n]*\d\.\d", "\n".join(basics), re.I)):
+        missing.append("unweighted GPA")
+    elif not claim(basics, r"test scores|testing plan|\bSAT\b|\bACT\b|test-optional"):
+        missing.append("scores or the plan to test")
+    if not claim(section(prof, r"goals|direction|major"), r"."):
+        missing.append("a direction (\"undecided\" counts)")
+    deal = [l for l in section(crit, r"deal-breakers") if re.match(r"\|\s*D\d+\s*\|", l) and TAG.search(l)]
+    hard_ok = [l for l in hard if TAG.search(l)]
+    if not (hard_ok and deal):
+        missing.append("a Hard filter and a Deal-breaker row")
+    return 4 - len(missing), missing
 
 
 def main():
@@ -103,6 +152,8 @@ def main():
         print(f"{level} {msg}")
     if not findings:
         print("OK")
+    n, missing = gate(sd)
+    print(f"gate {n}/4" + (" — missing: " + "; ".join(missing) if missing else " — the list can start"))
     sys.exit(1 if any(l == "FAIL" for l, _ in findings) else 0)
 
 

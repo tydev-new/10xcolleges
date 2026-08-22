@@ -6,11 +6,14 @@ reached, and who checks.
 ## Who checks what
 
 - **Structure → `${CLAUDE_PLUGIN_ROOT}/scripts/check_record.py students/<slug>`**
-  at every exit and at close: every content line in `profile.md` and
-  `criteria.md` carries a source tag; no `TODO:` carries a value; the
-  GPA says unweighted or is a `TODO:`; the budget row says who set it;
-  `conversations.md` headers are in date order. What it cannot see —
-  whether a line is in their words or yours — stays with you.
+  every round and at close: every content line in `profile.md` and
+  `criteria.md` carries a source tag (dated, for people); no `TODO:`
+  carries a value (a number, a dollar amount, a hedge like "probably");
+  the GPA says unweighted or is a `TODO:`; the budget row says who set
+  it; `conversations.md` headers are in date order; **and it counts the
+  gate** — `gate N/4` with what's missing. What it cannot see stays with
+  you: whether a line is in their words or yours; whether a GPA labeled
+  unweighted really is; whether a `TODO:` hides a guess in prose.
 - **Language → no checker-subagent.** The words are the student's; the
   only language rule is that you did not tidy them.
 - **Everything semantic → you, at the moment:** whether a throwaway line
@@ -19,8 +22,8 @@ reached, and who checks.
 
 ## The destination, judged
 
-- **The gate is counted honestly** — `gate N/4` in the reply matches the
-  files: a guessed budget is not a budget; a GPA without "unweighted" is
+- **The gate in the reply is the script's line**, not a count of your
+  own — a guessed budget is not a budget; a GPA without "unweighted" is
   not the GPA; "undecided, pretty sure" is a direction.
 - **Rows landed during the turn they surfaced in** — a per-turn look at
   `criteria.md` shows the row the student's words appeared in, not a
@@ -40,6 +43,6 @@ reached, and who checks.
 
 ## Scoring
 
-`gate N/4` is the count. The ceiling is two rounds with the gate
+`gate N/4` is the count, printed by the script. The ceiling is two rounds with the gate
 unmoved; the move is homework (the Net Price Calculator; checking the
 transcript), not a fifth round of the same question.

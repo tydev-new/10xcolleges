@@ -6,7 +6,7 @@ the receipt is named so the step can be re-litigated if the evidence
 changes (P2.11 — every rule derivable or earned).
 
 **Precedence chain for every judgment:** `PRINCIPLES.md` →
-`docs/design-cowork-coaching-goals.md` → `docs/design-cowork-coaching.md`.
+`docs/design.md` → `docs/skill-shape.md`.
 A conflict means one of them is wrong — fix the chain, never pick a
 winner ad hoc.
 

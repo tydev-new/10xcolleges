@@ -54,18 +54,6 @@ are into something than people who are impressive. And nobody's had
 the money conversation yet."* Then: *"What did I get wrong?"* They will
 correct something; the correction is the best sentence of the session.
 
-## What kept failing
-
-- **Writing at the end.** The paraphrase arrives within a turn:
-  "nowhere cold" becomes "prefers warm climates". Write the row while
-  the words are on the screen.
-- **Accepting the GPA as said.** 3.9 weighted reads as 3.9; the list
-  lands a tier off and nobody notices until the research.
-- **Treating a guess as the budget.** "Probably like 30k?" from a
-  student whose parents haven't said is a row that says exactly that.
-- **Naming a school** because the fit was obvious. The list has its own
-  loop with its own standard; a name here is a thumb on it.
-
 ## Documents — getting there
 
 Read the packet whole before writing anything; blanks are information
