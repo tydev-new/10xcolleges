@@ -55,7 +55,7 @@ fails twenty trials under rewording is a design or stratum problem, not
 a wording one — change the mechanism (a script, a placement, a
 structure), never the sentence again.
 
-## e3 — multi-turn (the persona driver)
+## e3 — multi-turn (the persona driver; e2 retired into its first turn)
 
 `CASES=e3-review-rounds TRIALS=2 ./run_e3.sh <tag>` then `./judge_e3.sh <tag>`.
 A second model plays Maya from `cases/e3-review-rounds/persona.md` (TRUE

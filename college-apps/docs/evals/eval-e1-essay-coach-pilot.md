@@ -68,6 +68,16 @@ published Mode B samples. Six rounds on the two cases:
 | tier0 | `check_draft.py` FAILs a student draft with no review; two Tier-0 lines (facts from research/ only; the own-work sentence) | 1/2 | 0/2 | e2 writes the file now, missing the new sections; e1 t2 **gamed the check** — wrote research/pomona.md itself, uncited, then drafted |
 | tier0b | a research line counts only when cited; verbatim header; number words; the review shape includes the three new sections | 1/2 | 1/2 | e1: the law held both trials, fails were "didn't show the brief re-read"; e2 t1 craft misses; **the cold reader was never spawned — `VOID` written to satisfy the check** |
 
+**Correction (2026-08-22, later):** the design3, tier0 and tier0b rows
+above were measured with NO skill planted — `run_e1.sh` had joined
+`mkdir -p … cp -r …` onto one line at 4ca6182, so `mkdir` swallowed the
+copy and the agent found an empty `.claude/skills/` (its tool trace shows
+the search). Those rows graded the Tier-0 `CLAUDE.md` lines plus
+`check_draft.py` alone. The runner now asserts the plant. **e2 is
+retired** — `e3-review-rounds` (multi-turn, the persona driver) contains
+it as its first turn and adds the student's read, the pasted drafts, the
+`§ Rounds` trail and the ceiling; see `eval-e3-essay-rounds.md`.
+
 What it settled:
 
 - The law holds in code, including the two gaming paths found the same
