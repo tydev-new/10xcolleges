@@ -10,8 +10,10 @@ tell it got there, and who checks what.
   `criteria.md` carries a source tag (dated, for people); no `TODO:`
   carries a value (a number, a dollar amount, a hedge like "probably");
   the GPA says unweighted or is a `TODO:`; the budget row says who set
-  it; `conversations.md` headers are in date order; **and it counts the
-  gate** — `gate N/4` with what's missing. What it cannot see stays with
+  it; `conversations.md` headers are in date order; **and it counts
+  both gates** — `material N/3` (the essay's) and `gate N/4` (the
+  list's), each with what's missing; and WARNs when `conversations.md`
+  has no dated entry at all. What it cannot see stays with
   you: whether a line is in their words or yours; whether a GPA labeled
   unweighted really is; whether a `TODO:` hides a guess in prose.
 - **Language → no checker-subagent.** The words are the student's; the
@@ -22,9 +24,13 @@ tell it got there, and who checks what.
 
 ## The destination, judged
 
-- **The gate in the reply is the script's line**, not a count of your
-  own — a guessed budget is not a budget; a GPA without "unweighted" is
-  not the GPA; "undecided, pretty sure" is a direction.
+- **The gate in the reply is the script's line for what comes next**,
+  not a count of your own — a guessed budget is not a budget; a GPA
+  without "unweighted" is not the GPA; "undecided, pretty sure" is a
+  direction; a quote paraphrased is not a quote.
+- **Nothing was asked for that what-comes-next doesn't need** — with
+  the essay next, no budget or test-score questions unless the student
+  raised them.
 - **Rows were written in the turn they came up** — a turn-by-turn look
   at `criteria.md` shows each row appearing in the turn the student said
   it, not all at the end; and the row is their phrasing, not a

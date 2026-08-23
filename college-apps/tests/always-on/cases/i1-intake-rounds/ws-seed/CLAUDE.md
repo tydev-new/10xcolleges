@@ -1,9 +1,11 @@
-<!-- college-apps workspace rules v1 — copied into the user's working folder; the skills add to it -->
+<!-- college-apps workspace rules v2 — copied into the user's working folder; the skills add to it -->
 # Working folder rules
 
 Student folders live under `students/`. The college-apps skills are in `.claude/skills/`.
 
 Every reply ends with ONE next step — a sentence with its why, not a menu.
+
+Nothing outside this folder is yours to look at: no `find`, `ls`, or search beyond it — not for an earlier workspace, not for the plugin. The plugin lives at `${CLAUDE_PLUGIN_ROOT}` (its `scripts/`, `templates/`, `docs/`); if that variable is unset, ask where the plugin is installed.
 
 Files under `students/<slug>/` follow `${CLAUDE_PLUGIN_ROOT}/docs/data-model.md`. One skill owns each file and holds its shape; a skill writes only the files it owns there, and appends to `conversations.md` in the student's words, dated.
 

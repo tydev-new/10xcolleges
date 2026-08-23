@@ -27,7 +27,7 @@ per message.
 - Test scores: none yet; you might take the SAT in October.
 
 ## BEHAVIOR SCRIPT — beats by message number
-- **Message 2:** answer whatever was asked, and in passing mention the
+- **Message 2:** answer whatever was asked. If asked what you'd do again, say "the exchange trip to sydney, being somewhere nobody knew me". In passing mention the
   garden center job ("oh and I work at a garden center on weekends,
   that's not in the packet, it's just a job") and say the cold line
   verbatim: "I don't want to be somewhere cold, I'm so done with grey."

@@ -19,6 +19,21 @@ class CheckRecord(unittest.TestCase):
     def test_clean_record_passes_and_gate_is_full(self):
         code, out = run(ws()); self.assertEqual(code, 0, out); self.assertIn("OK", out); self.assertIn("gate 4/4", out)
 
+    def test_material_gate_counts_the_essay_needs(self):
+        sd = ws()
+        code, out = run(sd); self.assertIn("material 1/3", out)  # direction only
+        (sd / "documents").mkdir(); (sd / "documents" / "packet.md").write_text("x")
+        (sd / "profile.md").write_text(PROFILE + "## School activities\n| Group | Grades | Hrs/wk | Role | What actually happened |\n|---|---|---|---|---|\n| Robotics | 10-12 | 8 | drivetrain lead | rebuilt the drivetrain four times last season [student 2026-08-22] |\n")
+        code, out = run(sd); self.assertEqual(code, 0, out); self.assertIn("material 3/3", out); self.assertIn("the essay can start", out)
+
+    def test_empty_conversations_warns_not_gates(self):
+        sd = ws(conv="# Conversations\n")
+        code, out = run(sd); self.assertEqual(code, 0); self.assertIn("WARN conversations.md: no dated entry", out)
+
+    def test_documents_none_counts(self):
+        sd = ws(profile=PROFILE + "- documents: none [student 2026-08-22]\n")
+        code, out = run(sd); self.assertNotIn("documents read", out)
+
     def test_guessed_budget_counts_zero(self):
         code, out = run(ws(criteria=CRITERIA.replace("$25k/yr · set by: parent", "\"probably like 30k?\" · set by: nobody yet (student's guess)")))
         self.assertEqual(code, 0, out); self.assertIn("gate 3/4", out); self.assertIn("budget", out)

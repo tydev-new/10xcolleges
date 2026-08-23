@@ -8,7 +8,8 @@ FAIL  a `TODO:` that carries a value (a number or a dollar amount)
 FAIL  conversations.md dated headers going backwards
 WARN  a GPA line that does not say unweighted (and no TODO for it)
 WARN  a budget row with no "set by"
-Always prints the gate: `gate N/4 — missing: …` (the reply repeats this line).
+Always prints both gates: `material N/3` (the essay's) and `gate N/4` (the list's),
+each with what is missing; the reply repeats the line for what comes next.
 Exit 1 on any FAIL, else 0. Prints one line per finding, `OK` when clean.
 """
 import os
@@ -88,9 +89,12 @@ def check(sd):
                 findings.append(("WARN", f"{fname}:{n}: a money row with no 'set by' — who set the number is the number: `{s[:80]}`"))
     cp = os.path.join(sd, "conversations.md")
     if os.path.exists(cp):
-        dates = re.findall(r"^##\s*(\d{4}-\d{2}-\d{2})", open(cp, encoding="utf-8").read(), re.M)
+        ctext = open(cp, encoding="utf-8").read()
+        dates = re.findall(r"^##\s*(\d{4}-\d{2}-\d{2})", ctext, re.M)
         if dates != sorted(dates):
             findings.append(("FAIL", "conversations.md: dated headers go backwards — the log is append-only"))
+        if not dates:
+            findings.append(("WARN", "conversations.md: no dated entry yet — the conversation is recorded as it happens, word for word"))
     return findings
 
 
@@ -139,6 +143,27 @@ def gate(sd):
     return 4 - len(missing), missing
 
 
+def material(sd):
+    """The essay gate: what essay-coach runs on; returns (n, missing)."""
+    prof = open(os.path.join(sd, "profile.md"), encoding="utf-8").read() if os.path.exists(os.path.join(sd, "profile.md")) else ""
+    conv = open(os.path.join(sd, "conversations.md"), encoding="utf-8").read() if os.path.exists(os.path.join(sd, "conversations.md")) else ""
+    missing = []
+    docs = os.path.join(sd, "documents")
+    have_docs = os.path.isdir(docs) and any(not f.startswith(".") for f in os.listdir(docs))
+    if not (have_docs or re.search(r"documents:\s*none", prof, re.I)):
+        missing.append("documents read, or `documents: none` recorded")
+    acts = section(prof, r"activities|work experience")
+    rows = [l for l in acts if l.startswith("|") and not re.fullmatch(r"\|(\s*:?-+:?\s*\|)+", l) and TAG.search(l)]
+    def ok(row):
+        cells = [c.strip() for c in row.strip("|").split("|")]
+        return any(re.search(r"\d", c) for c in cells[1:4]) and len(cells) >= 5 and len(re.sub(r"\[[^\]]*\]", "", cells[-1]).strip()) > 15
+    if not any(ok(r) for r in rows):
+        missing.append("one activity with hours and what actually happened")
+    if not claim(section(prof, r"goals|direction|major"), r"."):
+        missing.append("the major they are applying for, and how sure (\"undecided\" counts)")
+    return 3 - len(missing), missing
+
+
 def main():
     if len(sys.argv) != 2:
         print(__doc__)
@@ -152,6 +177,8 @@ def main():
         print(f"{level} {msg}")
     if not findings:
         print("OK")
+    m, mm = material(sd)
+    print(f"material {m}/3" + (" — missing: " + "; ".join(mm) if mm else " — the essay can start"))
     n, missing = gate(sd)
     print(f"gate {n}/4" + (" — missing: " + "; ".join(missing) if missing else " — the list can start"))
     sys.exit(1 if any(l == "FAIL" for l, _ in findings) else 0)
