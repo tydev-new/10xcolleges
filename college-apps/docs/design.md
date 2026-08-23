@@ -1,12 +1,12 @@
 # Design
 
-How this system is put together and why. For the *data* rules — what each file is and
-what may change it — see `data-model.md`, which is the binding contract.
+How this system is put together and why. The *data* rules — what each file is and what
+may change it — are in `data-model.md`, the binding contract.
 
-This document deliberately does **not** restate what individual skills do. The skills are
-the specification; they're what the model reads at runtime. Anything duplicated here would
-drift the first time a skill changed. What lives here is what no single skill can say:
-structure, cross-cutting invariants, and the reasoning behind decisions that look
+This document does **not** restate what individual skills do. The skills are the
+specification; they are what the model reads at runtime. Anything copied here would drift
+the first time a skill changed. What lives here is what no single skill can say:
+structure, rules that cut across skills, and the reasoning behind decisions that look
 arbitrary later.
 
 ---
@@ -14,14 +14,14 @@ arbitrary later.
 ## Principles
 
 The promises are in `PRINCIPLES.md` — nine to the student and family, plus the core every
-skill is built to. They are the top of the precedence chain (`PRINCIPLES.md` →
-`design.md` → `skill-shape.md`); nothing here restates them. Two design stances that
-follow from them and are easy to lose:
+skill is built to. They top the precedence chain (`PRINCIPLES.md` → `design.md` →
+`skill-shape.md`). Nothing here restates them. Two stances follow from them and are easy
+to lose:
 
 - **Facts that drift live in config; rules that compute live in code.** FAFSA's opening
   date is a fact and belongs in `config/calendar.json`. "A January deadline belongs to
   the aid year that opened the previous October" is a rule and belongs in Python, under
-  test. A rule in prose gets re-derived on every run, and re-derived date arithmetic is
+  test. A rule in prose is re-derived on every run, and re-derived date arithmetic is
   how a nine-month error hides in plain sight.
 - **Degrade, don't fail.** Rate limit hit → work from Common Data Sets. No API key → the
   shared demo key. No Chrome → print to PDF by hand. The only hard stops are where
@@ -74,18 +74,18 @@ follow from them and are easy to lose:
    └────────────────────────────────┘          └──────────────────────────┘
 ```
 
-**The split that matters:** skills exercise judgment, scripts do not. Anything requiring a
-decision about a student lives in a skill. Anything deterministic — date arithmetic,
-spreadsheet layout, HTML generation, API pagination — lives in a script and is testable.
-Where they meet, the model extracts (it's good at that) and the script formats (it's
-reliable at that). `packet.json` → `fill_packet.py` is the clearest instance.
+**The split that matters:** skills exercise judgment, scripts do not. Any decision about
+a student lives in a skill. Anything deterministic — date arithmetic, spreadsheet layout,
+HTML generation, API pagination — lives in a script and is testable. Where they meet, the
+model extracts (it is good at that) and the script formats (it is reliable at that).
+`packet.json` → `fill_packet.py` is the clearest example.
 
 ---
 
 ## The arc
 
-Stages 1–3 are mostly sequential; 4–7 run in parallel and repeat. Skipping ahead produces
-worse work — an essay written before the research is generic, a list built before the
+Stages 1–3 are mostly in order; 4–7 run in parallel and repeat. Skipping ahead produces
+worse work: an essay written before the research is generic, and a list built before the
 interview is a rankings printout.
 
 ```
@@ -124,42 +124,43 @@ interview is a rankings printout.
 ```
 
 Feedback loops are the point, not an exception. A counselor's read in September changes
-the list; the same read in December changes nothing. The package is built to be sent early
-and repeatedly.
+the list; the same read in December changes nothing. So the package is built to be sent
+early and often.
 
 ---
 
 ## First release — intake and the essay loop
 
-Students get value from two skills before anything else exists: `student-intake`
-(who they are and what they want, source-tagged) and `essay-coach` (one essay at a
-time, to a standard the college set). Everything else in the arc — the list, research,
-the tracker, recs, the package, the aid plan — builds on those two files and those two
-habits. Both are built to the shape in `skill-shape.md`, independently reviewed, and
-measured with a simulated student (`tests/always-on/`, receipts in
+Two skills give students value before anything else exists: `student-intake` (who they
+are and what they want, each line tagged with its source) and `essay-coach` (one essay
+at a time, to a standard the college set). Everything else in the arc — the list,
+research, the tracker, recs, the package, the aid plan — builds on those two files and
+those two habits. Both are built to the shape in `skill-shape.md`, independently
+reviewed, and measured with a simulated student (`tests/always-on/`, receipts in
 `docs/evals/eval-first-wave-2026-08-22.md`). Intake also owns Setup — where the files
-live — since it is the front door; `college-app` routes to it. The rest follow in the
+live — because it is the front door; `college-app` routes to it. The rest follow in the
 order their laws suggest, each through the same process before it is called ready.
 
 ## The iteration loops
 
-Three loops iterate against a written standard; everything else in the arc runs once to
-an exit or a gate. The loops share one shape — **an explicit written standard, owned by
-the student or set by the college, re-read in full before every pass; an append-only or
-immutable record of each round; a score that is a count; a ceiling that hands the decision
-back to the student instead of bending the standard.**
+A loop repeats rounds against a written standard. Three loops do this; everything else in
+the arc runs once to an exit or a gate. The loops share one shape: **a written standard,
+owned by the student or set by the college, re-read in full before every pass; a record
+of each round that is append-only or never edited; a score that is a count; and a
+ceiling — the sign the loop is stuck — that hands the decision to the student instead of
+bending the standard.**
 
 ### The essay loop
 
-One loop per essay. A student works several essays for several schools in parallel —
-each is its own folder, its own brief, its own draft/review sequence, and the loop
-tracks exactly one. Nothing crosses folders except the student's record
-(`profile.md`, `conversations.md`) and the college's research file.
+One loop per essay. A student works several essays for several schools at once. Each has
+its own folder, brief, and draft/review sequence, and the loop tracks exactly one.
+Nothing crosses folders except the student's record (`profile.md`, `conversations.md`)
+and the college's research file.
 
-**Prerequisites, before the loop opens:** the prompt, verbatim, and the target — a named
-college, or the Common App personal statement (`essays/common-app--<prompt-slug>/`).
-No prompt, no brief. No target, no rubric: the rubric is derived from what *that*
-reader wants, and "a college essay in general" has no reader.
+**Prerequisites, before the loop opens:** the prompt, word for word, and the target — a
+named college, or the Common App personal statement
+(`essays/common-app--<prompt-slug>/`). No prompt, no brief. No target, no rubric: the
+rubric comes from what *that* reader wants, and "a college essay in general" has none.
 
 ```
    prompt + target ──▶ brief.md ┬─ FIXED   prompt, restated · rubric (each criterion with
@@ -190,38 +191,38 @@ reader wants, and "a college essay in general" has no reader.
 ```
 
 **The rubric has sources, like every other fact.** Most colleges publish no scoring rubric
-for an essay; what exists is used verbatim and cited, and the rest is derived and says so:
+for an essay. What exists is used word for word and cited; the rest is derived, and says
+so:
 
 | Tier | Source | Example |
 |---|---|---|
-| 1 | the college's own guidance for the prompt — "what we're looking for", verbatim, with URL and date | the UC Personal Insight Questions' per-question guidance; MIT's and the Common App's prompt notes |
+| 1 | the college's own guidance for the prompt — "what we're looking for", word for word, with URL and date | the UC Personal Insight Questions' per-question guidance; MIT's and the Common App's prompt notes |
 | 2 | the Common Data Set § C7 — how much the essay weighs at that school | "Application Essay: Very Important" (CDS 2024-25) |
 | 3 | reader-training material that became public | the reader guidelines surfaced in the Harvard SFFA case |
 | 4 | derived — our reading of what a strong answer to this prompt does | the why-us table in `essay-coach/references/eval.md` |
 
-`college-research` fetches tiers 1–2 into the dossier so the brief can cite them; a
+`college-research` fetches tiers 1–2 into the dossier so the brief can cite them. A
 criterion with no tier above 4 is legitimate, and labeled.
 
 **The student is in the loop, not at the end of it.** They choose the angle (and often
-overrule ours, rightly); they choose the mode; they score their own draft against the
-rubric *before* seeing the review when they are present to — the gap between their read
-and ours is the coaching, not the fixes — and the review is written either way, with
-their read marked pending if they haven't given it (the loop never blocks on the
-student); they decide which "one big thing" to act on; their answer to the review's
-question is new material, appended in their words. A draft's author is declared on its
-first line and the package refuses to build without it — that is the student's
-ownership made mechanical.
+overrule ours, rightly). They choose the mode. When present, they score their own draft
+against the rubric *before* seeing the review — the gap between their read and ours is
+the coaching, not the fixes. The review is written either way, with their read marked
+pending if they haven't given it; the loop never blocks on the student. They decide which
+"one big thing" to act on. Their answer to the review's question is new material,
+appended in their words. A draft says who wrote it on its first line, and the package
+refuses to build without that line — the student's ownership made mechanical.
 
 **Feedback comes from three places, ranked.** A teacher's or counselor's reaction in
-`feedback.md` outranks the coach's review. An independent **cold reader** — a subagent
-reading the draft the way an admissions reader does, in two minutes, without the brief —
-returns three lines (the impression, what it remembers, the one question it is left with)
-and catches what a rubric cannot: an essay that meets every criterion and is forgettable.
-The coach's review is the third tier and the only one that scores.
+`feedback.md` outranks the coach's review. Next is an independent **cold reader**: a
+subagent that reads the draft as an admissions reader does, in two minutes, without the
+brief. It returns three lines (the impression, what it remembers, the one question it is
+left with) and catches what a rubric cannot: an essay that meets every criterion and is
+forgettable. The coach's review is the third tier and the only one that scores.
 
 **Mode B samples are real, published essays, cited** — the *Essays That Worked*
 collections (Johns Hopkins, Hamilton, Connecticut College) — never ones the agent writes.
-"A different student, a different topic" is then literally true, nothing is invented, and
+"A different student, a different topic" is then literally true, nothing is made up, and
 the EXAMPLE header carries its URL.
 
 **The frameworks the hints draw on** are named in `essay-coach/references/patterns.md`
@@ -231,31 +232,31 @@ model of prompt-specific criteria.
 
 **What code holds** — `check_draft.py`: the author header, and every name, number, and
 quoted phrase in an agent draft present in the student's record or a research file. What
-code cannot see — an invented feeling, a sensory detail — stays with the coach, which is
-why the draft is a file *before* it is shown: a draft that exists only in a reply is
-ready-to-paste by construction and nothing can check it. Measured (e1, 2026-08-22): four
-prose rules held the law 2/2, then more rules under deadline pressure broke it 0/2 and
-0/3; the file-first rule and the script held it 3/3.
+code cannot see — a made-up feeling, a sensory detail — stays with the coach. That is why
+the draft is a file *before* it is shown: a draft that exists only in a reply is
+ready-to-paste by construction, and nothing can check it. Measured (e1, 2026-08-22): four
+prose rules held the law 2/2; more rules under deadline pressure broke it 0/2 and 0/3;
+the file-first rule and the script held it 3/3.
 
 ### The list loop
 
-`criteria.md` — hard filters, deal-breakers in the student's words, weighted preferences,
-the family's ceiling, a Retired table that keeps every dropped row with its reason — is
-re-read in full before every list operation; `colleges.md` names, per school, which
-criteria it meets and misses, dated. A safety is all three: numbers above the range,
-admission near-certain, affordable without a scholarship not yet won. Two rebalances that
-move nothing → the criteria conflict goes to the student as a decision (a $25k ceiling
-and a $40k one are never averaged). Where the two standards differ: an essay rubric is
-external and fixed — the college wrote the prompt; list criteria are the student's own and
-genuinely mutable — so `criteria.md` is fully living with an audit trail while `brief.md`
-is only half living.
+`criteria.md` holds the hard filters, the deal-breakers in the student's words, the
+weighted preferences, the family's ceiling (the most they will pay), and a Retired table
+that keeps every dropped row with its reason. It is re-read in full before every list
+operation. `colleges.md` names, per school, which criteria it meets and misses, dated. A
+safety is all three: numbers above the range, admission near-certain, affordable without
+a scholarship not yet won. Two rebalances that move nothing → the criteria conflict goes
+to the student as a decision (a $25k ceiling and a $40k one are never averaged). The two
+standards differ in one way: an essay rubric is external and fixed — the college wrote
+the prompt — while list criteria are the student's own and really do change. So
+`criteria.md` is fully living with an audit trail, and `brief.md` is only half living.
 
 ### The aid loop *(not built; promise 5)*
 
 The family's ceiling against each school's net price from its own calculator, the aid
 calendar on the tracker, outside scholarships found and dated, merit never counted before
-it is in writing. Its record is `aid.md`; its ceiling is two revisions with the same gap
-between the ceiling and the cheapest school → the family's decision.
+it is in writing. Its record is `aid.md`. Its ceiling: two revisions with the same gap
+between the family's ceiling and the cheapest school → the family's decision.
 
 ---
 
@@ -277,21 +278,21 @@ between the ceiling and the cheapest school → the family's decision.
   campus texture         ◀────  reviews/forums — labeled impression, never fact
 ```
 
-Precedence when sources disagree is in `citations.md`. Summary: CDS wins on admissions
-counts, the college's own page wins on deadlines, Scorecard wins on cross-school
-comparability. Never average two sources.
+Precedence when sources disagree is in `citations.md`. In short: CDS wins on admissions
+counts, the college's own page on deadlines, Scorecard on comparing schools. Never
+average two sources.
 
 ---
 
 ## Enforcement: what's guaranteed vs. what's asked for
 
-Being honest about this is more useful than pretending everything is guaranteed. Each
-skill's `references/eval.md § Who checks what` says which of its rules are code and which
-are judgment; this is the cross-skill view.
+Honesty here beats pretending everything is guaranteed. Each skill's
+`references/eval.md § Who checks what` says which of its rules are code and which are
+judgment. This is the cross-skill view.
 
 | Invariant | How | Where |
 |---|---|---|
-| Every essay draft declares its author on line one | **Code** — build refuses; the checker FAILs | `build_package.py`, `check_draft.py` |
+| Every essay draft says who wrote it on line one | **Code** — build refuses; the checker FAILs | `build_package.py`, `check_draft.py` |
 | An agent draft names nothing not in the student's record or a cited research line | **Code** | `check_draft.py` |
 | A student draft has a review beside it, and the review has its Rounds row | **Code** | `check_draft.py` |
 | Every profile/criteria line carries a source tag; no `TODO:` carries a value | **Code** | `check_record.py` |
@@ -305,16 +306,17 @@ are judgment; this is the cross-skill view.
 | The coach's score never moves to match the student's read | *Measured conduct* | essay-coach loop; e3/e4 |
 | Nothing outside the chosen folder is read during setup | *Measured conduct* — the judge reads the tool log | student-intake Setup; i2 |
 | No college named or evaluated during intake | *Measured conduct* | student-intake; i1 |
-| Never invent a fact about a college or student (the part code can't see) | *Discipline* | every skill, Tier 0 |
+| Never make up a fact about a college or student (the part code can't see) | *Discipline* | every skill, Tier 0 |
 | Citations carry source + vintage | *Discipline* | `citations.md` |
 | Append-only files are never rewritten | *Discipline* | `data-model.md` |
 | No numeric fit or admission scores | *Discipline* | `voice.md` |
 
-*Measured conduct* means a rule in a skill, bound to the step where it applies, held
+*Measured conduct* means a rule in a skill, bound to the step where it applies, that held
 across multiple harness trials (`docs/evals/`). *Discipline* rows are where the real risk
-sits: stated in the skill that would violate them, at the point of violation, with the
-reason. Anything on that list that later becomes checkable moves up to Code — that is how
-the gate count and the draft checks got there.
+sits: each is stated in the skill that would violate it, at the point of violation, with
+the reason. Anything there that later becomes checkable moves up to Code — that is how
+the gate count and the draft checks got there. (Tier 0 is the workspace `CLAUDE.md`,
+loaded before any skill fires.)
 
 ---
 
@@ -322,9 +324,9 @@ the gate count and the draft checks got there.
 
 **One data format (JSON), everywhere.** `tomllib` is read-only in the standard library and
 `meta.json` is rewritten constantly, so TOML would have meant a dependency or two formats.
-Rationale that would have been a TOML comment goes in `_note` fields instead — which is
-strictly better, since a comment is invisible to the parser while a `_note` can be read
-and surfaced at runtime.
+Reasoning that would have been a TOML comment goes in `_note` fields instead — strictly
+better, since a comment is invisible to the parser while a `_note` can be read and
+surfaced at runtime.
 
 **Student data never enters the plugin directory.** `students/` is created in the user's
 working directory; the plugin holds only read-only resources; the Scorecard cache lives
@@ -333,14 +335,14 @@ files change beneath it. It also keeps a hard line visible: this system holds mi
 academic records and family finances, and none of it goes anywhere it isn't needed.
 
 **Probe explicit years instead of Scorecard's `latest` alias.** `latest` hides which year a
-number is from, making honest citation impossible. Depth is per-metric because debt and
+number is from, so honest citation is impossible. Depth is per-metric because debt and
 earnings lag far behind admit rates, and because every extra year costs ~28 query fields
 against an ~8KB URL ceiling.
 
 **Compress a late start rather than reporting it overdue.** The first version generated
 fifteen already-late tasks for a student starting in September. A wall of red is
-discouraging and tells them nothing; the same sequence squeezed into the runway that
-remains tells them what to do first.
+discouraging and tells them nothing; the same tasks squeezed into the runway that remains
+tell them what to do first.
 
 ---
 
