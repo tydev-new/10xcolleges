@@ -108,9 +108,11 @@ named and whether it moves the gate or the list.
 
 ## State
 
-Owns `profile.md`, `criteria.md`, `conversations.md` (add at the end only) —
-shapes in `references/schema.md`. Reads everything else in the folder
-(`meta.json` belongs to `college-app`).
+Owns `profile.md`, `criteria.md`, `conversations.md` (add at the end
+only) — shapes in `references/schema.md`. Reads everything else in the
+folder; the shape of a file it doesn't own is the owner's, found through
+`${CLAUDE_PLUGIN_ROOT}/docs/data-model.md § Every file` (`meta.json`
+belongs to `college-app`).
 
 **Passes to:** gate met → `college-list`; a named college →
 `college-list`; essay-worthy lines are already in `conversations.md`

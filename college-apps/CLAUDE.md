@@ -20,7 +20,7 @@ skills/             8 skills — college-app is the orchestrator, 7 specialists
 docs/               voice · citations · data-model (contract) · design (why)
 config/             calendar.json — dates and offsets, editable without touching code
 scripts/            deterministic generators (Scorecard, xlsx, docx, HTML package)
-tests/              date-logic and citation-integrity tests (stdlib unittest)
+tests/              date-logic, citation, checker, and data-model registry tests (stdlib unittest)
 students/<slug>/    created in the USER's working directory, never in the plugin
 templates/student/  scaffold for a new student
 ```

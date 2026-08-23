@@ -49,26 +49,35 @@ that wasn't, or as fixed when it moved. Every file belongs to exactly one class.
 
 ## Every file
 
-| Path | Class | Written by | Changes when |
-|---|---|---|---|
-| `profile.md` | Living | student-intake | New information about the student |
-| `criteria.md` | Living (Retired table) | student-intake, college-list | The student's wants change |
-| `colleges.md` | Living | college-list | Schools added, cut, or re-tiered |
-| `conversations.md` | **Append-only** | every skill | After any substantive exchange |
-| `feedback.md` | **Append-only** | counselor-package, college-app | Parent or counselor input arrives |
-| `research/<college>.md` | Living | college-research | Re-researched, or a source updates |
-| `essays/<e>/brief.md` | **Split** — see below | essay-coach | Depends on which half |
-| `essays/<e>/draft-NN.md` | **Immutable** | essay-coach / student | Never. Write `draft-NN+1.md` |
-| `essays/<e>/review-NN.md` | **Immutable** | essay-coach | Never. Write `review-NN+1.md` |
-| `recs/brag-sheet--<t>.md` | Living | rec-request | Before sending to that teacher |
-| `recs/request--<t>.md` | Living | rec-request | Before the student sends it |
-| `counselor-questions.md` | Living | counselor-package | Before each package send |
-| `meta.json` | **Index** | college-app (owner) | Immediately after `colleges.md` changes |
-| `packet.json` | **Index** | counselor-package | Before regenerating the .docx |
-| `out/tracker.xlsx` | **Derived** | `make_tracker.py` | Regenerate; never edit |
-| `out/package.html` | **Derived** | `build_package.py` | Regenerate; never edit |
-| `out/package.pdf` | **Derived** | `build_package.py` | Regenerate; never edit |
-| `out/packet.docx` | **Derived** | `fill_packet.py` | Regenerate; never edit |
+One skill **owns** each file: it holds the file's exact shape in its
+`references/schema.md` (linked below) and is the only skill that writes
+it, except where the table says others append. A skill that needs a
+change to a file it doesn't own asks the owner skill for it. Readers
+take the shape from the owner's link — never from a copy. Owners not yet
+converted to the skill shape keep their shape in their `SKILL.md`; the
+link is filled in when they convert. `tests/test_data_model.py` checks
+this table against the skills.
+
+| Path | Class | Owner (shape) | Also written by | Changes when |
+|---|---|---|---|---|
+| `profile.md` | Living | student-intake — [schema](../skills/student-intake/references/schema.md) § `profile.md` | — | New information about the student |
+| `criteria.md` | Living (Retired table) | student-intake — [schema](../skills/student-intake/references/schema.md) § `criteria.md` | college-list (retires rows; open questions) | The student's wants change |
+| `colleges.md` | Living | college-list | — | Schools added, cut, or re-tiered |
+| `conversations.md` | **Append-only** | student-intake — [schema](../skills/student-intake/references/schema.md) § `conversations.md` | every skill (append only) | After any substantive exchange |
+| `feedback.md` | **Append-only** | counselor-package | college-app (append only) | Parent or counselor input arrives |
+| `research/<college>.md` | Living | college-research | — | Re-researched, or a source updates |
+| `essays/<e>/brief.md` | **Split** — see below | essay-coach — [schema](../skills/essay-coach/references/schema.md) § `brief.md` | — | Depends on which half |
+| `essays/<e>/draft-NN.md` | **Immutable** | essay-coach — [schema](../skills/essay-coach/references/schema.md) § `draft-NN.md` | the student (a new numbered file) | Never. Write `draft-NN+1.md` |
+| `essays/<e>/review-NN.md` | **Immutable** | essay-coach — [schema](../skills/essay-coach/references/schema.md) § `review-NN.md` | — | Never. Write `review-NN+1.md` |
+| `recs/brag-sheet--<t>.md` | Living | rec-request | — | Before sending to that teacher |
+| `recs/request--<t>.md` | Living | rec-request | — | Before the student sends it |
+| `counselor-questions.md` | Living | counselor-package | — | Before each package send |
+| `meta.json` | **Index** | college-app | — | Immediately after `colleges.md` changes |
+| `packet.json` | **Index** | counselor-package | — | Before regenerating the .docx |
+| `out/tracker.xlsx` | **Derived** | `make_tracker.py` | — | Regenerate; never edit |
+| `out/package.html` | **Derived** | `build_package.py` | — | Regenerate; never edit |
+| `out/package.pdf` | **Derived** | `build_package.py` | — | Regenerate; never edit |
+| `out/packet.docx` | **Derived** | `fill_packet.py` | — | Regenerate; never edit |
 
 Shipped with the plugin, read-only to a session:
 

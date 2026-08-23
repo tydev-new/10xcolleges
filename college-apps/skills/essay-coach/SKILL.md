@@ -134,10 +134,12 @@ Never loosen a criterion to let a draft pass.
 
 ## State
 
-Owns `students/<slug>/essays/<e>/` — one folder per essay, shapes in
-`references/schema.md`. Appends to `conversations.md` (new material the
-student gives, dated, in their words). Reads everything else. Never
-writes into another essay's folder.
+Owns `students/<slug>/essays/<e>/` — one folder per essay: `brief.md`,
+`draft-NN.md`, `review-NN.md`, shapes in `references/schema.md`. Appends to `conversations.md` (new material the
+student gives, dated, in their words; the shape is intake's). Reads
+everything else — the shape of a file it doesn't own is the owner's,
+found through `${CLAUDE_PLUGIN_ROOT}/docs/data-model.md § Every file`.
+Never writes into another essay's folder.
 
 **Passes to:** a deadline or a new prompt → `app-tracker`; a school fact
 the why-us needs → `college-research`; the finished essays → the
