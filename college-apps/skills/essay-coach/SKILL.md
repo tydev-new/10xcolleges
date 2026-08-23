@@ -82,7 +82,7 @@ Record the choice.
 ### The essay (the loop)
 
 **Runs when** a draft arrives in this essay's folder, or the chosen
-mode calls for a sample or first pass.
+mode calls for a sample or a first pass.
 
 - **Standard:** `brief.md § Fixed` — the rubric with its source tiers,
   at the word count. **Budget:** 3–5 rounds, said up front.
@@ -100,10 +100,10 @@ mode calls for a sample or first pass.
   reader`); score `N/M`; check the angle; write `review-NN.md` in its
   shape. **Add the round's row to `brief.md § Living ### Rounds`.** A
   draft pasted in chat is saved as `draft-NN.md` under
-  `> **STUDENT DRAFT**` before review. Each draft is a new file.
+  `> **STUDENT DRAFT**` before review; each draft is a new file.
 - **Seven rules — each applies at the step it names:**
   1. **A draft is a file before anyone sees it, and a draft without its
-     author line does not exist.** Essay prose you write goes in
+     author line does not exist.** Essay prose you write goes into
      `draft-NN.md`, exact marker on line one, and
      `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_draft.py students/<slug>`
      has passed, BEFORE it appears in a reply; the same script fails a
@@ -112,11 +112,11 @@ mode calls for a sample or first pass.
   2. **The rubric does not change; the angle may.** A draft is never a
      reason to change a criterion — only the college changing the
      prompt, a copying error, or a higher-tier source (`eval.md § The
-     rubric`), dated, with the reason.
+     rubric`), dated with the reason.
   3. **Point, never fix — and the student decides.** Quote the line, say
      what's wrong and why, never rewrite it. The gap between their read
      and yours is the coaching; what to act on is their call, recorded
-     under Living; their answers go in `conversations.md`, their words.
+     under Living; their answers go in `conversations.md`, verbatim.
   4. **Make nothing up — about them or the college.** Nothing in a
      draft that is not on a line of their record; no college fact
      outside `research/<college>.md` or their own words; never a college
