@@ -1,14 +1,17 @@
 # Data contract — one folder per student
 
-Everything about one student lives in `students/<slug>/`, where `<slug>` is lowercase-
-hyphenated (`maya-rodriguez`). Skills read and write these files; nothing else is state.
+Everything about one student lives in `students/<slug>/`. The slug is set once, at
+Setup: first name and last initial, lowercase, hyphenated (`maya-r`) — or the full
+surname when two students would collide (`maya-rodriguez`). It never changes after
+that. Skills read and write these files; nothing else is state.
 
 This document is binding. `design.md` explains the architecture around it.
 
 ## Layout
 
 ```
-students/maya-rodriguez/
+students/maya-r/
+├── documents/              # what they dropped: packet, transcript, resume (read, never edited)
 ├── profile.md              # THE source of truth about the student
 ├── conversations.md        # append-only log of what the student said
 ├── feedback.md             # parent + counselor input, attributed and dated
@@ -60,6 +63,7 @@ this table against the skills.
 
 | Path | Class | Owner (shape) | Also written by | Changes when |
 |---|---|---|---|---|
+| `documents/*` | Fixed-source | the student (drops files) | — | Never edited; read by student-intake |
 | `profile.md` | Living | student-intake — [schema](../skills/student-intake/references/schema.md) § `profile.md` | — | New information about the student |
 | `criteria.md` | Living (Retired table) | student-intake — [schema](../skills/student-intake/references/schema.md) § `criteria.md` | college-list (retires rows; open questions) | The student's wants change |
 | `colleges.md` | Living | college-list | — | Schools added, cut, or re-tiered |

@@ -33,8 +33,11 @@ sometimes more than one (PRINCIPLES, promise 3). Scored by
     essay in general" has no reader. One essay is one folder,
     `essays/<college-slug>--<prompt-slug>/` (or
     `essays/common-app--<prompt-slug>/`). A student working on several
-    essays has several folders, and **this loop tracks exactly one** —
-    the folder you are in.
+    essays has several folders, and **this loop tracks exactly one: the
+    essay the student names** ("the Pomona one", "my Common App
+    essay"). New name → new folder. No name and several folders in
+    progress → ask which, once, listing them by name with their last
+    score from `brief.md § Rounds`. Naming another essay switches.
   - The student's `profile.md` and `conversations.md`. The essay is
     built from what is in them (read `${CLAUDE_PLUGIN_ROOT}/docs/voice.md`
     first). Thin material is a reason to interview, not a reason to
@@ -144,8 +147,11 @@ found through `${CLAUDE_PLUGIN_ROOT}/docs/data-model.md § Every file`.
 Never writes into another essay's folder.
 
 **Passes to:** a deadline or a new prompt → `app-tracker`; a school fact
-the why-us needs → `college-research`; the finished essays → the
-counselor package (it reads the author headers).
+the why-us needs → `college-research`; a new fact about the student
+that came up while writing (a job, a dip, a change of major) → it is in
+`conversations.md` already; `student-intake`'s Update moves it into the
+profile; the finished essays → the counselor package (it reads the
+author headers).
 
 **Session close:** run `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_draft.py students/<slug>`.
 The author label and every specific detail against the record are

@@ -59,8 +59,10 @@ workspace; ask. An occupied default is not yours to read — say the name
 is taken and ask for another. **The first file written is the
 workspace `CLAUDE.md`**, copied from
 `${CLAUDE_PLUGIN_ROOT}/templates/workspace-CLAUDE.md` — rules before
-facts. Then `students/<slug>/` from the student template, and the drop
-path for their documents, as a path: `<path>/students/<slug>/documents/`.
+facts. Then `students/<slug>/` from the student template (the slug:
+first name and last initial, lowercase, `jordan-k` — ask for the name
+if you only have half), and the drop path for their documents, as a
+path: `<path>/students/<slug>/documents/`.
 **Exits** when `CLAUDE.md` and the student folder exist and the paths
 have been said. A folder with a `CLAUDE.md` is settled; re-entry never
 asks again.
@@ -126,7 +128,8 @@ and stop asking.
 ### Update (a sequence)
 
 **Runs when** something changed — scores, an activity, a major, a
-constraint. Add the line, tagged and dated. Retire what it replaces,
+constraint — or `conversations.md` has lines newer than `profile.md`
+(another skill heard something). Add the line, tagged and dated. Retire what it replaces,
 with the reason. Run `check_record.py` again. **Exits** with the change
 named and whether it moves the gate or the list.
 
