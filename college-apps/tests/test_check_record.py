@@ -21,11 +21,14 @@ class CheckRecord(unittest.TestCase):
 
     def test_material_gate_counts_the_essay_needs(self):
         sd = ws()
-        code, out = run(sd); self.assertIn("material 1/4", out)  # direction only
+        code, out = run(sd); self.assertIn("material 1/3", out)  # direction only
         (sd / "documents").mkdir(); (sd / "documents" / "packet.md").write_text("x")
         (sd / "profile.md").write_text(PROFILE + "## School activities\n| Group | Grades | Hrs/wk | Role | What actually happened |\n|---|---|---|---|---|\n| Robotics | 10-12 | 8 | drivetrain lead | rebuilt the drivetrain four times last season [student 2026-08-22] |\n")
-        (sd / "conversations.md").write_text("## 2026-08-22 — intake\n- \"I fix flats mostly\" [student]\n- \"the drivetrain broke four times\" [student]\n- \"I don't really know what I want\" [student]\n")
-        code, out = run(sd); self.assertEqual(code, 0, out); self.assertIn("material 4/4", out); self.assertIn("the essay can start", out)
+        code, out = run(sd); self.assertEqual(code, 0, out); self.assertIn("material 3/3", out); self.assertIn("the essay can start", out)
+
+    def test_empty_conversations_warns_not_gates(self):
+        sd = ws(conv="# Conversations\n")
+        code, out = run(sd); self.assertEqual(code, 0); self.assertIn("WARN conversations.md: no dated entry", out)
 
     def test_documents_none_counts(self):
         sd = ws(profile=PROFILE + "- documents: none [student 2026-08-22]\n")

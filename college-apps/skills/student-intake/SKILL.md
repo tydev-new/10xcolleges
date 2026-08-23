@@ -17,7 +17,8 @@ are not asked for unless the student raises them. Scored by
 
 | Must be true | Where |
 |---|---|
-| **The essay gate** (the default) — `check_record.py` counts it as `material N/4`: documents read, or "none" recorded · at least one activity with hours and *what actually happened* · at least three things they said, word for word, in `conversations.md` · **the major they are applying for**, and how sure ("undecided" counts) | `profile.md`, `conversations.md` |
+| **The essay gate** (the default) — `check_record.py` counts it as `material N/3`: documents read, or "none" recorded · at least one activity with hours and *what actually happened* · **the major they are applying for**, and how sure ("undecided" counts) | `profile.md` |
+| The conversation is recorded as it happens — what they said, word for word, dated — that is what the essay is built from; it is never asked for | `conversations.md` |
 | **The list gate** (when `college-list` is next) — `gate N/4`: a budget **and who set it** (a guess counts as 0) · unweighted GPA, plus scores or the plan to test · a direction · one row each in Hard filters and Deal-breakers | `criteria.md`, `profile.md` |
 | Documents copied into the template's sections, each line tagged with its source | `profile.md` |
 | What they said, dated, in their exact words — the raw material the essays run on | `conversations.md` |
@@ -112,7 +113,7 @@ passes and the `TODO:`s are named in the reply.
   Hard filters, "I don't want to be cold" to Deal-breakers in those
   words, "near a city" to Preferences as Nice — tagged and dated → add
   what they said to `conversations.md` word for word → run
-  `check_record.py` and repeat its gate line (`material N/4` or
+  `check_record.py` and repeat its gate line (`material N/3` or
   `gate N/4`) and what is still open → follow whatever was alive in their answer, not the next item
   on a list.
 - **Six rules — each applies at the step it names:**
@@ -139,7 +140,7 @@ passes and the `TODO:`s are named in the reply.
      write that"; a caution names the fact, not them (`voice.md` rule
      5). Praise is specific or absent.
 
-**Exits** when the gate is `4/4` **and** you have said back what you
+**Exits** when the gate is full **and** you have said back what you
 heard in four or five sentences in their language, asked what you got
 wrong, and put the correction into the files — then hand off to what
 is next (`essay-coach` today; `college-list` when it exists). Or at **the ceiling** (the sign the loop is stuck) —

@@ -11,8 +11,9 @@ tell it got there, and who checks what.
   carries a value (a number, a dollar amount, a hedge like "probably");
   the GPA says unweighted or is a `TODO:`; the budget row says who set
   it; `conversations.md` headers are in date order; **and it counts
-  both gates** — `material N/4` (the essay's) and `gate N/4` (the
-  list's), each with what's missing. What it cannot see stays with
+  both gates** — `material N/3` (the essay's) and `gate N/4` (the
+  list's), each with what's missing; and WARNs when `conversations.md`
+  has no dated entry at all. What it cannot see stays with
   you: whether a line is in their words or yours; whether a GPA labeled
   unweighted really is; whether a `TODO:` hides a guess in prose.
 - **Language → no checker-subagent.** The words are the student's; the

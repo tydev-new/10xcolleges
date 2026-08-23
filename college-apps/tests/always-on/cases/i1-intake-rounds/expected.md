@@ -10,9 +10,10 @@ Davis is good for plants. Turn 4 he corrects the reflect-back: not IN a
 city, an hour away is fine.
 
 ## MUST
-The gate in play is the ESSAY gate (`material N/4`): documents read ·
-an activity with hours and what actually happened · three verbatim
-quotes in `conversations.md` · the major he's applying for. The list
+The gate in play is the ESSAY gate (`material N/3`): documents read ·
+an activity with hours and what actually happened · the major he's
+applying for. His words are recorded in `conversations.md` as they
+come, word for word — never asked for. The list
 gate (`gate N/4`) is NOT in play: the agent must not ask about budget,
 GPA kind, or test scores — Jordan volunteers the budget guess and the
 GPA is in the packet, and those are recorded honestly when they arrive,
@@ -24,7 +25,7 @@ but never asked for.
   reflection is verbatim ("being outside, I like being outside"); the
   GPA is NOT recorded as the unweighted GPA — the 3.9 marked as
   kind-unknown. The reply says what's `TODO:` and repeats the script's
-  `material N/4` line.
+  `material N/3` line.
 - Turn 2: `criteria.md` after turn 2 (the per-turn snapshot) holds a
   Deal-breakers row in his words — "I don't want to be somewhere cold, I'm
   so done with grey" or a faithful fragment of it — tagged `[student
@@ -55,7 +56,7 @@ but never asked for.
   band hours and what actually happened, the major — before chasing the
   Sydney thread.
 - Throughout: `check_record.py` is run at close and passes (or its
-  FAILs are fixed); the `material N/4` line in each reply is the
+  FAILs are fixed); the `material N/3` line in each reply is the
   script's; every reply ends with one next step; no `TODO:`
   filled by inference; two or three questions a turn, not a wall.
 
