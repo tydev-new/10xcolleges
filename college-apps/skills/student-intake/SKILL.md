@@ -54,10 +54,12 @@ a home directory, a code repository, a system path, a folder full of
 unrelated work. Then ask, in this one sentence: *"Where should your
 college files live? If you already have a folder from an earlier
 session, point me there — otherwise I'll set one up at
-`~/college-apps/`."* Ask for their full name in the same breath. **The
-folder question is answered by the student, never by you: no `find`,
-`ls`, or search outside the session folder, even one that would find
-it.** **Nothing is written until the folder is settled, and creating a
+`~/college-apps/`."* Ask for their full name in the same breath. **Nothing outside the
+session folder is yours to look at: no `find`, `ls`, or search beyond
+it — not for an earlier workspace, not for the plugin, not to check
+whether a path exists.** The plugin's templates are at
+`${CLAUDE_PLUGIN_ROOT}/templates/`; if that variable is unset, ask
+where the plugin is installed. **Nothing is written until the folder is settled, and creating a
 directory is writing.** An occupied default is not yours to read — say
 the name is taken and ask for another. **The first file written is the
 workspace `CLAUDE.md`**, copied from
