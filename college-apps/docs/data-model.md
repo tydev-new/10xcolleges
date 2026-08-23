@@ -45,7 +45,7 @@ wasn't, or as fixed when it moved. Every file belongs to exactly one class.
 |---|---|---|
 | **Append-only** | Add entries. Never edit or remove an existing one. A correction is a new dated entry. | The record of what someone actually said is evidence. A tidied paraphrase isn't. |
 | **Immutable** (never edited) | Written once. A change means a new numbered file. | The sequence of files *is* the history — of improvement, and of who wrote what. |
-| **Fixed-source** | Changes only when the outside source changes, or when we copied it wrong. Never in response to our own work. | Something outside us defines it. Editing it to fit what we produced is rationalizing. |
+| **Fixed-source** | Changes only when the outside source changes, or when we copied it wrong. Never in response to our own work. | Something outside us defines it. Changing it to match our own output is cheating. |
 | **Living** | Edit freely as understanding improves. Retire rather than delete where the audit trail matters. | It records a person's changing intent, which really does change. |
 | **Index** | Machine-readable mirror of a Living file. Re-sync it whenever its source changes. | Scripts can't parse prose. Two copies must not disagree. |
 | **Derived** | Never hand-edit. Regenerate from source. | Edits are silently destroyed on the next build. |

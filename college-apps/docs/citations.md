@@ -12,7 +12,7 @@ silent.
    behind — always print the field year the API returns, not the current year.
 2. **The college's Common Data Set (CDS).** The richest source for admissions detail:
    test score ranges by percentile, what factors they weigh ("very important / important /
-   considered / not considered"), waitlist numbers, need-met percentage. Usually at
+   considered / not considered"), waitlist numbers, need-met percentage (how much of a family's need the school covers). Usually at
    `<college>.edu/ir/cds`, or search for `"common data set" site:<college>.edu`.
    Cite the year of the CDS, e.g. CDS 2025-26.
 3. **The college's own official pages** — deadlines, required essays, program pages,

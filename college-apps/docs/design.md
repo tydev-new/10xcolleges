@@ -143,8 +143,8 @@ order their laws suggest, each through the same process before it is called read
 
 ## The iteration loops
 
-A loop repeats rounds against a written standard. Three loops do this; everything else in
-the arc runs once to an exit or a gate. The loops share one shape: **a written standard,
+A loop repeats rounds against an explicit written standard. Three loops do this; everything else in
+the arc runs once to an exit or a gate. The loops share one shape: **an explicit written standard,
 owned by the student or set by the college, re-read in full before every pass; a record
 of each round that is append-only or never edited; a score that is a count; and a
 ceiling — the sign the loop is stuck — that hands the decision to the student instead of
@@ -160,7 +160,7 @@ and the college's research file.
 **Prerequisites, before the loop opens:** the prompt, word for word, and the target — a
 named college, or the Common App personal statement
 (`essays/common-app--<prompt-slug>/`). No prompt, no brief. No target, no rubric: the
-rubric comes from what *that* reader wants, and "a college essay in general" has none.
+rubric comes from what *that* reader wants, and "a college essay in general" has no reader.
 
 ```
    prompt + target ──▶ brief.md ┬─ FIXED   prompt, restated · rubric (each criterion with
@@ -234,20 +234,20 @@ model of prompt-specific criteria.
 quoted phrase in an agent draft present in the student's record or a research file. What
 code cannot see — a made-up feeling, a sensory detail — stays with the coach. That is why
 the draft is a file *before* it is shown: a draft that exists only in a reply is
-ready-to-paste by construction, and nothing can check it. Measured (e1, 2026-08-22): four
+can be pasted straight into an application, and nothing can check it. Measured (e1, 2026-08-22): four
 prose rules held the law 2/2; more rules under deadline pressure broke it 0/2 and 0/3;
 the file-first rule and the script held it 3/3.
 
 ### The list loop
 
 `criteria.md` holds the hard filters, the deal-breakers in the student's words, the
-weighted preferences, the family's ceiling (the most they will pay), and a Retired table
+weighted preferences, the family's ceiling (what the family says it can spend), and a Retired table
 that keeps every dropped row with its reason. It is re-read in full before every list
 operation. `colleges.md` names, per school, which criteria it meets and misses, dated. A
 safety is all three: numbers above the range, admission near-certain, affordable without
-a scholarship not yet won. Two rebalances that move nothing → the criteria conflict goes
-to the student as a decision (a $25k ceiling and a $40k one are never averaged). The two
-standards differ in one way: an essay rubric is external and fixed — the college wrote
+a scholarship not yet won. If two passes at the list change nothing, the criteria contradict
+each other and the student decides (a $25k ceiling and a $40k one are never averaged). Where the two
+standards differ: an essay rubric is external and fixed — the college wrote
 the prompt — while list criteria are the student's own and really do change. So
 `criteria.md` is fully living with an audit trail, and `brief.md` is only half living.
 

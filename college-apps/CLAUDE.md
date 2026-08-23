@@ -6,7 +6,7 @@ Claude Code skills for helping high school students apply to college.
 
 - `${CLAUDE_PLUGIN_ROOT}/docs/design.md` — architecture, diagrams, and the reasoning
 - `${CLAUDE_PLUGIN_ROOT}/docs/data-model.md` — the binding data contract, including what
-  may change each file. Check a file's mutability class (who may change it, and how)
+  may change each file. Check a file's mutability class (when it may change, and how)
   before writing to it.
 
 ## Working style
@@ -46,7 +46,7 @@ python3 -m unittest discover -s "${CLAUDE_PLUGIN_ROOT}/tests"    # run after tou
 - **Run scripts with `python3 "${CLAUDE_PLUGIN_ROOT}/scripts/<name>.py"`.** They find
   their own config and templates from the plugin root, so the working directory can be
   the user's own folder — where `students/` belongs.
-- **Cite every college fact** with its source and year. `${CLAUDE_PLUGIN_ROOT}/docs/citations.md` is binding.
+- **Cite every college fact** with its source and vintage (the year, or for a deadline the date it was checked). `${CLAUDE_PLUGIN_ROOT}/docs/citations.md` is binding.
   Never quote an admit rate or cost from memory — look it up every time.
 - **Never make up** a student's accomplishment, feeling, or quote, or a college's deadline,
   program, or number. `Not found — needs checking` is a real and useful answer.
@@ -88,6 +88,6 @@ python3 "${CLAUDE_PLUGIN_ROOT}/scripts/build_package.py" students/<slug> --pdf
 ## Student privacy
 
 `students/` is gitignored. These folders hold minors' academic records, family financial
-information, and things said about health and family circumstances. Don't send any of it
+information, and anything disclosed about health and family circumstances. Don't send any of it
 to a third-party service, and don't include it in a package or packet if the student said
 not to — that answer is binding.

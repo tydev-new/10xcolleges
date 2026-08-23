@@ -2,7 +2,7 @@
 
 A Claude plugin that works through college applications the way a good high school
 counselor would. It builds a balanced list, researches schools with cited sources, coaches
-essays without writing them, plans recommendation letters, tracks every deadline, and
+essays without ghostwriting them, plans recommendation letters, tracks every deadline, and
 packages it all for a school counselor to review.
 
 Plain-spoken, encouraging, and honest about odds. It will tell a student that a 5% school
@@ -18,7 +18,7 @@ that process yet.
 | Skill | What it does for you | How it's kept honest |
 |---|---|---|
 | **student-intake** | Sets up your folder and reads your packet or transcript. Then it interviews you, two or three questions at a time, until the college list has what it needs: a budget (and who set it), your unweighted GPA, a direction, and what you want and don't want. All in your words, every line tagged with where it came from, blanks left blank. | A script checks the files after every turn: no untagged line, no blank filled with a guess. It counts the gate too (`gate N/4`), so a guessed budget never passes as a real one. |
-| **essay-coach** | One essay at a time — you name it ("the Pomona one"). It writes a brief first: what the prompt really asks, a rubric from the college's own guidance where one exists, angles from things you've actually done. Then it reviews draft by draft: a score against the rubric, the one big thing to change, line fixes, one real question. Your own read of your draft is welcome, not required. Two rounds at the same score and it changes approach instead of nagging. | Every draft says who wrote it on its first line; a script refuses to build a package without that. An agent draft can't hold a fact that isn't in your record. A second reader, who sees only the draft, gives three lines on it. Reviews are never edited afterward. |
+| **essay-coach** | One essay at a time — you name it ("the Pomona one"). It writes a brief first: what the prompt really asks, a scoring checklist (a rubric), built from what the college itself says it wants when it says so, angles from things you've actually done. Then it reviews draft by draft: a score against the rubric, the one big thing to change, line fixes, one real question. Your own read of your draft is welcome, not required. Two rounds at the same score and it changes approach instead of nagging. | Every draft says who wrote it on its first line; a script refuses to build a package without that. An agent draft can't hold a fact that isn't in your record. A second reader, who sees only the draft and nothing else, gives three lines on every draft. Reviews are never edited afterward. |
 
 Both were measured with a simulated student over multi-turn conversations (harness in
 `college-apps/tests/always-on/`; results in
@@ -41,7 +41,7 @@ chose.
 
 3. **College Applications** appears in the list. Click **Install**.
 
-That's it. The eight skills load on their own and wake up when you mention applying to
+That's it. The eight skills load on their own and wake up when you mention anything about applying to
 college.
 
 ### In Claude Code
@@ -64,8 +64,8 @@ you first make a file.
 
 **College data works out of the box.** It uses the US Department of Education's College
 Scorecard on a shared demo key, good for about 10 lookups an hour. The plugin is built for
-that: it fetches a whole college list in one request and keeps results for 30 days. If the
-limit gets in the way, a free key takes two minutes, needs no approval, and raises it to
+that: it fetches a whole college list in one request and caches (keeps) results for 30 days. If the
+limit gets in the way, a free key takes two minutes, has no approval wait, and raises it to
 1,000/hour:
 
 ```bash
@@ -121,7 +121,7 @@ from things you've actually done. Then it asks how you want the first draft to h
 Reviews score the draft against the rubric (`3/5`), say what's working, the one biggest
 thing to change, a few line fixes, and one real question. They never rewrite your
 sentences. If you want to score your own draft first, it takes your read and shows
-you where you differ — that gap is the coaching. Two drafts at the same score and it
+you where you differ — the difference between your score and ours is what we work on. Two drafts at the same score and it
 stops asking for another round and offers a different move.
 
 **Recommendation letters:**
@@ -183,7 +183,7 @@ graduation rates, and earnings — reported with the actual data year, not hidde
 
 **Each college's Common Data Set** for current-year admissions detail, especially section
 C7, which says in the school's own words how much they weigh essays, recommendations,
-and demonstrated interest (showing you really want to go). It's the most useful and
+and demonstrated interest (showing the school you want to go). It's the most useful and
 least-known document in admissions.
 
 **The college's own website** for deadlines and required essays. Nothing else counts for a
@@ -205,7 +205,7 @@ can fix them without touching code. Each carries a note saying why it's set that
 
 Student folders are gitignored (kept out of version control) and never leave your machine
 unless you send them somewhere. They hold a minor's academic record, family finances, and
-sometimes things said about health or family circumstances. If a student says something
+sometimes anything disclosed about health or family circumstances. If a student says something
 shouldn't go in their counselor letter, that answer is binding everywhere.
 
 ---
