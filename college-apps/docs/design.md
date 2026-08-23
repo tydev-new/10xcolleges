@@ -65,13 +65,15 @@ to lose:
                      students/<slug>/out/  →  xlsx · docx · html · pdf
 
 
-   Read-only, shipped with the plugin          External sources
-   ┌────────────────────────────────┐          ┌──────────────────────────┐
-   │ docs/    voice · citations ·   │          │ College Scorecard API    │
-   │          data-model · design   │          │ Common Data Sets (§C7)   │
-   │ config/  calendar.json         │          │ College admissions pages │
-   │ templates/ student · worksheet │          │ (deadlines — sole source)│
-   └────────────────────────────────┘          └──────────────────────────┘
+    Read-only, shipped with the plugin          External sources
+    ┌────────────────────────────────┐          ┌──────────────────────────┐
+    │ schemas/ profile · criteria ·  │          │ College Scorecard API    │
+    │          conversations · essay │          │ Common Data Sets (§C7)   │
+    │ docs/    voice · citations ·   │          │ College admissions pages │
+    │          data-model · design   │          │ (deadlines — sole source)│
+    │ config/  calendar.json         │          │                          │
+    │ templates/ student · worksheet │          │                          │
+    └────────────────────────────────┘          └──────────────────────────┘
 ```
 
 **The split that matters:** skills exercise judgment, scripts do not. Any decision about

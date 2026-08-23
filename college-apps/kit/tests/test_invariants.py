@@ -41,9 +41,9 @@ def loop_sections(skill):
     return [(p.split("\n", 1)[0].strip(), p) for p in parts]
 
 
-def test_every_skill_has_the_five_files():
+def test_every_skill_has_the_core_files():
     for skill in ALL:
-        for f in ("SKILL.md", "references/eval.md", "references/schema.md", "references/patterns.md"):
+        for f in ("SKILL.md", "references/eval.md", "references/patterns.md"):
             assert os.path.exists(os.path.join(SKILLS, skill, f)), f"{skill}: missing {f}"
 
 
@@ -117,6 +117,7 @@ def test_no_reference_restates_a_loop_rule_verbatim():
     for skill in ALL:
         loops = " ".join(body for _, body in loop_sections(skill))
         sentences = [s.strip() for s in re.split(r"(?<=[.!?])\s+", " ".join(loops.split())) if len(s.split()) >= 12]
-        refs = " ".join(" ".join(read(skill, "references", r).split()) for r in ("eval.md", "schema.md", "patterns.md"))
+        ref_files = [os.path.join(SKILLS, skill, "references", r) for r in ("eval.md", "patterns.md")]
+        refs = " ".join(" ".join(open(f, encoding="utf-8").read().split()) for f in ref_files if os.path.exists(f))
         dupes = [s for s in sentences if s in refs]
         assert not dupes, f"{skill}: restated in a reference: {dupes[0][:90]!r}"

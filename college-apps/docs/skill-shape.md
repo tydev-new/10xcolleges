@@ -22,28 +22,24 @@ the real workspace during a harness run.
 
 ---
 
-## The five files
+## The core skill files & central schemas
 
 Each file answers one kind of question. When you can't decide where
 something goes, ask which question it answers.
 
-| File | The question it answers | When it loads |
+| File / Location | The question it answers | When it loads |
 |---|---|---|
 | `SKILL.md` | what to reach, and when each thing runs | whenever the skill fires |
 | `references/eval.md` | how to tell whether you got there, and who checks | at a loop's exit and at session close |
-| `references/schema.md` | what shape the records take | before writing a record |
+| `schemas/*.md` | what shape the shared and owned records take | before writing a record |
 | `references/patterns.md` | how to do a specific task well | before the task |
 | `scripts/*.py` | the checks with one right answer | executed, never read into context |
 
-**All five, no exceptions** — with one allowed form of sharing. A skill
-whose mechanical checks live in a script it does not host needs no
-`scripts/` of its own; its `eval.md § Who checks what` names the script
-it uses. Here the scripts are shared at the plugin root (essay-coach
-runs `scripts/check_draft.py`, student-intake runs
-`scripts/check_record.py`); the shape allows it. A uniform set is what
-makes drift loud: `kit/tests/test_invariants.py` FAILs a skill missing a
-file or `eval.md § Who checks what`. An exception is drift that somebody
-blessed — the source repo tried one and killed it. **A file's name
+**Standard skill layout:** Each skill contains `SKILL.md`, `references/eval.md`,
+`references/patterns.md`, and deterministic scripts (shared or local). Shared
+and owned workspace record definitions live in the central `schemas/` directory.
+A uniform set is what makes drift loud: `kit/tests/test_invariants.py` FAILs a
+skill missing a required file or `eval.md § Who checks what`. **A file's name
 states its scope.** `eval.md` evaluates the whole skill. Narrower content
 gets its scope in a SECTION name (`eval.md § The rubric`), never a file
 wearing the generic name with a hidden narrower scope.
@@ -158,14 +154,14 @@ wearing the generic name with a hidden narrower scope.
    Omit the part entirely when no consumer bar exists — an empty section
    is noise, not conformance.
 
-## schema.md — and the parser's three rules
+## schemas/ — and the parser's three rules
 
-Holds every record shape: file templates, row formats, header markers,
+Holds every record shape in `schemas/*.md`: file templates, row formats, header markers,
 history rows, lifecycle. `kit/shapecheck.py` (run by
-`kit/tests/test_invariants.py`) **parses schema declarations out of this
-file** (and out of `SKILL.md`), so the format is load-bearing:
+`kit/tests/test_invariants.py`) **parses schema declarations out of `schemas/*.md`**
+(and out of `SKILL.md`), so the format is load-bearing:
 
-- A file is declared by `## `name.md` — role` (heading form) or
+- A file is declared by `## `name.md` — owned by <skill>` (heading form) or
   `**`name.md`**` (inline form). Section bullets — `` - `## Section` ``
   — must follow the declaring line **directly**: a prose line ends the
   block, and the sections after it are silently lost. Prose goes after
@@ -181,12 +177,11 @@ by whom, **read by whom before scoring**, never pruned (essay-coach's
 `brief.md § Rounds`).
 
 **The data-model registry.** `docs/data-model.md § Every file` names one
-owner per student file and links the section of the owner's `schema.md`
+owner per student file and links the section of `schemas/<file>.md`
 that holds its shape. Readers take the shape from that link, never from
-a copy. `tests/test_data_model.py` FAILs a converted owner's row without
+a copy. `tests/test_data_model.py` FAILs an owner's row without
 the link, a link that does not resolve, a schema with no section for
-the file, and a second skill claiming the file under § State. An
-unconverted owner keeps its shape in `SKILL.md` until it converts.
+the file, and a second skill claiming the file under § State.
 
 ## patterns.md — technique, plus two fixed sections
 

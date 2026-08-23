@@ -1,7 +1,7 @@
 # Essay coaching — the craft
 
 Hints for the loop in `../SKILL.md`. The standard is in `eval.md`, the
-file shapes in `schema.md`. Read `${CLAUDE_PLUGIN_ROOT}/docs/voice.md`
+file shapes in `${CLAUDE_PLUGIN_ROOT}/schemas/essay.md`. Read `${CLAUDE_PLUGIN_ROOT}/docs/voice.md`
 before talking to a student.
 
 ## The brief — getting there
@@ -73,7 +73,7 @@ their topic, or they'll copy it without meaning to — from a cited
 collection: Johns Hopkins *Essays That Worked*, Hamilton College's and
 Connecticut College's published examples. Save it (or its first 150–250
 words) as `draft-NN.md` with the exact `EXAMPLE` marker on the first line
-(`schema.md`) plus the URL and date. Never write the sample yourself. A
+(`${CLAUDE_PLUGIN_ROOT}/schemas/essay.md`) plus the URL and date. Never write the sample yourself. A
 published one really is a different student on a different topic, and
 nothing in it is made up.
 
@@ -88,7 +88,7 @@ loop's rule 4). A draft with an event that never happened is a disaster
 for the student, not a style problem.
 
 Put the exact `AGENT FIRST DRAFT` marker on the first line
-(`schema.md`; the package build checks for it).
+(`${CLAUDE_PLUGIN_ROOT}/schemas/essay.md`; the package build checks for it).
 
 Then hand it back with one clear instruction: *rewrite this from
 scratch with the file closed, keeping only the parts you'd have written
@@ -129,7 +129,7 @@ page and are opposite problems. The test is the rubric: a better angle
 still meets the criteria. An easier one usually stopped answering the
 prompt.
 
-The rest of every review, in this order (`schema.md`):
+The rest of every review, in this order (`${CLAUDE_PLUGIN_ROOT}/schemas/essay.md`):
 
 **1. What's working.** Two or three things, quoted exactly. Specific
 praise is how a student learns which instinct to trust. "The line about the cutting oil — keep that, it's

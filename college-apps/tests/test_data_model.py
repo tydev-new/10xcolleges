@@ -12,6 +12,7 @@ import unittest
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DM = os.path.join(ROOT, "docs", "data-model.md")
 SKILLS = os.path.join(ROOT, "skills")
+SCHEMAS = os.path.join(ROOT, "schemas")
 
 
 def registry():
@@ -33,7 +34,7 @@ def owner_skill(cell):
 
 
 def converted(skill):
-    return os.path.exists(os.path.join(SKILLS, skill, "references", "schema.md"))
+    return skill in ("student-intake", "essay-coach")
 
 
 def owns_clause(skill):
@@ -79,12 +80,13 @@ class Registry(unittest.TestCase):
         dm = open(DM, encoding="utf-8").read().split("## Provenance", 1)[1].split("\n## ", 1)[0]
         allowed = set(re.findall(r"`\[([a-z]+)", dm))
         self.assertIn("packet", allowed); self.assertIn("worksheet", allowed)
-        for sk in os.listdir(SKILLS):
-            p = os.path.join(SKILLS, sk, "references", "schema.md")
-            if not os.path.exists(p):
-                continue
-            used = set(re.findall(r"`\[([a-z]+)(?: YYYY-MM-DD)?\]`", open(p, encoding="utf-8").read()))
-            self.assertTrue(used <= allowed, f"{sk}/references/schema.md lists tags not in data-model § Provenance: {used - allowed}")
+        if os.path.exists(SCHEMAS):
+            for sf in os.listdir(SCHEMAS):
+                p = os.path.join(SCHEMAS, sf)
+                if not os.path.isfile(p):
+                    continue
+                used = set(re.findall(r"`\[([a-z]+)(?: YYYY-MM-DD)?\]`", open(p, encoding="utf-8").read()))
+                self.assertTrue(used <= allowed, f"{sf} lists tags not in data-model § Provenance: {used - allowed}")
 
     def test_workspace_template_names_the_data_model(self):
         t = open(os.path.join(ROOT, "templates", "workspace-CLAUDE.md"), encoding="utf-8").read()

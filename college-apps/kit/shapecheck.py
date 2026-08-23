@@ -179,7 +179,7 @@ def check_skill_prose(skills_root):
 # file). Added 2026-08-20 when profile's schema.md gained per-file headings
 # and the old pattern silently dropped all five of its schemas — the printed
 # schema count is what caught it.
-FILE_RE = re.compile(r"^(?:\*\*|##\s+)`([\w\-.]+\.md)`")
+FILE_RE = re.compile(r"^(?:\*\*|##\s+)`([\w\-.]+\.md)`(?:\s*—\s*(?:owned by\s+`?([a-z-]+)`?|.*))?", re.I)
 
 # Some files carry the candidate's own structure (a résumé body). Their
 # header line says "free-form body"; only the named sections are required
@@ -191,15 +191,13 @@ SECTION_RE = re.compile(r"^(\s*)-\s+`(#{2,3})\s+([^`]+)`(.*)$")
 def load_schemas(skills_root):
     """Parse every skill's schema blocks into {filename: schema}.
 
-    Read from BOTH `SKILL.md` and `references/schema.md`, because a skill
-    may declare its file shapes in either. Extended 2026-08-20: profile's
-    § State held 516 words of schema in the always-loaded tier; moving it
-    to a reference cuts that from every session that fires the skill,
-    and a schema is consulted when writing a record, not continuously.
-    A filename declared in both places is a duplicate the caller reports.
+    Read from `schemas/*.md`, `SKILL.md`, and `references/schema.md`.
     """
     schemas = {}
+    schemas_root = os.path.join(os.path.dirname(skills_root), "schemas")
     paths = sorted(glob.glob(os.path.join(skills_root, "*", "SKILL.md")))
+    if os.path.exists(schemas_root):
+        paths += sorted(glob.glob(os.path.join(schemas_root, "*.md")))
     paths += sorted(glob.glob(os.path.join(skills_root, "*", "references", "schema.md")))
     for path in paths:
         current = None
@@ -209,13 +207,18 @@ def load_schemas(skills_root):
                 skill_dir = os.path.dirname(path)
                 if os.path.basename(skill_dir) == "references":
                     skill_dir = os.path.dirname(skill_dir)  # references/schema.md -> the skill
+                owner = os.path.basename(skill_dir)
+                if m.group(2):
+                    owner = m.group(2)
+                elif "owned by" in line.lower():
+                    m_own = re.search(r"owned by\s+`?([a-z-]+)`?", line, re.I)
+                    if m_own:
+                        owner = m_own.group(1)
                 current = {"sections": [], "freeform": FREEFORM in line.lower(),
-                           "owner": os.path.basename(skill_dir)}
+                           "owner": owner}
                 # A bare bold mention of a file in ANOTHER skill's prose must
                 # never clobber the owner's real schema: only a block that
-                # gathers sections may claim the name (caught 2026-08-14 —
-                # search's "criteria.md is INPUT only" sentence silently
-                # deleted profile's criteria schema).
+                # gathers sections may claim the name.
                 if m.group(1) not in schemas or not schemas[m.group(1)]["sections"]:
                     schemas[m.group(1)] = current
                 continue
@@ -231,7 +234,7 @@ def load_schemas(skills_root):
                 })
             elif line.strip() and not line.startswith((" ", "\t", "*", "-")):
                 current = None  # prose resumed; the block ended
-    return {k: v for k, v in schemas.items() if v["sections"]}
+    return {k: v for k, v in schemas.items() if v["sections"] or v["freeform"]}
 
 def headings(text):
     """Headings present, each tagged with the `##` section it sits under.
