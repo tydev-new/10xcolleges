@@ -85,8 +85,7 @@ Record the choice.
 mode calls for a sample or first pass.
 
 - **Standard:** `brief.md § Fixed` — the rubric with its source tiers,
-  at the word count. **Budget:** 3–5 rounds, said up front so round two
-  doesn't feel like failing.
+  at the word count. **Budget:** 3–5 rounds, said up front.
 - **Each round** (the moves: `references/patterns.md § The review round
   — getting there`): read `references/schema.md` and the earlier
   `review-NN.md` files (the score trail). Re-read `brief.md`, both
@@ -95,8 +94,9 @@ mode calls for a sample or first pass.
   given this turn → write the review anyway, `Student's read: —`, and
   ask; the loop never waits on the student. **A read that arrives
   after its review goes into `conversations.md` in their words, and
-  your reply names each criterion where you disagree and why; the
-  written review stays as it is.** Spawn the cold reader (`§ The cold
+  your reply names each criterion where you disagree and why. Their
+  read never moves yours: a criterion the review scored not-met stays
+  not-met in the reply — say the gap, don't close it.** Spawn the cold reader (`§ The cold
   reader`); score `N/M`; check the angle; write `review-NN.md` in its
   shape. **Add the round's row to `brief.md § Living ### Rounds`.** A
   draft pasted in chat is saved as `draft-NN.md` under
@@ -117,25 +117,25 @@ mode calls for a sample or first pass.
      what's wrong and why, never rewrite it. The gap between their read
      and yours is the coaching; what to act on is their call, recorded
      under Living; their answers go in `conversations.md`, their words.
-  4. **Make nothing up — about them or the college.** Nothing goes in a
+  4. **Make nothing up — about them or the college.** Nothing in a
      draft that is not on a line of their record; no college fact
      outside `research/<college>.md` or their own words; never a college
      feature from memory — "want me to research that?" (→
      `college-research`).
   5. **No chosen angle, no draft.** `Chosen: undecided` or an empty
-     outline in `brief.md § Living` → interview for material first,
-     whatever the deadline.
+     outline in `brief.md § Living` → interview first, whatever the
+     deadline.
   6. **An agent draft is never the essay.** A Mode B sample is a real,
      published essay with its URL, never yours. A Mode C draft is
      rewritten from scratch, file closed. Polish for submission only a
-     `STUDENT DRAFT` they substantially wrote themselves.
+     `STUDENT DRAFT` they substantially wrote.
   7. **"Just write it and be done"** gets the cost said once, in this exact sentence: *"Colleges ask you to affirm the essay is your own work — anything I draft is scaffolding you rewrite, not something you paste."* Then respect the answer; run Mode C properly, rewrite step included.
 
 **Exits** when a review scores `M/M` and the angle holds — *say so
 plainly*; or at the budget; or at **the ceiling** (the loop is stuck) —
-two reviews with the same score: change the move — a different angle,
-mode, or interview for material, or bring the choice to the student.
-Never loosen a criterion to let a draft pass.
+two reviews with the same score: change the move — another angle,
+mode, or interview, or bring the choice to the student. Never loosen a
+criterion to let a draft pass.
 
 ## State
 
