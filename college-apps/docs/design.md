@@ -13,31 +13,20 @@ arbitrary later.
 
 ## Principles
 
-**1. The student owns the work, and the artifacts prove it.**
-Every output is a file the student can read, edit, and keep. Nothing is hidden in a
-conversation that scrolls away. Where authorship matters — essays — it's recorded and
-mechanically enforced.
+The promises are in `PRINCIPLES.md` — nine to the student and family, plus the core every
+skill is built to. They are the top of the precedence chain (`PRINCIPLES.md` →
+`design.md` → `skill-shape.md`); nothing here restates them. Two design stances that
+follow from them and are easy to lose:
 
-**2. Facts carry provenance; the system never invents one.**
-Every college number carries its source and vintage. Every profile line carries who said
-it and when. `Not found — needs checking` is a valid, useful output. This is the rule
-most likely to be quietly violated under pressure, so it's stated in three places and
-enforced where code can reach it.
-
-**3. Facts that drift live in config; rules that compute live in code.**
-FAFSA's opening date is a fact and belongs in `config/calendar.json`. "A January deadline
-belongs to the aid year that opened the previous October" is a rule and belongs in Python,
-under test. Rules expressed as prose get re-derived on every run, and re-derived date
-arithmetic is how a nine-month error hides in plain sight.
-
-**4. Precision is never faked.**
-No admission probabilities. No numeric fit scores. Tiers and named trade-offs instead. A
-number implies a model that doesn't exist, and students sort by numbers.
-
-**5. Degrade, don't fail.**
-Rate limit hit → work from Common Data Sets. No API key → shared demo key. No Chrome →
-print to PDF by hand. The only hard stops are the two places where continuing would
-produce something misleading: a mistyped deadline, and an unlabeled essay draft.
+- **Facts that drift live in config; rules that compute live in code.** FAFSA's opening
+  date is a fact and belongs in `config/calendar.json`. "A January deadline belongs to
+  the aid year that opened the previous October" is a rule and belongs in Python, under
+  test. A rule in prose gets re-derived on every run, and re-derived date arithmetic is
+  how a nine-month error hides in plain sight.
+- **Degrade, don't fail.** Rate limit hit → work from Common Data Sets. No API key → the
+  shared demo key. No Chrome → print to PDF by hand. The only hard stops are where
+  continuing would produce something misleading: a mistyped deadline, an unlabeled essay
+  draft, a student draft with no review.
 
 ---
 
@@ -63,12 +52,13 @@ produce something misleading: a mistyped deadline, and an unlabeled essay draft.
                                       │ read / write
    ┌──────────────────────────────────▼──────────────────────────────────┐
    │  students/<slug>/          ← in the USER's working directory        │
-   │  profile · criteria · colleges · conversations · feedback ·         │
-   │  research/ · essays/ · recs/ · meta.json                            │
+   │  documents/ · profile · criteria · conversations · colleges ·        │
+   │  feedback · research/ · essays/ · recs/ · meta.json                  │
    └──────────────────────────────────┬──────────────────────────────────┘
                                       │ consumed by
    ┌──────────────────────────────────▼──────────────────────────────────┐
    │  scripts/            deterministic, no judgment                     │
+   │  check_record · check_draft  (the laws, run every round)            │
    │  scorecard · make_tracker · fill_packet · build_package             │
    └──────────────────────────────────┬──────────────────────────────────┘
                                       ▼
@@ -145,8 +135,11 @@ Students get value from two skills before anything else exists: `student-intake`
 (who they are and what they want, source-tagged) and `essay-coach` (one essay at a
 time, to a standard the college set). Everything else in the arc — the list, research,
 the tracker, recs, the package, the aid plan — builds on those two files and those two
-habits. They ship first, to the shape in `skill-shape.md`, each with its conduct cases
-(`tests/always-on/`), and the rest follow in the order their laws suggest.
+habits. Both are built to the shape in `skill-shape.md`, independently reviewed, and
+measured with a simulated student (`tests/always-on/`, receipts in
+`docs/evals/eval-first-wave-2026-08-22.md`). Intake also owns Setup — where the files
+live — since it is the front door; `college-app` routes to it. The rest follow in the
+order their laws suggest, each through the same process before it is called ready.
 
 ## The iteration loops
 
@@ -292,28 +285,36 @@ comparability. Never average two sources.
 
 ## Enforcement: what's guaranteed vs. what's asked for
 
-Being honest about this is more useful than pretending everything is guaranteed.
+Being honest about this is more useful than pretending everything is guaranteed. Each
+skill's `references/eval.md § Who checks what` says which of its rules are code and which
+are judgment; this is the cross-skill view.
 
 | Invariant | How | Where |
 |---|---|---|
-| Every essay draft declares its author | **Code** — build refuses | `build_package.py` |
+| Every essay draft declares its author on line one | **Code** — build refuses; the checker FAILs | `build_package.py`, `check_draft.py` |
+| An agent draft names nothing not in the student's record or a cited research line | **Code** | `check_draft.py` |
+| A student draft has a review beside it, and the review has its Rounds row | **Code** | `check_draft.py` |
+| Every profile/criteria line carries a source tag; no `TODO:` carries a value | **Code** | `check_record.py` |
+| The intake gate is counted from the files, not by the agent | **Code** — prints `gate N/4` | `check_record.py` |
+| One owner per student file; the owner's schema has the shape; nobody else claims it | **Test** | `tests/test_data_model.py` |
+| Every skill keeps the five-file shape; loops stay under the word cap | **Test** | `kit/tests/test_invariants.py` |
 | Deadlines parse as ISO | **Code** — build refuses, names the school | `make_tracker.py` |
-| Batch lookups don't silently lose schools | **Code** — warns by UNITID | `scorecard.py` |
-| >100 UNITIDs refuses rather than truncating | **Code** | `scorecard.py` |
-| Cost estimates don't mix field years | **Code** — flags the mismatch | `scorecard.py` |
-| Probe years track the calendar | **Code** + test | `scorecard.py` |
+| Batch lookups don't silently lose schools; >100 UNITIDs refuses | **Code** | `scorecard.py` |
+| Cost estimates don't mix field years; probe years track the calendar | **Code** + test | `scorecard.py` |
 | Aid year maps to matriculation, not deadline year | **Code** + test | `make_tracker.py` |
-| Config shape matches what code expects | **Test** | `test_dates.py` |
-| Never invent a fact about a college or student | *Discipline* | every skill |
+| The coach's score never moves to match the student's read | *Measured conduct* | essay-coach loop; e3/e4 |
+| Nothing outside the chosen folder is read during setup | *Measured conduct* — the judge reads the tool log | student-intake Setup; i2 |
+| No college named or evaluated during intake | *Measured conduct* | student-intake; i1 |
+| Never invent a fact about a college or student (the part code can't see) | *Discipline* | every skill, Tier 0 |
 | Citations carry source + vintage | *Discipline* | `citations.md` |
 | Append-only files are never rewritten | *Discipline* | `data-model.md` |
-| criteria.md / brief.md re-read before each pass | *Discipline* | the two skills |
 | No numeric fit or admission scores | *Discipline* | `voice.md` |
 
-The *Discipline* rows are where the real risk sits. Each is stated in the skill that would
-violate it, at the point of violation, with the reason — instructions with a stated reason
-survive paraphrase better than bare rules. Anything on that list that later becomes
-checkable should move up to Code.
+*Measured conduct* means a rule in a skill, bound to the step where it applies, held
+across multiple harness trials (`docs/evals/`). *Discipline* rows are where the real risk
+sits: stated in the skill that would violate them, at the point of violation, with the
+reason. Anything on that list that later becomes checkable moves up to Code — that is how
+the gate count and the draft checks got there.
 
 ---
 
@@ -345,9 +346,15 @@ remains tells them what to do first.
 
 ## Extending it
 
-- **A new stage** → a new skill in `skills/`, plus a routing line in `college-app`.
+- **A new skill, or converting an existing one** → `docs/skill-shape.md` for the shape
+  and `docs/PROCESS.md` for the ritual: design gate in an issue, build, independent
+  review, harness measurement with receipts in `docs/evals/`.
+- **A new student file** → a row in `data-model.md § Every file` naming its owner and
+  change class, the shape in the owner's `references/schema.md` (linked from the row),
+  and `build_package.py` if a counselor should see it. `tests/test_data_model.py` fails
+  until the row, the section, and the claim agree.
 - **A new calendar fact** → `config/calendar.json`, with a `_note` saying why.
 - **A new date rule** → Python plus a test in `tests/test_dates.py`. Never prose.
-- **A new student file** → add it to the contract table in `data-model.md` with its
-  mutability class, and to `build_package.py` if a counselor should see it.
 - **A new external source** → add its precedence to `citations.md` first.
+- **A new rule for a skill** → only after a measured miss, at the step where it applies,
+  and measured again (`skill-shape.md`). A rule nobody measured is a wish.

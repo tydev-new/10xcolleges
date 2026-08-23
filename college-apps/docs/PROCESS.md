@@ -1,9 +1,10 @@
 # The working process — how a skill gets built here
 
-The ritual that produced profile, search, evaluate, storybank, and
-positioning. Each step exists because skipping it failed, measurably;
-the receipt is named so the step can be re-litigated if the evidence
-changes (P2.11 — every rule derivable or earned).
+The ritual that produced student-intake and essay-coach, ported from
+tydev-new/10xjobs-cowork where it was earned (that repo's `docs/PROCESS.md`
+keeps the original receipts). Each step exists because skipping it
+failed, measurably; the receipt is named so the step can be re-litigated
+if the evidence changes.
 
 **Precedence chain for every judgment:** `PRINCIPLES.md` →
 `docs/design.md` → `docs/skill-shape.md`.
@@ -14,66 +15,78 @@ winner ad hoc.
 
 1. **Design gate before building.** Destination, assumptions with
    falsifiers, tradeoffs, test plan — discussed in session, conclusions
-   recorded in the phase's GitHub issue before code or prose changes.
-   *(Receipt: standing instruction 2026-08-13; every phase since.)*
-2. **Track via GitHub issues.** One issue per phase with checkboxes;
+   recorded in the skill's GitHub issue before code or prose changes.
+   *(Receipt: issue #2, student-intake.)*
+2. **Track via GitHub issues.** One issue per skill with checkboxes;
    closed with receipts, never silently. Explicit rejections are recorded
-   too, so bad ideas don't get re-imported later (#20's rejected list).
-3. **Cross-check prior art** — career-ops (vendored, MIT) and the Noam
-   docs — for proven frameworks to port and cautionary tales to name.
-   Port knowledge, not choreography; record what was deliberately NOT
-   taken and why. *(Receipt: search's SimHash/liveness ports; evaluate's
-   rejected scoring formula.)*
-4. **Build with the enforcement split** (goals doc, goal 2): one right
-   answer → code (schemas in the owning SKILL § State, checkers,
-   loud-fail duplicates); judgment → skill prose bound to its moment.
+   too, so bad ideas don't get re-imported later.
+3. **Cross-check prior art** — the 10xjobs skills (the same shape, a
+   year ahead) and the published essay-coaching frameworks
+   (`essay-coach/references/patterns.md § The frameworks`). Port
+   knowledge, not choreography; record what was deliberately NOT taken
+   and why. *(Receipt: intake ported source tags and the `TODO:`
+   discipline, not the propose-then-confirm write — design.md says rows
+   land in the moment.)*
+4. **Build with the enforcement split** (`design.md § Enforcement`): one
+   right answer → code (the owner's `references/schema.md`, a checker
+   script, the registry test); judgment → skill prose bound to the step
+   where it applies.
 5. **Independent drift review before closing.** A subagent that did NOT
    build it reviews against the full chain plus consumer seams, findings
    with file:line evidence. The author never grades their own build.
-   *(Receipt: caught the draft-guardrail-where-it-can't-fire DRIFT and
-   the document-confirmation DRIFT — both invisible to the author.)*
+   *(Receipt: intake's review found 19 — the self-reported gate count,
+   a Retired-row shape its own checker rejected, `meta.json` claimed
+   against the data model — all invisible to the author.)*
    **And the reviewer verifies the fixes** — findings are confirmed
    resolved by the agent that found them, never only by the fixer's own
-   greps. *(Receipt 2026-08-15: the apply fix-pass shipped a corrupted
-   file and two dangling sentences; the fixer's verification missed all
-   three, the reviewer's caught all three.)*
-6. **Dogfood on the founder's real data — live-first.** The live run is
-   the acceptance test AND the design input for what the harness should
-   bait. *(Receipt: the S002 "most left"→"about half" catch; the pitch
-   anti-pattern catch; every t6/t7 case came from a live lesson.)*
-7. **Conduct harness (tN) after the live run.** Planted workspaces, ~3
-   cases per failure mode, Sonnet runner + Opus judge; the judge sees
-   the written files, the skill text, and a deterministic check output;
-   multi-trial gates (majority; single runs are noise). Fix-and-remeasure
-   on any failure — one moment-bound change, re-run, record before/after.
-   Eval record lands in `docs/eval-*.md`. Environment contract:
-   `tests/always-on/README.md` — including "judge inputs are inputs."
+   greps. *(Receipt: the re-verify caught a labelled `TODO: <value>`
+   the fix had claimed to catch and didn't.)*
+6. **Dogfood on a real student — live-first.** The live run is the
+   acceptance test AND the design input for what the harness should
+   bait. Student data is real personal data: dogfood deliberately, never
+   plant test data in a real folder, and run the harness in temp
+   workspaces with the real one locked. *(Pending for the first wave.)*
+7. **Conduct harness after the live run.** Planted workspaces, a
+   simulated student for multi-turn cases, Sonnet runner + Opus judge;
+   the judge sees the written files, the skill text, the tool log, and
+   the expectations — never the agent's summary of any of them.
+   Multi-trial gates (`TRIALS=2` minimum, 3 to separate noise from a
+   miss). Fix-and-remeasure on any repeat miss — one change at the step
+   it applies, re-run, record before/after. Records land in
+   `docs/evals/`. Environment contract: `tests/always-on/README.md`.
+   *(Receipt: `eval-first-wave-2026-08-22.md` — five rounds to make
+   Setup hold, each round a different real cause.)*
 8. **Closing drift review, then declare done.** Same chain, whole
    implementation including what the acceptance actually produced
    (described vs produced behavior).
 9. **Memory + transcripts.** Durable lessons → the repo (docs, commit
    messages, this file) — never only in an agent's session memory.
-   Session transcripts archive OUTSIDE the repo (they carry the
-   founder's personal data).
+   Session transcripts archive OUTSIDE the repo (they carry students'
+   personal data).
 
 ## The non-negotiables (earned the hard way)
 
 - **Patch, grep, and commit share one command block, or the message
-  lies.** *(Three commits once claimed unapplied patches.)*
+  lies** — and a number in a commit message comes from the command that
+  measured it. *(Receipt: a commit here claimed "598 words" while the
+  edit had not applied; the loop was 601.)*
 - **Verify disk, not narration** — before believing any "I wrote/fixed
-  X", grep the file. *(t1's narration slip; the t7 base-resume check.)*
-- **Bind rules to their trigger moment and measure.** Described behavior
-  ≠ produced behavior — measured six times (hazard list 1/7→7/7,
-  transition list, plan gate 0/2→2/2, track naming 1/3→2/2, both-writes
-  0/2→2/2, the Raskin check). **Co-located obligations must be
-  co-named** — sixty lines of distance loses a rule.
+  X", grep the file. *(Receipt: `run_e1.sh` planted no skill for three
+  measurements; the tool log showed the agent searching an empty
+  `.claude/skills/`.)*
+- **Bind rules to the step where they apply, and measure.** Described
+  behavior ≠ produced behavior. *(Receipts: the late read 0/4 → 3/3 once
+  the rule named the turn it arrives in; the disk-search ban 0/3 → 3/3
+  once it named the plugin too.)*
 - **A conduct pass counts only if the environment could express the
   failure** — and a judge's verdict counts only if the judge's inputs
-  were what you think they were.
+  were what you think they were. *(Receipt: the judge grading a
+  transcript copy with no workspace beside it reported "no files
+  written".)*
 - **Author contamination:** whoever built it doesn't test or review it
   alone.
 - **Files are records; chat is the interface.** Anything needing the
-  candidate's judgment is shown and answered in conversation — never
+  student's judgment is shown and answered in conversation — never
   routed through file-editing homework.
 - **No half measures:** delete cleanly, with the deletion adjudicated
   (earned rules keep receipts; deadweight goes).
