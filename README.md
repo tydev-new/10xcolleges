@@ -10,6 +10,24 @@ is a lottery ticket, and then help them apply anyway if they want to.
 
 ---
 
+## What's ready now — the first wave
+
+Two skills are built, reviewed, and measured; the rest of the plugin still works but
+hasn't been through the same process yet.
+
+| Skill | What it does for you | How it's kept honest |
+|---|---|---|
+| **student-intake** | Sets up your folder, reads your packet or transcript, then interviews you — two or three questions at a time — until the college list has what it needs: a budget (and who set it), your unweighted GPA, a direction, and what you want and don't want. Everything in your words, every line tagged with where it came from, blanks left as blanks. | A script checks the files after every turn: no untagged line, no blank filled with a guess, and it counts the gate (`gate N/4`) so a guessed budget never passes as a real one. |
+| **essay-coach** | One essay at a time — you name it ("the Pomona one"). Writes a brief first: what the prompt really asks, a rubric from the college's own guidance where it exists, angles from things you've actually done. Then reviews draft by draft: a score against the rubric, the one big thing to change, line fixes, one real question. Your own read of your draft is welcome and optional. Two rounds at the same score and it changes the approach instead of nagging. | Every draft says who wrote it on its first line; a script refuses to build a package without it. Nothing in an agent draft can be a fact that isn't in your record. A second, blind reader gives three lines on every draft. Reviews are never edited after the fact. |
+
+Both were measured with a simulated student over multi-turn conversations (the test
+harness is in `college-apps/tests/always-on/`; the results are in
+`college-apps/docs/evals/eval-first-wave-2026-08-22.md`). What they will not do: write
+your essay, name a college during intake, guess a number, or look outside the folder you
+chose.
+
+---
+
 ## Install
 
 ### In Claude Cowork
@@ -65,7 +83,10 @@ Just say what you need. The plugin figures out where you are and what comes next
 > Help me get started with my college applications. Here's my counselor packet:
 > ~/Downloads/Post-Secondary Options Packet.pdf
 
-It reads the packet, then interviews you — not a form, a conversation. What you want to
+First it settles where your files live — usually the folder you opened, named as a path;
+if that looks like the wrong place (a code project, your home folder) it asks, and writes
+nothing until you answer. Then it reads the packet and interviews you — not a form, a
+conversation. What you want to
 study, how sure you are, what you'd do on a free Saturday, and what turns you off. That
 last question narrows a list faster than anything else and almost nobody asks it.
 
@@ -84,7 +105,7 @@ as a safety.
 
 > What's Northeastern actually like for computer science? Can we afford it?
 
-**Essays** — this one has a choice built into it:
+**Essays** — you name the essay, and it has a choice built into it:
 
 > Here's the Michigan supplement: "Describe the unique qualities that attract you..."
 
@@ -98,8 +119,11 @@ first draft to happen:
 - **It drafts first.** Fastest start, built only from your own material. Clearly labeled,
   and handed back with instructions to rewrite it from scratch rather than edit it.
 
-Reviews tell you what's working, the one biggest thing to change, a few line fixes, and
-one real question. They never rewrite your sentences for you.
+Reviews score the draft against the rubric (`3/5`), tell you what's working, the one
+biggest thing to change, a few line fixes, and one real question. They never rewrite your
+sentences for you. If you want to score your own draft first, it takes your read and shows
+you where you differ — that gap is the coaching. Two drafts at the same score and it
+stops asking for another round and offers a different move.
 
 **Recommendation letters:**
 
