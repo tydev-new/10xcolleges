@@ -92,7 +92,7 @@ mode calls for a sample or first pass.
   halves. **Take the student's own read first when they give it** —
   met or not per criterion, and the one thing they'd change. It is
   optional: not given → write the review anyway, `Student's read: —`,
-  offer it once per essay and never press; the loop never waits. **A read that arrives
+  offer it once per essay, never press; the loop never waits. **A read that arrives
   after its review goes into `conversations.md` in their words, every
   criterion they scored, and
   your reply names each criterion where you disagree and why. Their
@@ -105,7 +105,7 @@ mode calls for a sample or first pass.
 - **Seven rules, each at the step it names:**
   1. **A draft is a file before anyone sees it, and a draft without its
      author line does not exist.** Essay prose you write goes into
-     `draft-NN.md`, exact marker on line one, and
+     `draft-NN.md`, marker on line one, and
      `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_draft.py students/<slug>`
      has passed, BEFORE it appears in a reply; the same script fails a
      student draft with no review beside it. Fix a FAIL first. A
@@ -115,7 +115,7 @@ mode calls for a sample or first pass.
      prompt, a copying error, or a higher-tier source (`eval.md § The
      rubric`), dated with the reason.
   3. **Point, never fix — and the student decides.** Quote the line, say
-     what's wrong and why, never rewrite it. The gap between their read
+     what's wrong and why; never rewrite it. The gap between their read
      and yours is the coaching; what to act on is their call, recorded
      under Living; their answers go in `conversations.md`, verbatim.
   4. **Make nothing up — about them or the college.** Nothing in a
