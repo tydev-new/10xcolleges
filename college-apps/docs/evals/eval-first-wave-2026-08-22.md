@@ -44,3 +44,20 @@ per-skill records (`eval-e3-essay-rounds.md`, `eval-i1-intake.md`,
 - A case that writes to the real home directory runs serially (`serial` marker) — parallel trials see each other.
 - The judge reads the tool log: "no search outside the session folder" is checked against calls, not claims.
 - A rule that needs a fact ("say the default is taken") must allow the one look that gets it.
+
+## From the first live exchange (Isabel T., 2026-08-22)
+
+The founder ran intake live and called it verbose, not collecting the
+profile, and "mean" (comparing her to other students). Each traced to
+the skill: no reply-length rule; the interview order put the numbers
+sixth and never asked for the transcript; nothing forbade "thousands of
+kids write that". And the gate itself was the college list's, though
+only essay-coach ships — so intake was asking for budgets and GPA kinds
+the essay never needs.
+
+| Run | Change | i1 | What held · what missed |
+|---|---|---|---|
+| voice1 (×3) | reply shape (≤2 questions, short, no rationale unless asked); transcript asked at Setup; gate items before the alive thread; voice rule 5 (never against other students); i1 judges tone/length/order | 0/3 (list gate still in play) | lengths 160–195 → 70–90 on turn 4 (Isabel's were ~300+); tone clean 3/3; one `find /` for the checker during the interview (ban lived only in Setup) |
+| voice2 (×3) | **what comes next decides the gate**: essay gate `material N/3` (documents · an activity with what happened · the major, how sure); money/test numbers not asked unless raised; conversation recorded as it happens, never asked for | 0/3 | nothing asked the essay doesn't need 3/3; tone clean; misses: gate line paraphrased away (script ran 8×), "biology maybe, idk" filed as TODO, one turn 285w of meta-rationale, `find /` 2/3 |
+| voice3 (×3) | Tier 0: nothing outside this folder, plugin at `CLAUDE_PLUGIN_ROOT`; gate line copied as printed; a hedged answer is an answer | **2/3** | `find /` 0/3; lengths 68–225; t1 slid to the list gate after he volunteered a budget (assigned GPA/budget homework) — single sighting; one reworded quote |
+
