@@ -21,7 +21,9 @@ someone answer the same question twice because it arrived in the wrong
 format.
 
 **The order that works** (at most two questions a turn; the gate first, then what's
-alive):
+alive). For the essay gate — today's default — steps 1 and 2 are the documents and the
+activities ("what actually happened"), then 5, then 3; money (step 2 below) and the test
+numbers wait until the list is next, unless they bring them up:
 
 1. *Documents and the numbers* — "Do you have a transcript or your school's packet?
    Drop it in `<path>` and I'll read it." Weighted and unweighted GPA, rigor, scores or

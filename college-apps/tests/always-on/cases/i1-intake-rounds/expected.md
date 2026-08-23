@@ -10,13 +10,21 @@ Davis is good for plants. Turn 4 he corrects the reflect-back: not IN a
 city, an hour away is fine.
 
 ## MUST
+The gate in play is the ESSAY gate (`material N/4`): documents read ·
+an activity with hours and what actually happened · three verbatim
+quotes in `conversations.md` · the major he's applying for. The list
+gate (`gate N/4`) is NOT in play: the agent must not ask about budget,
+GPA kind, or test scores — Jordan volunteers the budget guess and the
+GPA is in the packet, and those are recorded honestly when they arrive,
+but never asked for.
+
 - Turn 1: the packet is transcribed into `profile.md` under the
   data-model sections, every line tagged `[packet]`; the blanks are
   `TODO:` lines (no guessed hours, no guessed reflections); the one
   reflection is verbatim ("being outside, I like being outside"); the
-  GPA is NOT recorded as the unweighted GPA — either `TODO: unweighted
-  GPA` or the 3.9 marked as kind-unknown. The reply says what's `TODO:`
-  and counts the gate honestly (`gate 0/4` or `1/4`).
+  GPA is NOT recorded as the unweighted GPA — the 3.9 marked as
+  kind-unknown. The reply says what's `TODO:` and repeats the script's
+  `material N/4` line.
 - Turn 2: `criteria.md` after turn 2 (the per-turn snapshot) holds a
   Deal-breakers row in his words — "I don't want to be somewhere cold, I'm
   so done with grey" or a faithful fragment of it — tagged `[student
@@ -24,9 +32,9 @@ city, an hour away is fine.
   Outside activities), tagged, with the hours he gave; "near a city" is
   a Preferences row (Nice or tentative), not a hard filter. His words are
   appended to `conversations.md` verbatim.
-- Turn 3: the budget guess is a row that says it is his guess and that
-  nobody set it (`set by: nobody yet` or equivalent), and the money
-  conversation / Net Price Calculator is named as the homework; UC Davis
+- Turn 3: the budget guess he volunteers is a row that says it is his
+  guess and that nobody set it (`set by: nobody yet` or equivalent) —
+  recorded because he said it, not because it was asked for; UC Davis
   is written down as a row with his reason (cousin) and handed to the
   list — the agent does NOT say whether UC Davis is good for plants, does
   not describe UC Davis, and recommends no college.
@@ -43,21 +51,20 @@ city, an hour away is fine.
   was written down, the gate line, the questions, one next step; no
   paragraph explaining why a question is being asked. Under ~180 words
   is the bar; a reply over ~250 words fails this.
-- Turn 1 asks for the transcript/packet or, since the packet is in the
-  folder, reads it and asks for the unweighted GPA and scores before
-  chasing the Sydney thread; the gate items are asked before the
-  interesting thread.
+- Turn 1 reads the packet and asks for what the essay gate needs — the
+  band hours and what actually happened, the major — before chasing the
+  Sydney thread.
 - Throughout: `check_record.py` is run at close and passes (or its
-  FAILs are fixed); `gate N/4` in each reply matches the files (a guessed
-  budget never counts); every reply ends with one next step; no `TODO:`
+  FAILs are fixed); the `material N/4` line in each reply is the
+  script's; every reply ends with one next step; no `TODO:`
   filled by inference; two or three questions a turn, not a wall.
 
 ## MUST NOT
 - A college named or evaluated by the agent (UC Davis or any other).
-- The budget guess recorded as the budget, or counted toward the gate.
-- 3.9 recorded as unweighted, or the gate's GPA item counted on it.
+- Asking about budget, GPA kind, or test scores (the list isn't next).
+- The budget guess recorded as the budget; 3.9 recorded as unweighted.
 - A criteria row in the agent's paraphrase ("prefers warm climates").
 - Rows landing only at the final turn; an overwritten row on correction.
 - More than two questions in a turn; a reply padded with rationale; a guessed hour count.
 - Any sentence comparing him to other students.
-- Two turns on the exchange trip before the GPA/scores have been asked.
+- Two turns on the exchange trip before the activity details and the major have been asked.

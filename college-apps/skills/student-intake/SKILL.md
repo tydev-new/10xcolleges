@@ -9,13 +9,16 @@ description: Use this skill when starting with a new student, when a school pack
 
 `profile.md` says who they are and `criteria.md` says what they want —
 **every line in their words, every line marked with where it came from,
-every blank a `TODO:` and never a guess** — up to the gate the list
-needs. Scored by `references/eval.md`; file shapes in
-`references/schema.md`.
+every blank a `TODO:` and never a guess** — up to the gate that what
+comes next needs. **What comes next decides the gate.** Today that is
+the essay: `college-list` is not built yet, so money and test numbers
+are not asked for unless the student raises them. Scored by
+`references/eval.md`; file shapes in `references/schema.md`.
 
 | Must be true | Where |
 |---|---|
-| The four gate items — `check_record.py` counts them: a budget **and who set it** (a guess counts as 0) · unweighted GPA, plus test scores or the plan to test · a direction, with how sure ("undecided" counts) · one row each in Hard filters and Deal-breakers | `criteria.md`, `profile.md` |
+| **The essay gate** (the default) — `check_record.py` counts it as `material N/4`: documents read, or "none" recorded · at least one activity with hours and *what actually happened* · at least three things they said, word for word, in `conversations.md` · **the major they are applying for**, and how sure ("undecided" counts) | `profile.md`, `conversations.md` |
+| **The list gate** (when `college-list` is next) — `gate N/4`: a budget **and who set it** (a guess counts as 0) · unweighted GPA, plus scores or the plan to test · a direction · one row each in Hard filters and Deal-breakers | `criteria.md`, `profile.md` |
 | Documents copied into the template's sections, each line tagged with its source | `profile.md` |
 | What they said, dated, in their exact words — the raw material the essays run on | `conversations.md` |
 | A changed answer moves the old row to Retired with the reason — nothing is overwritten | `criteria.md § Retired criteria` |
@@ -94,22 +97,23 @@ passes and the `TODO:`s are named in the reply.
 
 **Runs when** the student is talking — with or without documents.
 
-- **Standard:** (what each round is measured against) the gate — the
-  four facts the college list can't start without, listed above — and
-  the profile's open `TODO:`s. **Budget:** as many turns as it takes;
+- **Standard:** (what each round is measured against) the gate for
+  what comes next — the essay gate unless the list is next, listed
+  above — and the profile's open `TODO:`s. **Budget:** as many turns as it takes;
   **at most two questions a turn, and the reply is short: what you
   wrote down, the gate line, the questions, one next step — no reasons
   for a question unless they ask.**
 - **Each round** (the questions and their order: `references/patterns.md
   § The interview — getting there`): the gate items are asked before
-  the interesting thread is chased — numbers and money first, then what
-  was alive in their answer → ask at most two → **write every row the
+  anything else — for the essay gate that is the documents and what
+  actually happened in their activities; for the list gate, numbers and
+  money → ask at most two → **write every row the
   moment it comes up, in their phrasing** — a budget to
   Hard filters, "I don't want to be cold" to Deal-breakers in those
   words, "near a city" to Preferences as Nice — tagged and dated → add
   what they said to `conversations.md` word for word → run
-  `check_record.py` and repeat its `gate N/4` line and what is still
-  open → follow whatever was alive in their answer, not the next item
+  `check_record.py` and repeat its gate line (`material N/4` or
+  `gate N/4`) and what is still open → follow whatever was alive in their answer, not the next item
   on a list.
 - **Six rules — each applies at the step it names:**
   1. **Your paraphrase is not their criterion.** "I don't want to be the
@@ -137,8 +141,8 @@ passes and the `TODO:`s are named in the reply.
 
 **Exits** when the gate is `4/4` **and** you have said back what you
 heard in four or five sentences in their language, asked what you got
-wrong, and put the correction into the files — then hand off to
-`college-list`. Or at **the ceiling** (the sign the loop is stuck) —
+wrong, and put the correction into the files — then hand off to what
+is next (`essay-coach` today; `college-list` when it exists). Or at **the ceiling** (the sign the loop is stuck) —
 two rounds with the gate unchanged: name the one thing blocking it
 (usually the money conversation), hand it over as homework with the Net Price Calculator,
 and stop asking.
@@ -159,15 +163,15 @@ folder; the shape of a file it doesn't own is the owner's, found through
 `${CLAUDE_PLUGIN_ROOT}/docs/data-model.md § Every file` (`meta.json`
 belongs to `college-app`).
 
-**Passes to:** gate met → `college-list`; a named college →
-`college-list`; essay-worthy lines are already in `conversations.md`
-for `essay-coach` to find.
+**Passes to:** essay gate met → `essay-coach` (the material is in
+`profile.md` and `conversations.md`); list gate met → `college-list`; a
+named college → a criteria row for `college-list`.
 
 **Session close:** run `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_record.py students/<slug>`
 (it lives at the plugin root, shared with the other skills). Fix FAILs
 before the reply; for each WARN, say in the reply why it is acceptable.
 No checker-subagent — the words are the student's. Say what the folder now holds, the script's
-`gate N/4`, what is `TODO:`, and the next step.
+gate line, what is `TODO:`, and the next step.
 
 ## Guardrails
 

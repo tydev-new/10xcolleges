@@ -55,6 +55,12 @@ tagged `[student]` / `[parent]`. Headers never go backwards in time.
 
 ## The gate
 
-The four items are listed in `SKILL.md § Goal`. `check_record.py` counts
-them from these shapes and prints `gate N/4`. The reply repeats the
-script's line, never its own count.
+Two gates, both listed in `SKILL.md § Goal`; `check_record.py` counts
+both from these shapes and prints `material N/4` (the essay gate) and
+`gate N/4` (the list gate). The reply repeats the script's line for
+what comes next, never its own count. The essay gate reads: a
+`documents/` folder with a file in it, or a profile line `documents:
+none [student …]`; an activity row with hours and a non-empty "what
+actually happened" cell; three or more quoted bullets in
+`conversations.md`; the major they are applying for — a tagged,
+non-`TODO:` line under Goals and direction, with how sure.
