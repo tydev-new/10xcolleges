@@ -1,7 +1,7 @@
 # Data contract — one folder per student
 
 Everything about one student lives in `students/<slug>/`. The slug is set once, at
-Setup: first name and last initial, lowercase, hyphenated (`maya-r`) — or the full
+Setup: first name and last initial, lowercase, hyphenated (`maya-r`), or the full
 surname when two students would collide (`maya-rodriguez`). It never changes after
 that. Skills read and write these files; nothing else is state.
 
@@ -38,28 +38,28 @@ students/maya-r/
 
 ## Mutability classes
 
-Most defects in this system have been mutability errors — something treated as changeable
-that wasn't, or as fixed when it moved. Every file belongs to exactly one class.
+Most defects here have been mutability errors: something treated as changeable that
+wasn't, or as fixed when it moved. Every file belongs to exactly one class.
 
 | Class | Rule | Why |
 |---|---|---|
-| **Append-only** | Add entries; never edit or remove an existing one. Corrections are new dated entries. | The record of what someone actually said is evidence. A tidied paraphrase isn't. |
-| **Immutable** | Written once. A change means a new numbered file. | The sequence *is* the history — of improvement, and of authorship. |
-| **Fixed-source** | Changes only when the external source changes, or when we transcribed it wrong. Never in response to our own work. | Something outside us defines it. Editing it to fit what we produced is rationalization. |
-| **Living** | Edit freely as understanding improves; retire rather than delete where the audit trail matters. | It records a person's evolving intent, which genuinely changes. |
-| **Index** | Machine-readable mirror of a Living file. Must be re-synced whenever its source changes. | Scripts can't parse prose; two representations must not disagree. |
+| **Append-only** | Add entries. Never edit or remove an existing one. A correction is a new dated entry. | The record of what someone actually said is evidence. A tidied paraphrase isn't. |
+| **Immutable** (never edited) | Written once. A change means a new numbered file. | The sequence of files *is* the history — of improvement, and of who wrote what. |
+| **Fixed-source** | Changes only when the outside source changes, or when we copied it wrong. Never in response to our own work. | Something outside us defines it. Changing it to match our own output is cheating. |
+| **Living** | Edit freely as understanding improves. Retire rather than delete where the audit trail matters. | It records a person's changing intent, which really does change. |
+| **Index** | Machine-readable mirror of a Living file. Re-sync it whenever its source changes. | Scripts can't parse prose. Two copies must not disagree. |
 | **Derived** | Never hand-edit. Regenerate from source. | Edits are silently destroyed on the next build. |
 
 ## Every file
 
-One skill **owns** each file: it holds the file's exact shape in its
-`references/schema.md` (linked below) and is the only skill that writes
-it, except where the table says others append. A skill that needs a
-change to a file it doesn't own asks the owner skill for it. Readers
-take the shape from the owner's link — never from a copy. Owners not yet
-converted to the skill shape keep their shape in their `SKILL.md`; the
-link is filled in when they convert. `tests/test_data_model.py` checks
-this table against the skills.
+One skill **owns** each file. The owner holds the file's exact shape in
+its `references/schema.md` (linked below) and is the only skill that
+writes it, except where the table says others append. A skill that needs
+a change to a file it doesn't own asks the owner for it. Readers take
+the shape from the owner's link, never from a copy. An owner not yet
+converted to the skill shape keeps its shape in its `SKILL.md`; the link
+is filled in when it converts. `tests/test_data_model.py` checks this
+table against the skills.
 
 | Path | Class | Owner (shape) | Also written by | Changes when |
 |---|---|---|---|---|
@@ -94,7 +94,7 @@ Shipped with the plugin, read-only to a session:
 
 ### brief.md is deliberately split
 
-The only file with two classes, because its halves answer to different authorities:
+The only file with two classes. Its halves answer to different authorities:
 
 | Half | Class | Contains | May change when |
 |---|---|---|---|
@@ -112,28 +112,28 @@ sources differ.
 ## profile.md
 
 Mirrors the school's Post-Secondary Options Packet, because that is what the counselor
-already expects, plus the interview sections the packet doesn't have. **The section list
-is `templates/student/profile.md`, as shipped — the one copy.** Briefly: basics (GPA
+expects, plus the interview sections the packet doesn't have. **The section list is
+`templates/student/profile.md`, as shipped — the one copy.** In brief: basics (GPA
 weighted *and* unweighted, scores and testing intent, residency if it affects aid), senior
 classes, teachers who know you, school and outside activities (hours and what actually
 happened — jobs and family responsibilities count and are underreported), hobbies, honors,
-work, the packet's reflections verbatim, goals and direction, what excites / what turns
-them off (quotes), constraints, and context that shows up nowhere else.
+work, the packet's reflections word for word, goals and direction, what excites / what
+turns them off (quotes), constraints, and context that shows up nowhere else.
 
 Mark anything unknown as `TODO:` on its own line. Skills scan for `TODO:` to know what to
 ask next. Never fill a `TODO:` with a guess.
 
 ## criteria.md
 
-The college list's equivalent of an essay brief: hard filters, deal-breakers in the
+The college list's version of an essay brief: hard filters, deal-breakers in the
 student's own words, weighted preferences, and a Retired table for criteria that stopped
-applying. `college-list` re-reads it in full before every list operation, which is what
-keeps a growing list from drifting off what the student actually asked for.
+applying. `college-list` re-reads it in full before every list operation; that keeps a
+growing list from drifting off what the student actually asked for.
 
-Rows are never deleted — they move to Retired with a reason. When a student and a parent
-disagree, both rows stay, both tagged. Never merge them into an invented compromise.
+Rows are never deleted. They move to Retired with a reason. When a student and a parent
+disagree, both rows stay, both tagged. Never merge them into a made-up compromise.
 
-Seed it from the interview, or from `templates/criteria-worksheet.md`, or from whatever
+Seed it from the interview, from `templates/criteria-worksheet.md`, or from whatever
 form the student's school already gave them.
 
 ## Provenance
@@ -181,7 +181,7 @@ A small index so scripts don't have to parse Markdown:
 `considering | researching | committed-to-apply | in-progress | submitted | decided | withdrawn`.
 
 Scripts (`scripts/make_tracker.py`, `scripts/build_package.py`) read `meta.json`.
-Keep it in sync whenever `colleges.md` changes — the orchestrator is responsible for this.
+Keep it in sync whenever `colleges.md` changes; the orchestrator is responsible for this.
 
 ## Conventions
 
@@ -202,9 +202,9 @@ Every `draft-NN.md` opens with exactly one of these, in its first few lines:
 > **EXAMPLE — … Do not submit any part of this.**
 ```
 
-`build_package.py` refuses to build if any draft lacks one. This is enforced rather than
-trusted because an unlabeled agent draft is byte-for-byte indistinguishable from a
-student's, and the counselor package would present it as the student's own work.
+`build_package.py` refuses to build if any draft lacks one. This is enforced, not
+trusted, because an unlabeled agent draft looks exactly like a student's, byte for byte,
+and the counselor package would present it as the student's own work.
 
 A student rewriting an agent draft creates a **new file** with a `STUDENT DRAFT` header
 rather than editing the agent's. The sequence of files is the record of whose words
@@ -212,7 +212,7 @@ actually ended up in the application.
 
 ## What the counselor package reads
 
-Improving the package means improving these files — it has no content of its own:
+Improving the package means improving these files; it has no content of its own:
 
 | Path | Appears as |
 |---|---|
