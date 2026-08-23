@@ -34,6 +34,8 @@ CASES="${CASES:-}"
 for trial in $(seq 1 "$TRIALS"); do
 for case_name in $CASES; do
   while [ "$(jobs -rp | wc -l)" -ge "${PAR:-6}" ]; do sleep 2; done
+  # a case that touches the real home (Setup) cannot overlap with itself: `serial` marker → wait for everything first
+  [ -f "$ROOT/cases/$case_name/serial" ] && wait
   (
     CASE="$ROOT/cases/$case_name"
     out="$RESULTS/$case_name-t$trial"
@@ -88,6 +90,7 @@ for case_name in $CASES; do
     python3 "$ROOT/dump_tools.py" "$out".turn*.stream.json > "$out.tools.txt" 2>/dev/null
     rm -rf "$WS" "$SIMD"
   ) &
+  [ -f "$ROOT/cases/$case_name/serial" ] && wait
 done
 done
 wait

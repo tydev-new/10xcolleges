@@ -51,14 +51,16 @@ could paste into a file manager, never "here": *"everything I write
 lands in `<path>` — say the word if you'd rather use a different
 folder."* It becomes a real question only when the folder looks wrong —
 a home directory, a code repository, a system path, a folder full of
-unrelated work. Then ask, in this one sentence: *"Where should your
+unrelated work. Then say what it is, by its path ("`<path>` is a code
+project"), and ask, in this one sentence: *"Where should your
 college files live? If you already have a folder from an earlier
 session, point me there — otherwise I'll set one up at
 `~/college-apps/`."* Ask for their full name in the same breath. **Nothing outside the
 session folder is yours to look at: no `find`, `ls`, or search beyond
-it — not for an earlier workspace, not for the plugin, not to check
-whether a path exists.** The plugin's templates are at
-`${CLAUDE_PLUGIN_ROOT}/templates/`; if that variable is unset, ask
+it — not for an earlier workspace, not for the plugin. The one
+allowed look is a bare existence test of the folder they chose
+(`[ -e ]`); never list or read inside it.** The plugin's templates are
+at `${CLAUDE_PLUGIN_ROOT}/templates/`; if that variable is unset, ask
 where the plugin is installed. **Nothing is written until the folder is settled, and creating a
 directory is writing.** An occupied default is not yours to read — say
 the name is taken and ask for another. **The first file written is the
