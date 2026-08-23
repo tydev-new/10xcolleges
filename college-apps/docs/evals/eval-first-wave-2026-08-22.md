@@ -21,9 +21,11 @@ per-skill records (`eval-e3-essay-rounds.md`, `eval-i1-intake.md`,
 | sweep2 (×3) | e3: "their read never moves yours"; i2: slug rule | 2/3 | — | 0/3 | e3: the new rule held 3/3; t2 logged her read partially (2nd sighting → "every criterion they scored"). i2: stalled waiting for a last name the persona never gave (case bug); **`find /` across the disk in 2/3** |
 | sweep3 (×3) | i2: fixed folder question, disk-search ban, slug never blocks, persona gives her name | — | — | 1/3 | `find / -iname student-intake` in 2/3 — hunting for the **plugin**, not a workspace, with the variable set; the ban was written only against workspace hunting |
 | sweep4 (×3) | i2: ban widened to "nothing outside the session folder, not for the plugin either" | — | — | 0/3 | **harness bug**: three parallel trials shared the real `~/college-apps`; t1 found it occupied (t2 made it) and read the other trial's files. Also: agents `ls` the default to see if it is occupied — which my own rule requires knowing and forbids checking |
-| sweep5 (×3, serial) | i2: a bare existence test is the one allowed look; wrong folder named by its path; case runs serially | — | — | _pending_ | |
+| sweep5 (×3, serial) | i2: a bare existence test is the one allowed look; wrong folder named by its path; case runs serially | — | — | **3/3** | no `find /` in any tool log; the law held 3/3; t2 first judged fail for listing the plugin's own `templates/` and the workspace it had just made — the expectation said "ours vs theirs" badly; clarified (the plugin and the created workspace are ours) and re-judged: pass |
 
 ## What is solid
+
+- **Setup (i2): 3/3** on sweep5 after 0/3 → 0/3 → 1/3 → 0/3: four rounds of finding the real cause (no slug rule → a stalled name question → plugin-hunting with `find /` → a rule that contradicted itself → a harness collision).
 
 - **Intake interview (i1): 3/3** on the sweep, after 0/2 → 1/2 in its own rounds. The gate is computed by `check_record.py`; a guessed budget never counts; rows land in the turn they were said; corrections retire rows; no college is ever evaluated.
 - **Essay rounds (e3): 2/3 twice**, each miss a different single thing, with the two repeat misses now ruled (the coach folding to the student's read; a late read logged partially). Files, headers, the Rounds trail, the ceiling, and the cold reader have held in every trial since mt2.
@@ -32,7 +34,7 @@ per-skill records (`eval-e3-essay-rounds.md`, `eval-i1-intake.md`,
 
 - e3: a criterion marked met against its own quoted evidence (1 sighting, mt4).
 - i1: a round that asks no question (1 sighting, i1v2).
-- i2: see sweep5.
+- i2: none open — the disk-search ban held 3/3 once it named the plugin too and allowed the one existence test.
 
 ## Harness lessons earned here
 

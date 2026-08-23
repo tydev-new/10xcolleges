@@ -59,7 +59,9 @@ session, point me there — otherwise I'll set one up at
 session folder is yours to look at: no `find`, `ls`, or search beyond
 it — not for an earlier workspace, not for the plugin. The one
 allowed look is a bare existence test of the folder they chose
-(`[ -e ]`); never list or read inside it.** The plugin's templates are
+(`[ -e ]`); never list or read inside it until you have created it.**
+(The plugin's own folders under `${CLAUDE_PLUGIN_ROOT}` are yours to
+read.) The plugin's templates are
 at `${CLAUDE_PLUGIN_ROOT}/templates/`; if that variable is unset, ask
 where the plugin is installed. **Nothing is written until the folder is settled, and creating a
 directory is writing.** An occupied default is not yours to read — say
