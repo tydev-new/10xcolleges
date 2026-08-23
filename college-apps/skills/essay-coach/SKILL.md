@@ -90,9 +90,9 @@ mode calls for a sample or first pass.
   — getting there`): read `references/schema.md` and the earlier
   `review-NN.md` files (the score trail). Re-read `brief.md`, both
   halves. **Take the student's own read first when they give it** —
-  met or not per criterion, and the one thing they'd change. Not
-  given this turn → write the review anyway, `Student's read: —`, and
-  ask; the loop never waits on the student. **A read that arrives
+  met or not per criterion, and the one thing they'd change. It is
+  optional: not given → write the review anyway, `Student's read: —`,
+  offer it once per essay and never press; the loop never waits. **A read that arrives
   after its review goes into `conversations.md` in their words, every
   criterion they scored, and
   your reply names each criterion where you disagree and why. Their
