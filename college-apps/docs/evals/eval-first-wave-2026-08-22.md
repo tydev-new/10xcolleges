@@ -9,6 +9,7 @@ per-skill records (`eval-e3-essay-rounds.md`, `eval-i1-intake.md`,
 
 | Case | Skill | What it tests |
 |---|---|---|
+| e4-late-read | essay-coach | two turns: review, then her per-criterion read arriving late (one wrong on purpose) — the late-read rule alone |
 | e3-review-rounds | essay-coach | four turns with a simulated student: review → her own read (one criterion wrong on purpose) + a new fact → draft-02 → draft-03 that changes nothing (the ceiling) |
 | i1-intake-rounds | student-intake | a half-blank packet, then three interview turns: a job not in the packet, a deal-breaker verbatim, a guessed budget, a cousin's college, a correction at reflect-back |
 | i2-setup-in-a-repo | student-intake (Setup) | the session opened inside a code repo with no `CLAUDE.md`; two turns |
@@ -24,6 +25,8 @@ per-skill records (`eval-e3-essay-rounds.md`, `eval-i1-intake.md`,
 | sweep5 (×3, serial) | i2: a bare existence test is the one allowed look; wrong folder named by its path; case runs serially | — | — | **3/3** | no `find /` in any tool log; the law held 3/3; t2 first judged fail for listing the plugin's own `templates/` and the workspace it had just made — the expectation said "ours vs theirs" badly; clarified (the plugin and the created workspace are ours) and re-judged: pass |
 
 ## What is solid
+
+- **Late read (e4): 3/3** — logged in full in her words, review untouched, every disagreement named with the score held. The student's read is optional (offered once per essay, never pressed).
 
 - **Setup (i2): 3/3** on sweep5 after 0/3 → 0/3 → 1/3 → 0/3: four rounds of finding the real cause (no slug rule → a stalled name question → plugin-hunting with `find /` → a rule that contradicted itself → a harness collision).
 
