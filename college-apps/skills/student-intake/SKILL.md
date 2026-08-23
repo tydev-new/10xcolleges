@@ -72,8 +72,9 @@ facts. Then `students/<slug>/` from the student template — the slug is
 first name and last initial, lowercase (`jordan-k`); with only a first
 name in hand, use it now (`jordan`) and rename when the rest comes —
 and the drop path for their documents, as a path:
-`<path>/students/<slug>/documents/`. Never wait on the name to create
-the folder. **Exits** when `CLAUDE.md` and the student folder exist and
+`<path>/students/<slug>/documents/` — **and ask for the transcript and
+the packet in the same reply**; they are the fastest route to the
+numbers. Never wait on the name to create the folder. **Exits** when `CLAUDE.md` and the student folder exist and
 the paths have been said. A folder with a `CLAUDE.md` is settled;
 re-entry never asks again.
 
@@ -96,17 +97,21 @@ passes and the `TODO:`s are named in the reply.
 - **Standard:** (what each round is measured against) the gate — the
   four facts the college list can't start without, listed above — and
   the profile's open `TODO:`s. **Budget:** as many turns as it takes;
-  two or three questions a turn, never a wall of them.
+  **at most two questions a turn, and the reply is short: what you
+  wrote down, the gate line, the questions, one next step — no reasons
+  for a question unless they ask.**
 - **Each round** (the questions and their order: `references/patterns.md
-  § The interview — getting there`): ask two or three questions → **write
-  every row the moment it comes up, in their phrasing** — a budget to
+  § The interview — getting there`): the gate items are asked before
+  the interesting thread is chased — numbers and money first, then what
+  was alive in their answer → ask at most two → **write every row the
+  moment it comes up, in their phrasing** — a budget to
   Hard filters, "I don't want to be cold" to Deal-breakers in those
   words, "near a city" to Preferences as Nice — tagged and dated → add
   what they said to `conversations.md` word for word → run
   `check_record.py` and repeat its `gate N/4` line and what is still
   open → follow whatever was alive in their answer, not the next item
   on a list.
-- **Five rules — each applies at the step it names:**
+- **Six rules — each applies at the step it names:**
   1. **Your paraphrase is not their criterion.** "I don't want to be the
      least prepared person in the room" is a row; "prefers a supportive
      environment" is not. The paraphrase creeps in within the same turn,
@@ -126,6 +131,9 @@ passes and the `TODO:`s are named in the reply.
   5. **Ask about context once, gently, and take "rather not" as the
      answer.** A dip in grades, a job, caring for siblings — note
      whether they want it disclosed. The answer is theirs.
+  6. **Never against other students.** No "most kids", no "thousands
+     write that"; a caution names the fact, not them (`voice.md` rule
+     5). Praise is specific or absent.
 
 **Exits** when the gate is `4/4` **and** you have said back what you
 heard in four or five sentences in their language, asked what you got

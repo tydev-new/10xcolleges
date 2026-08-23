@@ -35,6 +35,18 @@ city, an hour away is fine.
   not in one"); the old row is not edited in place. If the GPA question
   was asked and he answered 3.6 unweighted, the profile records 3.6
   unweighted `[student 2026-08-22]` and the 3.9 as weighted.
+- Tone, every turn: the agent never measures Jordan against other
+  students or "most people" (no "thousands of kids write that", "most
+  students get this wrong", "I'm not fishing for the impressive
+  version"); a caution is about the fact, not about him.
+- Shape, every turn: at most TWO questions; the reply is short — what
+  was written down, the gate line, the questions, one next step; no
+  paragraph explaining why a question is being asked. Under ~180 words
+  is the bar; a reply over ~250 words fails this.
+- Turn 1 asks for the transcript/packet or, since the packet is in the
+  folder, reads it and asks for the unweighted GPA and scores before
+  chasing the Sydney thread; the gate items are asked before the
+  interesting thread.
 - Throughout: `check_record.py` is run at close and passes (or its
   FAILs are fixed); `gate N/4` in each reply matches the files (a guessed
   budget never counts); every reply ends with one next step; no `TODO:`
@@ -46,4 +58,6 @@ city, an hour away is fine.
 - 3.9 recorded as unweighted, or the gate's GPA item counted on it.
 - A criteria row in the agent's paraphrase ("prefers warm climates").
 - Rows landing only at the final turn; an overwritten row on correction.
-- A wall of questions (more than three in a turn); a guessed hour count.
+- More than two questions in a turn; a reply padded with rationale; a guessed hour count.
+- Any sentence comparing him to other students.
+- Two turns on the exchange trip before the GPA/scores have been asked.
