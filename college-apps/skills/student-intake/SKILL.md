@@ -23,9 +23,10 @@ needs. Scored by `references/eval.md`; file shapes in
 
 ## Prerequisites
 
-- **Required:** a student folder `students/<slug>/` made from
-  `${CLAUDE_PLUGIN_ROOT}/templates/student/`. If there is none, create
-  it from the template in the first reply, then carry on. **Read
+- **Required:** a working folder with a `CLAUDE.md` in it — none → run
+  Setup first, before any write. Then a student folder
+  `students/<slug>/` made from `${CLAUDE_PLUGIN_ROOT}/templates/student/`
+  — none → create it (Setup does, or the first reply does). **Read
   `references/schema.md` and `${CLAUDE_PLUGIN_ROOT}/docs/data-model.md`
   § Provenance before the first write** — that is where the exact row
   formats the script checks are written down.
@@ -37,9 +38,32 @@ needs. Scored by `references/eval.md`; file shapes in
 
 ## Loops and sequences
 
-Documents arrive in any order and are a sequence. The interview is the
-loop. A change later on is a sequence. Which one you are in depends on
-what just arrived, not on asking.
+Setup runs once per folder. Documents arrive in any order and are a
+sequence. The interview is the loop. A change later on is a sequence.
+Which one you are in depends on what just arrived, not on asking.
+
+### Setup — the working folder (a sequence)
+
+**Runs when** there is no `CLAUDE.md` in the session's folder. Usually
+that folder is the right place — they chose it when they opened the
+session. **Name it in your first reply and move on**, as a path they
+could paste into a file manager, never "here": *"everything I write
+lands in `<path>` — say the word if you'd rather use a different
+folder. If you already have a folder from an earlier session, point me
+there."* It becomes a real question only when the folder looks wrong —
+a home directory, a code repository, a system path, a folder full of
+unrelated work; then ask, offering `~/college-apps/` as the default.
+**Nothing is written until the folder is settled, and creating a
+directory is writing.** Never search their disk for an earlier
+workspace; ask. An occupied default is not yours to read — say the name
+is taken and ask for another. **The first file written is the
+workspace `CLAUDE.md`**, copied from
+`${CLAUDE_PLUGIN_ROOT}/templates/workspace-CLAUDE.md` — rules before
+facts. Then `students/<slug>/` from the student template, and the drop
+path for their documents, as a path: `<path>/students/<slug>/documents/`.
+**Exits** when `CLAUDE.md` and the student folder exist and the paths
+have been said. A folder with a `CLAUDE.md` is settled; re-entry never
+asks again.
 
 ### Documents (a sequence)
 

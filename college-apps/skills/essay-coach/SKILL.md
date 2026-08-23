@@ -25,6 +25,8 @@ sometimes more than one (PRINCIPLES, promise 3). Scored by
 ## Prerequisites
 
 - **Required:**
+  - A working folder with a `CLAUDE.md` — none → the folder isn't set
+    up; run `student-intake`'s Setup before any write.
   - **The prompt, word for word, and the target** — a named college, or
     the Common App personal statement. No prompt, no brief. No target,
     no rubric: the rubric is what *that* reader wants, and "a college

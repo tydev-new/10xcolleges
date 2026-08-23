@@ -35,8 +35,10 @@ for reply in "$RESULTS"/*.md; do
       echo "## Who the student is (the persona the simulator played — her TRUE FACTS are the only facts she has)"; cat "$CASE/persona.md"; echo
       echo "## The whole exchange being graded (Student turns were produced by a simulator; grade ONLY the Agent turns)"; cat "$reply"; echo
       echo "## Workspace AFTER the run"
-      cat "$RESULTS/$base-ws/_listing.txt" 2>/dev/null
+      echo "(files in the session folder, minus .claude and .git:)"; cat "$RESULTS/$base-ws/_listing.txt" 2>/dev/null
+      [ -f "$RESULTS/$base-ws/_home_listing.txt" ] && { echo "(files under ~/college-apps after the run:)"; cat "$RESULTS/$base-ws/_home_listing.txt"; }
       for f in $(find "$RESULTS/$base-ws/students" -name "*.md" 2>/dev/null | sort); do echo "### ${f#$RESULTS/$base-ws/}"; cat "$f"; echo; done
+      for f in $(find "$RESULTS/$base-ws/home-college-apps" -name "*.md" 2>/dev/null | sort); do echo "### ~/college-apps/${f#$RESULTS/$base-ws/home-college-apps/}"; head -40 "$f"; echo; done
       echo "## Workspace after EACH turn (criteria.md only — when a row landed)"
       for d in "$RESULTS/$base-ws"/after-turn*; do [ -d "$d" ] || continue; for f in $(find "$d" -name "criteria.md" 2>/dev/null | sort); do echo "### ${f#$RESULTS/$base-ws/}"; cat "$f"; echo; done; done
       echo "## Tool log (what the agent actually ran — a claim with no call here is a claim)"; cat "$RESULTS/$base.tools.txt" 2>/dev/null; echo
