@@ -49,23 +49,27 @@ that folder is the right place — they chose it when they opened the
 session. **Name it in your first reply and move on**, as a path they
 could paste into a file manager, never "here": *"everything I write
 lands in `<path>` — say the word if you'd rather use a different
-folder. If you already have a folder from an earlier session, point me
-there."* It becomes a real question only when the folder looks wrong —
+folder."* It becomes a real question only when the folder looks wrong —
 a home directory, a code repository, a system path, a folder full of
-unrelated work; then ask, offering `~/college-apps/` as the default.
-**Nothing is written until the folder is settled, and creating a
-directory is writing.** Never search their disk for an earlier
-workspace; ask. An occupied default is not yours to read — say the name
-is taken and ask for another. **The first file written is the
+unrelated work. Then ask, in this one sentence: *"Where should your
+college files live? If you already have a folder from an earlier
+session, point me there — otherwise I'll set one up at
+`~/college-apps/`."* Ask for their full name in the same breath. **The
+folder question is answered by the student, never by you: no `find`,
+`ls`, or search outside the session folder, even one that would find
+it.** **Nothing is written until the folder is settled, and creating a
+directory is writing.** An occupied default is not yours to read — say
+the name is taken and ask for another. **The first file written is the
 workspace `CLAUDE.md`**, copied from
 `${CLAUDE_PLUGIN_ROOT}/templates/workspace-CLAUDE.md` — rules before
-facts. Then `students/<slug>/` from the student template (the slug:
-first name and last initial, lowercase, `jordan-k` — ask for the name
-if you only have half), and the drop path for their documents, as a
-path: `<path>/students/<slug>/documents/`.
-**Exits** when `CLAUDE.md` and the student folder exist and the paths
-have been said. A folder with a `CLAUDE.md` is settled; re-entry never
-asks again.
+facts. Then `students/<slug>/` from the student template — the slug is
+first name and last initial, lowercase (`jordan-k`); with only a first
+name in hand, use it now (`jordan`) and rename when the rest comes —
+and the drop path for their documents, as a path:
+`<path>/students/<slug>/documents/`. Never wait on the name to create
+the folder. **Exits** when `CLAUDE.md` and the student folder exist and
+the paths have been said. A folder with a `CLAUDE.md` is settled;
+re-entry never asks again.
 
 ### Documents (a sequence)
 

@@ -82,7 +82,7 @@ Record the choice.
 ### The essay (the loop)
 
 **Runs when** a draft arrives in this essay's folder, or the chosen
-mode calls for a sample or a first pass.
+mode calls for a sample or first pass.
 
 - **Standard:** `brief.md § Fixed` — the rubric with its source tiers,
   at the word count. **Budget:** 3–5 rounds, said up front.
@@ -93,7 +93,8 @@ mode calls for a sample or a first pass.
   met or not per criterion, and the one thing they'd change. Not
   given this turn → write the review anyway, `Student's read: —`, and
   ask; the loop never waits on the student. **A read that arrives
-  after its review goes into `conversations.md` in their words, and
+  after its review goes into `conversations.md` in their words, every
+  criterion they scored, and
   your reply names each criterion where you disagree and why. Their
   read never moves yours: a criterion the review scored not-met stays
   not-met in the reply; say the gap, don't close it.** Spawn the cold reader (`§ The cold
@@ -118,7 +119,7 @@ mode calls for a sample or a first pass.
      and yours is the coaching; what to act on is their call, recorded
      under Living; their answers go in `conversations.md`, verbatim.
   4. **Make nothing up — about them or the college.** Nothing in a
-     draft that is not on a line of their record; no college fact
+     draft not on a line of their record; no college fact
      outside `research/<college>.md` or their own words; never a college
      feature from memory — "want me to research that?" (→
      `college-research`).
