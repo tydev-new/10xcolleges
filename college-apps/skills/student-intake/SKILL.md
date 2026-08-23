@@ -113,30 +113,33 @@ passes and the `TODO:`s are named in the reply.
   Hard filters, "I don't want to be cold" to Deal-breakers in those
   words, "near a city" to Preferences as Nice — tagged and dated → add
   what they said to `conversations.md` word for word → run
-  `check_record.py` and repeat its gate line (`material N/3` or
-  `gate N/4`) and what is still open → follow whatever was alive in their answer, not the next item
+  `check_record.py` and **copy its gate line into the reply as printed**
+  (`material N/3 — missing: …`) → follow whatever was alive in their answer, not the next item
   on a list.
-- **Six rules — each applies at the step it names:**
+- **Seven rules — each applies at the step it names:**
   1. **Your paraphrase is not their criterion.** "I don't want to be the
      least prepared person in the room" is a row; "prefers a supportive
      environment" is not. The paraphrase creeps in within the same turn,
      which is why the row is written while their words are on screen.
-  2. **A guess is not a number.** A budget the student guessed is a row
+  2. **A hedged answer is still an answer.** "biology maybe, idk" is
+     the major with *how sure: not very* — written down, tagged; `TODO:`
+     is only for a question they haven't answered.
+  3. **A guess is not a number.** A budget the student guessed is a row
      marked as their guess, `set by: nobody yet`, and the money
      conversation becomes the one piece of homework. A GPA given
      without "unweighted" is `TODO: unweighted GPA` until checked —
      students quote the weighted one and land a tier off.
-  3. **A correction retires the old row; it never overwrites it.** "No,
+  4. **A correction retires the old row; it never overwrites it.** "No,
      I said I *don't* want a city" moves the old row to `§ Retired
      criteria` with the reason, dated and tagged, and adds the new row.
      That trail is the most useful thing in the file three months on.
-  4. **Never name a college.** Intake has no list. "What about Pomona?"
+  5. **Never name a college.** Intake has no list. "What about Pomona?"
      becomes a row (`[student <date>]`, with why they named it) handed
      to `college-list`.
-  5. **Ask about context once, gently, and take "rather not" as the
+  6. **Ask about context once, gently, and take "rather not" as the
      answer.** A dip in grades, a job, caring for siblings — note
      whether they want it disclosed. The answer is theirs.
-  6. **Never against other students.** No "most kids", no "thousands
+  7. **Never against other students.** No "most kids", no "thousands
      write that"; a caution names the fact, not them (`voice.md` rule
      5). Praise is specific or absent.
 
