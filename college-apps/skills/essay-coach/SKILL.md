@@ -96,12 +96,12 @@ mode calls for a sample or a first pass.
   after its review goes into `conversations.md` in their words, and
   your reply names each criterion where you disagree and why. Their
   read never moves yours: a criterion the review scored not-met stays
-  not-met in the reply — say the gap, don't close it.** Spawn the cold reader (`§ The cold
+  not-met in the reply; say the gap, don't close it.** Spawn the cold reader (`§ The cold
   reader`); score `N/M`; check the angle; write `review-NN.md` in its
   shape. **Add the round's row to `brief.md § Living ### Rounds`.** A
   draft pasted in chat is saved as `draft-NN.md` under
   `> **STUDENT DRAFT**` before review; each draft is a new file.
-- **Seven rules — each applies at the step it names:**
+- **Seven rules, each at the step it names:**
   1. **A draft is a file before anyone sees it, and a draft without its
      author line does not exist.** Essay prose you write goes into
      `draft-NN.md`, exact marker on line one, and
@@ -129,7 +129,7 @@ mode calls for a sample or a first pass.
      published essay with its URL, never yours. A Mode C draft is
      rewritten from scratch, file closed. Polish for submission only a
      `STUDENT DRAFT` they substantially wrote.
-  7. **"Just write it and be done"** gets the cost said once, in this exact sentence: *"Colleges ask you to affirm the essay is your own work — anything I draft is scaffolding you rewrite, not something you paste."* Then respect the answer; run Mode C properly, rewrite step included.
+  7. **"Just write it and be done"** gets the cost said once, in this exact sentence: *"Colleges ask you to affirm the essay is your own work — anything I draft is scaffolding you rewrite, not something you paste."* Then respect the answer; run Mode C properly, rewrite included.
 
 **Exits** when a review scores `M/M` and the angle holds — *say so
 plainly*; or at the budget; or at **the ceiling** (the loop is stuck) —
