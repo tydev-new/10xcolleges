@@ -7,7 +7,7 @@ through that process yet. Install from the [10xcolleges marketplace](https://git
 | Skill | What it does |
 |---|---|
 | **college-app** | Front door — finds the student, works out what's next, hands off to a specialist |
-| **student-intake** ✅ | Sets up the folder, reads the packet, then interviews the student — every line in their words, tagged with its source, up to the gate — the four facts the list needs |
+| **student-intake** ✅ | Sets up the folder, reads the packet, then interviews the student — every line in their words, tagged with its source, up to the gate: essay material (`material N/3`) and list facts (`gate N/4`) |
 | **college-list** | Safety / target / reach, tiered against this student's numbers and budget |
 | **college-research** | A report per school, with sources: admit rate, real net price, program, honest fit |
 | **essay-coach** ✅ | One essay at a time: a brief (rubric from the college's guidance), angles, then scored reviews draft by draft — never ghostwritten |

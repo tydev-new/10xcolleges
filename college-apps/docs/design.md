@@ -354,7 +354,7 @@ tell them what to do first.
   and `docs/PROCESS.md` for the ritual: design gate in an issue, build, independent
   review, harness measurement with receipts in `docs/evals/`.
 - **A new student file** → a row in `data-model.md § Every file` naming its owner and
-  change class, the shape in the owner's `references/schema.md` (linked from the row),
+  change class, the shape in `schemas/<file>.md` (linked from the row),
   and `build_package.py` if a counselor should see it. `tests/test_data_model.py` fails
   until the row, the section, and the claim agree.
 - **A new calendar fact** → `config/calendar.json`, with a `_note` saying why.

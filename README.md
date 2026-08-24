@@ -17,7 +17,7 @@ that process yet.
 
 | Skill | What it does for you | How it's kept honest |
 |---|---|---|
-| **student-intake** | Sets up your folder and reads your packet or transcript. Then it interviews you, two or three questions at a time, until the college list has what it needs: a budget (and who set it), your unweighted GPA, a direction, and what you want and don't want. All in your words, every line tagged with where it came from, blanks left blank. | A script checks the files after every turn: no untagged line, no blank filled with a guess. It counts the gate too (`gate N/4`), so a guessed budget never passes as a real one. |
+| **student-intake** | Sets up your folder and reads your packet or transcript. Then it interviews you, two questions at a time, until the next stage has what it needs: for essays, concrete activity details and a major direction (`material N/3`); for the college list, an unweighted GPA, test plans, hard filters, and a budget (`gate N/4`). All in your words, every line tagged with where it came from, blanks left blank. | A script checks the files after every turn: no untagged line, no blank filled with a guess. It counts both gates (`material N/3` and `gate N/4`), so a guessed budget never passes as a real one. |
 | **essay-coach** | One essay at a time — you name it ("the Pomona one"). It writes a brief first: what the prompt really asks, a scoring checklist (a rubric), built from what the college itself says it wants when it says so, angles from things you've actually done. Then it reviews draft by draft: a score against the rubric, the one big thing to change, line fixes, one real question. Your own read of your draft is welcome, not required. Two rounds at the same score and it changes approach instead of nagging. | Every draft says who wrote it on its first line; a script refuses to build a package without that. An agent draft can't hold a fact that isn't in your record. A second reader, who sees only the draft and nothing else, gives three lines on every draft. Reviews are never edited afterward. |
 
 Both were measured with a simulated student over multi-turn conversations (harness in
@@ -223,8 +223,7 @@ python3 -m unittest discover -s college-apps/tests
 reasoning behind it, [`data-model.md`](college-apps/docs/data-model.md) for the data
 contract — every file, who writes it, and what may change it.
 
-63 tests, mostly pinning date arithmetic — which aid year a January deadline belongs to,
-what happens when a student starts eight weeks late, or when a deadline is mistyped. That
+83 tests spanning date arithmetic, scorecard API, data model contracts, record/draft checkers, package builds, documentation consistency, and kit invariants. That
 logic is where a bug costs a family real money, so it isn't left to spot-checking.
 
 ## License
