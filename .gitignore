@@ -1,5 +1,7 @@
 # Student records — a minor's academic, financial, and personal data. Never commit.
-students/
+/students/
+college-apps/students/
+!college-apps/tests/**/students/
 
 .venv/
 .cache/

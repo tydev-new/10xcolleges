@@ -52,7 +52,7 @@ The brief is a sequence (runs once per essay). The essay review is the loop (rep
 - **Budget:** 3–5 rounds, said up front.
 - **Each round:**
   1. *Re-read standards:* Re-read earlier `review-NN.md` files and `brief.md` in full (both Fixed and Living).
-  2. *Record student's read:* If provided, record their criterion scores and desired changes. (If received late, log to `conversations.md` and discuss disagreements in your reply without moving your score.)
+  2. *Record student's read:* If provided (or when it arrives after a review), record every criterion they scored in their words into `conversations.md` under a dated header. In your reply, explicitly name each criterion where you disagree and explain why; never soften disagreements. A criterion scored not-met stays not-met.
   3. *Run cold reader:* Invoke the cold reader subagent (`§ The cold reader`) for 3 blind lines (impression, memory, lingering question).
   4. *Score and review:* Score `N/M` against the rubric, check angle alignment, and write `review-NN.md`.
   5. *Log round history:* Append the round row (`| round | date | N/M | the one big thing | student's choice |`) to `brief.md § Living ### Rounds`.
@@ -60,7 +60,7 @@ The brief is a sequence (runs once per essay). The essay review is the loop (rep
   1. **A draft is a file before anyone sees it:** Save drafts to `draft-NN.md` with the author marker on line 1, and ensure `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_draft.py students/<slug>` passes before quoting in chat.
   2. **The rubric does not change; the angle may:** Never relax a criterion to fit a draft. Update Living only when an angle drift is genuinely better.
   3. **Point, never fix:** Quote the student's line and explain the issue; never rewrite sentences for them.
-  4. **Make nothing up:** Use only facts present in `profile.md`, `conversations.md`, or cited in `research/<college>.md`. Never invent campus features from memory.
+  4. **Make nothing up:** Use only facts present in `profile.md`, `conversations.md`, or cited in `research/<college>.md`. Never name colleges or consortium members from memory; illustrate the swap test with "another college's name". Count words accurately with tools.
   5. **No chosen angle, no draft:** If angle is undecided or outline is empty in `brief.md § Living`, interview first.
   6. **An agent draft is never the final essay:** Mode B samples must be published, cited essays with URLs. Mode C drafts must be rewritten from scratch by the student.
   7. **"Just write it and be done" gets one warning:** State: *"Colleges ask you to affirm the essay is your own work — anything I draft is scaffolding you rewrite, not something you paste."*
@@ -80,7 +80,7 @@ Owns `students/<slug>/essays/<e>/` (`brief.md`, `draft-NN.md`, `review-NN.md`) �
 - Finished essays → `counselor-package`
 
 **Session close:**
-Run `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_draft.py students/<slug>`. Fix any script FAILs before replying. The cold reader is the only subagent used (a reader, not a checker). Report folder outcomes: brief status, draft number, and review score.
+Run `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_draft.py students/<slug>` on EVERY turn before sending any reply. Fix any script FAILs before replying. The cold reader is the only subagent used (a reader, not a checker). Report folder outcomes: brief status, draft number, and review score.
 
 ## Guardrails
 

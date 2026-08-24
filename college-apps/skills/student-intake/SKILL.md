@@ -54,9 +54,9 @@ Setup runs once per folder. Documents are processed in sequence. The interview i
 **Runs when** a document is placed in `documents/` or pasted into chat.
 
 1. Read the document completely.
-2. Copy facts into `profile.md` under matching template sections and tag every line (`[packet]`, `[transcript]`, `[worksheet]`).
+2. Copy facts into `profile.md` under matching template sections and tag every line (`[packet]`, `[transcript]`, `[worksheet]`). If a GPA does not say "unweighted", leave `- **GPA (unweighted):** TODO: packet lists 3.9 without stating whether weighted or unweighted [packet]` (never put the number on the unweighted line as its value).
 3. Copy reflection answers **word for word** in quotes with original grammar.
-4. Mark every missing detail as a standalone `TODO:` line.
+4. Mark every missing detail or unstated column (like hours/weeks) as a standalone `TODO:` line; never infer or guess "one-time" or "not recurring".
 5. Put concrete numbers on activities (hours/week, weeks/year, years); ask rather than estimate.
 
 **Exits** when `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_record.py students/<slug>` passes and open `TODO:` items are named in the reply.
@@ -66,7 +66,7 @@ Setup runs once per folder. Documents are processed in sequence. The interview i
 **Runs when** interacting with the student in conversation.
 
 - **Standard:** The gate for the next stage (the essay gate by default) and open `TODO:` items in `profile.md`.
-- **Budget:** As many turns as needed. **At most two questions per turn.** Keep replies short: state what was recorded, the gate line, the questions, and one next step.
+- **Budget:** As many turns as needed. **At most two questions per turn.** Keep replies short and strictly student-facing: state what was recorded, the gate line, the questions, and one next step. Never output internal planning thoughts or process narration in chat.
 - **Each round:**
   1. *Ask gate items first:* For the essay gate, focus on documents, target major, and concrete activity details. For the list gate, focus on unweighted GPA, test plans, and budget.
   2. *Write rows immediately:* Record rows in the student's exact words the moment they arise. Tag and date every row.
@@ -74,11 +74,11 @@ Setup runs once per folder. Documents are processed in sequence. The interview i
   4. *Run verification script:* Execute `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_record.py students/<slug>` and copy its gate line into the reply as printed (`material N/3 — missing: ...`).
   5. *Follow the alive thread:* Pursue what the student showed genuine interest in, rather than reading a static list.
 - **Seven moment rules:**
-  1. **Your paraphrase is not their criterion:** Write their exact words while on screen; never substitute interpretive summaries (e.g. write "I don't want to be the least prepared person in the room", not "prefers supportive environment").
+  1. **Your paraphrase is not their criterion:** Write their exact words while on screen; never substitute interpretive summaries (e.g. write "I don't want to be the least prepared person in the room", not "prefers supportive environment"). When putting text in quotation marks or logging a student reason, copy their exact words without any alteration.
   2. **A hedged answer is still an answer:** Record "biology maybe, idk" as the major with confidence noted; `TODO:` is reserved only for unasked/unanswered questions.
   3. **A guess is not a number:** Mark student budget estimates as unverified (`set by: nobody yet`) and assign family budget discussion as homework. Require verification for GPA without "unweighted".
   4. **A correction retires the old row:** Move replaced criteria to `## Retired criteria` with date, source tag, and student reason; never overwrite in place.
-  5. **Never name a college:** Intake does not evaluate schools. Record student-mentioned colleges as Preferences rows (`named: <college> — "<reason>"`) for `college-list`.
+  5. **Never name a college:** Intake does not evaluate schools. Record student-mentioned colleges as Preferences rows (`named: <college> — "<reason>"`) with their exact verbatim reason, for `college-list`.
   6. **Ask about context once, gently:** For grade dips, jobs, or caregiving, ask once if they want it disclosed and accept "rather not" without pressing.
   7. **Never compare against other students:** Avoid "most kids" or "thousands write that"; focus strictly on facts.
 - **Exits:**

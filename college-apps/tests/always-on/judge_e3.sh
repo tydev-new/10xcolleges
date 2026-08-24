@@ -27,8 +27,7 @@ for reply in "$RESULTS"/*.md; do
       echo "claims that is not in real tool output or these files is invented."
       echo
       SK="$(head -1 "$CASE/skills.txt")"
-      echo "## The skill the agent operates under (its rules ARE evidence): $SK"
-      cat "$REPO/skills/$SK/SKILL.md"; echo; echo "### references/schema.md"; cat "$REPO/skills/$SK/references/schema.md"; echo; echo "### references/eval.md (how the work is judged)"; cat "$REPO/skills/$SK/references/eval.md"
+      cat "$REPO/skills/$SK/SKILL.md"; echo; [ -f "$REPO/skills/$SK/references/schema.md" ] && { echo "### references/schema.md"; cat "$REPO/skills/$SK/references/schema.md"; }; echo "### references/eval.md (how the work is judged)"; [ -f "$REPO/skills/$SK/references/eval.md" ] && cat "$REPO/skills/$SK/references/eval.md"; echo; echo "### Central schemas"; for sf in $(find "$REPO/schemas" -name "*.md" 2>/dev/null | sort); do echo "#### ${sf#$REPO/schemas/}"; cat "$sf"; echo; done
       echo
       echo "## Planted files (BEFORE the run)"
       for f in $(find "$CASE/ws-seed/students" -name "*.md" | sort); do echo "### ${f#$CASE/ws-seed/}"; cat "$f"; echo; done

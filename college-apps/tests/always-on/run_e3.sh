@@ -47,8 +47,8 @@ for case_name in $CASES; do
     for sk in $(cat "$CASE/skills.txt"); do cp -r "$REPO/skills/$sk" "$WS/.claude/skills/"; done
     SK1="$(head -1 "$CASE/skills.txt")"
     [ -f "$WS/.claude/skills/$SK1/SKILL.md" ] || { echo "PLANT FAILED: no SKILL.md in $WS/.claude/skills/$SK1" >&2; exit 3; }
-    # ---- HOST 3: the skills address ${CLAUDE_PLUGIN_ROOT}; plant docs/ scripts/ config/ there
-    mkdir -p "$WS/.claude/plugin-root"; cp -r "$REPO/docs" "$REPO/scripts" "$REPO/config" "$REPO/templates" "$WS/.claude/plugin-root/"
+    # ---- HOST 3: the skills address ${CLAUDE_PLUGIN_ROOT}; plant docs/ scripts/ config/ schemas/ there
+    mkdir -p "$WS/.claude/plugin-root"; cp -r "$REPO/docs" "$REPO/scripts" "$REPO/config" "$REPO/templates" "$REPO/schemas" "$WS/.claude/plugin-root/"
     export CLAUDE_PLUGIN_ROOT="$WS/.claude/plugin-root"
     HAD_HOME_WS=0; [ -e "$HOME/college-apps" ] && HAD_HOME_WS=1
     echo "=== $case_name / trial $trial -> $WS"
