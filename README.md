@@ -1,30 +1,21 @@
 # 10xcolleges
 
-A Claude plugin that works through college applications the way a good high school
-counselor would. It builds a balanced list, researches schools with cited sources, coaches
-essays without ghostwriting them, plans recommendation letters, tracks every deadline, and
-packages it all for a school counselor to review.
+A Claude plugin that coaches high school students through college application essays the way a great counselor would — uncovering authentic personal stories, breaking down prompts, and giving honest feedback draft by draft without ghostwriting.
 
-Plain-spoken, encouraging, and honest about odds. It will tell a student that a 5% school
-is a lottery ticket, then help them apply anyway if they want to.
+Plain-spoken, encouraging, and focused on helping students sound like themselves.
 
 ---
 
-## What's ready now — the first wave
+## What's ready now — Essay Coaching
 
-Two skills are built, reviewed, and measured. The rest works, but hasn't been through
-that process yet.
+The core essay coaching experience is fully built, reviewed, and measured:
 
 | Skill | What it does for you | How it's kept honest |
 |---|---|---|
-| **student-intake** | Sets up your folder and reads your packet or transcript. Then it interviews you, two questions at a time, until the next stage has what it needs: for essays, concrete activity details and a major direction (`material N/3`); for the college list, an unweighted GPA, test plans, hard filters, and a budget (`gate N/4`). All in your words, every line tagged with where it came from, blanks left blank. | A script checks the files after every turn: no untagged line, no blank filled with a guess. It counts both gates (`material N/3` and `gate N/4`), so a guessed budget never passes as a real one. |
-| **essay-coach** | One essay at a time — you name it ("the Pomona one"). It writes a brief first: what the prompt really asks, a scoring checklist (a rubric), built from what the college itself says it wants when it says so, angles from things you've actually done. Then it reviews draft by draft: a score against the rubric, the one big thing to change, line fixes, one real question. Your own read of your draft is welcome, not required. Two rounds at the same score and it changes approach instead of nagging. | Every draft says who wrote it on its first line; a script refuses to build a package without that. An agent draft can't hold a fact that isn't in your record. A second reader, who sees only the draft and nothing else, gives three lines on every draft. Reviews are never edited afterward. |
+| **student-intake** | Gets to know you through a short conversation or by reading whatever your school gave you (a counselor packet or activities list). It draws out your favorite activities, hobbies, and stories in your own words. It leaves blanks blank and never asks for sensitive personal info like family finances. | A verification script checks the files after every turn: no untagged facts, no blanks filled with guesses, and your words are never altered or summarized into buzzwords. |
+| **essay-coach** | Guides you through one essay at a time (your Common App personal statement or any college supplement). It breaks down what the prompt really asks, builds a scoring checklist (rubric) from college guidance, and explores 3–4 angles from things you've actually done. Then it reviews draft by draft: what's working, the one big thing to change, and specific line notes. | Every draft clearly states its author on line one. The coach points at issues and explains why, but never rewrites your sentences for you. A blind cold reader checks every draft to see what real admissions readers will remember. |
 
-Both were measured with a simulated student over multi-turn conversations (harness in
-`college-apps/tests/always-on/`; results in
-`college-apps/docs/evals/eval-first-wave-2026-08-22.md`). What they will not do: write
-your essay, name a college during intake, guess a number, or look outside the folder you
-chose.
+Both skills are tested and verified with simulated multi-turn student conversations (conduct harness in `college-apps/tests/always-on/`). What they will never do: write your essay, invent details, or look outside the folder you chose.
 
 ---
 
@@ -34,197 +25,106 @@ chose.
 
 1. Open **Customize** in the sidebar, then **Plugins**.
 2. Select **Add marketplace** and enter:
-
    ```
    tydev-new/10xcolleges
    ```
-
 3. **College Applications** appears in the list. Click **Install**.
 
-That's it. The eight skills load on their own and wake up when you mention anything about applying to
-college.
+The skills load automatically and activate whenever you talk about college essays.
 
 ### In Claude Code
 
-```
+```bash
 /plugin marketplace add tydev-new/10xcolleges
 /plugin install college-apps@10xcolleges
-```
-
-### One-time setup
-
-The spreadsheet, Word, and web outputs need four Python libraries:
-
-```bash
-python3 -m pip install openpyxl python-docx requests markdown
-```
-
-Skip it and the skills still work; the scripts tell you which library is missing when
-you first make a file.
-
-**College data works out of the box.** It uses the US Department of Education's College
-Scorecard on a shared demo key, good for about 10 lookups an hour. The plugin is built for
-that: it fetches a whole college list in one request and caches (keeps) results for 30 days. If the
-limit gets in the way, a free key takes two minutes, has no approval wait, and raises it to
-1,000/hour:
-
-```bash
-export SCORECARD_API_KEY=your_key_here   # https://api.data.gov/signup/
 ```
 
 ---
 
 ## Using it
 
-Just say what you need. The plugin works out where you are and what comes next.
+Just say what you need in natural language. The coach meets you where you are.
 
-**Starting out** — hand it whatever your school gave you:
+### 1. Getting Started
+Hand it whatever your school gave you, or just introduce yourself:
 
-> Help me get started with my college applications. Here's my counselor packet:
-> ~/Downloads/Post-Secondary Options Packet.pdf
+> "Help me get started on my college essays. Here's my school's senior packet: `~/Downloads/Senior_Packet.pdf`"
 
-First it settles where your files live — usually the folder you opened, named as a path.
-If that looks wrong (a code project, your home folder), it asks, and writes nothing until
-you answer. Then it reads the packet and interviews you. Not a form, a
-conversation: what you want to study, how sure you are, what you'd do on a free Saturday,
-and what turns you off. That last question narrows a list faster than anything else, and
-almost nobody asks it.
+First it confirms where your files will live (usually a dedicated folder). Then it reads your packet and asks a couple of relaxed questions to understand what you care about — what you like to study, what you do when nobody's making you, and what experiences you'd gladly repeat.
 
-It also asks what your family can spend. If nobody has had that conversation yet, that's
-the most useful thing it can tell you, in September rather than April.
+### 2. Exploring Angles & Creating the Brief
+Name the essay you want to work on:
 
-**Building a list:**
+> "I want to work on the Pomona supplement: 'What at Pomona would you use, and what would you bring?'"
 
-> Where should I apply? I want mechanical engineering, in-state or nearby, under $25k a year.
+The coach restates the prompt in plain English, creates a 4–6 point checklist based on what that college values, and weighs 3–4 angles drawn directly from your life:
 
-You get 8–12 schools in three tiers, with the reasoning for each, checked against real
-admit rates and real net prices. A school you can get into but can't afford doesn't
-count as a safety.
+- **Angle A:** The weekend bike repair job → joining the campus bike co-op (shows community contribution and hands-on persistence).
+- **Angle B:** Rebuilding the robotics drivetrain four times (shows grit, but common among STEM applicants).
+- **Angle C:** Quitting varsity soccer (risky and interesting; reveals true values).
 
-**Researching a school:**
+You choose the angle that feels right to you.
 
-> What's Northeastern actually like for computer science? Can we afford it?
+### 3. Drafting Your Way
+The coach asks how you want to get the first words on the page:
 
-**Essays** — you name the essay, and you get a choice:
+- **You write it:** Slowest start, best result — your authentic voice shines from the first sentence.
+- **See a sample first:** Read a published essay on a completely different topic to see what specific, vivid structure looks like before you write.
+- **First pass scaffold:** The coach drafts a structural outline from your notes. You rewrite it from scratch with the file closed so the final words remain 100% your own.
 
-> Here's the Michigan supplement: "Describe the unique qualities that attract you..."
+### 4. Reviewing Draft by Draft
+Paste your draft or save it in your essay folder:
 
-It starts with what the prompt is really asking, a rubric, and three or four angles drawn
-from things you've actually done. Then it asks how you want the first draft to happen:
+> "Here's my first draft of the Pomona essay, it's in my folder. What do you think?"
 
-- **You write it.** Slowest, best result — the voice is yours from the start.
-- **You see a sample first.** A short passage on a *different* topic, so you can see what
-  specific writing looks like before facing a blank page.
-- **It drafts first.** Fastest start, built only from your own material. Clearly labeled,
-  and handed back to rewrite from scratch, not edit.
+Each review gives you:
+1. **The Score:** A clear checklist score against the prompt rubric (e.g. `3/5`).
+2. **What's Working:** Specific lines quoted with why they are effective.
+3. **The One Big Thing:** The single most impactful structural change to focus on next.
+4. **Line Fixes & Questions:** Clear notes on sentences that feel generic or need more detail.
 
-Reviews score the draft against the rubric (`3/5`), say what's working, the one biggest
-thing to change, a few line fixes, and one real question. They never rewrite your
-sentences. If you want to score your own draft first, it takes your read and shows
-you where you differ — the difference between your score and ours is what we work on. Two drafts at the same score and it
-stops asking for another round and offers a different move.
-
-**Recommendation letters:**
-
-> I need to ask Ms. Alvarez for a letter. Can you help me put something together?
-
-You get a brag sheet built for *that* teacher — specific moments from their classroom,
-including the bad test you recovered from — plus the ask itself.
-
-**Staying on top of it:**
-
-> What do I need to do this week?
-
-**Sharing with your counselor:**
-
-> Can you put together something I can send Mr. Reyes?
+If two rounds get the same score, the coach pauses and changes strategy rather than nagging you on the same line.
 
 ---
 
 ## What you get
 
-| File | What it is |
+Your workspace is kept neat and readable in plain markdown files you can open and edit anytime:
+
+| File | What it holds |
 |---|---|
-| `students/<name>/profile.md` | Everything about you, with every line tagged by source |
-| `students/<name>/criteria.md` | What you're looking for — the checklist your list is measured against |
-| `students/<name>/colleges.md` | The list, with the reasoning and the numbers |
-| `students/<name>/research/*.md` | A report per school, with sources |
-| `students/<name>/essays/…` | Brief, then every draft and review, never overwritten |
-| `students/<name>/recs/…` | Brag sheets and request emails |
-| `students/<name>/out/tracker.xlsx` | Deadlines plus a task list built backwards from each one |
-| `students/<name>/out/package.html` | A counselor-ready review document (prints to PDF) |
-| `students/<name>/out/packet.docx` | Your school's own packet, filled in |
-
-Everything lives in your working folder as plain files you can read, edit, and keep.
+| `students/<name>/profile.md` | Your background, activities, roles, and reflections — every line tagged by source |
+| `students/<name>/conversations.md` | Notes and ideas captured during coaching in your exact words |
+| `students/<name>/essays/<college>--<prompt>/brief.md` | The prompt breakdown, scoring rubric, chosen angle, and outline |
+| `students/<name>/essays/<college>--<prompt>/draft-NN.md` | Every draft version preserved in order, labeled by author |
+| `students/<name>/essays/<college>--<prompt>/review-NN.md` | Structured reviews with scores, praise, and specific edits |
 
 ---
 
-## What it won't do
+## What it will never do
 
-- **Quote a college fact without a source and a date.** Every admit rate, cost, and
-  deadline says where it came from and what year it's from. Numbers move; memory goes
-  stale. When something can't be checked, it says "needs checking" instead of guessing.
-- **Make up anything about you.** Not an award, not a number of volunteer hours, not a
-  feeling. If it isn't in your profile or something you said, it asks.
-- **Give you a percentage.** "You have a 34% chance at Michigan" is made-up precision
-  dressed up as expertise. You get tiers and the reasoning behind them.
-- **Call a school a safety when your family can't pay for it.**
-- **Pass its own writing off as yours.** Every draft records who wrote it, and the
-  counselor package refuses to build if one doesn't — so an agent-written draft can never
-  quietly reach a counselor as your work.
+- **Never ghostwrite:** Colleges require students to affirm that their essays are their own work. The coach teaches and guides, but never writes the essay for you.
+- **Never invent facts:** No made-up awards, exaggerated hours, or fictional emotions. Everything in your essay traces back to your real experiences.
+- **Never probe sensitive finances:** Essay coaching is about your voice and stories; it never asks for personal family financial details.
+- **Never overwrite history:** Every draft and review is preserved as a separate file so you can always see how your writing evolved.
 
 ---
 
-## Where the numbers come from
-
-**College Scorecard** (US Dept. of Education) for admit rates, net price by family income,
-graduation rates, and earnings — reported with the actual data year, not hidden behind a
-"latest" label.
-
-**Each college's Common Data Set** for current-year admissions detail, especially section
-C7, which says in the school's own words how much they weigh essays, recommendations,
-and demonstrated interest (showing the school you want to go). It's the most useful and
-least-known document in admissions.
-
-**The college's own website** for deadlines and required essays. Nothing else counts for a
-deadline.
-
-Ranking and review sites count only for campus feel, labeled as impression, not fact.
-
----
-
-## Adjusting it
-
-Dates drift. `college-apps/config/calendar.json` holds the ones that do — when FAFSA opens,
-how many weeks before a deadline to ask for recommendations, the default key dates — so you
-can fix them without touching code. Each carries a note saying why it's set that way.
-
----
-
-## Your data stays yours
-
-Student folders are gitignored (kept out of version control) and never leave your machine
-unless you send them somewhere. They hold a minor's academic record, family finances, and
-sometimes anything disclosed about health or family circumstances. If a student says something
-shouldn't go in their counselor letter, that answer is binding everywhere.
-
----
-
-## Development
+## Development & Testing
 
 ```bash
 git clone https://github.com/tydev-new/10xcolleges.git
 cd 10xcolleges
-python3 -m pip install openpyxl python-docx requests markdown
-python3 -m unittest discover -s college-apps/tests
+python3 -m unittest discover college-apps/kit/tests
+python3 -m unittest discover college-apps/tests
 ```
 
-**Design docs:** [`design.md`](college-apps/docs/design.md) for the architecture and the
-reasoning behind it, [`data-model.md`](college-apps/docs/data-model.md) for the data
-contract — every file, who writes it, and what may change it.
+**Architecture & Principles:**
+- [`design.md`](college-apps/docs/design.md): System architecture, multi-turn conduct loop, and file boundaries.
+- [`data-model.md`](college-apps/docs/data-model.md): Data contracts and file schemas.
+- [`skill-shape.md`](college-apps/docs/skill-shape.md): Skill structure, invariants, and evaluation guidelines.
 
-83 tests spanning date arithmetic, scorecard API, data model contracts, record/draft checkers, package builds, documentation consistency, and kit invariants. That
-logic is where a bug costs a family real money, so it isn't left to spot-checking.
+---
 
 ## License
 
