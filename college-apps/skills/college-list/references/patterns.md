@@ -1,0 +1,86 @@
+# Patterns & Techniques for Building College Lists
+
+Techniques for sourcing schools, classifying tiers honestly, matching criteria in plain English, and explaining derivations.
+
+---
+
+## 1. Sourcing Schools (Scorecard & Common Data Set)
+
+- **Use the Scorecard script for verified data:**
+  ```bash
+  python3 "${CLAUDE_PLUGIN_ROOT}/scripts/scorecard.py" search "<State/Name>"
+  python3 "${CLAUDE_PLUGIN_ROOT}/scripts/scorecard.py" get --unitid <id1,id2,...>
+  ```
+  Batch queries together; responses are cached for 30 days.
+- **Section C7 of the Common Data Set:** When available in `research/<college>.md`, check how heavily the institution weighs GPA, rigor, test scores, and demonstrated interest.
+- **Never guess numbers:** If admit rates or costs are unverified, mark them `Not found — needs checking` instead of citing figures from memory.
+
+---
+
+## 2. Honest Tiering
+
+Tier by *this student's* academic profile against *that school's* admitted class statistics:
+
+- **Safety (2–3 schools):**
+  - Academic numbers (unweighted GPA, SAT/ACT) sit comfortably in the school's top 25% (above the 75th percentile).
+  - High probability of admission.
+  - **Affordability:** Net price is confirmed within the family's annual budget ceiling without relying on unearned merit scholarships. If it costs $40k against a $25k budget, it is **never** a safety.
+- **Target (3–5 schools):**
+  - Academic numbers land squarely within the middle 50% (25th–75th percentile).
+  - Realistic, competitive chance of admission. Forms the solid core of the list.
+- **Reach (2–4 schools):**
+  - Numbers sit below the 25th percentile, **OR**
+  - The school admits under 15–20% of applicants overall. Any school with an admit rate under 15% is a lottery ticket reach for all applicants, regardless of perfect grades.
+
+---
+
+## 3. Plain-English Criteria Matches
+
+Do not use raw codes like `Meets H1, H2; Misses P3`. Always write the actual human criteria:
+
+### Pattern:
+```markdown
+- **Why it's here:** Meets: under $25k net price ($18k) [H1], ABET-accredited mechanical engineering [H2], within 90 minutes of home [H3]. Strong on: honors college keeps intro classes small [P1]. Misses: prefers small campus; MSU has 50,000+ students [P4].
+```
+
+- State the concrete requirement first.
+- Note any strong alignments with student hobbies or learning preferences.
+- Be honest about misses: every school has trade-offs; naming them builds trust with the student.
+
+---
+
+## 4. When Hard Filters are Too Tight
+
+If hard filters leave fewer than ~5 plausible schools:
+1. Stop before returning an empty or artificially narrow list.
+2. Identify the bottleneck constraint (e.g. strict geographic radius, small campus size, or niche program).
+3. Offer an actionable recommendation on which filter to relax:
+   > *"Your current filters (under $25k, ABET mechanical engineering, within 2 hours of home, and under 5,000 students) leave only two schools. The size cap is the tightest constraint here. If we relax the campus size to include mid-sized universities with honors colleges, six strong, affordable engineering options open up. Want to try that?"*
+
+---
+
+## 5. Explaining Derivations in Conversation
+
+Deliver the list with transparency into how it was constructed:
+
+> *"Here's your initial balanced college list. I built it by first applying your non-negotiable filters (in-state tuition under $25k, ABET-accredited engineering), and then balancing schools where your 3.8 GPA sits above the 75th percentile (Safeties), within the middle 50% (Targets), and selective programs admitting under 20% (Reaches).
+>
+> Would you like me to walk through how any specific school was matched, or why other schools you've heard about were filtered out?"*
+
+---
+
+## 6. Need-Based Aid: Presenting Opportunities Without Asking for Income
+
+Never interrogate a student or family for their tax returns or household income upfront. It is private, intrusive, and turns people off. Instead, present institutional aid policy thresholds as opportunities and ask if they are a possibility for the family:
+
+### Conversational Pattern:
+> *"Schools like Rice or Stanford have special initiatives for middle- and working-class families. For example, the Rice Investment covers 100% of tuition for families with typical assets earning under $140,000/year (and full tuition, room, and board under $75,000).
+>
+> If you think your family might fall under that $140k threshold, Rice could be well within your $30k budget as a reach. Is that a possibility worth keeping on the table for you to check privately with your parents?"*
+
+### Artifact Pattern in `colleges.md`:
+In `colleges.md`, record the policy threshold clearly so the student and parents can review it privately together:
+```markdown
+- **The money:** Eligible for the Rice Investment — families earning under $140,000 receive full tuition coverage, bringing estimated net price to ~$18k–$22k/yr [financialaid.rice.edu].
+- **Watch out for:** Need-based eligibility should be verified privately with your parents using Rice's official Net Price Calculator (NPC).
+```

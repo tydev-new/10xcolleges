@@ -1,0 +1,10 @@
+{
+  "name": "10xcolleges-antigravity",
+  "version": "1.0.0",
+  "description": "College application and essay coaching plugin for Antigravity",
+  "author": {
+    "name": "tydev-new"
+  },
+  "repository": "https://github.com/tydev-new/10xcolleges",
+  "license": "MIT"
+}

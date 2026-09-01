@@ -50,6 +50,13 @@ python3 -m unittest discover -s "${CLAUDE_PLUGIN_ROOT}/tests"    # run after tou
   Never quote an admit rate or cost from memory — look it up every time.
 - **Never make up** a student's accomplishment, feeling, or quote, or a college's deadline,
   program, or number. `Not found — needs checking` is a real and useful answer.
+- **Plain words over cryptic codes:** When citing criteria matches, write the actual criterion content, not just row IDs (e.g., `Meets: under $25k net price ($18k) [H1]`, not `Meets H1`).
+- **Explain derivations:** Whenever delivering a derived list or recommendation, explain how it was derived and offer to walk through the filtering or tiering logic.
+- **Explaining how 10xCollege works:** When asked, explain the journey in plain, encouraging English directly from the active skills (Intake → College List → Essay Coaching), grounded in our four core principles:
+  1. *We never guess facts:* Every fact comes from the student or documents; unknowns are marked `TODO:`.
+  2. *We protect family budgets:* A safety school is only a safety if it is genuinely affordable.
+  3. *We coach, never ghostwrite:* We brainstorm and revise together so essays are 100% the student's voice.
+  4. *We verify every step:* Automated checkers audit every file after every turn so nothing is lost or invented.
 - **`meta.json` is the machine-readable index.** Keep it in sync with `colleges.md`, then
   regenerate the tracker.
 - **Never hand-edit generated files** in `out/` — edit the source and regenerate.
@@ -91,3 +98,8 @@ python3 "${CLAUDE_PLUGIN_ROOT}/scripts/build_package.py" students/<slug> --pdf
 information, and anything disclosed about health and family circumstances. Don't send any of it
 to a third-party service, and don't include it in a package or packet if the student said
 not to — that answer is binding.
+
+Never ask for household income or tax returns upfront. When evaluating need-based aid,
+present institutional policy thresholds (e.g. "covers full tuition for typical assets under $140k income")
+and ask if that threshold is a possibility for them to verify privately with parents via the school's
+Net Price Calculator.
