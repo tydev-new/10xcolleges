@@ -43,17 +43,17 @@ to lose:
                         │   locate → diagnose → route   │   finds the student,
                         └───────────────┬───────────────┘   sees what's missing
                                         │
-      ┌────────────┬────────────┬───────┴────┬────────────┬──────────────┐
-      ▼            ▼            ▼            ▼            ▼              ▼
- student-     college-     college-      essay-        rec-      app-tracker
-  intake        list       research       coach       request   counselor-package
-      │            │            │            │            │              │
-      └────────────┴────────────┴─────┬──────┴────────────┴──────────────┘
+      ┌────────────┬────────────┬───────┴────┬────────────┬──────────────┬──────────────┬──────────────┐
+      ▼            ▼            ▼            ▼            ▼              ▼              ▼              ▼
+ student-     college-     college-     financial-     essay-         rec-         app-tracker    counselor-package
+  intake        list       research        aid         coach        request
+      │            │            │            │            │              │              │              │
+      └────────────┴────────────┴─────┬──────┴────────────┴──────────────┴──────────────┴──────────────┘
                                       │ read / write
    ┌──────────────────────────────────▼──────────────────────────────────┐
    │  students/<slug>/          ← in the USER's working directory        │
-   │  documents/ · profile · criteria · conversations · colleges ·        │
-   │  feedback · research/ · essays/ · recs/ · meta.json                  │
+   │  documents/ · profile · criteria · conversations · colleges ·       │
+   │  financial-aid · feedback · research/ · essays/ · recs/ · meta.json │
    └──────────────────────────────────┬──────────────────────────────────┘
                                       │ consumed by
    ┌──────────────────────────────────▼──────────────────────────────────┐
@@ -111,14 +111,15 @@ interview is a rankings printout.
     .edu site ──┘         │
          │                └──▶ may re-tier a school, or cut it ──┐
          ▼                                                       │
- ┌───────────────────── these repeat ────────────────────────┐   │
- │                                                            │   │
- │  4 ESSAYS      essay-coach       essays/…                  │   │
- │  5 RECS        rec-request       recs/…                    │   │
- │  6 TRACKER     app-tracker       out/tracker.xlsx          │   │
- │  7 PACKAGE     counselor-package out/package.html + .docx  │   │
- │                        │                                   │   │
- └────────────────────────┼───────────────────────────────────┘   │
+  ┌───────────────────── these repeat ────────────────────────┐   │
+  │                                                            │   │
+  │  4 AID         financial-aid     financial-aid.md          │   │
+  │  5 ESSAYS      essay-coach       essays/…                  │   │
+  │  6 RECS        rec-request       recs/…                    │   │
+  │  7 TRACKER     app-tracker       out/tracker.xlsx          │   │
+  │  8 PACKAGE     counselor-package out/package.html + .docx  │   │
+  │                        │                                   │   │
+  └────────────────────────┼───────────────────────────────────┘   │
                           │                                       │
                           ▼                                       │
               counselor feedback → feedback.md ───────────────────┘

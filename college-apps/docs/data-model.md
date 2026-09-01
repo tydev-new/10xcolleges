@@ -17,6 +17,7 @@ students/maya-r/
 ├── feedback.md             # parent + counselor input, attributed and dated
 ├── criteria.md             # what they're looking for — the list's rubric
 ├── colleges.md             # the list: tier, why, status
+├── financial-aid.md        # living financial aid strategy, merit grids, and form deadlines
 ├── research/
 │   └── <college-slug>.md   # one cited dossier per college
 ├── essays/
@@ -68,6 +69,7 @@ checks this table against the skills and schemas.
 | `conversations.md` | **Append-only** | student-intake — [schema](../schemas/conversations.md) § `conversations.md` | every skill (append only) | After any substantive exchange |
 | `feedback.md` | **Append-only** | counselor-package — [schema](../schemas/feedback.md) § `feedback.md` | college-app (append only) | Parent or counselor input arrives |
 | `research/<college>.md` | Living | college-research — [schema](../schemas/research.md) § `research/<college-slug>.md` | — | Re-researched, or a source updates |
+| `financial-aid.md` | Living | financial-aid — [schema](../schemas/financial-aid.md) § `financial-aid.md` | — | Financial strategy, scholarship targets, or form deadlines change |
 | `essays/<e>/brief.md` | **Split** — see below | essay-coach — [schema](../schemas/essay.md) § `brief.md` | — | Depends on which half |
 | `essays/<e>/draft-NN.md` | **Immutable** | essay-coach — [schema](../schemas/essay.md) § `draft-NN.md` | the student (a new numbered file) | Never. Write `draft-NN+1.md` |
 | `essays/<e>/review-NN.md` | **Immutable** | essay-coach — [schema](../schemas/essay.md) § `review-NN.md` | — | Never. Write `review-NN+1.md` |
