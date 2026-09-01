@@ -5,137 +5,64 @@ description: Research a specific college and write a cited dossier — admit rat
 
 # Research a college
 
-Read `${CLAUDE_PLUGIN_ROOT}/docs/citations.md` before you write a single number. Every fact gets a source and a
-vintage, or it doesn't go in. Read the student's `profile.md` too — a dossier that isn't
-evaluated against this student is a brochure.
+Build an investigative, cited research dossier on a single college, evaluating its academic programs, true costs, admissions policies, and friction points against this student's profile.
 
-Output goes to `students/<slug>/research/<college-slug>.md`.
+| Must be true | Where |
+|---|---|
+| Dossier covers Admissions, Academics, Cost, Deadlines, and Fit | `students/<slug>/research/<college-slug>.md` |
+| Every number carries an inline citation with source and year/date | `students/<slug>/research/<college-slug>.md` |
+| Evaluates the school through this student's major and residency | `students/<slug>/research/<college-slug>.md` |
+| Cites at least 2 distinctive academic resources for essays | `students/<slug>/research/<college-slug>.md` |
+| Names at least 2 genuine friction points / watch-outs | `students/<slug>/research/<college-slug>.md` |
+| `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_research.py ...` passes | Terminal |
 
-## Step 1 — federal data first
+---
 
-```bash
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/scorecard.py" search "Northeastern"     # find the UNITID
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/scorecard.py" get --unitid 167358
-```
+## Prerequisites
 
-This gives admit rate, test ranges, enrollment, sticker cost, **net price by family income
-band**, grad rate, median debt, and earnings — each tagged with the year it's actually
-from. Paste it in and build around it.
+- **Required:** `students/<slug>/profile.md` (unweighted GPA, test plans, intended major) and `students/<slug>/criteria.md` (budget ceiling, residency, deal-breakers).
+- Dossier destination: `students/<slug>/research/<college-slug>.md`.
 
-### Spend the quota carefully
+---
 
-Without `SCORECARD_API_KEY` set, this runs on the shared DEMO_KEY at roughly **10 requests
-per hour** — which a 10-school list will blow through in one sitting if you fetch schools
-one at a time. So don't.
+## Sequences and loops
 
-**Batch the whole list in a single request** once you have the UNITIDs:
+### The research sequence
 
-```bash
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/scorecard.py" get --unitid 167358,170976,201645
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/scorecard.py" quota      # check before a big session
-```
+**Runs when** asked to research a college or when list building/essay coaching requires factual grounding.
 
-Working rules under DEMO_KEY:
+1. **Federal Scorecard:** Query `scorecard.py search` and batch `scorecard.py get --unitid` for federal net price by income, student debt, and completion rates. (If quota exhausted, proceed to CDS/institutional pages).
+2. **Common Data Set (CDS):** Look up the school's latest CDS:
+   - Section C1 (admit rate) and Section C9 (enrolled middle 50% SAT/ACT).
+   - Section C7 (what the school weighs: rigor, GPA, essays, demonstrated interest).
+   - Section B22 (freshman retention) and Section H2 (percentage of need met).
+3. **Academic Department Audit:** Check `<college>.edu/<department>` for:
+   - Accreditation (e.g. ABET) and exact major degree title.
+   - Admission by major: Does the student enter directly or face a pre-major weed-out pool?
+   - Distinctive resources for essays (named maker spaces, research centers, capstones).
+4. **Cost & Financial Aid:** Calculate realistic net price for *this student's residency* (in-state vs. out-of-state), checking automatic merit grids and need-based threshold policies against the family budget ceiling.
+5. **Friction & Campus Texture:** Check student forums and reviews (Reddit, Niche) for class sizes, housing shortages, and culture.
+6. **Write the Dossier:** Write `students/<slug>/research/<college-slug>.md` following the schema (`schemas/research.md`).
+7. **Sync:** Update `colleges.md` and `meta.json` if the research alters the school's tier, deadline, or status.
 
-- **Resolve UNITIDs first, then batch.** Each `search` costs a request; each batched `get`
-  costs one regardless of how many schools are in it.
-- **Responses cache for 30 days.** Re-running a school you've already fetched is free, so
-  never re-fetch to "double-check" — read the dossier you already wrote.
-- **Common Data Sets and college websites cost nothing.** When quota runs out, that's where
-  the current-year admissions detail lives anyway. Keep working.
-- **If you hit the limit**, say so plainly and keep going with CDS and college sites rather
-  than stalling the session. Suggest the free key — 2 minutes, no approval wait, raises the
-  limit to 1,000/hour — but don't make it a blocker.
+**Exits** when `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_research.py students/<slug>/research/<college-slug>.md` passes clean.
 
-## Step 2 — the Common Data Set
+---
 
-Scorecard runs ~2 years behind. For current admissions detail, find the school's CDS:
+## Moment rules
 
-- Search `"common data set" site:<college>.edu`
-- Or try `<college>.edu/ir/cds` or `<college>.edu/institutional-research`
+1. **Every number carries a source and year/date:** Admit rates, percentiles, tuition figures, and deadlines must carry inline citations (e.g., `[CDS 2024-25 §C1]`).
+2. **Nothing from memory:** Look it up every time. If a number cannot be found, output `Not found — needs checking` with the admissions contact info; never guess.
+3. **Lead with cost when cost is the problem:** Never bury an out-of-state budget gap under paragraphs of campus praise.
+4. **Two friction points mandatory:** Every real school has trade-offs (secondary major gates, large lectures, housing crunches, or weather). Name them honestly in `Watch out for`.
+5. **Label student sentiment as impression:** Always prefix qualitative notes from forums with: `Impression, not data: ...`.
+6. **Never ask for household income upfront:** Present institutional need-based policy thresholds (e.g. "covers full tuition under $140k") and ask if that threshold is a possibility for offline parent verification.
 
-Section C is what matters: C1 (applied/admitted/enrolled), C9 (test score percentiles),
-and **C7 — the table of what they actually weigh.** C7 is the most useful and least-known
-document in college admissions. It tells you in the school's own words whether they care
-about essays, recommendations, demonstrated interest, or legacy. When a school marks
-"Interest" as *Considered* or higher, that changes what the student should do — open the
-emails, attend the virtual session, mention specifics in the supplement. Say so.
+---
 
-## Step 3 — the college's own site
+## Session close
 
-Deadlines, required essays, and program details come from the school and nowhere else.
-Record the retrieval date. Verify the **exact program name** the student wants — many
-schools have a general engineering admit with major declared later, and that materially
-changes the application.
-
-Also check whether the school or division **admits by major**. A 15% university rate can
-hide a 7% engineering or nursing or business rate. Getting this wrong mis-tiers the school.
-
-## Step 4 — culture, honestly labeled
-
-Student newspapers, Reddit, Niche, YouTube tours, and the school's own subreddit are fine
-for *texture* — what people complain about, what they're proud of, whether the campus
-empties on weekends. Label it as impression, never as fact:
-
-> *Impression, not data:* students describe the campus as emptying out on weekends; the
-> Greek scene is the dominant social structure for a large share of students. If that's
-> what you meant by "I don't want a party school," this is worth a hard look.
-
-## The dossier
-
-```markdown
-# Northeastern University
-Boston, MA — private nonprofit, large city — UNITID 167358
-
-## The short version
-Three sentences. What this school is, why it's on your list, and the one thing to know.
-
-## Admissions
-- Admit rate: 5.6% (CDS 2025-26 §C1; Scorecard shows 6.8% for an earlier year)
-- Middle 50% SAT: 1490–1560 (CDS 2025-26 §C9)
-- Your position: your 1480 sits just below the middle 50%.
-- Admits by major? Yes — Khoury (CS) is meaningfully harder than the overall rate.
-- What they weigh most (CDS §C7): rigor, GPA, essays — all "Very Important."
-  Demonstrated interest: Considered. Open their emails.
-- Deadlines: ED I Nov 1, ED II Jan 1, RD Jan 1 (admissions.northeastern.edu, ret. 2026-08-12)
-
-## Cost
-- Sticker: $89,536 (Scorecard, 2024-25 field year)
-- Average net price, your income band: $31,204 (Scorecard, 2024-25)
-- Net Price Calculator: <url>  ← run this, the average is not your number
-- Meets full need? No — 65% of need met on average (CDS 2025-26 §H2)
-- **Against your $25k ceiling:** likely over by ~$6k/yr without merit aid.
-
-## The program you want
-Named program, degree, accreditation, what's distinctive, what's oversold.
-
-## Fit — against your profile
-**Works because:** co-op is six months of real paid engineering work, twice. You said you
-learn by doing and you're tired of school being theoretical. This is the most direct
-answer to that on your whole list.
-**Friction:** you also said you want a campus that feels like a community. Co-op means a
-third of your friends are gone at any given time.
-**Turn-offs check:** you said no huge lectures — intro classes here run 300+.
-
-## Verdict
-Reach, and the money is the harder problem than the admission. Worth applying if you love
-the co-op model enough to organize four years around it.
-
-## Still unknown
-- Whether co-op counts toward the 8-semester aid cap — call admissions. [needs checking]
-```
-
-## Rules
-
-- **Every number carries a source and a year.** No exceptions.
-- **Nothing from memory.** Look it up, every time, even for schools you "know."
-- **"Not found — needs checking" is a real answer.** Say where you looked. Tell the student
-  to call admissions; learning to do that is worth more than the fact.
-- **Always evaluate against this student.** Every dossier ends with fit and friction tied
-  to specific things they said. If you can't name a friction, you haven't looked hard
-  enough — every school has one.
-- **Lead with cost when cost is the problem.** Don't bury a $30k gap under three paragraphs
-  about the honors college.
-
-After writing, update the school's entry in `colleges.md` and `meta.json` if the research
-changed the tier, deadline, or status — then regenerate the tracker.
+Before replying to the student on EVERY turn:
+1. Sync `colleges.md` and `meta.json` if list tiering or deadlines changed.
+2. Run `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_research.py students/<slug>/research/<college-slug>.md` as the absolute final tool call on EVERY turn. If you edit any file, re-run `check_research.py` before speaking. Never reply without running `check_research.py` last.
+3. Every reply ends with ONE next step and its reason.

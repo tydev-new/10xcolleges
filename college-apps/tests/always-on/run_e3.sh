@@ -26,7 +26,7 @@ vault_lock()   { find "$REALWS" -type f -not -path '*/.damaged*' -exec chflags u
 [ -d "$REALWS" ] && { vault_lock; trap vault_unlock EXIT; trap 'vault_unlock; kill 0 2>/dev/null' INT TERM; }
 
 # ---- HOST 2: the suite's cases -----------------------------------------------
-ALL_CASES="e3-review-rounds e4-late-read i1-intake-rounds i2-setup-in-a-repo l1-list-build"
+ALL_CASES="e3-review-rounds e4-late-read i1-intake-rounds i2-setup-in-a-repo l1-list-build r1-research-school"
 CASES="${CASES:-}"
 [ -z "$CASES" ] && { echo "usage: CASES=\"<case> ...\" $0 <tag>   (CASES=all for the suite: $ALL_CASES)" >&2; rmdir "$RESULTS" 2>/dev/null; exit 2; }
 [ "$CASES" = all ] && CASES="$ALL_CASES"
