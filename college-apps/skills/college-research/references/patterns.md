@@ -85,3 +85,32 @@ Never ask the student or family for their tax returns or household income upfron
   > *"The Rice Investment covers full tuition for families with typical assets earning under $140,000/year (and full tuition, room, and board under $75,000)."*
 - In conversation, present this as a threshold opportunity:
   > *"If you think your family might fall under that $140k threshold, Rice could be well within your budget as a reach. Is that a possibility worth checking privately with your parents using their Net Price Calculator?"*
+
+---
+
+## 5. The Housing Guarantee Horizon & Upperclassman Rental Shock
+
+Never assume a freshman room and board rate applies for four years:
+
+### The Housing Guarantee Cliff:
+- **4-Year Guarantee:** Schools like Notre Dame, Princeton, Vanderbilt, and Williams guarantee undergraduate housing for all four years, ensuring predictable living costs.
+- **1-Year or 2-Year Guarantee Cliffs:** At institutions like UC Berkeley, UC Santa Cruz, NYU, Northeastern, and Colorado Boulder, housing is strictly capped after freshman or sophomore year.
+- **The Financial Impact:** Students must sign 12-month private leases in competitive rental markets where rents range from $1,800 to $2,800/month per student. Adding 12 months of rent, utilities, and groceries often inflates upperclassman Cost of Attendance by **$8,000 to $15,000/year** above freshman sticker projections.
+- **Dossier Rule:** In `students/<slug>/research/<college>.md § Cost & Financial Aid`, always state:
+  `- **Housing guarantee:** Guaranteed for [N] years; off-campus leasing required as [sophomores/juniors].`
+
+---
+
+## 6. Executing Actionable Demonstrated Interest (CDS §C7)
+
+When Common Data Set Section C7 lists **"Level of applicant's interest"** as `Important` or `Considered` (e.g., American University, Tulane, Case Western, Boston College, Syracuse, Lehigh, SMU):
+
+### Institutional Mechanism:
+These colleges use CRM platforms (such as Slate) that assign every applicant an engagement score based on digital and physical touchpoints. Failing to demonstrate interest often triggers **yield protection** (waitlisting or rejecting a high-stats applicant who appears unlikely to enroll).
+
+### The Actionable Checklist for Students:
+1. **Join the Mailing List Early:** Register on the admissions site using the exact same email address used for the Common App.
+2. **Attend 1–2 Virtual Events:** Attend an official virtual admissions session and a departmental student panel. Attendance is automatically timestamped in the university's database.
+3. **Open Admissions Emails and Click Links:** Admissions CRMs track email open rates and link clicks. Counselors instruct students to regularly open official emails and click through to academic department pages.
+4. **Sign Up for the Optional Interview:** If the college offers optional alumni or senior interviews, always opt in; opting out signals low commitment.
+5. **Campus Visits (If Feasible):** If traveling to campus, always register for the official admissions tour so attendance is recorded.

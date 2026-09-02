@@ -119,3 +119,36 @@ When `gate < 4` or open `TODO:` items exist in the student record, never halt or
 - **If Answered:** Record major or record `"undecided" [student YYYY-MM-DD]` in `profile.md § Goals and direction`.
 - **If Undecided:** Degrade gracefully by evaluating schools on general university admission rates, but add an explicit watch-out for restricted STEM/business programs:
   `- **Watch out for:** Applying undecided; changing into Engineering, CS, Nursing, or Business later often requires a separate, highly competitive internal transfer gate.`
+
+---
+
+## 8. The Sub-15% "Automatic Reach" Rule (Regardless of Stats)
+
+A student with a 4.0 unweighted GPA and 1580 SAT will have stats at or above the 75th percentile of Ivy League, Stanford, Duke, and Northwestern. Students (and novice counselors) often mistakenly tier these as "Targets".
+
+### The Master Counselor Law:
+**Any institution or program with an acceptance rate below 15% is an Automatic Reach for 100% of human applicants.**
+- *Why:* At $< 15\%$ admit rates, schools reject thousands of 4.0/1600 applicants every year. Institutional institutional priorities (recruited athletes, legacy, development, geographic diversity, underrepresented talents) occupy 30%–50% of the admitted class, making general unhooked admission statistical lotteries.
+- *Tiering Rule:* Never label a sub-15% school as a Target or Safety. `check_list.py` strictly enforces this.
+
+---
+
+## 9. The Per-College Test-Optional Submission Strategy
+
+Never make a blanket global decision to submit or withhold SAT/ACT scores. Counselors evaluate score submission **college by college** against the institution's enrolled middle 50% (from CDS Section C9):
+
+1. **Submit Confidently:** If the student's score is at or above the college's **enrolled 50th percentile**.
+2. **Submit Strategically:** If the score is between the **25th and 50th percentile AND** the student brings a geographic hook, first-generation status, or intended major in a non-STEM field where the score is competitive.
+3. **Withhold (Apply Test-Optional):** If the score is below the college's **enrolled 25th percentile**. Submitting a 1380 to an institution where the 25th percentile is 1490 converts a strong GPA into a questionable profile. Applying test-optional allows admissions officers to focus entirely on course rigor and grades.
+
+---
+
+## 10. Early Decision (ED) Leverage & The Financial Guardrail
+
+Early Decision (ED I / ED II) often provides a 1.5x–2.5x statistical boost in acceptance rates at selective private universities (e.g. Northwestern, WashU, Duke, Emory, Tulane, Boston College).
+
+### The Non-Negotiable Financial Prerequisite:
+**Never allow a student to submit a binding Early Decision agreement without written confirmation that parents have run the college's Net Price Calculator (NPC) and confirmed the estimated cost is affordable.**
+- *Why:* An ED acceptance is a binding contract. If admitted, the student must withdraw all other applications immediately. The student cannot compare financial aid offers from other schools in April.
+- *Chat & Dossier Standard:* When a student proposes an ED school, always ask:
+  > *"Because Early Decision is legally binding, have you and your parents run [College]'s official Net Price Calculator? We need to verify that their estimated net price is within your family's budget before locking in an ED commitment."*

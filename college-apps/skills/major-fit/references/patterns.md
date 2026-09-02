@@ -78,6 +78,37 @@ This structure powers the student's "Why Major" supplemental essays:
 
 ---
 
+## 6. The Alternate Major Strategy on Common App & State Applications
+
+Most selective universities and state systems (Common App member schools, UC system, ApplyTexas) allow applicants to list a **Primary Choice Major** and an **Alternate / Second-Choice Major**.
+
+### The "Double Reach" Trap
+Students frequently list two hyper-impacted, single-digit admit majors (e.g. Primary: *Computer Science*, Alternate: *Mechanical Engineering*).
+- If the student is not admitted to CS, the engineering college evaluates the alternate major—and immediately rejects them because Mechanical Engineering is also at capacity.
+- **Counselor Rule:** Never burn an alternate major on a second hyper-impacted department.
+
+### The Strategic Alternate
+Pair a reach primary major with a high-fit, un-impacted adjacent major (e.g. Primary: *Computer Science*, Alternate: *Cognitive Science*, *Informatics*, or *Applied Mathematics*):
+- **Condition:** Only select an alternate major if the student would genuinely be excited to graduate with that degree without needing an internal transfer.
+- **Institutional Variation:**
+  - *Actively Evaluated:* Purdue, UIUC, UW-Madison, and UC San Diego thoroughly review second-choice majors.
+  - *Rarely Evaluated:* UT Austin and UCLA rarely admit into alternate majors unless the student qualifies for non-restricted general liberal arts admission.
+
+---
+
+## 7. The BA vs. BS College Division Strategy
+
+At major research universities (e.g. UC Berkeley, University of Michigan, Cornell, UNC Chapel Hill, UT Austin, NYU), high-demand disciplines like **Computer Science, Economics, Biology, and Physics** exist in **two separate colleges**:
+- **BA (Bachelor of Arts)** in the *College of Arts & Sciences / Literature, Science, and the Arts (LSA)*.
+- **BS (Bachelor of Science)** in the *College of Engineering* or *School of Business*.
+
+### What Students Misunderstand vs. Reality
+1. **Curriculum Reality:** The core departmental coursework in the major (e.g. data structures, algorithms, econometrics, organic chemistry) is 85%–90% identical. Employers and graduate schools do not view the BA as inferior.
+2. **Admissions Dynamic:** The College of Engineering pool evaluates almost entirely on advanced math/physics competitions and STEM index scores. The College of Arts & Sciences evaluates broad intellectual inquiry, writing, and foreign language proficiency.
+3. **The Strategic Play:** A student with strong humanities, writing, or foreign language coursework and solid (but not Olympiad-level) math often has a 2x–3x higher probability of admission pursuing the **BA in Arts & Sciences** rather than the BS in Engineering.
+
+---
+
 ## Proposing a new pattern
 
 When an adjacent major mapping or flow question works for two different students, write it as a dated line at the end of the second student's `conversations.md`, naming both. A pattern is never self-adopted; a person promotes it into this file.

@@ -51,7 +51,7 @@ Build or rebalance an 8–12 school college list across Safety, Target, and Reac
 4. Assign tiers based on verified academic ranges, major-specific selectivity, and net price:
    - **Safety (2–3):** GPA/test above 75th percentile for this major, net price strictly within family budget ceiling without unearned aid, AND matches at least 1–2 key student preferences ("Love Your Safeties"). A school over budget is NEVER a safety.
    - **Target (3–5):** GPA/test in middle 50% for this major AND strictly within budget.
-   - **Reach (2–4):** GPA/test below 25th percentile, admit rate $< 15\text{--}20\%$, OR major-specific admit gate under 20% (e.g. engineering/CS), with plausible aid pathway.
+   - **Reach (2–4):** Any school with an overall acceptance rate $< 15\%$ (or major-specific admit gate $< 15\%$) is an **Automatic Reach for all applicants regardless of 4.0/1600 stats**. Also includes schools where GPA/test is below the 25th percentile, with a plausible aid pathway.
 5. Write `students/<slug>/colleges.md` following `schemas/colleges.md` with an upfront derivation summary and plain-English criteria descriptions. When `research/<college>.md` exists, pull numbers, net prices, and watch-outs directly from the dossier.
 6. Synchronize `meta.json`.
 

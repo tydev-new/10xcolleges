@@ -59,17 +59,20 @@ To prevent student burnout from writing dozens of futile essays, follow the 4-ti
 
 ---
 
-## 4. FAFSA vs. CSS Profile Nuances
+## 4. FAFSA vs. CSS Profile Nuances & The Divorced Parent (NCP) Protocol
 
 Explain the difference to families without probing for their private numbers:
 - **FAFSA (Free Application for Federal Student Aid):**
   - Universal for all US citizens and permanent residents.
   - Excludes primary home equity and retirement accounts.
-  - Required for federal direct loans and many state/institutional merit awards.
+  - Required for federal direct loans, Pell Grants, and state merit awards.
+  - *Divorce/Separation Rule:* Under FAFSA simplification, only the parent who provides the **greatest financial support** completes the form (not necessarily the custodial parent).
 - **CSS Profile (College Scholarship Service):**
   - Required by ~250 selective private colleges.
-  - Assesses primary home equity, small businesses, and non-custodial parent financial info (in cases of divorce/separation).
-  - Flags non-custodial parent waiver petitions when contact is broken.
+  - Assesses primary home equity, small business value, and non-custodial parent financials.
+  - *The Non-Custodial Parent (NCP) Trap:* Over 200 CSS Profile colleges require the **CSS Non-Custodial Parent Profile** from the other biological parent, regardless of divorce decrees, custody agreements, or court child support orders.
+  - *The NCP Waiver Petition:* If the non-custodial parent is estranged, absent, or refuses contact, institutional aid will be frozen unless the family files a **CSS Non-Custodial Parent Waiver Petition**.
+  - *Waiver Requirements:* Must provide 2 third-party supporting letters from neutral professionals (high school counselor, physician, therapist, clergy, or family attorney) confirming complete lack of contact and financial support.
 
 ---
 
@@ -84,7 +87,23 @@ $$\text{True Net Price} = \text{Total Cost of Attendance (COA)} - (\text{Grants}
 
 ---
 
-## 6. Professional Judgment (PJ) Appeal Blueprint
+## 6. Outside Scholarship Displacement (The Over-Award Penalty)
+
+Before a student spends weeks applying for 30 private outside scholarships, audit the target college's **Outside Scholarship Displacement Policy**:
+
+### The Trap:
+At many private colleges that meet 100% of demonstrated need, if a student wins a $3,000 local Rotary scholarship, the college's financial aid office **reduces its own need-based institutional grant by $3,000**. The family pays the exact same out-of-pocket net price, rendering the scholarship effort meaningless to the family budget.
+
+### The Good Policy ("Self-Help Reduction First"):
+Favorable institutions apply outside scholarships to replace **student self-help** (federal direct student loans and work-study) before reducing any grant aid. A $5,500 outside award eliminates the student loan without touching free grant dollars.
+
+### Counselor Action:
+1. Check the financial aid page: *"Does [College] reduce loans first or institutional grant aid when outside scholarships are awarded?"*
+2. Note that several states (California, Maryland, Washington) have enacted anti-displacement laws protecting state and institutional aid from displacement for qualifying low- and middle-income students.
+
+---
+
+## 7. Professional Judgment (PJ) Appeal Blueprint
 
 When family financial circumstances change or an academic peer offers a better package:
 - **Valid Triggers for Appeals:**

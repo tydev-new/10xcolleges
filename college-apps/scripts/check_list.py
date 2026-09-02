@@ -110,6 +110,20 @@ def check_list(student_dir):
                 if min_cost > budget_ceiling + 500:
                     findings.append(("FAIL", f"{s['name']}: cost (${min_cost:,}) exceeds budget ceiling (${budget_ceiling:,}) — over-budget schools must stay in chat, not in colleges.md"))
 
+        # Enforce Sub-15% Automatic Reach Rule
+        numbers = s["fields"].get("The numbers", "")
+        if numbers:
+            m_rate = re.search(r"(?:admit(?:sion)?\s+rate|acceptance\s+rate)\s*[:~]?\s*(\d+(?:\.\d+)?)\s*%", numbers, re.I)
+            if not m_rate:
+                m_rate = re.search(r"(\d+(?:\.\d+)?)\s*%\s*(?:admit|acceptance)", numbers, re.I)
+            if m_rate:
+                try:
+                    rate = float(m_rate.group(1))
+                    if rate < 15.0 and s["tier"] != "Reach":
+                        findings.append(("FAIL", f"{s['name']}: acceptance rate under 15% ({rate}%) is an Automatic Reach for all applicants — cannot be tiered as {s['tier']}"))
+                except ValueError:
+                    pass
+
     if safeties == 0:
         findings.append(("WARN", "0 safeties on the list — every list needs at least one affordable, academically solid safety"))
     if targets == 0:

@@ -30,6 +30,7 @@ The file must contain these exact five sections in order:
 
 - **Primary intended major:** Mechanical Engineering [student 2026-09-02]
 - **Confidence level:** High / Exploring / Undecided [student 2026-09-02]
+- **Strategic alternate major:** Materials Science & Engineering (for Common App / UC alternate major choice) [student 2026-09-02]
 - **One-sentence intellectual core:** "Fixing physical things that are broken and designing assistive hardware." [student 2026-09-02]
 
 ## Coursework Stamina & Transcript Evidence

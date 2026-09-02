@@ -226,6 +226,47 @@ the tool log — a "cold read" with no call behind it is a made-up one.
   is the shape every rubric here aims for — quoted when the college
   provides it, derived and labeled when it does not.
 
+## The "Super-Essay / Hub" Supplemental Matrix
+
+A student applying to 10–12 selective colleges faces between 25 and 40 supplemental essays. Brainstorming and writing 30 individual essays from scratch leads to catastrophic student burnout and hollow, rushed prose by November. Master counselors build a **Hub Strategy** around 4 universal archetypes:
+
+### The 4 Universal Archetypes:
+1. **The Community / Belonging Hub:**
+   - *Prompt variations:* "Describe a community you belong to and your place within it" (Michigan, MIT, Duke, Yale).
+   - *Drafting:* Write a rich 400-word master version focused on how the student interacts with, contributes to, and learns from a specific group (e.g. robotics pit crew, family Sunday dinner cooks, community garden volunteers).
+   - *Adaptation:* Trim to 250 words by focusing on the micro-action; trim to 100–150 words by keeping only the core interaction and takeaway.
+2. **The Activity Deep-Dive / Intellectual Spark Hub:**
+   - *Prompt variations:* "Briefly elaborate on one of your extracurricular activities or work experiences" (Common App, Stanford, Princeton, Georgetown, Vanderbilt).
+   - *Drafting:* Write a 350-word master version focusing on the intellectual friction and problem-solving (what hands did, what mind learned).
+   - *Adaptation:* Easily condensed to 150 words or expanded to 250 words for departmental "Why Major" prompts.
+3. **The Challenge / Perspective Hub:**
+   - *Prompt variations:* "Describe a setback, challenge, or ethical dilemma and how you responded" (Common App #2, Harvard, Dartmouth).
+   - *Drafting:* Grounded in the 1/3 obstacle, 2/3 intellectual recovery formula.
+4. **The Bespoke "Why Us?" Supplement:**
+   - *The Non-Negotiable Exception:* This is the **only** essay archetype that CANNOT be recycled. It must be built exclusively from the student's `research/<college>.md` dossier, using the *Past Proof <-> Specific Campus Resource <-> Future Contribution* formula.
+
+---
+
+## The 4-Bullet Additional Information Protocol
+
+The Common App and Coalition applications provide an "Additional Information" box (up to 650 words). Admissions officers read this section in 30 seconds. They actively dislike long, flowery, defensive essays in this space. Master counselors mandate the **4-Bullet Factual Standard**:
+
+```markdown
+### Circumstance Regarding 11th Grade Chemistry Honors Grade Dip
+
+- **Context (Dates & Circumstance):** In October–November of junior year (Fall 2025), I contracted severe mononucleosis, missing 18 consecutive school days and requiring hospitalization for complications.
+- **Academic Impact:** Because laboratory experiments could not be made up remotely, my Q2 Chemistry Honors grade dropped to a C, and I took an Incomplete in Pre-Calculus.
+- **Proactive Steps & Resolution:** Upon medical clearance in January, I attended daily after-school tutorials with Mr. Henderson, completed all outstanding calculus modules, and earned an A- on the semester exam.
+- **Upward Trend & Verification:** Maintained a 4.0 GPA in Spring semester (including A in AP Biology). School counselor Ms. Patricia Vance can verify medical records upon request.
+```
+
+**Key counselor rules:**
+- Purely factual, chronological, and objective.
+- Zero self-pity, excuses, or emotional rhetoric.
+- Highlights agency, recovery, and third-party verifiability.
+
+---
+
 ## Proposing a new pattern
 
 When an angle-finding question, a mode script, or a review move works
