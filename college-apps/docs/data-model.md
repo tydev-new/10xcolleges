@@ -74,8 +74,8 @@ checks this table against the skills and schemas.
 | `essays/<e>/brief.md` | **Split** — see below | essay-coach — [schema](../schemas/essay.md) § `brief.md` | — | Depends on which half |
 | `essays/<e>/draft-NN.md` | **Immutable** | essay-coach — [schema](../schemas/essay.md) § `draft-NN.md` | the student (a new numbered file) | Never. Write `draft-NN+1.md` |
 | `essays/<e>/review-NN.md` | **Immutable** | essay-coach — [schema](../schemas/essay.md) § `review-NN.md` | — | Never. Write `review-NN+1.md` |
-| `recs/brag-sheet--<t>.md` | Living | rec-request — [schema](../schemas/recs.md) § `brag-sheet--<teacher-slug>.md` | — | Before sending to that teacher |
-| `recs/request--<t>.md` | Living | rec-request — [schema](../schemas/recs.md) § `request--<teacher-slug>.md` | — | Before the student sends it |
+| `recs/brag-sheet--<t>.md` | Living | rec-request — [schema](../schemas/recs.md) § `brag-sheet--<t>.md` | — | Before sending to that teacher |
+| `recs/request--<t>.md` | Living | rec-request — [schema](../schemas/recs.md) § `request--<t>.md` | — | Before the student sends it |
 | `counselor-questions.md` | Living | counselor-package — [schema](../schemas/counselor.md) § `counselor-questions.md` | — | Before each package send |
 | `meta.json` | **Index** | college-app — [schema](../schemas/meta.md) § `meta.json` | — | Immediately after `colleges.md` changes |
 | `packet.json` | **Index** | counselor-package — [schema](../schemas/meta.md) § `packet.json` | — | Before regenerating the .docx |

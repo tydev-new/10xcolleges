@@ -1,152 +1,91 @@
 ---
 name: rec-request
-description: Plan recommendation letters — pick which teachers to ask, build a brag sheet for each one, and draft the ask itself. Use when a student needs letters of recommendation, asks who they should ask, needs a brag sheet or resume for a teacher, or needs to follow up with or thank a recommender.
+description: Plan recommendation letters — pick which teachers to ask, audit faculty writing habits, build personalized brag sheets with classroom friction moments, draft in-person scripts and email requests, and track submission etiquette. Produces brag-sheet--<teacher>.md and request--<teacher>.md.
 ---
 
-# Recommendation letters
+# Recommendation Letters — Strategy, Brag Sheets & Requests
 
-Read `${CLAUDE_PLUGIN_ROOT}/docs/voice.md`, the student's `profile.md`, and `conversations.md`.
+## Goal
 
-Three jobs: pick the right people, give them what they need, and ask well. Most students
-do all three badly and get generic letters as a result — not because the teacher didn't
-like them, but because the teacher had four hundred words and no material.
+Build `students/<slug>/recs/brag-sheet--<teacher-slug>.md` and `request--<teacher-slug>.md` for each recommender — **every brag sheet equipped with three concrete classroom moments from that teacher's room, every request grounded in an in-person conversation, every deadline verified, and FERPA access irrevocably waived** — validated deterministically by `scripts/check_rec.py`, evaluated qualitatively by `references/eval.md`, with schema in `${CLAUDE_PLUGIN_ROOT}/schemas/recs.md`.
 
-## Picking recommenders
+| Must be true | Where |
+|---|---|
+| **Recommender balance:** 1 STEM + 1 Humanities/Social Science junior-year teachers prioritized | `profile.md § Teachers who know you well`, `recs/` |
+| **Classroom specificity:** At least 3 concrete moments (friction, dialogue, initiative) from that teacher's room | `brag-sheet--<teacher-slug>.md` |
+| **Declared major & deadlines:** Intended major and earliest application deadline date explicitly stated | `brag-sheet--<teacher-slug>.md`, `request--<teacher-slug>.md` |
+| **Two-step ask dance:** Written request acknowledges prior face-to-face agreement | `request--<teacher-slug>.md` |
+| **FERPA waiver status:** Confirmed waived in Common App | `brag-sheet--<teacher-slug>.md § Logistics` |
+| **Deterministic validation:** `check_rec.py` passes with zero FAILs | CLI |
 
-Start from `profile.md`'s "teachers who know you well," then pressure-test it. The best
-recommender is **not** the teacher who gave the highest grade. It's the one who watched
-the student struggle with something and keep going, or who saw them change.
+---
 
-Ask directly:
+## Prerequisites
 
-> Which teacher has seen you at your worst and still thinks well of you? That's usually
-> the one who can write the letter that helps.
+- **Required:** `students/<slug>/profile.md` (coursework, teachers who know you well, activities), `conversations.md`, and `criteria.md` / `colleges.md` (for deadlines).
+- **Synchronizes with:** `academic-direction.md` (intended major alignment) and `meta.json` / `tracker.xlsx` (recommender statuses).
+- **Outputs:**
+  - `students/<slug>/recs/brag-sheet--<teacher-slug>.md`
+  - `students/<slug>/recs/request--<teacher-slug>.md`
 
-Check the requirements first — they vary and they're binding:
-- Most selective colleges: two teachers plus the counselor.
-- Many want **core academic subjects from junior or senior year.**
-- Some engineering and science programs specify **one math or science** teacher.
-- Some cap the total. Extra letters past the cap can actively annoy an admissions office.
+---
 
-Verify per school from the college's own site and record it in the research dossier.
+## Sequences and Loops
 
-Steer them toward balance: two teachers who'd say the same thing is a wasted slot. One who
-saw the analytical side and one who saw the persistence or the collaboration covers more.
+### Phase 1: Recommender Selection & Faculty Audit (Sequence)
 
-On supplemental letters (a coach, employer, mentor): only when that person saw something no
-teacher could, and only if the school accepts them. Otherwise it's noise.
+**Runs when** planning who to ask, or when a student is uncertain which teachers will write strong letters.
 
-## The brag sheet
+1. **Verify College List Rules:** Audit target institutions on `colleges.md` for specific recommender requirements (e.g. MIT, Caltech, and Harvey Mudd mandate 1 STEM + 1 Humanities).
+2. **Prioritize Junior Year (11th Grade):** Focus on 11th-grade teachers in core academic subjects who taught advanced rigor (AP, IB, DE, Honors).
+3. **Conduct the Faculty Audit (Pattern § 2):**
+   - *The Feedback Test:* Does this teacher write detailed narrative comments on papers/labs, or just assign numbers?
+   - *The Vulnerability Test:* Has this teacher seen the student struggle, fail an assessment, seek help, and recover?
+   - *The Capacity Test:* Does this teacher cap their letter list (e.g. max 15 students)? Ask early in September.
+4. **Steer Toward Balance:** Never pick two teachers who say the exact same thing. Pair an analytical/experimental teacher with a discussion/humanities teacher.
 
-This is the actual deliverable. Write one **per recommender** — not one generic sheet
-photocopied three times — to `recs/brag-sheet--<teacher-slug>.md`.
+### Phase 2: Brag Sheet & In-Person Script Drafting (The Loop)
 
-A teacher writing in November remembers the student in general and almost nothing in
-particular. The brag sheet's job is to hand them three specific, usable moments *from
-their own classroom*, so the letter has evidence in it.
+**Runs for each agreed recommender.**
 
-```markdown
-# For Ms. Alvarez — AP Physics, junior year
+- **Standard:** The 5-dimension rubric in `references/eval.md`.
+- **Each recommender:**
+  1. *Extract Classroom Moments:* Sift `profile.md` and interview the student for **three narrative bricks** that occurred inside that specific teacher's room:
+     - *Moment 1 (Friction & Recovery):* An exam dip, lab failure, or critical essay revision where the student worked through difficulty to mastery.
+     - *Moment 2 (Classroom Dialogue):* A seminar debate, provocative question, or intellectual risk.
+     - *Moment 3 (Peer Generosity / Build):* Voluntary peer tutoring or lab apparatus iteration.
+  2. *Draft the In-Person Script:* Write a natural, 3-sentence spoken script for the student to ask the teacher face-to-face at 3:15 PM, giving them a gracious out.
+  3. *Draft `brag-sheet--<teacher>.md`:* Format strictly according to `schemas/recs.md`.
+  4. *Draft `request--<teacher>.md`:* Follow-up email sent within 2 hours of the in-person agreement, confirming deadlines, Common App invitation, and attachments.
+  5. *Validate:* Run `check_rec.py`.
 
-## What I'm applying to
-Mechanical engineering. Michigan (EA, Nov 1), Case Western, Purdue, Michigan State.
-Full list and deadlines at the end.
-
-## What I'd love you to be able to speak to
-Not a request to say these words — just what I hope comes through:
-1. That I work a problem until it gives, past the point where it's fun.
-2. That I help other people without being asked.
-
-## Moments from your class you might not remember
-- **The rotational motion unit, second semester.** I got a 61 on that test — the worst
-  grade I've had. I came in during lunch four times over the next two weeks. You gave me
-  the problem set from your old university course. I got a 94 on the retest and a 5 on
-  the AP exam.
-- **The pendulum lab.** My group's data was garbage because we mistimed the release. You
-  let us redo it. We built a release mechanism out of a binder clip so the timing was
-  consistent, and it worked.
-- **Tutoring during 5th period.** I helped Marcus and two other juniors with kinematics
-  most weeks from January on. Nobody assigned that; he asked and I kept showing up.
-
-## Outside your classroom
-Robotics build lead, 3 years, ~15 hrs/week in season — trained six freshmen on the mill.
-Grocery cashier, 12 hrs/week since junior year. Fix and resell bikes; put a free repair
-stand outside the public library that I've maintained for two years.
-
-## The through-line, if it helps
-I like things that are broken. Not designing new things — fixing things that already exist
-and don't work. That's most of why I want mechanical engineering.
-
-## Logistics
-- Earliest deadline: **November 1** (Michigan EA)
-- Submitted through: Common App — you'll get an email invitation from me
-- Transcript and activities list attached
-- My counselor is Mr. Reyes; he's handling the school report separately.
+```bash
+python3 "${CLAUDE_PLUGIN_ROOT}/scripts/check_rec.py" students/<slug>/recs/
 ```
 
-Rules for the brag sheet:
+### Phase 3: Relational Lifecycle & Accountability (Sequence)
 
-- **Only things that teacher actually witnessed** in the "moments" section. A physics
-  teacher can't credibly write about the student's history essay.
-- **Specific to the point of discomfort.** Test names, unit names, dates, actual grades,
-  names of students helped. "I worked hard in your class" is worthless; "I got a 61 on the
-  rotational motion test and came in four times at lunch" is a letter.
-- **Include the failures.** The best letters describe recovery, and teachers are often
-  reluctant to raise a bad grade unless the student signals it's fair game.
-- **Never invent a moment.** Everything here comes from `profile.md` or the student's own
-  mouth. If the student can't remember anything specific from that class, that is strong
-  evidence they should ask a different teacher — say so.
-- Keep it to about two pages. A teacher with 30 of these will not read four.
+**Runs across the autumn and spring application cycle.**
 
-## The ask
+1. **Record in Meta:** Add recommenders to `meta.json` under `recommenders` (`asked`, `agreed`, `brag_sheet_sent`, `submitted`, `thanked`) and regenerate the tracker:
+   ```bash
+   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/make_tracker.py" students/<slug>
+   ```
+2. **2 Weeks Before Deadline:** If unsubmitted, draft a gentle, appreciative check-in note (Pattern § 7). Never push or badger.
+3. **Post-Submission Gratitude:** Prompt the student to deliver a **handwritten thank-you card** to the teacher's classroom.
+4. **Spring Outcome Reveal (April/May):** Prompt the student to visit the teacher in person to share their final college decision.
 
-Draft it, then have the student send it themselves. Save to `recs/request--<slug>.md` —
-the counselor package surfaces these alongside the brag sheets, so a counselor can catch
-a tone problem before it reaches a teacher.
+---
 
-**Timing: at least six weeks before the earliest deadline.** For November 1 deadlines that
-means asking in September, and the good teachers fill up. If a student is late, say so
-plainly and have them ask today.
+## State
 
-**In person first, email after.** A student asking face-to-face gets a better letter than
-one who sends a form. The email exists to carry the attachments and the dates.
+Owns `students/<slug>/recs/brag-sheet--<t>.md` and `students/<slug>/recs/request--<t>.md` — schema in `${CLAUDE_PLUGIN_ROOT}/schemas/recs.md`. Appends to `conversations.md`.
 
-Draft the in-person version as three or four sentences they can actually say out loud, not
-a script that sounds like a lawyer wrote it. Then the follow-up email:
+---
 
-> Subject: Thank you — recommendation materials (Jordan Lee, Class of 2027)
->
-> Hi Ms. Alvarez,
->
-> Thank you for saying yes this morning — it means a lot. I've attached a sheet with some
-> specifics from your class that might be useful, plus my transcript and activities list.
->
-> My earliest deadline is **November 1** for Michigan Early Action. I'll send the Common
-> App invitation today so it's in your inbox whenever you're ready.
->
-> If it would help to talk through any of it, I'm free during 5th period most days.
->
-> Thank you again,
-> Jordan
+## Non-Negotiable Guardrails
 
-Then: **the student must waive FERPA access** in the Common App. Explain why — a waived
-letter is read as candid, an unwaived one is read as suspect. Nearly every counselor
-recommends waiving.
-
-## Follow-up and thanks
-
-Track in `meta.json` under `recommenders`, then regenerate the tracker.
-
-- **Two weeks before the deadline**, if not submitted: one polite check-in from the
-  student. Draft it warm and short, never pushy. Teachers are busy and genuinely forget.
-- **After submission**: a handwritten thank-you note. Say this plainly — it takes five
-  minutes, teachers keep them for years, and the student will need this person again for
-  scholarships and transfer applications.
-- **In the spring**: tell them where you got in. Almost nobody does this. It's the part
-  teachers actually care about.
-
-## If a teacher says no
-
-It happens, and it's usually a kindness — a teacher who doesn't think they can write a
-strong letter is doing the student a favor by declining. Don't let the student read it as
-rejection. Move to the next name and don't push the first one.
+1. **Never Invent Classroom Moments:** Every project, grade recovery, or peer tutoring event must be drawn from `profile.md` or student testimony in `conversations.md`.
+2. **The In-Person Ask Invariant:** Never send a cold email or Common App invitation before having a face-to-face conversation with the teacher.
+3. **The Strict FERPA Rights Waiver:** The student must confirm they have waived their right to inspect recommendations. An unwaved letter destroys evaluative credibility.
+4. **Division of Labor:** Teacher brag sheets focus exclusively on classroom curiosity and academic stamina. School context, family adversity, and AP caps belong exclusively to the School Counselor letter (`counselor-package`).
