@@ -64,6 +64,7 @@ checks this table against the skills and schemas.
 |---|---|---|---|---|
 | `documents/*` | Fixed-source | the student (drops files) | — | Never edited; read by student-intake |
 | `profile.md` | Living | student-intake — [schema](../schemas/profile.md) § `profile.md` | — | New information about the student |
+| `academic-direction.md` | Living | major-fit — [schema](../schemas/academic-direction.md) § `academic-direction.md` | — | Chosen major, adjacent alternatives, or course stamina updates |
 | `criteria.md` | Living (Retired table) | student-intake — [schema](../schemas/criteria.md) § `criteria.md` | college-list (retires rows; open questions) | The student's wants change |
 | `colleges.md` | Living | college-list — [schema](../schemas/colleges.md) § `colleges.md` | — | Schools added, cut, or re-tiered |
 | `conversations.md` | **Append-only** | student-intake — [schema](../schemas/conversations.md) § `conversations.md` | every skill (append only) | After any substantive exchange |

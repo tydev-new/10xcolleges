@@ -99,7 +99,7 @@ class SkillsAndDocsAgree(unittest.TestCase):
         # Skill-shaped tokens used in the diagrams and routing prose.
         named = set(re.findall(r"\b(college-app|college-list|college-research|"
                                r"student-intake|essay-coach|rec-request|app-tracker|"
-                               r"counselor-package|financial-aid)\b", DESIGN))
+                               r"counselor-package|financial-aid|major-fit)\b", DESIGN))
         self.assertEqual(named - skills, set(),
                          "design.md references skills that don't exist")
 
