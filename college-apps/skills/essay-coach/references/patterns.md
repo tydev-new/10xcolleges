@@ -28,10 +28,10 @@ Standard playbooks issue lazy blanket bans (*"never write about sports injuries,
 - Find the **uncommon truth**: the weird mechanical hack, the generational clash, the private burnout, or the quiet behavioral shift.
 - Keep the spotlight on the student's mind and values, not the external event.
 
-### The Additional Information Boundary (Protecting the 650 Words)
-Never burn a 650-word personal statement explaining a transcript blemish, medical leave, or family crisis.
+### The Additional Information Boundary (Protecting the Showcase Essay)
+Never burn a primary personal statement (whether the 650-word Common App essay, a 350-word UC PIQ, or an MIT short take) explaining a transcript blemish, medical leave, or family crisis.
 - The personal statement is your **portrait** (who you are, how you think, what you value).
-- Grade dips and disruptions belong in the **Common App Additional Information section** in 3 factual, non-emotional beats: (1) Context, (2) Concrete Impact, (3) Resolution and upward trajectory.
+- Grade dips and disruptions belong in the dedicated **Additional Information / Comments section** (Common App Writing § Additional Info, UC Academic Additional Comments, or Coalition/independent text box) in 3 factual, non-emotional beats: (1) Context, (2) Concrete Impact, (3) Resolution and upward trajectory.
 
 Three or four angles drawn from *their* material, one sentence each, each weighed honestly. Then say which you'd pick and why:
 

@@ -39,7 +39,7 @@ The brief is a sequence (runs once per essay). The essay review is the loop (rep
 2. Write `brief.md` in two halves:
    - **Fixed (from college):** Restated prompt, 4–6 yes/no criteria with attributed source tiers (1: college guidance, 2: CDS §C7, 3: reader guidance, 4: derived), word count, and lookup date.
    - **Living (from student):** 3–4 weighed angles with your recommendation, outline beats for the chosen angle, and chosen drafting mode.
-3. Present the brief and gather student reactions before drafting. If material is thin, use the 4 elicitation questions (Boredom/Hands, Unspoken Thought, Hollywood vs. Reality, Petty Frustration) rather than abstract prompts. If the student brings a transcript dip or medical crisis, route it to Common App Additional Information rather than burning the personal statement.
+3. Present the brief and gather student reactions before drafting. If material is thin, use the 4 elicitation questions (Boredom/Hands, Unspoken Thought, Hollywood vs. Reality, Petty Frustration) rather than abstract prompts. If the student brings a transcript dip or medical crisis, route it to the application's Additional Information / Comments section rather than burning the personal statement.
 4. Agree on the drafting mode (A: student writes, B: sample first, C: agent first pass) and record their choice.
 
 **Exits** with `brief.md` on file and the drafting mode confirmed.
