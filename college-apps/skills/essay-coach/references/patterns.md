@@ -267,6 +267,34 @@ The Common App and Coalition applications provide an "Additional Information" bo
 
 ---
 
+## The 150-Character Common App Activity Description Formula
+
+In the Common App, students can enter 10 activities, but each description is strictly capped at **150 characters** (including spaces!), and the Position/Leadership title is capped at **50 characters**.
+
+### The Amateur Mistake:
+Using passive sentences or repeating words from the organization box:
+- *Weak (138 chars):* `"I was a member of the robotics team and helped build the robot. I was responsible for attending meetings and helping other members learn CAD."`
+
+### The Master Counselor Formula:
+`[Strong Action Verb] + [Quantified Task] + [Technical Tool/Skill] -> [Concrete Result/Impact]`
+- Drop pronouns ("I", "my") and filler words ("responsible for", "helped to").
+- Use semicolons to pack multiple achievements into the character limit.
+- *Master Example (142 chars):*
+  `"Rebuilt drivetrain 4x; coded autonomous PID loop in Java; trained 6 junior members; led team to 2nd at regional championship (42 teams competing)."`
+- *Master Example 2 (148 chars):*
+  `"Co-founded free tutoring co-op; recruited 14 peer tutors; coordinated 300+ hrs of STEM prep for 65 low-income middle schoolers; raised $2,400 for books."`
+
+---
+
+## The 550–620 Word Personal Statement Sweet Spot
+
+While the Common App permits up to 650 words, top counselors target the **550 to 620 word window**:
+- **Why Not < 500 Words:** Admissions readers review personal statements in 2–3 minutes. Submissions under 500 words often feel thin, lacking the second beat of cognitive reflection that proves maturity.
+- **Why Not Exactly 650 Words:** Drafts stuffed to 649 words almost always contain repetitive throat-clearing, strained adjectives, or redundant transitions that dilute the voice.
+- **The Sweet Spot:** 550–620 words gives the essay room to breathe, provides rhythmic variation in sentence length, and leaves the reader energized rather than fatigued.
+
+---
+
 ## Proposing a new pattern
 
 When an angle-finding question, a mode script, or a review move works

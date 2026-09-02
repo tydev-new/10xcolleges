@@ -114,3 +114,35 @@ These colleges use CRM platforms (such as Slate) that assign every applicant an 
 3. **Open Admissions Emails and Click Links:** Admissions CRMs track email open rates and link clicks. Counselors instruct students to regularly open official emails and click through to academic department pages.
 4. **Sign Up for the Optional Interview:** If the college offers optional alumni or senior interviews, always opt in; opting out signals low commitment.
 5. **Campus Visits (If Feasible):** If traveling to campus, always register for the official admissions tour so attendance is recorded.
+
+---
+
+## 7. Cooperative Education (Co-op) Systems (Northeastern, Drexel, Cincinnati)
+
+Certain universities center their undergraduate model around **Cooperative Education (Co-op)** rather than traditional summer internships:
+
+### The Operating Model:
+- Students alternate 4-to-6-month academic study semesters with **4-to-6-month full-time, paid professional employment** at corporate partners.
+- During co-op rotations, students do not pay tuition and earn competitive market salaries (\$15,000–\$30,000 per co-op).
+
+### Counseling Nuance (Pros vs. Cons):
+- *The Massive Advantage:* Students graduate with 12 to 18 months of verified professional experience, a robust industry network, and frequently receive return offers before graduation.
+- *The Hidden Cost:* It often extends degree completion to 5 years, disrupts 4-year cohort friendships (as friends cycle in and out of the city on alternating co-op schedules), and eliminates traditional summer vacations.
+- *Dossier Rule:* State explicitly in `## Academics & Programs` whether co-op is mandatory, optional, or unavailable.
+
+---
+
+## 8. Grade Deflation vs. Inflation: The Pre-Med & Pre-Law Guardrail
+
+For students targeting medical school (where a 3.75+ science GPA is near-mandatory) or top law schools (where a 3.8+ GPA dominates admissions), **undergraduate grading culture is a make-or-break factor**:
+
+### A. Grade-Deflating Flagships & Universities:
+- Campuses like UC Berkeley, Purdue, Johns Hopkins, Cornell, Boston University, and Georgia Tech are renowned for **rigorous downward curving** in introductory STEM weed-out sequences (General Chemistry, Organic Chemistry, Multivariable Calculus).
+- Median grades in 300-person lecture halls are frequently curved to a C+ or B-. A high-performing high school student can quickly end up with a 3.1 science GPA, severely compromising medical school admission.
+
+### B. Grade-Inflating & Flexible Campuses:
+- Institutions like Brown University (no plus/minus grades, no failing grades recorded on transcript, open curriculum), Harvard, Yale, and smaller liberal arts colleges (Amherst, Williams) provide significantly higher grade medians and supportive faculty grading distributions.
+
+### Counselor Action:
+When evaluating a pre-med student considering a grade-deflating public flagship vs. a supportive private college or honors college, explicitly present the GPA trade-off:
+> *"Purdue has an incredible engineering and biology program, but introductory chemistry and biology classes curve strictly to a B-/C+ median. If your ultimate goal is medical school, you must be prepared for fierce grading curves, or consider an honors college where advising and lab access protect your GPA."*

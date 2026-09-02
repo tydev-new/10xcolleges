@@ -24,6 +24,15 @@ skills scan for these to know what to ask next. Never fill a `TODO:` with a gues
 |---|---|
 | | |
 
+## Academic history & course rigor
+
+- **High school course context (School Profile):**
+- **Cumulative advanced courses taken:**
+
+| Grade | Subject | Exact Course Name | Level (AP/IB/DE/Honors) | Grade | Source |
+|---|---|---|---|---|---|
+| | | | | | |
+
 ## Teachers who know you well
 
 <!-- Name — subject — grade taught — what they actually saw you do -->

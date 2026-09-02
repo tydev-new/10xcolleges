@@ -152,3 +152,34 @@ Early Decision (ED I / ED II) often provides a 1.5x–2.5x statistical boost in 
 - *Why:* An ED acceptance is a binding contract. If admitted, the student must withdraw all other applications immediately. The student cannot compare financial aid offers from other schools in April.
 - *Chat & Dossier Standard:* When a student proposes an ED school, always ask:
   > *"Because Early Decision is legally binding, have you and your parents run [College]'s official Net Price Calculator? We need to verify that their estimated net price is within your family's budget before locking in an ED commitment."*
+
+---
+
+## 11. State Legislative Quota Walls (UNC, UT Austin, Public Flagships)
+
+Do not treat public flagship selectivity as uniform across all applicants. In several states, **state law mandates strict geographic quotas**:
+
+### A. The UNC Chapel Hill 82% Rule
+- **State Mandate:** North Carolina state statute mandates that **at least 82%** of each entering undergraduate class must be North Carolina in-state residents.
+- **Selectivity Impact:** Out-of-state applicants fight for only 18% of available seats. While the in-state admit rate is ~25%, the **out-of-state admit rate drops to ~7%–8%**.
+- **Counselor Rule:** For any non-North Carolina resident, UNC Chapel Hill is strictly an **Extreme Reach**, comparable in selectivity to an Ivy League university.
+
+### B. The UT Austin Top 6% Rule
+- **State Mandate:** Texas state law guarantees automatic admission to high school seniors graduating in the **Top 6%** of their Texas high school class.
+- **Selectivity Impact:** These automatic in-state admits consume **75% of the entire freshman class**. Out-of-state applicants and non-top-6% Texas students must compete holistically for the remaining 25% of seats.
+- **Counselor Rule:** Out-of-state applicants to UT Austin (especially in CS, Engineering, or Business) face sub-10% admit rates and must be tiered as Reaches.
+
+---
+
+## 12. Regional Tuition Reciprocity Programs (WUE & MSEP)
+
+Families often assume all public out-of-state flagships cost $40k–$60k/year. Master counselors leverage **Regional Tuition Reciprocity Agreements**:
+
+### A. Western Undergraduate Exchange (WUE)
+- **Eligibility:** Students residing in 16 Western states (AK, AZ, CA, CO, HI, ID, MT, NV, NM, ND, OR, SD, UT, WA, WY, and US Pacific territories).
+- **Benefit:** Reduces out-of-state tuition to **no more than 150% of the in-state rate** at over 160 participating institutions (e.g. Colorado State, Oregon State, University of Utah, University of Arizona, Washington State).
+- **Savings:** Saves between \$10,000 and \$18,000/year, making out-of-state public colleges cost-competitive with in-state alternatives.
+- **Key Nuance:** Some popular campuses (e.g. UC Berkeley, UCLA, University of Washington Seattle) do **not** participate in WUE, and certain competitive majors (e.g. Nursing, CS) may be excluded by participating campuses. Always verify departmental WUE eligibility.
+
+### B. Midwest Student Exchange Program (MSEP)
+- Similar regional discount enabling students in participating Midwestern states to attend partner public universities across state lines at a capped tuition discount.

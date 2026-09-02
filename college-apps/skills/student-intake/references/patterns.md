@@ -64,6 +64,52 @@ Read the whole packet before writing anything. Blanks are information
 (usually "didn't know what to say") — worth a question, not a guess. A resume's "led" and "managed" are the student's claims — keep
 the word, tag it `[packet]`, and ask what actually happened.
 
+---
+
+## Auditing Course Rigor & Identifying AP / IB / DE Courses
+
+Admissions committees evaluate a student's transcript in the context of what their high school made available. When a transcript or course list arrives:
+
+### 1. Identifying Course Rigor Levels
+Scan course titles for standardized rigor indicators:
+- **AP (Advanced Placement):** Preceded or followed by `AP` or `Advanced Placement` (e.g. `AP Calculus BC`, `AP Physics C: Mech`, `AP English Lang`, `AP U.S. History`).
+- **IB (International Baccalaureate):** Marked with `IB`, distinguishing **HL (Higher Level)** from **SL (Standard Level)** (e.g. `IB Math: Analysis and Approaches HL`, `IB History SL`).
+- **Dual Enrollment (DE) / Early College:** College-accredited courses taken in high school, often with department numbering (e.g. `MAT 201 Multivariable Calculus [DE]`, `ENG 101`).
+- **Honors / Accelerated:** Labeled `Honors`, `H`, or `Accelerated` (e.g. `Honors Pre-Calculus`, `Chemistry H`).
+- **Non-AP Independent Schools:** Elite independent schools that dropped AP courses (e.g. Phillips Exeter, Dalton, Fieldston) use designations like `Advanced Topics in Chemistry` or 500-level courses. Confirm from the school packet that these represent maximum rigor.
+
+### 2. Sourcing High School Profile Context
+Never evaluate raw AP counts without understanding the high school's policies:
+- *Enrollment Caps:* Ask if the high school limits the number of AP courses students may take (e.g. "Students capped at 3 APs per year", "No APs permitted in 9th or 10th grade"). A student with 5 APs at a school that caps them at 5 has achieved **maximum possible rigor**; at a school offering 35 APs with no cap, 5 APs is moderate rigor.
+- *School Profile Entry:* In `profile.md § Academic history & course rigor`, record:
+  `- **High school course context (School Profile):** [e.g. School offers 12 APs; students restricted to max 2 APs in 10th, 3 in 11th/12th] [packet / student YYYY-MM-DD]`
+
+### 3. Core Academic GPA vs. Cumulative GPA
+High school GPAs often include non-academic electives (PE, health, choir, band).
+- When a student's transcript is available, calculate the **Core Academic GPA** across the 5 core disciplines: English, Mathematics, Natural/Physical Sciences, Social Sciences, and Foreign Languages.
+- Note any significant variance between cumulative transcript GPA and Core Academic GPA in `profile.md § Basics`.
+
+---
+
+## The 4-Tier Extracurricular Impact Framework
+
+Admissions officers at selective colleges group activities into four distinct impact tiers. Use this to help students recognize their true strengths:
+
+1. **Tier 1 (National & International Distinction):**
+   - USAMO qualifier, ISEF / Regeneron finalist, national sports team, Carnegie Hall solo performance, national nonprofit founder with audited \$50k+ budget, published first-author scientific research.
+   - *Rarity:* Top 1%–2% of applicants nationwide.
+2. **Tier 2 (State & Regional Leadership):**
+   - All-State orchestra, state debate champion, president of a regional inter-school coalition, governor of Boys/Girls State, regional science fair 1st place.
+   - *Rarity:* Demonstrates verified excellence beyond the immediate high school.
+3. **Tier 3 (School & Community Leadership):**
+   - High school club president (Robotics, Model UN, Key Club), varsity team captain, student council treasurer, lead organizer of a major local community food drive.
+   - *Impact:* Demonstrates sustained peer leadership and organizational follow-through.
+4. **Tier 4 (General Participation & Membership):**
+   - Club member with regular attendance, recreational sports, volunteer hours with no leadership title, hobbyist gaming or art.
+   - *Counseling Strategy:* Encourage students to elevate 1–2 Tier 4 interests into Tier 3 initiatives by taking initiative (e.g. starting a workshop series or leading a new project).
+
+---
+
 ## Proposing a new pattern
 
 When an opening question or an order of questions works for two
