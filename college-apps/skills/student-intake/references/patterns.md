@@ -140,6 +140,32 @@ When adding recommenders in the Common App, every applicant completes the FERPA 
 
 ---
 
+## The Disciplinary Infraction & Clean Disclosure Protocol
+
+While the Common App removed the global disciplinary question from the main application in 2021, **over 70% of selective institutions (Ivies, Stanford, Duke, Michigan) re-introduced the question on their institutional member screens**:
+- *"Have you ever been found responsible for a disciplinary violation at any secondary school resulting in probation, suspension, removal, or expulsion?"*
+
+### The Fatal Deception Trap:
+If a student received a 1-day suspension in 10th grade (e.g. cutting class, prank, or phone violation) and answers "No", but the school counselor reports the suspension on the official Secondary School Report, the student is **immediately rejected or rescinded for dishonesty**. Admissions offices forgive adolescent mistakes; they never forgive intentional deception.
+
+### The 3-Paragraph Clean Disclosure Structure (Submitted in Additional Info):
+
+```markdown
+### Clarification Regarding 10th Grade Disciplinary Suspension
+
+In February of my sophomore year, I received a two-day out-of-school suspension for participating in an unapproved senior prank that involved modifying the school's public address system. 
+
+I took immediate responsibility for my poor judgment, met with Assistant Principal Davis to apologize for the disruption caused to our faculty, and completed 20 hours of campus restitution cleaning our media center. 
+
+This experience served as a turning point in my personal maturity. Recognizing my responsibility as a student leader, I subsequently ran for Junior Class Representative, organized our school's peer tutoring schedule, and have maintained an unblemished disciplinary record since. School counselor Ms. Vance can verify my standing.
+```
+
+### Strategic Rules:
+- **100% Alignment:** The student's written statement must align with the high school counselor's report verbatim.
+- **Zero Self-Pity or Excuses:** Never argue about fairness or blame peers. State the facts, own the consequence, and highlight subsequent leadership.
+
+---
+
 ## Proposing a new pattern
 
 When an opening question or an order of questions works for two

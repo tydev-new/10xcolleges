@@ -57,6 +57,7 @@ The file must contain these exact five sections in order:
 - **The Spark:** Tinkering with broken lawnmower engines in the garage with a neighbor [student 2026-09-02]
 - **The Friction / Troubleshooting:** Spending 14 hours debugging gear backlash on the robotics arm [student 2026-09-02]
 - **The Open Question:** How to design affordable prosthetic limbs using off-the-shelf compliant mechanisms [student 2026-09-02]
+- **One-line committee pitch (The Memory Anchor):** "The rural Oregon robotics captain who builds open-source assistive mechanisms and wants to study biomechatronics." [student 2026-09-02]
 ```
 
 ---

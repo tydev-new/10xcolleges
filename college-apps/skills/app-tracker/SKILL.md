@@ -126,3 +126,15 @@ that never shrinks was never a list.
 And when they submit one, say so like a person:
 
 > That's Michigan State submitted. First one's the hardest — the rest reuse most of it.
+
+## Senior Year Course Changes & Rescission Risk Guardrail
+
+Every offer of admission is provisional, conditioned on completing senior year coursework in good standing. Master counselors enforce two non-negotiable post-submission rules:
+
+1. **Never Drop an Academic Class Without Prior Written Approval:**
+   - If a student wants to drop a second-semester academic course (e.g. dropping AP Calculus BC, AP Physics, or 4th-year Foreign Language for a study hall), they **must contact every college's admissions office in writing first**.
+   - Dropping a core course listed on the Common App without prior approval is the #1 cause of sudden **admissions rescissions in July** when final high school transcripts arrive.
+
+2. **Proactive Disclosure for Grade Dips (The C/D Mitigation Protocol):**
+   - Universities routinely rescind offers or place admitted students on academic probation for receiving any D or F, or multiple C's in their final semester.
+   - If severe illness, family crisis, or academic struggle threatens a senior's spring grades, counselors mandate **proactive notification to the regional admissions officer in April/May** rather than waiting for the final transcript surprise in July. Proactive outreach converts a potential rescission into an academic support plan.

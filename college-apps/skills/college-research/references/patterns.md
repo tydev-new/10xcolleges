@@ -178,3 +178,31 @@ For universities that do **not** allow self-reported test scores on the Common A
 - Electronic transmission and matching to the student's applicant file takes **10 to 14 business days**.
 - Ordering official test scores on deadline day (e.g., November 1) results in late scores that may void Early Action consideration.
 - *Counselor Rule:* Mandate that students order official score sends at least 3 weeks before the target application deadline.
+
+---
+
+## 12. Mastering Evaluative Admissions Interviews (The 3 Core Archetypes)
+
+While alumni interviews at Ivy+ institutions rarely transform a clear denial into an admit, an awkward, arrogant, or ill-prepared interview can sink an applicant in committee. At institutions like Wake Forest, Georgetown, and Hamilton, evaluative interviews carry substantial evaluative weight.
+
+Master counselors train students across **three universal interview archetypes**:
+
+### 1. Archetype 1: "Tell Me About Yourself" (The 90-Second Trajectory Pitch)
+- *The Trap:* Reciting the high school resume chronologically ("I was born in Dallas, then in 9th grade I did soccer...").
+- *The Formula:* Deliver a tight, 90-second intellectual arc:  
+  `Childhood Spark / Curiosity Hook -> Evolution into High School Hands-on Projects -> What I Spend a Free Sunday Doing -> Why I Am Here Today`.
+- *Example:* *"I've always been fascinated by why physical machines fail. As a kid, I spent weekends taking apart broken weed-whackers with my neighbor. In high school, that curiosity turned into rebuilding our robotics team's drivetrain four times after mechanical failures. Outside of school, you'll find me repairing vintage bicycles for our community library stand. That hands-on friction is what drew me to [College]'s maker-centered engineering curriculum."*
+
+### 2. Archetype 2: "Why This College?" (The Micro-Resource Formula)
+- *The Trap:* Vague flattery about campus beauty, prestige, location, or "world-renowned faculty."
+- *The Master Response:* Name **two specific academic micro-resources** (sourced directly from `research/<college>.md`) and **one campus community contribution**:
+  - Micro-Resource 1: A specific professor's research or specialized course (e.g. *"Professor Miller's work on compliant mechanisms"*).
+  - Micro-Resource 2: A distinctive facility or curriculum structure (e.g. *"The open machine shop at the Oshman Engineering Design Kitchen"*).
+  - Campus Contribution: A student initiative or tradition the applicant will actively lead or join.
+
+### 3. Archetype 3: "Do You Have Any Questions for Me?" (The Reverse Culture Interview)
+- *The Trap:* Asking logistical questions easily found on Google ("What is your student-to-faculty ratio?", "Do you have a pre-med track?").
+- *The Master Response:* Ask reflective, culture-probing questions that honor the interviewer's lived alumni experience:
+  - *"When you look back on your four years at [College], what is one intellectual tradition or experience that shaped how you think today?"*
+  - *"How did the collaborative culture between students play out during stressful midterm or project periods?"*
+  - *"What kind of student genuinely thrives at [College], and who struggles?"*

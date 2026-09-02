@@ -109,6 +109,25 @@ At major research universities (e.g. UC Berkeley, University of Michigan, Cornel
 
 ---
 
+## 8. Crafting the One-Line Committee Pitch (The Memory Anchor)
+
+Admissions committees at highly selective universities evaluate 40,000 to 100,000 applications. When regional admissions officers bring candidates into the committee room, they have **30 to 45 seconds** to introduce and advocate for each file. They do not read the entire file; they deliver a **One-Line Committee Pitch (The Memory Anchor)**.
+
+### Why Applications Get Denied:
+If an applicant cannot be summarized in one sharp, memorable sentence, they blur into the 50,000-applicant pile. Regional officers cannot advocate for "another high-achieving student with great grades and standard clubs."
+- *The Generic Blur (Deny):* "Jordan is an unweighted 3.9 GPA student from California who plays trumpet in band and wants to study Biology." (Sounds identical to 4,000 other pre-med applicants).
+
+### The Master Counselor Formula:
+`[Distinctive Context or Identity Spike] + [Verifiable Hands-on Friction/Action] + [Future Intellectual Focus]`
+- *Master Example 1:* "The rural Oregon robotics captain who built open-source assistive wheelchair controllers from scrap lawnmower motors and wants to study biomechatronics."
+- *Master Example 2:* "The bilingual debate captain from Chicago who published historical analysis on immigrant labor unions and plans to study labor economics."
+- *Master Example 3:* "The self-taught frontend developer who created a community food pantry delivery network serving 300 families and targets human-computer interaction."
+
+### Counselor Invariant:
+In `students/<slug>/academic-direction.md § Intellectual Red Thread`, every student must have an explicit `- **One-line committee pitch (The Memory Anchor):**`. If the student's activities and essay hooks cannot produce a crisp 15-word anchor, refine their narrative focus before drafting supplements.
+
+---
+
 ## Proposing a new pattern
 
 When an adjacent major mapping or flow question works for two different students, write it as a dated line at the end of the second student's `conversations.md`, naming both. A pattern is never self-adopted; a person promotes it into this file.
