@@ -49,6 +49,10 @@ it got there, and who checks what.
 - **Nothing was made up** — no event, emotion, quote, or detail that is
   not in `profile.md` or `conversations.md`. Thin material led to an
   interview, not to plausible fiction.
+- **The Committee Handle holds:** Defined in 7 words or fewer (`"The applicant who [verb + noun]"`), providing a sharp through-line that an admissions committee can pitch in 15 seconds.
+- **The 50/50 Reflection Ratio holds:** At least 40%–50% of the essay explores cognitive reflection, values, and who the student is becoming, rather than pure plot, play-by-play backstory, or resume spillage.
+- **Passed the "Cool Teacher" Ear Test:** Voice sounds like an articulate 17-year-old speaking to a respected teacher; zero artificial SAT thesaurus words (*"plethora," "myriad," "tapestry of life"*).
+- **Zero Throat-Clearing:** Opens immediately in medias res; no generic scene-setting or broad philosophical declarations in paragraph 1.
 
 ## The rubric — what a criterion must be, and where it comes from
 

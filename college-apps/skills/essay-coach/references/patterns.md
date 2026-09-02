@@ -15,8 +15,25 @@ date you looked it up.
 
 **Living, from the student.**
 
-Three or four angles drawn from *their* material, one sentence each,
-each weighed honestly. Then say which you'd pick and why:
+### Upstream Brainstorming — The 4 Concrete Elicitation Questions
+When material is thin, never ask abstract questions like "what makes you unique?" A teenager freezes. Ask concrete, slightly mischievous questions that pull the truth out naturally:
+1. **The Boredom & Hands Question:** *"When you were stuck at home and everyone was busy, what did you actually spend hours doing? What was on your bedroom floor or in your browser history?"*
+2. **The Unspoken Thought Question:** *"What was a thought you had during that time that you didn't say out loud to your parents or coach, or that you felt a little guilty admitting?"*
+3. **The Hollywood vs. Reality Question:** *"If this were a cheesy Hollywood movie, what would the dramatic scene look like? And how was your actual experience totally different from that?"*
+4. **The Petty Frustration Question:** *"What was the most ridiculously annoying little detail of the whole ordeal that nobody talks about?"*
+
+### Cliché Subversion — Don't Ban, Subvert
+Standard playbooks issue lazy blanket bans (*"never write about sports injuries, grandma, or mission trips"*). That invalidates authentic lived experience. The problem isn't the topic; it's the predictable 3-part formula (*"I struggled -> I worked hard -> I learned resilience"*).
+- Name the predictable formula out loud to the student with respect.
+- Find the **uncommon truth**: the weird mechanical hack, the generational clash, the private burnout, or the quiet behavioral shift.
+- Keep the spotlight on the student's mind and values, not the external event.
+
+### The Additional Information Boundary (Protecting the 650 Words)
+Never burn a 650-word personal statement explaining a transcript blemish, medical leave, or family crisis.
+- The personal statement is your **portrait** (who you are, how you think, what you value).
+- Grade dips and disruptions belong in the **Common App Additional Information section** in 3 factual, non-emotional beats: (1) Context, (2) Concrete Impact, (3) Resolution and upward trajectory.
+
+Three or four angles drawn from *their* material, one sentence each, each weighed honestly. Then say which you'd pick and why:
 
 > **A. The bike repair stand.** You put a free repair stand outside the library and
 > maintained it for two years. Small, concrete, and nobody else is writing it.
@@ -32,8 +49,7 @@ each weighed honestly. Then say which you'd pick and why:
 
 An outline for the chosen angle — beats, not sentences.
 
-(Show all of this before anything is written — that is the brief
-sequence's rule.)
+(Show all of this before anything is written — that is the brief sequence's rule.)
 
 ## The three draft modes
 
@@ -162,9 +178,22 @@ the one about being sad."
   Admissions officers read thousands; they know the difference instantly.
 - **The essay is not a résumé.** Anything already in the activities list is wasted space.
 - **Show the thinking, not just the event.** Readers are hiring a mind for four years.
-- **Be careful with the trauma essay.** If they choose to write it (the
-  brief sequence asks once), the essay must be about how they think or
-  who they became, not a list of what happened.
+- **Write from scars, not open wounds.** If a student is still in the middle of active trauma, it is not ready for an admissions essay. Hardship essays follow the 1/3 to 2/3 rule: at most 1/3 on the obstacle, and at least 2/3 on the intellectual agency, humor, and community growth that grew out of it.
+
+### Advanced Line & Structure Craft
+
+1. **Show, THEN Tell (The Insight Follow-Through):**
+   Sensory detail without cognitive reflection is just a movie script; reflection without sensory detail is a boring lecture. Drop a 2-sentence micro-scene to anchor the physical reality, then immediately tell the reader how your mind processed it. Sensory detail exists solely to earn the right to deliver personal insight.
+2. **The "Why Us?" Tethering Formula:**
+   Every institutional claim must tether to past student proof, and every student aspiration must project into a campus contribution:  
+   `Past Proof (Me) <-> Specific Resource (from research/<college>.md) <-> Future Contribution (Campus)`.  
+   *The Replace-the-Name Test:* If you can swap the college name for another school and the essay still works, it fails.
+3. **Micro-Epiphanies Over Grand Preachiness:**
+   Replace sweeping Hallmark-card morals (*"I learned that success is about the journey"*) with quiet, specific, humble shifts in behavior (*"I still don't know the secret to motivating twenty tired trumpet players, but I stopped blowing the whistle in their ears"*).
+4. **Zero Throat-Clearing (In Medias Res):**
+   In 80% of first drafts, the real essay begins in paragraph 2 or 3. Slash the opening philosophical scene-setting and drop the reader straight into the micro-action.
+5. **Cadence & The "Cool Teacher" Ear Test:**
+   Vary sentence length deliberately (Gary Provost's cadence principle). The voice should sound like an articulate seventeen-year-old speaking with their favorite high school teacher during office hours: natural, thoughtful, and expressive. Eliminate artificial SAT thesaurus words (*"plethora," "myriad," "tapestry of life"*).
 
 ## The cold reader
 
