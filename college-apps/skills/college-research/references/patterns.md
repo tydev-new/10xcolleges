@@ -146,3 +146,35 @@ For students targeting medical school (where a 3.75+ science GPA is near-mandato
 ### Counselor Action:
 When evaluating a pre-med student considering a grade-deflating public flagship vs. a supportive private college or honors college, explicitly present the GPA trade-off:
 > *"Purdue has an incredible engineering and biology program, but introductory chemistry and biology classes curve strictly to a B-/C+ median. If your ultimate goal is medical school, you must be prepared for fierce grading curves, or consider an honors college where advising and lab access protect your GPA."*
+
+---
+
+## 9. Score Choice vs. "All Scores Sent" Policies (Georgetown, CMU)
+
+While most universities permit College Board's "Score Choice" (sending only your best single sitting), notable exceptions require complete disclosure:
+
+### The "All Scores Sent" Mandate:
+- **Georgetown University** and **Carnegie Mellon University** explicitly require applicants to report the **complete testing history of every SAT and ACT sitting taken**.
+- *The Danger:* If a student took the SAT four or five times starting in 9th or 10th grade, every mediocre or fluctuating test score will be scrutinized by the admissions committee.
+- *Counselor Action:* Identify these schools early in list building and advise students to limit official SAT/ACT test sittings to 2 or 3 attempts maximum.
+
+---
+
+## 10. Self-Reported Academic Record (SRAR / SSAR) Mandatory Systems
+
+Do not assume submitting the Common App completes the academic record. Several major state universities **refuse high school transcripts sent by school counselors**:
+
+### The SRAR Requirement:
+- **Campuses:** Penn State, Rutgers, University of Pittsburgh, Virginia Tech, Texas A&M, Florida, Florida State.
+- **The Process:** The student must create a separate external **SRAR (Self-Reported Academic Record)** or **SSAR (Student Self-Reported Academic Record)** account, manually transcribe all 9th–12th grade coursework, credits, and grades exactly matching the official transcript, and link the SRAR ID to their university applicant portal.
+- *The Trap:* Students submit their Common App on deadline day and assume their application is complete. Without the linked SRAR, the file sits in "Incomplete" status and misses early action and merit scholarship evaluation deadlines.
+- *Dossier Rule:* Note in `research/<college>.md § Academic Requirements` if SRAR/SSAR is required.
+
+---
+
+## 11. Official Score Send Latency Buffer (10–14 Business Days)
+
+For universities that do **not** allow self-reported test scores on the Common App and require official electronic score transmissions directly from College Board or ACT:
+- Electronic transmission and matching to the student's applicant file takes **10 to 14 business days**.
+- Ordering official test scores on deadline day (e.g., November 1) results in late scores that may void Early Action consideration.
+- *Counselor Rule:* Mandate that students order official score sends at least 3 weeks before the target application deadline.

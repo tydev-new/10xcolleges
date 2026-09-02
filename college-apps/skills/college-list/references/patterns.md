@@ -183,3 +183,29 @@ Families often assume all public out-of-state flagships cost $40k–$60k/year. M
 
 ### B. Midwest Student Exchange Program (MSEP)
 - Similar regional discount enabling students in participating Midwestern states to attend partner public universities across state lines at a capped tuition discount.
+
+---
+
+## 13. Restricted Early Action (REA / SCEA) Restrictions & Opportunity Cost
+
+At hyper-selective private universities—specifically **Harvard, Yale, Princeton, Stanford, and Notre Dame**—the early admission plan is **Restricted Early Action (REA)** or **Single-Choice Early Action (SCEA)**:
+
+### The Binding Constraint:
+While REA is non-binding (you are not required to enroll if admitted), you are **contractually prohibited from applying Early Action to any other private university in the United States**.
+- *What is Forbidden:* You cannot apply EA to MIT, Caltech, Chicago, Georgetown, Case Western, Northeastern, etc.
+- *What is Permitted:* You **can** apply Early Action to any public university (e.g. Michigan, Purdue, Georgia Tech, UNC, Wisconsin) or rolling admission programs.
+
+### Counselor Opportunity Cost Analysis:
+- An unhooked applicant who applies REA to Stanford or Harvard (where admit rates hover around 4%–5%) spends their entire early cycle on a statistical lottery ticket.
+- In doing so, they forfeit the ability to apply Early Action to 3–5 high-caliber private target/reach schools that could have yielded early acceptances by December.
+- *Counselor Rule:* Only advise REA for students whose credentials genuinely stand in the top 1% of the applicant pool or who carry institutional hooks (recruited athlete, legacy, major national honor).
+
+---
+
+## 14. The Early Decision II (ED II) Strategic Pivot
+
+Many top private colleges and universities offer **Early Decision II (ED II)** with deadlines between **January 1 and January 15** (notified in mid-February):
+- *Participating Institutions:* NYU, Emory, WashU in St. Louis, Boston College, Tufts, Vanderbilt, Wake Forest, Lehigh, Bowdoin, Colby, Bates, Middlebury, Richmond, Rochester.
+- *The Strategic Advantage:* ED II carries nearly the same statistical boost as ED I (often 1.5x–2.0x the Regular Decision acceptance rate) because colleges use it to secure yield and lock in a significant portion of their freshman class.
+- *The Mid-December Pivot:* If a student is **deferred or rejected from their ED I school in mid-December**, counselors immediately pivot their top remaining target to an **ED II application** before the January deadline, capturing an early decision boost before Regular Decision pools are evaluated.
+- *Financial Prerequisite:* Just like ED I, ED II is legally binding. Parents must run the institution's official Net Price Calculator and confirm affordability before signing the ED II agreement.

@@ -110,6 +110,36 @@ Admissions officers at selective colleges group activities into four distinct im
 
 ---
 
+## AP Exam Score Self-Reporting Strategy (The 3 vs. 4/5 Rule)
+
+Unlike high school grades, reporting AP exam scores on the Common App is **100% voluntary**:
+
+### 1. Always Submit 4s and 5s:
+Scores of 4 and 5 provide external, standardized validation of course mastery and grade integrity across all universities.
+
+### 2. Always Withhold 1s and 2s:
+Never self-report scores of 1 or 2 on college applications. A 1 or 2 signals a lack of foundational understanding and can cast doubt on an "A" earned in the high school classroom.
+
+### 3. The Nuanced Strategy for 3s:
+- **Public Flagships & Regional Universities:** A score of 3 frequently earns 3–4 semester credits toward graduation (saving time and money). **Submit 3s.**
+- **Highly Selective Private Universities (Ivies, Stanford, Duke, MIT):** These institutions rarely grant credit for 3s, and typical admitted applicant scores are predominantly 5s. Withholding a 3 allows the student's strong course grade (A or A-) to speak for itself without introducing a conflicting mediocre test score.
+
+---
+
+## The FERPA Rights Waiver (Non-Negotiable Recommendation Invariant)
+
+When adding recommenders in the Common App, every applicant completes the FERPA Release Authorization:
+
+### The Rule:
+**Students MUST check: "I waive my right to review all recommendations and supporting documents."**
+
+### Why Non-Waived Letters Damage Admissions:
+1. **Credibility Collapse:** If a student does not waive FERPA rights, admissions committees assume the teacher or counselor was guarded and wrote an artificially positive letter under the pressure of student scrutiny. The recommendation loses nearly all evaluative weight.
+2. **Recommender Refusal:** Many high school counselors and teachers have formal policies stating they will **refuse to submit letters** for any student who has not waived FERPA rights.
+3. **Counselor Directive:** Explain this clearly to every family early in senior year so the waiver is signed without hesitation.
+
+---
+
 ## Proposing a new pattern
 
 When an opening question or an order of questions works for two

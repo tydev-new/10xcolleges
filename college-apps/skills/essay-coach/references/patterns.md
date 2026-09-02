@@ -295,6 +295,48 @@ While the Common App permits up to 650 words, top counselors target the **550 to
 
 ---
 
+## The Letter of Continued Interest (LOCI) 4-Beat Protocol (Deferrals & Waitlists)
+
+When a student is **deferred** from Early Action/Early Decision to Regular Decision (in mid-December) or placed on an institutional **waitlist** (in late March/April), they have one critical opportunity to reignite their application: the **Letter of Continued Interest (LOCI)**.
+
+### Operational Window:
+- **For Deferrals:** Submit in early January (between January 5 and January 15) once first-semester senior grades are finalized.
+- **For Waitlists:** Submit within 10–14 days of receiving the waitlist decision (mid-to-late April).
+
+### The 4-Beat Structure (One Page, Max 400–500 Words):
+
+```markdown
+Dear Admissions Committee [or Regional Admissions Counselor Name],
+
+[BEAT 1: REAFFIRM COMMITMENT]
+Thank you for continuing to consider my application. [College Name] remains my absolute first choice. If admitted, I will enthusiastically enroll and contribute to your vibrant intellectual community.
+
+[BEAT 2: ACADEMIC & TRANSCRIPT UPDATES]
+I am pleased to share that I concluded my first semester of senior year with a 4.0 unweighted GPA across five AP courses (AP Calculus BC, AP Physics C, AP Literature, AP Macroeconomics, and AP Spanish). In Calculus BC, my team completed our final modeling project on [specific technical challenge], deepening my enthusiasm for applied quantitative analysis.
+
+[BEAT 3: NEW EXTRACURRICULAR & PROJECT MILESTONES]
+Since submitting my application in November, I have made significant progress in my extracurricular pursuits:
+- Promoted to Team Captain of our FIRST Robotics team, leading our 24-student group through drivetrain redesign and securing 1st place at the Regional Qualifying Tournament.
+- Co-authored a paper on [topic] with Dr. [Name] from [University Lab], currently under review at [Journal].
+
+[BEAT 4: SPECIFIC CAMPUS FIT & CONTRIBUTION]
+My interest in [College Name] has only deepened. I recently followed the work coming out of the [Named Campus Lab/Initiative], specifically Professor [Name]'s work in [field]. I look forward to bringing my background in [student's area] to [specific student club or research group].
+
+Thank you again for your time, consideration, and dedication to building the Class of [Graduation Year].
+
+Sincerely,
+[Student Name]
+Common App ID: [ID Number]
+High School: [High School Name]
+```
+
+### Key Counselor Rules:
+- **No Desperation or Guilt-Tripping:** Never express bitterness about the deferral or tell the college they made a mistake.
+- **Only Verifiable New Content:** Every paragraph must offer substantive news that occurred *after* the initial submission. Re-hashing the Common App essay fails.
+- **Strict Single-Page Limit:** Never exceed one page. Admissions officers review hundreds of LOCIs in minutes.
+
+---
+
 ## Proposing a new pattern
 
 When an angle-finding question, a mode script, or a review move works
