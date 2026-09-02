@@ -16,7 +16,8 @@ Step 4: Friction & Culture Probe         (CDS B22 retention + Student forums lab
 ```
 
 ### A. College Scorecard (`scorecard.py`)
-- **Use for:** Federal net price by family income band, median student debt at graduation, median post-grad earnings, completion rate.
+- **Use for:** Federal net price by family income band, median student debt at graduation, median post-grad earnings, completion rate, and non-resident public COA.
+- **Out-of-state public Cost of Attendance:** `scorecard.py` calculates and reports the non-resident Cost of Attendance (e.g. *Out-of-state students at this public pay roughly $43,393 [Scorecard]*). Use this verified federal figure as the canonical non-resident COA benchmark if university web pages return 404 or provide unverified room/board estimates. Against a $30k budget, ~$41k–$44k (~$43.4k) yields the true ~$11k–$14k gap.
 - **Batching rule:** To respect API limits, resolve UNITIDs first and batch them:
   ```bash
   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/scorecard.py" search "Purdue"
@@ -28,22 +29,28 @@ Step 4: Friction & Culture Probe         (CDS B22 retention + Student forums lab
 Search `"common data set" site:<college>.edu` or check the university's Institutional Research page:
 - **Section C1:** Exact applicant, admitted, and enrolled counts (fresh admit rate).
 - **Section C7 (The Admissions Policy Matrix):** Tells you in the school's own words what factors move the needle:
-  - *Demonstrated Interest:* If marked "Considered" or "Important," tell the student to open emails, attend virtual webinars, and schedule campus visits.
+  - *Demonstrated Interest:* If marked "Considered" or "Important," tell the student to open emails, attend virtual webinars, and schedule campus visits to prevent yield-protection waitlisting.
   - *Rigor, GPA, Essays, Recommendations, Talent:* Check which non-cognitive factors carry "Very Important" weight.
-- **Section C9:** SAT and ACT middle 50% percentiles (25th–75th).
+  - *Decision Plans (ED vs. EA vs. RD):* Note whether Early Decision provides a statistical advantage. **Golden Rule:** Never recommend Early Decision if the family needs to compare financial aid offers from multiple institutions.
+- **Section C9 (Testing & Score Inflation Audit):**
+  - Read SAT and ACT middle 50% percentiles (25th–75th).
+  - *Audit Score Submission Rate:* Note what percentage of enrolled freshmen actually submitted test scores. If only 35% submitted, the published range is artificially inflated by high-scoring self-selectors.
+  - *Testing Strategy:* Recommend submitting scores if at or above the 50th percentile (or major average); recommend test-optional if below the 25th percentile, unless scores are required by policy.
 - **Section B22:** First-to-second year retention rate (the satisfaction canary).
 - **Section H2:** Financial aid numbers — average percentage of need met and whether need-based loans are packaged.
 
 ### C. Academic Department Pages
 Search `<college>.edu/<department>` (e.g. `purdue.edu/me`):
 - Verify **exact degree title** and accreditation (e.g. ABET for engineering).
-- Check **admission by major**: Does the student enter the major directly as a freshman, or must they compete in a "First-Year Engineering" or "Pre-Major" pool to declare later?
-- Identify **specific undergraduate resources**: Named maker spaces, design project centers, undergraduate research fellowships (e.g. SURF), or cooperative education (co-op) tracks.
+- **Major-Specific Selectivity:** Check whether the department admits directly or places students in a "First-Year Engineering" or "Pre-Major" weed-out pool. If departmental admit rates are 15%–20% while the general university admits 50%, the school must be tiered as a major-specific Reach.
+- **Physical Undergraduate Facilities & Maker Spaces (Essay Hooks):** Must identify at least 2 named, physical undergraduate facilities or maker spaces where undergraduates build projects (e.g. at Purdue: Bechtel Innovation Design Center, Herrick Labs; at Rice: Oshman Engineering Design Kitchen [OEDK]; at Michigan: Wilson Student Team Project Center; at MIT: MakerLodge). Do not cite lecture formats or general course numbers as substitutes for physical maker facilities.
 
-### D. Financial Aid Pages
-- Look up out-of-state scholarship matrices (guaranteed GPA/SAT tables).
-- Check for state-mandated tuition waivers (e.g. Texas competitive \$1,000 waiver, Louisiana out-of-state fee exemption).
-- Note renewal requirements (e.g. maintaining a 3.0 or 3.5 college GPA).
+### D. Financial Aid & Budget Comparison (The Out-of-State Public Trap)
+- **Beware the Aggregator Net Price Trap:** Never cite third-party aggregators (CollegeSimply, Niche, CollegeXpress) for financial aid or net price. They blend in-state tuition and state grants into a misleading "average net price" and mislabel it as out-of-state.
+- **Public Universities & Non-Resident Need:** Public institutions (e.g. Purdue, Wisconsin, Penn State, Colorado) offer **zero to very limited institutional need-based grant aid to non-residents**. For out-of-state students, always assume the **full non-resident Cost of Attendance (COA)** from the official college bursar/financial aid page, unless an official automatic tuition waiver or guaranteed merit matrix applies.
+- **Use Standard Undergraduate Living Costs:** Sourced room and board must be the standard on-campus freshman residence rate (~$10,000–$11,500/year at Big Ten/public flagships). Never use off-campus, regional, or graduate housing proxies that artificially inflate COA to $48k–$50k.
+- **Calculate the True Cost Gap:** Compare the non-resident COA against the family's annual budget ceiling (from `criteria.md`). For example, Purdue's out-of-state COA is ~$41,000–$44,000/year (tuition ~$29k + housing/food ~$10k + books/fees); against a $30,000 budget, the reality is an **$11,000–$14,000 annual gap** that only large competitive merit scholarships can close. Never sugarcoat this gap or assume financial aid will cut it in half.
+- Look up out-of-state scholarship matrices (guaranteed GPA/SAT tables) and state-mandated tuition waivers (e.g. Texas competitive \$1,000 waiver, Louisiana out-of-state fee exemption).
 
 ---
 

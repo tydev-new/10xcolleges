@@ -19,18 +19,30 @@ Techniques for sourcing schools, classifying tiers honestly, matching criteria i
 
 ## 2. Honest Tiering
 
-Tier by *this student's* academic profile against *that school's* admitted class statistics:
+Tier by *this student's* academic profile against *that school's* admitted class statistics, adjusted for major and residency:
 
 - **Safety (2–3 schools):**
   - Academic numbers (unweighted GPA, SAT/ACT) sit comfortably in the school's top 25% (above the 75th percentile).
-  - High probability of admission.
+  - High probability of admission for this specific major.
   - **Affordability:** Net price is confirmed within the family's annual budget ceiling without relying on unearned merit scholarships. If it costs $40k against a $25k budget, it is **never** a safety.
+  - **"Love Your Safeties" Rule:** Must actively match at least 1–2 key student preferences (`[P]`)—such as an honors college, maker space, or campus community—so the student would genuinely be excited to attend if all reaches say no.
 - **Target (3–5 schools):**
   - Academic numbers land squarely within the middle 50% (25th–75th percentile).
-  - Realistic, competitive chance of admission. Forms the solid core of the list.
+  - Realistic, competitive chance of admission for the student's major. Forms the solid core of the list.
 - **Reach (2–4 schools):**
-  - Numbers sit below the 25th percentile, **OR**
-  - The school admits under 15–20% of applicants overall. Any school with an admit rate under 15% is a lottery ticket reach for all applicants, regardless of perfect grades.
+  - Academic numbers sit below the 25th percentile, **OR**
+  - The school admits under 15–20% of applicants overall (all sub-15% schools are lottery reaches for everyone), **OR**
+  - **Major-Specific Reach:** The specific department or college (e.g. Engineering, CS, Nursing, Business) has an admit rate under 20% or uses a competitive pre-major weed-out pool, even if the general university admit rate is 50%+.
+
+### A. The Out-of-State Public Flagship Trap
+Warn families early about out-of-state public flagships (e.g., Colorado, Wisconsin, Penn State, Washington). They almost never meet out-of-state need and cost $55k–$70k/year. Unless an automatic out-of-state tuition waiver or massive merit grid applies, they break middle-class budgets and should not displace affordable targets.
+
+### B. Decision Plan Timing & Aid Alignment
+- Prioritize non-binding **Early Action (EA)** for schools offering automatic merit grids, honors college consideration, or priority scholarship deadlines (typically Nov 1 or Dec 1).
+- **Golden Rule on Early Decision (ED):** Never recommend binding Early Decision if the family needs to compare financial aid packages across colleges before committing.
+
+### C. Synchronizing with Research Dossiers
+When a research dossier exists in `research/<college>.md`, the entry in `colleges.md` must pull its numbers, net price estimates, and watch-outs directly from the dossier rather than generic estimates.
 
 ---
 

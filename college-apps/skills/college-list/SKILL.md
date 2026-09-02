@@ -45,11 +45,11 @@ Build or rebalance an 8–12 school college list across Safety, Target, and Reac
 1. Read `students/<slug>/criteria.md` completely.
 2. Cut candidate schools immediately on any failed Hard Filter (`[H]`) or Deal-breaker (`[D]`). Never place a school that violates a hard filter on the list.
 3. If filters leave fewer than 5 eligible schools: do not paper over violations by adding unaffordable schools to `colleges.md`. Stop and name the bottleneck in chat (e.g. out-of-state costs vs. budget vs. weather), show the near-misses and their cost gaps, and propose which constraint to relax (e.g. in-state options fit budget; or a budget bump opens specific schools).
-4. Assign tiers based on verified academic ranges and net price:
-   - **Safety (2–3):** GPA/test above 75th percentile AND net price strictly within family budget ceiling without unearned aid. A school over budget is NEVER a safety.
-   - **Target (3–5):** GPA/test in middle 50% AND strictly within budget.
-   - **Reach (2–4):** GPA/test below 25th percentile OR admit rate $< 15\text{--}20\%$, with plausible aid pathway.
-5. Write `students/<slug>/colleges.md` following `schemas/colleges.md` with an upfront derivation summary and plain-English criteria descriptions.
+4. Assign tiers based on verified academic ranges, major-specific selectivity, and net price:
+   - **Safety (2–3):** GPA/test above 75th percentile for this major, net price strictly within family budget ceiling without unearned aid, AND matches at least 1–2 key student preferences ("Love Your Safeties"). A school over budget is NEVER a safety.
+   - **Target (3–5):** GPA/test in middle 50% for this major AND strictly within budget.
+   - **Reach (2–4):** GPA/test below 25th percentile, admit rate $< 15\text{--}20\%$, OR major-specific admit gate under 20% (e.g. engineering/CS), with plausible aid pathway.
+5. Write `students/<slug>/colleges.md` following `schemas/colleges.md` with an upfront derivation summary and plain-English criteria descriptions. When `research/<college>.md` exists, pull numbers, net prices, and watch-outs directly from the dossier.
 6. Synchronize `meta.json`.
 
 **Exits** when `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_list.py students/<slug>` passes.
@@ -81,6 +81,9 @@ Build or rebalance an 8–12 school college list across Safety, Target, and Reac
 6. **No made-up probabilities or match percentages:** Never state individual admission chances (*"you have a 30% shot"*) or arbitrary fit scores (*"82% match"*).
 7. **Never cite college numbers from memory:** Admit rates, test ranges, net prices, and campus enrollment figures must come directly from `research/` files or Scorecard queries. If a number is not in the dossier, do not guess or state a specific figure from memory.
 8. **Never ask for household income upfront:** Present institutional need-based policy thresholds (e.g. "covers full tuition for typical assets under $140k income") and ask if that threshold is a possibility for them to verify privately with parents via the school's Net Price Calculator.
+9. **Index tiering to the major:** If engineering or business admits through a separate, highly competitive pool, tier based on the major's selectivity, not general university stats.
+10. **Never recommend Early Decision if comparing aid:** If the family must compare net prices across colleges, steer toward Early Action or Regular Decision.
+11. **Pull verified numbers from research dossiers:** When `research/<college>.md` exists, the entry in `colleges.md` must pull its numbers, costs, and watch-outs directly from the dossier.
 
 ---
 
