@@ -73,6 +73,16 @@ any deadline changes.
 Route to `counselor-package` when: sharing with a counselor or parent, or they want an
 overall status document.
 
+## Multi-intent requests & turn-level order of operations
+
+When a student asks for two things in one prompt (e.g., *"Research SUNY Stony Brook and set my residence to New York"*, or *"I got a 1450 on my SAT, rebalance my college list"*):
+
+1. **Never bounce or force multiple turns:** Do not tell the student to update intake first and ask again next turn. Execute both intents in one turn.
+2. **The Order of Operations is Dependency-First (see `schemas/requirements.md`):**
+   - **Phase 1: Update Student Facts First:** Immediately commit the volunteered facts/criteria to `profile.md` or `criteria.md` with source attribution (`[student YYYY-MM-DD]`), and append the verbatim quote to `conversations.md`.
+   - **Phase 2: Execute Downstream Analysis Second:** Run the specialist skill (`college-research`, `college-list`, `financial-aid`, `essay-coach`) using the freshly committed state (e.g., Stony Brook calculates in-state tuition for NY; list re-tiers against the 1450 SAT).
+   - **Phase 3: Run Deterministic Validator:** Run the relevant validator script (`check_research.py`, `check_list.py`, `check_record.py`) as the absolute final tool call before responding to the student.
+
 ## Keep state honest
 
 You are responsible for `meta.json` staying in sync with `colleges.md`. Whenever a college

@@ -61,6 +61,7 @@ python3 -m unittest discover -s "${CLAUDE_PLUGIN_ROOT}/tests"    # run after tou
   regenerate the tracker.
 - **Never hand-edit generated files** in `out/` — edit the source and regenerate.
 - **Append, never rewrite**, in `conversations.md` and `feedback.md`.
+- **State updates before analysis (Dependency-First):** When a user request provides new student facts/criteria and requests analysis or research in the same prompt, commit the updates to `profile.md` or `criteria.md` with source attribution *before* executing downstream work. Never analyze using stale state.
 
 ## Setup
 

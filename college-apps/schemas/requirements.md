@@ -35,3 +35,9 @@ This single document defines all required student fields, their source locations
    - **Beat 3 (Record or Degrade):**
      - If the student provides the information: Record it immediately with `[student YYYY-MM-DD]` in `profile.md` or `criteria.md`, append to `conversations.md`, and proceed.
      - If the student skips, hedges, or defers: Record the deferral tag, apply the **Graceful Degradation** rule, disclose the limitation to the student, and proceed without blocking.
+
+3. **Turn-Level Order of Operations (Dependency-First Protocol):**
+   When a user's prompt combines new student facts or criteria changes with an analytical or research request (e.g. *"Research SUNY Stony Brook and set my residence to New York"*, or *"I got a 1450 on the SAT, rebalance my list"*):
+   - **Phase 1: State Updates First (Intake):** Always commit the new student facts to `profile.md` or `criteria.md` with provenance attribution (`[student YYYY-MM-DD]`), and append the verbatim statement to `conversations.md` before doing downstream work.
+   - **Phase 2: Downstream Analysis Second (Research / List / Aid / Essay):** Execute the analytical sequence using the freshly committed state. This guarantees downstream operations consume accurate facts (e.g. evaluating in-state tuition for NY, or re-tiering against 1450 SAT) and prevents stale reads.
+   - **Phase 3: Final Validation Check:** Run the required validator script (`check_research.py`, `check_list.py`, `check_aid.py`, etc.) as the final tool call before responding to the student.
