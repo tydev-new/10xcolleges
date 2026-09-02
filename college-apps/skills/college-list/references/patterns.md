@@ -93,6 +93,29 @@ Never interrogate a student or family for their tax returns or household income 
 ### Artifact Pattern in `colleges.md`:
 In `colleges.md`, record the policy threshold clearly so the student and parents can review it privately together:
 ```markdown
-- **The money:** Eligible for the Rice Investment — families earning under $140,000 receive full tuition coverage, bringing estimated net price to ~$18k–$22k/yr [financialaid.rice.edu].
 - **Watch out for:** Need-based eligibility should be verified privately with your parents using Rice's official Net Price Calculator (NPC).
 ```
+
+---
+
+## 7. In-Stride Resolution & Graceful Degradation Patterns
+
+When `gate < 4` or open `TODO:` items exist in the student record, never halt or refuse to help. Apply the 3-beat protocol:
+
+### A. Missing State of Residence
+- **Prompt:** *"Before we pick public universities, what state do you live in? That determines whether schools like Purdue or Michigan count as in-state ($10k–$18k) or out-of-state ($30k–$60k) tuition."*
+- **If Answered:** Write `- **State of residence:** <State> [student YYYY-MM-DD]` to `profile.md` and log to `conversations.md`.
+- **If Skipped/Deferred:** Tag `- **State of residence:** TODO: deferred by student on YYYY-MM-DD [student YYYY-MM-DD]`. Degrade gracefully by assuming non-resident public COA and prioritizing private colleges that charge uniform tuition to all US residents. In `colleges.md`, write:
+  `- **Watch out for:** In-state status unverified; estimated at non-resident rates.`
+
+### B. Missing Budget Ceiling
+- **Prompt:** *"Have your parents set an annual budget ceiling for college costs (e.g. $25k/year, $40k/year, or need-based aid)?"*
+- **If Answered:** Write `| H1 | Budget | $XXk/yr · set by: parent | [student YYYY-MM-DD] | YYYY-MM-DD |` to `criteria.md`.
+- **If Skipped/Deferred:** Tag `| H1 | Budget | TODO: deferred by student on YYYY-MM-DD · set by: nobody yet | [student YYYY-MM-DD] | YYYY-MM-DD |`. Degrade gracefully by tiering schools purely by academic match (GPA and test percentiles). For every school, display the estimated Net Price from Scorecard and note:
+  `- **The money:** Estimated Net Price ~$XX,XXX [Scorecard]. Affordability unverified — family budget ceiling not yet set. Review Net Price Calculator with parents before applying.`
+
+### C. Missing Major ("Undecided")
+- **Prompt:** *"What major or academic field are you thinking about? (If you're not sure, 'undecided' is completely fine — just tell me what subjects you enjoy)."*
+- **If Answered:** Record major or record `"undecided" [student YYYY-MM-DD]` in `profile.md § Goals and direction`.
+- **If Undecided:** Degrade gracefully by evaluating schools on general university admission rates, but add an explicit watch-out for restricted STEM/business programs:
+  `- **Watch out for:** Applying undecided; changing into Engineering, CS, Nursing, or Business later often requires a separate, highly competitive internal transfer gate.`

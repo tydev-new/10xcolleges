@@ -15,7 +15,7 @@ skills scan for these to know what to ask next. Never fill a `TODO:` with a gues
 - **Class rank / decile (if reported):**
 - **Test scores:** TODO:
 - **Testing plan:** TODO: submitting scores, or applying test-optional?
-- **State of residence:**
+- **State of residence:** TODO:
 - **Citizenship / residency status** (only if it affects aid eligibility):
 
 ## Senior year classes

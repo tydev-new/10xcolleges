@@ -25,10 +25,7 @@ alive). For the essay gate — today's default — steps 1 and 2 are the documen
 activities ("what actually happened"), then 5, then 3; money (step 2 below) and the test
 numbers wait until the list is next, unless they bring them up:
 
-1. *Documents and the numbers* — "Do you have a transcript or your school's packet?
-   Drop it in `<path>` and I'll read it." Weighted and unweighted GPA, rigor, scores or
-   the plan to test. If they don't know the unweighted, have them check the transcript —
-   the weighted one usually reads higher.
+1. *State of residence & academic numbers* — State of residence (to determine in-state vs. out-of-state tuition and state grants), unweighted GPA, test scores or the plan to test. If they don't know the unweighted, have them check the transcript — the weighted one usually reads higher.
 2. *Money, asked plainly* — "Has your family talked about what they can spend per
    year?" A no is the single most important piece of homework: one school's Net Price
    Calculator, done together, twenty minutes, changes everything.

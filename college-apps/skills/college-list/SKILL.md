@@ -20,23 +20,26 @@ Build or rebalance an 8–12 school college list across Safety, Target, and Reac
 
 ## Prerequisites
 
-- **Required:** `students/<slug>/profile.md` (unweighted GPA, test plans) and `students/<slug>/criteria.md` (budget ceiling, hard filters, deal-breakers). The list gate (`gate 4/4`) in `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_record.py` must be met before building.
+- **Required:** `students/<slug>/profile.md` (unweighted GPA, test plans, state of residence) and `students/<slug>/criteria.md` (budget ceiling, hard filters, deal-breakers). See `schemas/requirements.md` for the core requirements and graceful degradation contract.
 - **Optional:** `documents/` (counselor packet, school questionnaires).
 
 ---
 
 ## Sequences and loops
 
-### The list gate (a sequence)
+### The requirements check & in-stride resolution (a sequence)
 
 **Runs when** asked to build or rebalance a list.
 
 1. Run `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_record.py students/<slug>`.
-2. Check `gate N/4`:
+2. Inspect `gate N/4` and open `TODO:` items against `schemas/requirements.md`:
    - If `gate 4/4`: proceed to list building.
-   - If `gate < 4`: halt. Never guess missing numbers or budgets. Route to `student-intake` to clarify unweighted GPA, test plans, deal-breakers, or budget.
+   - If `gate < 4`: do NOT abruptly halt or bounce the student. Apply the 3-beat protocol:
+     a. **Prompt In-Stride:** Ask the student directly in chat for the missing item(s) (at most 2 questions, using the canonical prompts from `schemas/requirements.md`).
+     b. **Record if answered:** Write the response to `profile.md` or `criteria.md` with `[student YYYY-MM-DD]`, append to `conversations.md`, and proceed.
+     c. **Degrade Gracefully if skipped/deferred:** If the student defers (e.g. budget unknown, state not given), record the deferral tag (`TODO: deferred by student on YYYY-MM-DD [student YYYY-MM-DD]`) and apply the graceful degradation rule from `schemas/requirements.md` (e.g. tier by academic match, display estimated Net Price, and label: `Affordability unverified — family budget ceiling not yet set`).
 
-**Exits** when `gate 4/4` is confirmed or handoff to `student-intake` is delivered.
+**Exits** when requirements are resolved or degraded gracefully, ready to build.
 
 ### Build the list (a sequence)
 

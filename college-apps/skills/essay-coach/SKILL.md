@@ -23,7 +23,7 @@ Coach the student to produce an essay that answers the prompt, captures the auth
 - **Required:**
   - A working folder with `CLAUDE.md` — none → run `student-intake` Setup first.
   - **Prompt, target, and word count:** Exact prompt text, target institution (or Common App personal statement), and verified word count ceiling with lookup date. Tracked in `essays/<college-slug>--<prompt-slug>/` or `essays/common-app--<prompt-slug>/`. This loop tracks exactly one named essay folder.
-  - Student record: `profile.md` and `conversations.md`. Thin material requires interviewing, not drafting.
+  - Student record: `profile.md` and `conversations.md`. If intended major or core activities are `TODO:`, ask in-stride or apply graceful degradation per `schemas/requirements.md` (e.g. use the 4 behavioral elicitation questions) before drafting.
 - **Optional:**
   - `research/<college>.md` for why-us supplements and CDS §C7 essay weight.
   - `feedback.md` for teacher or counselor reactions (outranks coach).

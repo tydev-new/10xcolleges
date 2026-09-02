@@ -21,7 +21,7 @@ Build an investigative, cited research dossier on a single college, evaluating i
 
 ## Prerequisites
 
-- **Required Student Context:** Inspect `students/` to locate the existing student folder (e.g. `students/<slug>/`). Always read `students/<slug>/profile.md` (unweighted GPA, test scores, intended major, state of residency) and `students/<slug>/criteria.md` (budget ceiling, hard filters, deal-breakers like D1 cold weather). Never invent a new student identity when an existing student folder is present.
+- **Required Student Context:** Inspect `students/` to locate the existing student folder (e.g. `students/<slug>/`). Always read `students/<slug>/profile.md` (unweighted GPA, test scores, intended major, state of residency) and `students/<slug>/criteria.md` (budget ceiling, hard filters, deal-breakers like D1 cold weather). If state of residence or intended major is `TODO:`, ask the student in-stride or apply graceful degradation per `schemas/requirements.md` (e.g. evaluate out-of-state COA if state unknown). Never invent a new student identity when an existing student folder is present.
 - Dossier destination: `students/<slug>/research/<college-slug>.md`.
 
 ---

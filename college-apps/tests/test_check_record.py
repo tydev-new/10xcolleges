@@ -2,7 +2,7 @@ import subprocess, sys, tempfile, unittest
 from pathlib import Path
 
 S = Path(__file__).resolve().parent.parent / "scripts" / "check_record.py"
-PROFILE = "# Profile\n## Basics\n- **Name:** Maya R. [packet]\n- **GPA (unweighted):** 3.7 [transcript]\n- **Test scores:** none yet; SAT in October [student 2026-08-22]\n## Goals and direction\n- **Intended major:** \"biology maybe, something with plants\" — not sure [student 2026-08-22]\n"
+PROFILE = "# Profile\n## Basics\n- **Name:** Maya R. [packet]\n- **GPA (unweighted):** 3.7 [transcript]\n- **Test scores:** none yet; SAT in October [student 2026-08-22]\n- **State of residence:** California [packet]\n## Goals and direction\n- **Intended major:** \"biology maybe, something with plants\" — not sure [student 2026-08-22]\n"
 CRITERIA = "# List criteria\n## Hard filters\n| # | Criterion | Value | Source | Added |\n|---|---|---|---|---|\n| H1 | budget | $25k/yr · set by: parent | [parent 2026-08-22] | 2026-08-22 |\n## Deal-breakers\n| # | \"In their words\" | What it rules out | Source | Added |\n|---|---|---|---|---|\n| D1 | \"I don't want to be somewhere cold\" | cold climates | [student 2026-08-22] | 2026-08-22 |\n## Retired criteria\n| # | Criterion | Why it changed | When |\n|---|---|---|---|\n"
 
 def ws(profile=PROFILE, criteria=CRITERIA, conv=None):
@@ -41,6 +41,10 @@ class CheckRecord(unittest.TestCase):
     def test_gpa_without_unweighted_is_not_the_gate(self):
         code, out = run(ws(profile=PROFILE.replace("- **GPA (unweighted):** 3.7 [transcript]", "- **GPA (kind unknown):** \"my GPA is 3.9\" [student 2026-08-22]\n- TODO: unweighted GPA — have them check the transcript")))
         self.assertEqual(code, 0, out); self.assertIn("gate 3/4", out); self.assertIn("unweighted GPA", out)
+
+    def test_missing_state_of_residence_gates(self):
+        code, out = run(ws(profile=PROFILE.replace("- **State of residence:** California [packet]\n", "")))
+        self.assertEqual(code, 0, out); self.assertIn("gate 3/4", out); self.assertIn("state of residence", out)
 
     def test_undated_person_tag_fails(self):
         code, out = run(ws(profile=PROFILE + "- works at a garden center [student]\n"))
