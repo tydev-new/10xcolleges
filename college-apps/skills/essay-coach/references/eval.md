@@ -53,14 +53,21 @@ it got there, and who checks what.
 - **The 50/50 Reflection Ratio holds:** At least 40%–50% of the essay explores cognitive reflection, values, and who the student is becoming, rather than pure plot, play-by-play backstory, or resume spillage.
 - **Passed the "Cool Teacher" Ear Test:** Voice sounds like an articulate 17-year-old speaking to a respected teacher; zero artificial SAT thesaurus words (*"plethora," "myriad," "tapestry of life"*).
 - **Zero Throat-Clearing:** Opens immediately in medias res; no generic scene-setting or broad philosophical declarations in paragraph 1.
+- **Word count compliance is strictly evaluated:** The brief includes a mandatory Tier 1 word count criterion from the prompt. Drafts exceeding the ceiling are marked [Not Met] (admissions portals truncate or reject them); drafts under 80% of the ceiling are flagged for under-development.
 
 ## The rubric — what a criterion must be, and where it comes from
 
 A criterion is a yes/no question, never generic essay advice. A
 criterion you can't answer yes or no about is decoration. **Every
 criterion carries its source tier**, like every other fact in this
-product. Most colleges publish no scoring rubric, so what exists is
-quoted and the rest is derived and says so:
+product. 
+
+**The mandatory word count criterion (Tier 1):**
+Every essay brief must include an explicit word count criterion drawn directly from the college/portal prompt specifications:
+- *Hard Ceiling (Non-negotiable):* Word count $\le$ Prompt limit. Admissions portals (Common App, UC, Coalition) cut off submission at word $N+1$. Any over-length draft is a hard `[Not Met]`.
+- *The 80% Depth Target (Counselor Standard):* Target 80%–100% of the word allowance (e.g. 520–650 words for Common App; 200–250 words for a 250-word supplement; 125–150 words for a 150-word supplement). An essay well under 80% of the limit signals incomplete thought and is flagged `[Not Met]` until fleshed out with reflection and sensory grounding.
+
+Most colleges publish no scoring rubric, so what exists is quoted and the rest is derived and says so:
 
 | Tier | Source |
 |---|---|

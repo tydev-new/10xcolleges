@@ -10,8 +10,11 @@ before talking to a student.
 Most prompts ask something narrower than they look ("describe a
 challenge" is really asking how you think when things go wrong). Build
 the rubric from the prompt (the why-us example is in `eval.md`), then
-get the word count and format from the college's own page, with the
-date you looked it up.
+get the exact word count ceiling and format from the college's own page or application portal, with the date you looked it up.
+
+Every brief must include an explicit Tier 1 rubric criterion for word count:
+- **Hard Ceiling:** Word count $\le$ Prompt limit. Admissions software (Common App, UC, Coalition) cuts off submission at word $N+1$.
+- **The 80% Depth Zone:** Coach drafts toward 80%–100% of the ceiling (e.g. 520–650 words on Common App; 200–250 words on a 250-word supplement; 125–150 words on a 150-word supplement). An essay at 50% of the limit leaves crucial space unused and signals under-developed thought.
 
 **Living, from the student.**
 
