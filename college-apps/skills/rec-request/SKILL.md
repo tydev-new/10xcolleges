@@ -89,3 +89,13 @@ Owns `students/<slug>/recs/brag-sheet--<t>.md` and `students/<slug>/recs/request
 2. **The In-Person Ask Invariant:** Never send a cold email or Common App invitation before having a face-to-face conversation with the teacher.
 3. **The Strict FERPA Rights Waiver:** The student must confirm they have waived their right to inspect recommendations. An unwaved letter destroys evaluative credibility.
 4. **Division of Labor:** Teacher brag sheets focus exclusively on classroom curiosity and academic stamina. School context, family adversity, and AP caps belong exclusively to the School Counselor letter (`counselor-package`).
+
+---
+
+## Session Close
+
+Before replying to the student on EVERY turn:
+1. **Run `check_rec.py` Last:** Execute `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_rec.py students/<slug>/recs/` as the absolute final tool call after any edits. Fix any script FAILs before replying.
+2. **Synchronize FERPA Status:** When drafting the follow-up email asserting the waiver is done, confirm that `brag-sheet--<teacher>.md § Logistics & Submission` explicitly states `- **FERPA status:** Confirmed waived in Common App`.
+3. **Common App Portal Navigation:** Instruct the student to navigate to **My Colleges → [College Name] → Recommenders and FERPA** (not the general profile/education tab) to complete the electronic FERPA waiver and assign recommenders.
+4. **Tracker Sync:** When recommenders are recorded in `meta.json`, regenerate the tracker via `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/make_tracker.py students/<slug>`.
