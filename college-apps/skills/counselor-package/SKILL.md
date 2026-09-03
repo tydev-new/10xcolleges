@@ -91,17 +91,23 @@ Appends to `conversations.md` and `feedback.md`.
 3. **Adolescent Voice Integrity:** Student reflections in `packet.json` must remain authentic. Adult consultant rewrites destroy counselor credibility.
 4. **Binding Adversity Consent:** If `challenges_include` is `"No"`, sensitive medical or personal adversity must never appear in `packet.docx` or `package.html`.
 5. **Counselor Authority Override:** Local counselor feedback on school admissions history always overrides AI model suggestions.
+6. **Mandatory `meta.json` Synchronization:** Whenever a college is re-tiered or a recommender note is added, you MUST edit BOTH `colleges.md` AND `meta.json` (updating the `"tier"` field in `colleges[]` and `"recommenders[]"`). Remember: `scripts/make_tracker.py` and `scripts/build_package.py` read `meta.json`, NOT `colleges.md`!
 
 ---
 
 ## Session Close
 
 Before replying to the student on EVERY turn:
-1. **Compile Deliverables:** Execute:
+1. **Sync Meta on List / Recommender Changes:** If any tier, decision plan, or recommender status changed, update `meta.json` to mirror `colleges.md` BEFORE running scripts.
+2. **Regenerate Tracker:** If the college list or recommenders changed, run:
+   ```bash
+   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/make_tracker.py" students/<slug>
+   ```
+3. **Compile Deliverables:** Execute:
    ```bash
    python3 "${CLAUDE_PLUGIN_ROOT}/scripts/build_package.py" students/<slug>
    python3 "${CLAUDE_PLUGIN_ROOT}/scripts/fill_packet.py" students/<slug>
    ```
-2. **Verify Disk Output:** Confirm `out/package.html` and `out/packet.docx` exist and are current.
-3. **Audit Provenance Headers:** Confirm no draft provenance errors were raised during compilation.
-4. **Link Deliverables:** Provide direct, clickable markdown links to `out/package.html` and `out/packet.docx` in chat.
+4. **Verify Disk Output:** Confirm `out/package.html`, `out/packet.docx`, and `out/tracker.xlsx` exist and are current.
+5. **Audit Provenance Headers:** Confirm no draft provenance errors were raised during compilation.
+6. **Link Deliverables:** Provide direct, clickable markdown links to `out/package.html` and `out/packet.docx` in chat.
