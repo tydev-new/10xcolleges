@@ -3,138 +3,106 @@ name: app-tracker
 description: Build and maintain the application tracker spreadsheet — deadlines, per-college task lists worked backwards from each due date, recommender status, and key dates. Use when a student asks what's due, whether they're behind, what to do next, or after the college list, deadlines, or application statuses change.
 ---
 
-# The tracker
+# Application Tracker
 
-Read `${CLAUDE_PLUGIN_ROOT}/docs/voice.md`. The tracker is `students/<slug>/out/tracker.xlsx`, generated from
-`meta.json`. Never hand-edit the xlsx — edit `meta.json` and regenerate, or the next
-regeneration silently throws the edits away.
+Build and maintain the operational command center for a student's college application campaign. Read `${CLAUDE_PLUGIN_ROOT}/docs/voice.md`.
+
+The tracker is `students/<slug>/out/tracker.xlsx`, compiled deterministically from `meta.json` and `${CLAUDE_PLUGIN_ROOT}/config/calendar.json`. It is strictly a **Derived** artifact — never hand-edit the `.xlsx` file directly; all updates are made to `meta.json` and regenerated.
 
 ```bash
 python3 "${CLAUDE_PLUGIN_ROOT}/scripts/make_tracker.py" students/<slug>
 ```
 
-## Before you generate
+- **Standards & Rubrics:** Read `${CLAUDE_PLUGIN_ROOT}/skills/app-tracker/references/eval.md`.
+- **Master Counseling Protocols:** Read `${CLAUDE_PLUGIN_ROOT}/skills/app-tracker/references/patterns.md`.
+- **Workbook Schema:** Read `${CLAUDE_PLUGIN_ROOT}/schemas/tracker.md`.
 
-Verify the data, because a tracker built on a wrong deadline is worse than no tracker.
+---
 
-1. **Every college has a real deadline** from that school's own admissions page, with a
-   retrieval date noted in its research dossier. Not "early November." The date.
-2. **Decision plans are right.** EA, ED, ED II, REA/SCEA, RD, Rolling. These have very
-   different dates and ED is binding — confirm before it goes in.
-3. **Watch the traps:**
-   - Priority/scholarship deadlines are often *weeks earlier* than the admission deadline
-     and students miss them constantly. Track the earlier one.
-   - Honors college and BS/MD-type programs have their own separate, earlier deadlines.
-   - Some schools' financial aid deadlines differ from the admission deadline.
-   - "Rolling" is not "no deadline" — it means apply early or the class fills.
-4. **Recommenders are in `meta.json`** under `recommenders`.
+## Sequences & Triggers
 
-## Calendar facts live in config, not in code
+### 1. Trigger: College List or Deadline Change
+Whenever `colleges.md` changes or a deadline is updated:
+1. Mirror updates to `meta.json` under `colleges[]` with strict ISO dates (`YYYY-MM-DD`).
+2. Audit for earlier **Scholarship Priority Deadlines** (Pattern § 1) and note them in the college record.
+3. Regenerate the workbook:
+   ```bash
+   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/make_tracker.py" students/<slug>
+   ```
 
-`${CLAUDE_PLUGIN_ROOT}/config/calendar.json` holds the dates and offsets: when FAFSA opens, the twelve
-backward-plan steps and their week offsets, the whole-profile tasks, and the Key Dates
-defaults. Edit that file when a date moves — no Python changes needed, and the `_note`
-fields explain why each value is what it is.
+### 2. Trigger: Status Progress ("What's due next?", "I submitted!")
+1. If an application is submitted, update `"status": "submitted"` in `meta.json`.
+2. If a recommender agrees, sends, or submits, update `meta.json.recommenders`.
+3. If a student asks what to do, run `make_tracker.py` and output the **Inline Executive Dashboard** in chat.
+4. Schedule the **72-Hour Applicant Portal Audit** (Pattern § 3) post-submission.
 
-**Check the FAFSA date against the current cycle before trusting it.** It moved to
-December during the 2024-25 simplification and drifted back; `aid.fafsa_note` records
-this. If it has moved again, fix the config and say so to the family.
+---
 
-What does *not* live in config: the rule for which aid year a deadline belongs to, the
-compression math, and the passed-deadline handling. Those are arithmetic, they're in
-`make_tracker.py`, and they're covered by `tests/test_dates.py`. If you change them, run:
+## Operations & Execution Protocols
 
-```bash
-python3 -m unittest discover -s "${CLAUDE_PLUGIN_ROOT}/tests"
-```
+### 1. Multi-Tier Deadline Hierarchy
+Novices look only at the final application deadline. Master counselors track four distinct tiers:
+- **Tier 1: Internal High School Cutoff:** (Often 3–4 weeks prior) for requesting official transcripts.
+- **Tier 2: Institutional Scholarship Cutoff:** (e.g., USC Dec 1, Indiana Univ Nov 1). Missing this forfeits merit aid.
+- **Tier 3: Admissions Application Deadline:** Official Common App submission cutoff.
+- **Tier 4: Financial Aid Priority Date:** FAFSA / CSS Profile institutional deadlines.
 
-## What the generator does
+### 2. The 7-Day "Server Crash" Buffer Rule
+- **Rule:** Target submission date = **Official Deadline − 7 Days**.
+- Common App servers experience severe slowdowns and payment gateway failures on deadline nights. Time-zone misunderstandings (EST vs. local time) cause fatal rejections. The student finishes one week early; the final 7 days are purely for portal transmission, payment clearance, and peace of mind.
 
-Four sheets plus a Read Me:
+### 3. Backwards Scheduling & Compression Math
+- Backwards planning steps (recommenders at 9 weeks, supplements drafted at 6, revised at 4, counselor letter at 3, proofreading at 2, submit) live in `config/calendar.json`.
+- **Compression:** If runway < 10 weeks, `make_tracker.py` compresses tasks proportionally into remaining days.
+- **Extreme Crunch (< 3 weeks):** Execute cognitive triage (Pattern § 5): pick 1 Safety + 1 Target for EA; move remaining schools to Regular Decision.
 
-- **Applications** — a row per college. `Days Left` colors itself green / amber (under 30)
-  / red (under 14) / grey (passed). Status and tier are dropdowns.
-- **Tasks** — the real to-do list, generated by working **backwards** from each deadline:
-  recommenders asked at 9 weeks, supplements drafted at 6, revised at 4, counselor letter
-  at 3, proofread at 2, submit on the day. Plus whole-profile tasks (FAFSA, personal
-  statement, list finalization). Overdue-and-not-done goes red; done goes green.
-- **Recommenders** — asked / agreed / brag sheet sent / submitted / thanked.
-- **Key Dates** — testing, FAFSA, reply date. Fill from `meta.json.key_dates` if the
-  student has specific ones.
+### 4. The 72-Hour Applicant Portal Audit
+- Within 24–72 hours of submission, the student receives email credentials for the college's applicant portal.
+- The student must log in and audit green checkmarks for: Transcripts, Counselor SSR, Teacher Letters, Test Scores (or test-optional flag), and SRAR account linkage.
 
-`Days Left` is a live formula, so the sheet stays honest between regenerations instead of
-freezing the numbers at generation time.
+### 5. Senior Spring Rescission Defense
+- **Rule 1:** Never drop a second-semester academic course without prior written approval from every admitted university. Dropping an AP class for study hall is the #1 cause of July rescissions.
+- **Rule 2 (C/D Mitigation Protocol):** Proactive disclosure in April/May for severe grade dips converts a unilateral rescission into an academic support plan.
 
-**The generator refuses to run on a malformed deadline.** A date like `11/01/2026` or
-`Nov 1` exits with an error naming the school, because the old behavior — silently
-skipping that college's entire task plan while still listing it on the Applications
-sheet — left students with an application they thought was tracked and wasn't. A *missing*
-deadline is fine and just prints a note; a *mistyped* one is a hard stop. Fix `meta.json`
-and re-run.
+---
 
-**A deadline that already passed** gets one flag task asking the student to confirm they
-submitted or mark the school withdrawn — not a twelve-step plan ending in "SUBMIT
-application" due today.
+## Talking About the Tracker
 
-**Late starts are handled.** If a deadline is closer than the plan's ten-week runway, the
-sequence compresses proportionally into the time that's left rather than dumping a dozen
-already-overdue rows on the student. Those rows get flagged "Tight timeline." When you see
-a lot of those, say so out loud — it's real information:
-
-> Heads up: Michigan State is three weeks out and the plan for it is compressed. That's
-> doable, but it means asking Ms. Alvarez this week, not next.
-
-## Talking about it
-
-Don't narrate the spreadsheet. Give them the three things that matter this week:
-
-> Tracker's updated — 3 schools, 41 tasks, nothing overdue.
->
-> This week, honestly, it's one thing: ask Ms. Alvarez and Mr. Chen for letters. Everything
-> else on the list is downstream of that, and every week you wait is a week off their
-> writing time.
->
-> The next real wall is October 1 — Michigan State's rolling deadline and FAFSA open the
-> same week.
-
-Rules for how you talk about the tracker:
-
-- **Lead with what's next, not what exists.** "What should I do today" is the only question
-  the student is actually asking.
+Don't narrate the spreadsheet rows. Present an actionable, high-clarity summary:
+- **Lead with what's next, not what exists.** "What should I do today" is the only question the student has.
 - **One priority at a time.** A student handed twelve tasks does none of them.
-- **Never catastrophize a late start.** Most students start late. Compress the plan, name
-  the first move, and get going. "You're behind, but this is recoverable and here's the
-  order" is both true and useful.
-- **Flag the immovable things early.** ED deadlines, FAFSA, test registration cutoffs.
+- **Never catastrophize a late start.** Compress the plan, name the immediate move, and get moving.
 
-## Keeping it current
+---
 
-Regenerate whenever the list changes, a deadline is verified or corrected, a status
-changes, or a recommender says yes. It takes a second and stale trackers get ignored.
+## State
 
-**Re-verify every deadline against the colleges' own pages in October.** Colleges do move
-dates, and this is the single error in the whole system that can cost an admission. Put it
-on the Key Dates sheet as its own task.
+Owns `students/<slug>/out/tracker.xlsx` — schema in `${CLAUDE_PLUGIN_ROOT}/schemas/tracker.md`. Generated from `meta.json` and `${CLAUDE_PLUGIN_ROOT}/config/calendar.json`.
 
-## Marking progress
+Maintains `meta.json` (`colleges[]`, `recommenders[]`, `key_dates[]`) — schema in `${CLAUDE_PLUGIN_ROOT}/schemas/meta.md`. Appends to `conversations.md`.
 
-When the student reports progress, update `meta.json` and regenerate. Statuses:
-`considering → researching → committed-to-apply → in-progress → submitted → decided`,
-plus `withdrawn` for schools they drop. Dropping a school is normal and healthy — a list
-that never shrinks was never a list.
+---
 
-And when they submit one, say so like a person:
+## Non-Negotiable Guardrails
 
-> That's Michigan State submitted. First one's the hardest — the rest reuse most of it.
+1. **Never Hand-Edit `tracker.xlsx`:** The spreadsheet is strictly a Derived artifact. Always edit `meta.json` and regenerate via `make_tracker.py`.
+2. **Strict ISO Date Invariant:** All deadlines must be formatted as `YYYY-MM-DD`. Malformed dates (e.g. `11/01/2026`) abort the build immediately to prevent missing tasks.
+3. **The 7-Day Crash Buffer:** Working submission targets must be scheduled 7 days prior to official deadlines.
+4. **The Scholarship Priority Trap:** Never record an RD deadline without verifying whether earlier institutional merit cutoffs exist.
+5. **The Senior Course Retention Rule:** Never endorse dropping an academic course in senior spring without written university consent.
 
-## Senior Year Course Changes & Rescission Risk Guardrail
+---
 
-Every offer of admission is provisional, conditioned on completing senior year coursework in good standing. Master counselors enforce two non-negotiable post-submission rules:
+## Session Close
 
-1. **Never Drop an Academic Class Without Prior Written Approval:**
-   - If a student wants to drop a second-semester academic course (e.g. dropping AP Calculus BC, AP Physics, or 4th-year Foreign Language for a study hall), they **must contact every college's admissions office in writing first**.
-   - Dropping a core course listed on the Common App without prior approval is the #1 cause of sudden **admissions rescissions in July** when final high school transcripts arrive.
-
-2. **Proactive Disclosure for Grade Dips (The C/D Mitigation Protocol):**
-   - Universities routinely rescind offers or place admitted students on academic probation for receiving any D or F, or multiple C's in their final semester.
-   - If severe illness, family crisis, or academic struggle threatens a senior's spring grades, counselors mandate **proactive notification to the regional admissions officer in April/May** rather than waiting for the final transcript surprise in July. Proactive outreach converts a potential rescission into an academic support plan.
+Before replying to the student on EVERY turn:
+1. **Regenerate Tracker:** Execute:
+   ```bash
+   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/make_tracker.py" students/<slug>
+   ```
+2. **Verify Output on Disk:** Confirm `students/<slug>/out/tracker.xlsx` was generated cleanly.
+3. **Render Inline Executive Dashboard:** Output a clean Markdown table in chat summarizing:
+   - Target vs. official deadlines and live days left.
+   - Immediate 14-day urgent action items.
+   - Recommender and applicant portal audit status.
+   - Clickable link to the full `.xlsx` workbook.

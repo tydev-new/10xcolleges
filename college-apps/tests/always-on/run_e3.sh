@@ -59,7 +59,7 @@ for case_name in $CASES; do
       printf '\n## Student (turn %s)\n%s\n' "$turn" "$MSG" >> "$out.transcript.md"
       cont=""; [ "$turn" -gt 1 ] && cont="--continue"
       ( cd "$WS" && claude -p $cont "$MSG" --model "$MODEL" --dangerously-skip-permissions \
-          --setting-sources project --output-format stream-json --verbose \
+          --setting-sources project --output-format stream-json --verbose < /dev/null \
         ) > "$out.turn$turn.stream.json" 2>> "$out.err"
       REPLY="$(python3 "$ROOT/extract_text.py" "$out.turn$turn.stream.json")"
       printf '\n## Agent (turn %s)\n%s\n' "$turn" "$REPLY" >> "$out.transcript.md"
@@ -74,7 +74,7 @@ for case_name in $CASES; do
         echo "Never re-send a message you already sent; a repeat is a failed turn."
         echo "Output ONLY your message."
       } > "$SIMP"
-      MSG="$( cd "$SIMD" && claude -p "$(cat "$SIMP")" --model "$SIM_MODEL" --setting-sources project 2>> "$out.err" )"
+      MSG="$( cd "$SIMD" && claude -p "$(cat "$SIMP")" --model "$SIM_MODEL" --setting-sources project < /dev/null 2>> "$out.err" )"
       rm -f "$SIMP"
       [ -z "$MSG" ] && { echo "sim returned empty at turn $turn" >> "$out.err"; break; }
     done

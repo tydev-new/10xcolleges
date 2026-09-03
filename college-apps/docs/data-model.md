@@ -79,7 +79,7 @@ checks this table against the skills and schemas.
 | `counselor-questions.md` | Living | counselor-package — [schema](../schemas/counselor.md) § `counselor-questions.md` | — | Before each package send |
 | `meta.json` | **Index** | college-app — [schema](../schemas/meta.md) § `meta.json` | — | Immediately after `colleges.md` changes |
 | `packet.json` | **Index** | counselor-package — [schema](../schemas/meta.md) § `packet.json` | — | Before regenerating the .docx |
-| `out/tracker.xlsx` | **Derived** | `make_tracker.py` | — | Regenerate; never edit |
+| `out/tracker.xlsx` | **Derived** | app-tracker — [schema](../schemas/tracker.md) § `tracker.xlsx` | — | Regenerate; never edit |
 | `out/package.html` | **Derived** | `build_package.py` | — | Regenerate; never edit |
 | `out/package.pdf` | **Derived** | `build_package.py` | — | Regenerate; never edit |
 | `out/packet.docx` | **Derived** | `fill_packet.py` | — | Regenerate; never edit |
