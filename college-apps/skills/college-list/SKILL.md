@@ -93,6 +93,9 @@ Build or rebalance an 8–12 school college list across Safety, Target, and Reac
 ## Session close
 
 Before replying to the student on EVERY turn:
-1. Sync `meta.json` if schools were added or removed.
+1. Sync `meta.json` if schools were added or removed, and regenerate the tracker:
+   ```bash
+   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/make_tracker.py" students/<slug>
+   ```
 2. Run `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_list.py students/<slug>` as the final tool call on EVERY turn — whether files were edited or you are merely answering questions, explaining tiers, or discussing colleges. Never reply without running `check_list.py` first.
 3. Every reply offers the derivation walkthrough and ends with ONE next step and its reason.

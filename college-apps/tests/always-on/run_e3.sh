@@ -26,7 +26,7 @@ vault_lock()   { find "$REALWS" -type f -not -path '*/.damaged*' -exec chflags u
 [ -d "$REALWS" ] && { vault_lock; trap vault_unlock EXIT; trap 'vault_unlock; kill 0 2>/dev/null' INT TERM; }
 
 # ---- HOST 2: the suite's cases -----------------------------------------------
-ALL_CASES="e3-review-rounds e4-late-read i1-intake-rounds i2-setup-in-a-repo l1-list-build r1-research-school f1-financial-aid k1-rec-request p1-counselor-package"
+ALL_CASES="e3-review-rounds e4-late-read i1-intake-rounds i2-setup-in-a-repo l1-list-build r1-research-school f1-financial-aid k1-rec-request p1-counselor-package m1-college-app"
 CASES="${CASES:-}"
 [ -z "$CASES" ] && { echo "usage: CASES=\"<case> ...\" $0 <tag>   (CASES=all for the suite: $ALL_CASES)" >&2; rmdir "$RESULTS" 2>/dev/null; exit 2; }
 [ "$CASES" = all ] && CASES="$ALL_CASES"
@@ -43,6 +43,7 @@ for case_name in $CASES; do
     WS="$(mktemp -d)"; SIMD="$(mktemp -d)"
     cp -R "$CASE/ws-seed/." "$WS/" 2>/dev/null
     [ -f "$WS/.gitrepo" ] && { rm -f "$WS/.gitrepo"; git -C "$WS" init -q; }  # the seed marks "this folder is a code repo"
+    [ -d "/Users/yongtian/Documents/10xcolleges/.venv" ] && ln -s "/Users/yongtian/Documents/10xcolleges/.venv" "$WS/.venv"
     mkdir -p "$WS/.claude/skills"
     for sk in $(cat "$CASE/skills.txt"); do cp -r "$REPO/skills/$sk" "$WS/.claude/skills/"; done
     SK1="$(head -1 "$CASE/skills.txt")"

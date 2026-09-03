@@ -76,7 +76,7 @@ When a student combines volunteered facts with an analytical request (*"I got a 
 2. **Strict 3-Phase Execution Sequence:**
    - **Phase 1: Ingest Facts First:** Commit the volunteered data immediately to `profile.md` or `criteria.md` with source attribution (`[student YYYY-MM-DD]`), and append the raw quote to `conversations.md`.
    - **Phase 2: Execute Downstream Analysis Second:** Run the specialist skill (`college-list`, `college-research`, `app-tracker`) using the freshly committed facts. Update `colleges.md` and `meta.json` concurrently.
-   - **Phase 3: Run Deterministic Validation Third:** Execute the corresponding validator script (`check_list.py`, `check_research.py`, `make_tracker.py`) as the final tool call before responding.
+   - **Phase 3: Run Deterministic Validation Third:** When college list or deadlines change, you MUST execute BOTH the specialist validator script (`check_list.py` / `check_research.py`) AND `make_tracker.py` (to regenerate `out/tracker.xlsx`) as the final tool calls before responding.
 
 ---
 
@@ -100,10 +100,11 @@ Coordinates and enforces synchronization across:
 1. **The "Single Next Step" Rule:** Never present a bewildering list of multiple choices when guiding the student; recommend exactly one high-impact next action based on current state.
 2. **The 2-Safety Floor Invariant:** Every final list must contain at least 2 true safeties that are both **academically reliable** ($>50\%$ admit rate, scores above 75th percentile) and **financially viable** (net price at or below the family budget ceiling).
 3. **Affordability is Core Fit:** Prompt for the family budget ceiling early in the process. Never postpone financial reality checks until spring award letters.
-4. **Mandatory `meta.json` Synchronization:** Whenever `colleges.md` changes (adding, removing, or re-tiering a school), update `meta.json` immediately.
-5. **Anti-Fabrication & Strict Citation Vintage:** Never invent deadlines, admit rates, or student achievements. Every statistic must carry an official citation tag (`[CDS 2024-25 §C1]`, `[transcript]`, `[case.edu]`).
+4. **Mandatory State & Tracker Synchronization:** Whenever `colleges.md` changes (adding, removing, or re-tiering a school), update `meta.json` concurrently AND execute `make_tracker.py` to regenerate `out/tracker.xlsx`. Never leave `meta.json` or `out/tracker.xlsx` stale.
+5. **Anti-Fabrication & Strict Durations:** Never invent, extrapolate, or inflate activity durations or student achievements (e.g. if an activity lists grades 10, 11, 12, it is strictly 3 years, never 4; rebuilding a drivetrain 4 times does not mean 4 years). Always quote exact durations from the profile. Always cite official Common Data Set (`[CDS 2024-25 §C1]`, `[CDS 2024-25 §C9]`) or official `.edu` admissions portals; do not rely on third-party aggregator blogs.
 6. **Verbatim Conversational Memory:** Always record raw student remarks in quotation marks in `conversations.md`. Never paraphrase personal experiences.
 7. **High-Stakes Ambiguity Protocol:** Lay out tradeoffs with nuance on sensitive decisions (ED commitments, adversity disclosure), and point to the school counselor for institutional policy decisions.
+8. **Student Choice in List Additions:** When a student explicitly requests adding a specific college, add it to `colleges.md` and `meta.json`. If the school does not qualify as a safety due to major selectivity or out-of-state net price (e.g. Purdue for an out-of-state applicant), categorize it honestly as a Target or Reach with the financial caveat clearly explained—never silently refuse to add a requested school.
 
 ---
 
