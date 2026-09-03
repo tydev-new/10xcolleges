@@ -80,9 +80,9 @@ checks this table against the skills and schemas.
 | `meta.json` | **Index** | college-app — [schema](../schemas/meta.md) § `meta.json` | — | Immediately after `colleges.md` changes |
 | `packet.json` | **Index** | counselor-package — [schema](../schemas/meta.md) § `packet.json` | — | Before regenerating the .docx |
 | `out/tracker.xlsx` | **Derived** | app-tracker — [schema](../schemas/tracker.md) § `tracker.xlsx` | — | Regenerate; never edit |
-| `out/package.html` | **Derived** | `build_package.py` | — | Regenerate; never edit |
-| `out/package.pdf` | **Derived** | `build_package.py` | — | Regenerate; never edit |
-| `out/packet.docx` | **Derived** | `fill_packet.py` | — | Regenerate; never edit |
+| `out/package.html` | **Derived** | counselor-package — [schema](../schemas/counselor.md) § `package.html` | — | Regenerate; never edit |
+| `out/package.pdf` | **Derived** | counselor-package — [schema](../schemas/counselor.md) § `package.pdf` | — | Regenerate; never edit |
+| `out/packet.docx` | **Derived** | counselor-package — [schema](../schemas/counselor.md) § `packet.docx` | — | Regenerate; never edit |
 
 Shipped with the plugin, read-only to a session:
 

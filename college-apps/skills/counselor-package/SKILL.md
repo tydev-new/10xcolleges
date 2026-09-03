@@ -3,109 +3,105 @@ name: counselor-package
 description: Build the interim package for a school counselor or parent to review — a self-contained HTML/PDF with the student snapshot, college list and reasoning, research, essay status, recommendation plan, and specific questions for their feedback. Also produces the filled-in school packet as .docx. Use when sharing progress with a counselor or parent, or when the student needs their completed post-secondary options packet.
 ---
 
-# The counselor package
+# Counselor & Review Package
 
-Read `${CLAUDE_PLUGIN_ROOT}/docs/voice.md`. Two deliverables, different audiences:
+Build and maintain the formal review documents that bridge the student's independent preparation with the high school counseling office. Read `${CLAUDE_PLUGIN_ROOT}/docs/voice.md`.
 
-- **`out/package.html`** (+ PDF) — the interim review document. For the counselor.
-- **`out/packet.docx`** — the school's own Post-Secondary Options Packet, filled in. For
-  submitting to the school.
+Two distinct deliverables serve two distinct audiences:
 
-## The review package
+1. **`out/package.html` (+ PDF):** The comprehensive interim review dossier prepared for the school counselor or parent, opening with targeted, high-leverage institutional questions.
+2. **`out/packet.docx`:** The school's official "Post-Secondary Options Packet" / Senior Questionnaire, filled in verbatim adolescent voice as raw ammunition for the counselor's Secondary School Report (SSR) letter.
 
 ```bash
+# Build the review package (self-contained HTML and optional PDF)
 python3 "${CLAUDE_PLUGIN_ROOT}/scripts/build_package.py" students/<slug> --pdf
-```
 
-Self-contained HTML — no external CSS, fonts, or scripts — so it survives email, Drive,
-and being opened offline. Prints cleanly to PDF (`--pdf` uses headless Chrome if present;
-otherwise Cmd-P). It pulls from `profile.md`, `meta.json`, `research/`, `essays/`, and
-`recs/` automatically, so the way to improve the package is to improve those files.
-
-### The part that matters: the asks
-
-The package opens with **"Where we'd value your input."** This is the whole point of
-sending it. A counselor with 300 students will not read eleven pages and free-associate
-feedback — they'll answer specific questions.
-
-The script generates sensible defaults, but write your own to
-`students/<slug>/counselor-questions.md` whenever there's something real to ask. Good asks
-are ones only this counselor can answer:
-
-> 1. We have Case Western as a target based on the CDS ranges. You'd know better than the
->    data does — how have our students actually fared there the last few years?
-> 2. Jordan's sophomore-year dip was the semester their mom was in treatment. They'd
->    rather not write about it in the essay. Is that context you'd normally include in the
->    school report, and do you want anything from us for it?
-> 3. Ms. Alvarez and Mr. Chen are our two teacher recommenders. Any reason to steer
->    differently?
-> 4. Northeastern's net price still runs about $6k/yr over the family's ceiling. Are there
->    school-based or local scholarships worth applying for that we wouldn't know about?
-
-Bad asks are ones the internet can answer ("what's Michigan's deadline?"). Don't waste
-their attention on those.
-
-### Before you send
-
-Check the package for these, because the counselor certainly will:
-
-- **Fewer than two safeties** — the script flags this in red. Fix the list before sending,
-  or name it in the asks as a known open problem. Don't send it unmentioned.
-- **`TODO:` count in the profile** — the script surfaces it. A few open items is honest.
-  Twenty means intake isn't finished.
-- **Uncited numbers** — every fact in the research files needs its source and vintage. The
-  counselor is exactly the reader who will notice an unsourced admit rate.
-- **Essay drafts** — the build now *enforces* this: `build_package.py` refuses to run if
-  any `draft-NN.md` lacks a provenance header, and agent-written drafts render with a
-  visible warning in the package. If the build stops here, add the missing header rather
-  than working around it — presenting a Mode C draft as the student's own work damages
-  their credibility with the one reader who will later see the submitted essay.
-
-### After you send
-
-Log everything the counselor says to `feedback.md`, attributed and dated, in their words.
-Then actually act on it: re-tier the schools they questioned, add the ones they suggested,
-update the tracker. Tell the student what changed and why.
-
-Counselor feedback outranks yours on anything local — how this school's students have
-actually done at a given college, what the school report will say, which teachers write
-well. They have information the data doesn't.
-
-## The school packet
-
-The school wants their own form back. Build `packet.json` from `profile.md` first — you do
-the extraction, the script does the layout. The shape is documented in the header of
-`${CLAUDE_PLUGIN_ROOT}/scripts/fill_packet.py`.
-
-```bash
+# Fill the school's official questionnaire (.docx)
 python3 "${CLAUDE_PLUGIN_ROOT}/scripts/fill_packet.py" students/<slug>
 ```
 
-Colleges are pulled from `meta.json` automatically. Anything missing renders as
-`[to be completed]` in grey, so the student can see exactly what's left rather than
-receiving a document that looks finished and isn't.
+- **Standards & Rubrics:** Read `${CLAUDE_PLUGIN_ROOT}/skills/counselor-package/references/eval.md`.
+- **Master Counseling Protocols:** Read `${CLAUDE_PLUGIN_ROOT}/skills/counselor-package/references/patterns.md`.
+- **Deliverable Schemas:** Read `${CLAUDE_PLUGIN_ROOT}/schemas/counselor.md` and `${CLAUDE_PLUGIN_ROOT}/schemas/meta.md`.
 
-Rules:
+---
 
-- **The student's reflection answers go in verbatim.** Do not polish them into consultant
-  prose. The counselor is reading these to find material for a letter that sounds like a
-  real kid, and a packet that reads like it was written by an adult is worse than useless.
-- **Never fill a blank with a guess.** `[to be completed]` is the correct output for
-  anything you don't actually know.
-- **The parent worksheet is the parent's.** Transcribe what they wrote. Don't improve it.
-- **Question 4 is sensitive** — personal challenges, and whether to include them in the
-  letter. Whatever the student said about disclosure is binding. If they said no, it does
-  not go in the packet, and it does not go in the package either.
+## Sequences & Triggers
 
-Then have the student check it before it goes to the counselor. It's their document and
-their name on it.
+### 1. Trigger: Preparing for the Senior Counselor Conference
+Whenever the student schedules their senior conference:
+1. **Curate the Asks:** Draft `students/<slug>/counselor-questions.md` following `schemas/counselor.md`. Focus strictly on the **4 high-leverage institutional questions** (Pattern § 2): Naviance scattergram trends, SSR course rigor checkmark context, teacher recommendation queues, and school-nominated scholarships.
+2. **Compile the Dossier:** Run `build_package.py` to create `out/package.html` and `out/package.pdf`.
+3. **Pre-Meeting Delivery (48–72 Hours Ahead):** Instruct the student to email `package.pdf` to the counselor 2–3 days in advance with a polite 3-sentence note (Pattern § 6).
 
-## Timing
+### 2. Trigger: Fulfilling the School's Senior Packet Requirement
+Whenever the high school counseling office requires its official questionnaire:
+1. **Extract to `packet.json`:** Extract academic data, activities, honors, reflections, and parent worksheet answers from `profile.md` into `students/<slug>/packet.json` (schema in `schemas/meta.md`).
+2. **Preserve Adolescent Phrasing:** Transcribe student reflection responses in verbatim adolescent voice. Never polish into consultant adult English (Pattern § 4).
+3. **Verify Adversity Consent:** Confirm `challenges_include` is `"Yes"` before including sensitive family, medical, or personal challenges (Pattern § 5).
+4. **Compile Word Document:** Run `fill_packet.py` to generate `out/packet.docx`. Missing fields render as grey `[to be completed]` placeholders.
 
-Send the first package **early** — September, when the list is drafted but before the
-essays are locked. Feedback in September changes the list; feedback in December changes
-nothing. Send an updated one after the list settles and once more before the earliest
-deadline.
+### 3. Trigger: Post-Meeting Feedback Integration
+Whenever the counselor provides verbal or written feedback after the conference:
+1. **Log Feedback:** Append the counselor's comments into `feedback.md` with exact quotes and attribution (`[counselor YYYY-MM-DD]`).
+2. **Enforce Authority Override:** Counselor feedback on local high school context (scattergram history, teacher queues, SSR rigor) outranks AI coach heuristics (Pattern § 7). Update `colleges.md` and `meta.json` immediately.
+3. **Same-Day Gratitude:** Prompt the student to send a concise thank-you email confirming the agreed-upon adjustments (Pattern § 8).
+4. **Regenerate Tracker:** Run `make_tracker.py` to reflect the updated college list.
 
-Say what changed since last time at the top. A counselor re-reading eleven pages to find
-three differences will stop opening them.
+---
+
+## Operations & Execution Protocols
+
+### 1. The 4 High-Leverage Institutional Questions
+The review package opens with **"Where we'd most value your input"** (pulled from `counselor-questions.md`). Never ask questions that public search engines can answer. Focus on:
+- *Local Scattergrams:* How local students with similar profiles have fared at target schools in EA vs. RD.
+- *SSR Rigor Rating:* Ensuring the counselor rates coursework as "Most Demanding" and documents school AP caps.
+- *Teacher Queues:* Validating the 1 STEM + 1 Hum pairing and checking teacher workload caps.
+- *School Nominations:* Inquiring about school-nominated scholarships (Morehead-Cain, Jefferson, Trustee).
+
+### 2. Secondary School Report (SSR) Division of Labor
+- **Counselor SSR Letter:** Focuses on institutional context, school profile, AP limits, schedule collisions, family adversity, and character within the class cohort.
+- **Teacher Letters:** Focus on daily classroom friction, lab troubleshooting, and intellectual stamina.
+- Never ask the counselor to repeat classroom anecdotes from teacher brag sheets.
+
+### 3. Draft Provenance Enforcement
+`build_package.py` mechanically enforces academic integrity:
+- Every `draft-NN.md` must begin with a valid provenance declaration (`STUDENT DRAFT`, `AGENT FIRST DRAFT`, or `EXAMPLE`).
+- The build halts immediately on unlabeled drafts. Agent-assisted drafts render with visible transparency badges in `package.html`.
+
+---
+
+## State
+
+Owns:
+- `students/<slug>/counselor-questions.md` — schema in `${CLAUDE_PLUGIN_ROOT}/schemas/counselor.md`
+- `students/<slug>/packet.json` — schema in `${CLAUDE_PLUGIN_ROOT}/schemas/meta.md`
+- `students/<slug>/out/package.html` — schema in `${CLAUDE_PLUGIN_ROOT}/schemas/counselor.md`
+- `students/<slug>/out/package.pdf` — schema in `${CLAUDE_PLUGIN_ROOT}/schemas/counselor.md`
+- `students/<slug>/out/packet.docx` — schema in `${CLAUDE_PLUGIN_ROOT}/schemas/counselor.md`
+
+Appends to `conversations.md` and `feedback.md`.
+
+---
+
+## Non-Negotiable Guardrails
+
+1. **Mandatory Draft Provenance:** Never remove or bypass draft declaration headers. Presenting an agent-drafted essay without declaration damages student credibility.
+2. **Safety Floor:** The college list must contain at least 2 true safeties; `build_package.py` renders a visible red alert banner if fewer than 2 exist.
+3. **Adolescent Voice Integrity:** Student reflections in `packet.json` must remain authentic. Adult consultant rewrites destroy counselor credibility.
+4. **Binding Adversity Consent:** If `challenges_include` is `"No"`, sensitive medical or personal adversity must never appear in `packet.docx` or `package.html`.
+5. **Counselor Authority Override:** Local counselor feedback on school admissions history always overrides AI model suggestions.
+
+---
+
+## Session Close
+
+Before replying to the student on EVERY turn:
+1. **Compile Deliverables:** Execute:
+   ```bash
+   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/build_package.py" students/<slug>
+   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/fill_packet.py" students/<slug>
+   ```
+2. **Verify Disk Output:** Confirm `out/package.html` and `out/packet.docx` exist and are current.
+3. **Audit Provenance Headers:** Confirm no draft provenance errors were raised during compilation.
+4. **Link Deliverables:** Provide direct, clickable markdown links to `out/package.html` and `out/packet.docx` in chat.
