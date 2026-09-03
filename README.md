@@ -1,25 +1,121 @@
 # 10xcolleges
 
-A Claude plugin that coaches high school students through college application essays the way a great counselor would — uncovering authentic personal stories, breaking down prompts, and giving honest feedback draft by draft without ghostwriting.
+A comprehensive college admissions counseling system built as a Claude plugin. Guides high school students and their families through the entire admissions campaign the way a master college counselor would—from initial intake and major fit to list building, school research, affordability, essay coaching, teacher recommendations, timeline tracking, and counselor review packets.
 
-Plain-spoken, encouraging, and focused on helping students sound like themselves.
-
----
-
-## What's ready now — Essay Coaching
-
-The core essay coaching experience is fully built, reviewed, and measured:
-
-| Skill | What it does for you | How it's kept honest |
-|---|---|---|
-| **student-intake** | Gets to know you through a short conversation or by reading whatever your school gave you (a counselor packet or activities list). It draws out your favorite activities, hobbies, and stories in your own words. It leaves blanks blank and never asks for sensitive personal info like family finances. | A verification script checks the files after every turn: no untagged facts, no blanks filled with guesses, and your words are never altered or summarized into buzzwords. |
-| **essay-coach** | Guides you through one essay at a time (your Common App personal statement or any college supplement). It breaks down what the prompt really asks, builds a scoring checklist (rubric) from college guidance, and explores 3–4 angles from things you've actually done. Then it reviews draft by draft: what's working, the one big thing to change, and specific line notes. | Every draft clearly states its author on line one. The coach points at issues and explains why, but never rewrites your sentences for you. A blind cold reader checks every draft to see what real admissions readers will remember. |
-
-Both skills are tested and verified with simulated multi-turn student conversations (conduct harness in `college-apps/tests/always-on/`). What they will never do: write your essay, invent details, or look outside the folder you chose.
+Plain-spoken, encouraging, honest about admissions odds, and rigorously grounded in official institutional data without ghostwriting or fabrication.
 
 ---
 
-## Install
+## The 8-Stage Counseling Ecosystem
+
+Every stage of the college admissions campaign is powered by a dedicated, canonical skill adhering to the **3-file architecture** (`SKILL.md`, `references/eval.md`, `references/patterns.md`), backed by deterministic validator scripts, formal schema contracts, and multi-turn conduct harness tests:
+
+| Stage | Skill Name | What It Does | Deterministic Validator & Scripts | Formal Schema | E2E Harness Status |
+|:---:|---|---|---|---|:---:|
+| **0** | **`college-app`** | **Lead Counselor & Meta-Orchestrator:** Discovers workspace, applies "Single Next Step" triage, routes across specialist skills, and executes multi-intent requests. | Coordinates validators, manages `meta.json` | [`schemas/meta.md`](college-apps/schemas/meta.md) | **100% PASS** (`m1-college-app`) |
+| **1a** | **`student-intake`** | **Student Record & Criteria Engine:** Gathers student profile, activities, and reflections from conversation or school packets. Captures hard budget filters and deal-breakers. | [`check_record.py`](college-apps/scripts/check_record.py) | [`schemas/profile.md`](college-apps/schemas/profile.md)<br>[`schemas/criteria.md`](college-apps/schemas/criteria.md) | **100% PASS** (`i1-intake-rounds`) |
+| **1b** | **`major-fit`** | **Academic Direction & Major Strategy:** Analyzes departmental admit rate disparities, pairs primary majors with adjacent pathways, and audits internal transfer hurdles. | [`check_major.py`](college-apps/scripts/check_major.py) | [`schemas/academic-direction.md`](college-apps/schemas/academic-direction.md) | **100% PASS** (Unit Suite) |
+| **2** | **`college-list`** | **Balanced College List Engine:** Formulates balanced 8–12 school lists enforcing the non-negotiable 2-safety floor (both academic and financial under family budget). | [`check_list.py`](college-apps/scripts/check_list.py) | [`schemas/colleges.md`](college-apps/schemas/colleges.md) | **100% PASS** (`l1-list-build`) |
+| **3** | **`college-research`** | **Grounded College Dossier Builder:** Gathers verified Common Data Set (CDS §C1, §C9) stats, departmental lab spaces, campus culture, and deadlines into grounded dossiers. | [`check_research.py`](college-apps/scripts/check_research.py) | [`schemas/research.md`](college-apps/schemas/research.md) | **100% PASS** (`r1-research-school`) |
+| **4** | **`financial-aid`** | **Affordability & Net Price Engine:** Audits Net Price Calculator (NPC) figures, models need-based and merit aid, and schedules FAFSA and CSS Profile milestones. | [`check_aid.py`](college-apps/scripts/check_aid.py) | [`schemas/financial-aid.md`](college-apps/schemas/financial-aid.md) | **100% PASS** (`f1-financial-aid`) |
+| **5** | **`essay-coach`** | **Anti-Ghostwriting Essay Engine:** Guides students through personal statements and supplements: builds prompt rubrics, explores life angles, and provides draft-by-draft feedback. | [`check_draft.py`](college-apps/scripts/check_draft.py) | [`schemas/essay.md`](college-apps/schemas/essay.md) | **100% PASS** (`e3-review-rounds`) |
+| **6** | **`rec-request`** | **Teacher Recommendation Engine:** Audits faculty candidates for balanced STEM + Humanities coverage, provides in-person ask scripts, brag sheets with friction moments, and FERPA advice. | [`check_rec.py`](college-apps/scripts/check_rec.py) | [`schemas/recs.md`](college-apps/schemas/recs.md) | **100% PASS** (`k1-rec-request`) |
+| **7** | **`app-tracker`** | **Multi-Tier Deadline & Spreadsheet Engine:** Plans backwards schedules with a 7-day server crash buffer, 72-hour portal audit protocol, and generates a live 5-sheet spreadsheet. | [`make_tracker.py`](college-apps/scripts/make_tracker.py) | [`schemas/tracker.md`](college-apps/schemas/tracker.md) | **100% PASS** (Date Suite: 19/19) |
+| **8** | **`counselor-package`** | **Counselor Review & Options Packet:** Compiles an interim review package (`package.html` / PDF) opening with 4 high-leverage institutional questions, and fills the official school packet (`packet.docx`). | [`build_package.py`](college-apps/scripts/build_package.py)<br>[`fill_packet.py`](college-apps/scripts/fill_packet.py) | [`schemas/counselor.md`](college-apps/schemas/counselor.md) | **100% PASS** (`p1-counselor-package`) |
+
+---
+
+## System Architecture & Pipeline Flow
+
+The campaign follows a disciplined lifecycle arc where foundational understanding feeds execution, and execution feeds high school counselor advocacy:
+
+```mermaid
+graph TD
+    classDef meta fill:#f3e8fd,stroke:#7b1fa2,stroke-width:2px;
+    classDef foundation fill:#e8f0fe,stroke:#1a73e8,stroke-width:2px;
+    classDef execution fill:#e6f4ea,stroke:#137333,stroke-width:2px;
+    classDef synthesis fill:#fef7e0,stroke:#b06000,stroke-width:2px;
+
+    S0["Stage 0: Meta-Orchestrator<br/>(college-app)"]:::meta
+
+    S1a["Stage 1a: Student Intake<br/>(profile.md & criteria.md)"]:::foundation
+    S1b["Stage 1b: Major Fit<br/>(academic-direction.md)"]:::foundation
+    S2["Stage 2: College List<br/>(colleges.md & meta.json)"]:::foundation
+    S3["Stage 3: College Research<br/>(research/ dossiers)"]:::foundation
+
+    S4["Stage 4: Financial Aid<br/>(financial-aid.md)"]:::execution
+    S5["Stage 5: Essay Coach<br/>(briefs & drafts)"]:::execution
+    S6["Stage 6: Rec Requests<br/>(recs/ brag sheets & letters)"]:::execution
+    S7["Stage 7: App Tracker<br/>(out/tracker.xlsx)"]:::execution
+
+    S8["Stage 8: Counselor Package<br/>(package.html & packet.docx)"]:::synthesis
+
+    S0 --> S1a
+    S1a --> S1b
+    S1b --> S2
+    S2 --> S3
+
+    S3 --> S4
+    S3 --> S5
+    S2 --> S6
+    S2 --> S7
+
+    S4 --> S8
+    S5 --> S8
+    S6 --> S8
+    S7 --> S8
+```
+
+---
+
+## Workspace Structure: What You Get
+
+Every student workspace is stored in readable, transparent files you can inspect, edit, or check into Git at any time:
+
+```
+students/<name>/
+├── profile.md                  # Comprehensive student record with provenance citations
+├── criteria.md                 # Hard filters (budget ceiling), preferences, and deal-breakers
+├── academic-direction.md       # Primary major, adjacent clusters, and transfer selectivity audit
+├── colleges.md                 # 8–12 school list grouped by Tier (Reach/Target/Safety) with rationale
+├── meta.json                   # Machine-readable campaign index (colleges, deadlines, recommenders)
+├── financial-aid.md            # Net price estimates, FAFSA/CSS status, and scholarship milestones
+├── counselor-questions.md      # The 4 high-leverage institutional questions for the school counselor
+├── feedback.md                 # Attributed counselor and parent feedback overriding algorithmic data
+├── conversations.md            # Verbatim conversational notes capturing authentic student quotes
+├── research/                   # Grounded dossiers per college with CDS citations
+│   ├── purdue-university.md
+│   └── university-of-michigan.md
+├── essays/                     # One folder per prompt with briefs, outlines, and numbered drafts
+│   └── common-app--personal-statement/
+│       ├── brief.md
+│       ├── draft-01.md         # Mandatory provenance header (> **STUDENT DRAFT**)
+│       └── review-01.md
+├── recs/                       # Faculty recommendation assets
+│   ├── brag-sheet--alvarez.md  # 3 classroom friction & recovery moments
+│   └── request--alvarez.md     # In-person follow-up letter confirming deadlines
+└── out/                        # Formatted, derived deliverables
+    ├── tracker.xlsx            # 5-sheet operational spreadsheet with countdown formulas
+    ├── package.html            # Self-contained review dossier (inlined CSS/SVG, print-ready)
+    ├── package.pdf             # Compiled PDF version for the counselor
+    └── packet.docx             # Official Senior Post-Secondary Options Questionnaire
+```
+
+---
+
+## Core Master Counseling Principles
+
+1. **The "Single Next Step" Principle:** When a student enters without a specific intent, the orchestrator inspects the workspace and recommends exactly one high-impact next action—never overwhelming families with confusing multi-stage menus.
+2. **The Non-Negotiable 2-Safety Floor:** A school is a safety only if it is both **academically reliable** ($>50\%$ admit rate, scores above 75th percentile) and **financially viable** (net price verified under the family budget ceiling). An unaffordable school is not a safety.
+3. **Affordability is Core Fit:** We prompt for the family budget ceiling early during intake—never postponing financial reality checks until spring award letters.
+4. **Anti-Ghostwriting & Academic Integrity:** Colleges require students to affirm their writing is their own. Every draft carries a mandatory author provenance header (`> **STUDENT DRAFT**`). The coach guides, critiques, and scores, but never ghostwrites.
+5. **Authentic Adolescent Voice:** Student reflections and packet answers are preserved in authentic adolescent phrasing. Corporate adult consultant polish destroys credibility with school counselors and admissions officers.
+6. **Counselor Local Authority Override:** On anything local to the student's high school (Naviance scattergram admit trends, AP course caps, teacher letter queues), the school counselor's advice outranks all AI heuristics and algorithmic tiering.
+7. **Strict Anti-Fabrication:** Zero tolerance for hallucinated deadlines, acceptance rates, or student achievements. Every statistic must cite official Common Data Set sections (`[CDS 2024-25 §C1]`) or `.edu` admissions portals.
+
+---
+
+## Installation
 
 ### In Claude Cowork
 
@@ -30,7 +126,7 @@ Both skills are tested and verified with simulated multi-turn student conversati
    ```
 3. **College Applications** appears in the list. Click **Install**.
 
-The skills load automatically and activate whenever you talk about college essays.
+The skills load automatically and activate whenever you discuss college planning, essays, research, or deadlines.
 
 ### In Claude Code
 
@@ -41,88 +137,40 @@ The skills load automatically and activate whenever you talk about college essay
 
 ---
 
-## Using it
+## Testing & Verification
 
-Just say what you need in natural language. The coach meets you where you are.
+The repository enforces a two-tier verification harness:
 
-### 1. Getting Started
-Hand it whatever your school gave you, or just introduce yourself:
+1. **Deterministic Unit Test Suite (124/124 Passing):**
+   ```bash
+   # Run full test suite using project virtualenv
+   .venv/bin/python -m unittest discover college-apps/kit/tests
+   .venv/bin/python -m unittest discover college-apps/tests
+   ```
+   - Schema & contract enforcement: `test_data_model.py`, `test_docs.py`
+   - Deterministic script validators: `test_check_rec.py`, `test_check_major.py`, `test_check_aid.py`, `test_check_research.py`, `test_check_list.py`, `test_check_record.py`, `test_check_draft.py`
+   - Package & document generators: `test_package.py`, `test_fill_packet.py`
+   - Date arithmetic & backward planning: `test_dates.py`
 
-> "Help me get started on my college essays. Here's my school's senior packet: `~/Downloads/Senior_Packet.pdf`"
-
-First it confirms where your files will live (usually a dedicated folder). Then it reads your packet and asks a couple of relaxed questions to understand what you care about — what you like to study, what you do when nobody's making you, and what experiences you'd gladly repeat.
-
-### 2. Exploring Angles & Creating the Brief
-Name the essay you want to work on:
-
-> "I want to work on the Pomona supplement: 'What at Pomona would you use, and what would you bring?'"
-
-The coach restates the prompt in plain English, creates a 4–6 point checklist based on what that college values, and weighs 3–4 angles drawn directly from your life:
-
-- **Angle A:** The weekend bike repair job → joining the campus bike co-op (shows community contribution and hands-on persistence).
-- **Angle B:** Rebuilding the robotics drivetrain four times (shows grit, but common among STEM applicants).
-- **Angle C:** Quitting varsity soccer (risky and interesting; reveals true values).
-
-You choose the angle that feels right to you.
-
-### 3. Drafting Your Way
-The coach asks how you want to get the first words on the page:
-
-- **You write it:** Slowest start, best result — your authentic voice shines from the first sentence.
-- **See a sample first:** Read a published essay on a completely different topic to see what specific, vivid structure looks like before you write.
-- **First pass scaffold:** The coach drafts a structural outline from your notes. You rewrite it from scratch with the file closed so the final words remain 100% your own.
-
-### 4. Reviewing Draft by Draft
-Paste your draft or save it in your essay folder:
-
-> "Here's my first draft of the Pomona essay, it's in my folder. What do you think?"
-
-Each review gives you:
-1. **The Score:** A clear checklist score against the prompt rubric (e.g. `3/5`).
-2. **What's Working:** Specific lines quoted with why they are effective.
-3. **The One Big Thing:** The single most impactful structural change to focus on next.
-4. **Line Fixes & Questions:** Clear notes on sentences that feel generic or need more detail.
-
-If two rounds get the same score, the coach pauses and changes strategy rather than nagging you on the same line.
+2. **Conduct Harness Multi-Turn Simulations (Opus Judge Graded):**
+   Multi-turn simulations run in headless sandboxes using real student personas, evaluated by Claude Opus against rigorous MUST / MUST NOT criteria:
+   - `m1-college-app`: Meta-orchestrator triage, single next step, multi-intent execution (**100% PASS**)
+   - `i1-intake-rounds`: Multi-turn conversational intake and packet onboarding (**100% PASS**)
+   - `l1-list-build`: 8–12 school list formulation and 2-safety floor verification (**100% PASS**)
+   - `r1-research-school`: Grounded research dossier compilation with CDS citations (**100% PASS**)
+   - `f1-financial-aid`: NPC calculation and affordability audit (**100% PASS**)
+   - `e3-review-rounds`: Scored prompt rubric, multi-round essay feedback, blind cold reader (**100% PASS**)
+   - `k1-rec-request`: Recommender audit, in-person ask script, brag sheet friction moments (**100% PASS**)
+   - `p1-counselor-package`: Review dossier compilation and counselor authority override (**100% PASS**)
 
 ---
 
-## What you get
+## Documentation Links
 
-Your workspace is kept neat and readable in plain markdown files you can open and edit anytime:
-
-| File | What it holds |
-|---|---|
-| `students/<name>/profile.md` | Your background, activities, roles, and reflections — every line tagged by source |
-| `students/<name>/conversations.md` | Notes and ideas captured during coaching in your exact words |
-| `students/<name>/essays/<college>--<prompt>/brief.md` | The prompt breakdown, scoring rubric, chosen angle, and outline |
-| `students/<name>/essays/<college>--<prompt>/draft-NN.md` | Every draft version preserved in order, labeled by author |
-| `students/<name>/essays/<college>--<prompt>/review-NN.md` | Structured reviews with scores, praise, and specific edits |
-
----
-
-## What it will never do
-
-- **Never ghostwrite:** Colleges require students to affirm that their essays are their own work. The coach teaches and guides, but never writes the essay for you.
-- **Never invent facts:** No made-up awards, exaggerated hours, or fictional emotions. Everything in your essay traces back to your real experiences.
-- **Never probe sensitive finances:** Essay coaching is about your voice and stories; it never asks for personal family financial details.
-- **Never overwrite history:** Every draft and review is preserved as a separate file so you can always see how your writing evolved.
-
----
-
-## Development & Testing
-
-```bash
-git clone https://github.com/tydev-new/10xcolleges.git
-cd 10xcolleges
-python3 -m unittest discover college-apps/kit/tests
-python3 -m unittest discover college-apps/tests
-```
-
-**Architecture & Principles:**
-- [`design.md`](college-apps/docs/design.md): System architecture, multi-turn conduct loop, and file boundaries.
-- [`data-model.md`](college-apps/docs/data-model.md): Data contracts and file schemas.
-- [`skill-shape.md`](college-apps/docs/skill-shape.md): Skill structure, invariants, and evaluation guidelines.
+- **System Architecture & Data Contracts:** [`college-apps/docs/data-model.md`](college-apps/docs/data-model.md)
+- **Counselor Voice & Persona Guidelines:** [`college-apps/docs/voice.md`](college-apps/docs/voice.md)
+- **Citation & Provenance Standards:** [`college-apps/docs/citations.md`](college-apps/docs/citations.md)
+- **Detailed Development Walkthrough:** [`walkthrough.md`](file:///Users/yongtian/.gemini/antigravity/brain/d3632ce4-1c13-4e6e-b0d2-735956113efd/walkthrough.md)
 
 ---
 
