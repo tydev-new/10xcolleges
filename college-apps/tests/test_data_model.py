@@ -34,7 +34,7 @@ def owner_skill(cell):
 
 
 def converted(skill):
-    return skill in ("student-intake", "essay-coach", "major-fit", "rec-request", "app-tracker", "counselor-package")
+    return skill in ("student-intake", "essay-coach", "major-fit", "rec-request", "app-tracker", "counselor-package", "college-app")
 
 
 def owns_clause(skill):

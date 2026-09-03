@@ -77,9 +77,9 @@ Don't narrate the spreadsheet rows. Present an actionable, high-clarity summary:
 
 ## State
 
-Owns `students/<slug>/out/tracker.xlsx` — schema in `${CLAUDE_PLUGIN_ROOT}/schemas/tracker.md`. Generated from `meta.json` and `${CLAUDE_PLUGIN_ROOT}/config/calendar.json`.
+Owns `students/<slug>/out/tracker.xlsx` — schema in `${CLAUDE_PLUGIN_ROOT}/schemas/tracker.md`. Generated from the student metadata index and `${CLAUDE_PLUGIN_ROOT}/config/calendar.json`.
 
-Maintains `meta.json` (`colleges[]`, `recommenders[]`, `key_dates[]`) — schema in `${CLAUDE_PLUGIN_ROOT}/schemas/meta.md`. Appends to `conversations.md`.
+Appends to `conversations.md`. Maintains `meta.json` (`colleges[]`, `recommenders[]`, `key_dates[]`) — schema in `${CLAUDE_PLUGIN_ROOT}/schemas/meta.md`.
 
 ---
 
