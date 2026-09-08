@@ -1,0 +1,76 @@
+{
+  "slug": "jordan-k",
+  "name": "Jordan K",
+  "grad_year": 2027,
+  "updated": "2026-08-20",
+  "colleges": [
+    {
+      "name": "Case Western Reserve University",
+      "slug": "case-western-reserve-university",
+      "unitid": 201645,
+      "tier": "target",
+      "decision_plan": "EA",
+      "deadline": "2026-11-01",
+      "app_type": "Common App",
+      "counselor_letter": true,
+      "status": "in-progress"
+    },
+    {
+      "name": "University of Michigan",
+      "slug": "university-of-michigan",
+      "unitid": 170976,
+      "tier": "target",
+      "decision_plan": "EA",
+      "deadline": "2026-11-01",
+      "app_type": "Common App",
+      "counselor_letter": true,
+      "status": "in-progress"
+    },
+    {
+      "name": "Purdue University",
+      "slug": "purdue-university",
+      "unitid": 243780,
+      "tier": "safety",
+      "decision_plan": "EA",
+      "deadline": "2026-11-01",
+      "app_type": "Common App",
+      "counselor_letter": true,
+      "status": "in-progress"
+    },
+    {
+      "name": "Michigan State University",
+      "slug": "michigan-state-university",
+      "unitid": 171100,
+      "tier": "safety",
+      "decision_plan": "EA",
+      "deadline": "2026-11-01",
+      "app_type": "Common App",
+      "counselor_letter": true,
+      "status": "in-progress"
+    }
+  ],
+  "recommenders": [
+    {
+      "name": "Ms. Alvarez",
+      "subject": "AP Physics C",
+      "grade_taught": "11th grade",
+      "asked_on": "2026-08-25",
+      "agreed": "yes",
+      "brag_sheet_sent": "no",
+      "colleges": "All",
+      "submitted": "no",
+      "thank_you": "no"
+    },
+    {
+      "name": "Mr. Davis",
+      "subject": "AP English Language",
+      "grade_taught": "11th grade",
+      "asked_on": null,
+      "agreed": "no",
+      "brag_sheet_sent": "no",
+      "colleges": "All",
+      "submitted": "no",
+      "thank_you": "no"
+    }
+  ]
+}

@@ -8,6 +8,7 @@ Class: **Living**
 ## `profile.md` — owned by student-intake
 - `## Basics`
 - `## Senior year classes`
+- `## Academic history & course rigor`
 - `## Teachers who know you well`
 - `## School activities`
 - `## Outside activities`

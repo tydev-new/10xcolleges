@@ -64,6 +64,7 @@ checks this table against the skills and schemas.
 |---|---|---|---|---|
 | `documents/*` | Fixed-source | the student (drops files) | — | Never edited; read by student-intake |
 | `profile.md` | Living | student-intake — [schema](../schemas/profile.md) § `profile.md` | — | New information about the student |
+| `academic-direction.md` | Living | major-fit — [schema](../schemas/academic-direction.md) § `academic-direction.md` | — | Chosen major, adjacent alternatives, or course stamina updates |
 | `criteria.md` | Living (Retired table) | student-intake — [schema](../schemas/criteria.md) § `criteria.md` | college-list (retires rows; open questions) | The student's wants change |
 | `colleges.md` | Living | college-list — [schema](../schemas/colleges.md) § `colleges.md` | — | Schools added, cut, or re-tiered |
 | `conversations.md` | **Append-only** | student-intake — [schema](../schemas/conversations.md) § `conversations.md` | every skill (append only) | After any substantive exchange |
@@ -73,15 +74,15 @@ checks this table against the skills and schemas.
 | `essays/<e>/brief.md` | **Split** — see below | essay-coach — [schema](../schemas/essay.md) § `brief.md` | — | Depends on which half |
 | `essays/<e>/draft-NN.md` | **Immutable** | essay-coach — [schema](../schemas/essay.md) § `draft-NN.md` | the student (a new numbered file) | Never. Write `draft-NN+1.md` |
 | `essays/<e>/review-NN.md` | **Immutable** | essay-coach — [schema](../schemas/essay.md) § `review-NN.md` | — | Never. Write `review-NN+1.md` |
-| `recs/brag-sheet--<t>.md` | Living | rec-request — [schema](../schemas/recs.md) § `brag-sheet--<teacher-slug>.md` | — | Before sending to that teacher |
-| `recs/request--<t>.md` | Living | rec-request — [schema](../schemas/recs.md) § `request--<teacher-slug>.md` | — | Before the student sends it |
+| `recs/brag-sheet--<t>.md` | Living | rec-request — [schema](../schemas/recs.md) § `brag-sheet--<t>.md` | — | Before sending to that teacher |
+| `recs/request--<t>.md` | Living | rec-request — [schema](../schemas/recs.md) § `request--<t>.md` | — | Before the student sends it |
 | `counselor-questions.md` | Living | counselor-package — [schema](../schemas/counselor.md) § `counselor-questions.md` | — | Before each package send |
 | `meta.json` | **Index** | college-app — [schema](../schemas/meta.md) § `meta.json` | — | Immediately after `colleges.md` changes |
 | `packet.json` | **Index** | counselor-package — [schema](../schemas/meta.md) § `packet.json` | — | Before regenerating the .docx |
-| `out/tracker.xlsx` | **Derived** | `make_tracker.py` | — | Regenerate; never edit |
-| `out/package.html` | **Derived** | `build_package.py` | — | Regenerate; never edit |
-| `out/package.pdf` | **Derived** | `build_package.py` | — | Regenerate; never edit |
-| `out/packet.docx` | **Derived** | `fill_packet.py` | — | Regenerate; never edit |
+| `out/tracker.xlsx` | **Derived** | app-tracker — [schema](../schemas/tracker.md) § `tracker.xlsx` | — | Regenerate; never edit |
+| `out/package.html` | **Derived** | counselor-package — [schema](../schemas/counselor.md) § `package.html` | — | Regenerate; never edit |
+| `out/package.pdf` | **Derived** | counselor-package — [schema](../schemas/counselor.md) § `package.pdf` | — | Regenerate; never edit |
+| `out/packet.docx` | **Derived** | counselor-package — [schema](../schemas/counselor.md) § `packet.docx` | — | Regenerate; never edit |
 
 Shipped with the plugin, read-only to a session:
 

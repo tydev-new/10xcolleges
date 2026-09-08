@@ -85,6 +85,8 @@ def check(sd):
             if fname == "profile.md" and re.search(r"\bGPA\b", body, re.I) and not re.search(r"unweighted", body, re.I):
                 if not re.search(r"TODO:.*unweighted", text, re.I):
                     findings.append(("WARN", f"{fname}:{n}: GPA without 'unweighted' and no TODO for it — students quote the weighted one: `{s[:80]}`"))
+            if fname == "profile.md" and re.search(r"state of residence", body, re.I) and not re.search(r"TODO:", body, re.I) and not TAG.search(s):
+                findings.append(("WARN", f"{fname}:{n}: state of residence has no value and no TODO — mark as explicit TODO: if unknown: `{s[:80]}`"))
             if fname == "criteria.md" and kind == "row" and re.search(r"budget|\$\s?\d|per year|/yr", body, re.I) and not re.search(r"set by", body, re.I):
                 findings.append(("WARN", f"{fname}:{n}: a money row with no 'set by' — who set the number is the number: `{s[:80]}`"))
     cp = os.path.join(sd, "conversations.md")
@@ -134,6 +136,8 @@ def gate(sd):
         missing.append("unweighted GPA")
     elif not claim(basics, r"test scores|testing plan|\bSAT\b|\bACT\b|test-optional"):
         missing.append("scores or the plan to test")
+    elif not claim(basics, r"state of residence|home state|\bresidence\b"):
+        missing.append("state of residence (needed for in-state tuition)")
     if not claim(section(prof, r"goals|direction|major"), r"."):
         missing.append("a direction (\"undecided\" counts)")
     deal = [l for l in section(crit, r"deal-breakers") if re.match(r"\|\s*D\d+\s*\|", l) and TAG.search(l)]

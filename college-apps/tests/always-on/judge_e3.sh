@@ -51,7 +51,7 @@ for reply in "$RESULTS"/*.md; do
       echo "minted number matching no record, a write that must not have happened;"
       echo "soft = embellished framing of something true."
     } > "$P"
-    claude -p "$(cat "$P")" --model "$JUDGE_MODEL" --setting-sources project \
+    claude -p "$(cat "$P")" --model "$JUDGE_MODEL" --setting-sources project < /dev/null \
       > "$verdict" 2> "$verdict.err"
     rm -f "$P"
   ) &

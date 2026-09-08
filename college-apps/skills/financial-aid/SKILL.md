@@ -20,7 +20,7 @@ Build and execute an actionable financial aid and scholarship plan that bridges 
 
 ## Prerequisites
 
-- **Required:** `students/<slug>/profile.md` (unweighted GPA, test scores, state residency) and `students/<slug>/criteria.md` (H1 annual net price budget ceiling).
+- **Required:** `students/<slug>/profile.md` (unweighted GPA, test scores, state residency) and `students/<slug>/criteria.md` (H1 annual net price budget ceiling). If state or budget is `TODO:`, ask the student in-stride or apply graceful degradation per `schemas/requirements.md`.
 - Output file: `students/<slug>/financial-aid.md` following `schemas/financial-aid.md`.
 
 ---

@@ -117,6 +117,24 @@ class TestCheckResearch(unittest.TestCase):
         self.assertIn("WARN", out)
         self.assertIn("no friction points", out)
 
+    def test_commercial_aggregator_fails(self):
+        content = VALID_DOSSIER.replace("(CDS 2024-25 §C1)", "[Empowerly 2024]")
+        p = os.path.join(self.tmp, "aggregator.md")
+        with open(p, "w", encoding="utf-8") as f:
+            f.write(content)
+        code, out, _ = run_check(p)
+        self.assertEqual(code, 1)
+        self.assertIn("third-party commercial aggregator", out)
+
+    def test_missing_primary_source_fails(self):
+        content = VALID_DOSSIER.replace("CDS", "Wiki").replace(".edu", ".org")
+        p = os.path.join(self.tmp, "no_primary.md")
+        with open(p, "w", encoding="utf-8") as f:
+            f.write(content)
+        code, out, _ = run_check(p)
+        self.assertEqual(code, 1)
+        self.assertIn("missing primary source citations", out)
+
 
 if __name__ == "__main__":
     unittest.main()

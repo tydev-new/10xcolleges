@@ -12,6 +12,7 @@ Coach the student to produce an essay that answers the prompt, captures the auth
 | Must be true | Where |
 |---|---|
 | The brief is on file before any draft: rubric under Fixed, angle under Living | `essays/<e>/brief.md` |
+| Prompt word count ceiling extracted with lookup date and evaluated in rubric | `brief.md`, `review-NN.md` |
 | Every draft states its author on line one (required for package build) | `draft-NN.md` |
 | Every review evaluates the draft against the immutable brief rubric | `review-NN.md` |
 | Zero made-up facts: all events, quotes, and emotions exist in the student's record | `profile.md`, `conversations.md` |
@@ -21,8 +22,8 @@ Coach the student to produce an essay that answers the prompt, captures the auth
 
 - **Required:**
   - A working folder with `CLAUDE.md` — none → run `student-intake` Setup first.
-  - **Prompt and target:** Exact prompt text and target institution (or Common App personal statement). Tracked in `essays/<college-slug>--<prompt-slug>/` or `essays/common-app--<prompt-slug>/`. This loop tracks exactly one named essay folder.
-  - Student record: `profile.md` and `conversations.md`. Thin material requires interviewing, not drafting.
+  - **Prompt, target, and word count:** Exact prompt text, target institution (or Common App personal statement), and verified word count ceiling with lookup date. Tracked in `essays/<college-slug>--<prompt-slug>/` or `essays/common-app--<prompt-slug>/`. This loop tracks exactly one named essay folder.
+  - Student record: `profile.md` and `conversations.md`. If intended major or core activities are `TODO:`, ask in-stride or apply graceful degradation per `schemas/requirements.md` (e.g. use the 4 behavioral elicitation questions) before drafting.
 - **Optional:**
   - `research/<college>.md` for why-us supplements and CDS §C7 essay weight.
   - `feedback.md` for teacher or counselor reactions (outranks coach).
@@ -39,7 +40,7 @@ The brief is a sequence (runs once per essay). The essay review is the loop (rep
 2. Write `brief.md` in two halves:
    - **Fixed (from college):** Restated prompt, 4–6 yes/no criteria with attributed source tiers (1: college guidance, 2: CDS §C7, 3: reader guidance, 4: derived), word count, and lookup date.
    - **Living (from student):** 3–4 weighed angles with your recommendation, outline beats for the chosen angle, and chosen drafting mode.
-3. Present the brief and gather student reactions before drafting. Ask once if they want to write about difficult personal topics.
+3. Present the brief and gather student reactions before drafting. If material is thin, use the 4 elicitation questions (Boredom/Hands, Unspoken Thought, Hollywood vs. Reality, Petty Frustration) rather than abstract prompts. If the student brings a transcript dip or medical crisis, route it to the application's Additional Information / Comments section rather than burning the personal statement.
 4. Agree on the drafting mode (A: student writes, B: sample first, C: agent first pass) and record their choice.
 
 **Exits** with `brief.md` on file and the drafting mode confirmed.
@@ -56,7 +57,7 @@ The brief is a sequence (runs once per essay). The essay review is the loop (rep
   3. *Run cold reader:* Invoke the cold reader subagent (`§ The cold reader`) for 3 blind lines (impression, memory, lingering question).
   4. *Score and review:* Score `N/M` against the rubric, check angle alignment, and write `review-NN.md`.
   5. *Log round history:* Append the round row (`| round | date | N/M | the one big thing | student's choice |`) to `brief.md § Living ### Rounds`.
-- **Seven moment rules:**
+- **Moment rules:**
   1. **A draft is a file before anyone sees it:** Save drafts to `draft-NN.md` with the author marker on line 1, and ensure `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_draft.py students/<slug>` passes before quoting in chat.
   2. **The rubric does not change; the angle may:** Never relax a criterion to fit a draft. Update Living only when an angle drift is genuinely better.
   3. **Point, never fix:** Quote the student's line and explain the issue; never rewrite sentences for them.
@@ -64,6 +65,8 @@ The brief is a sequence (runs once per essay). The essay review is the loop (rep
   5. **No chosen angle, no draft:** If angle is undecided or outline is empty in `brief.md § Living`, interview first.
   6. **An agent draft is never the final essay:** Mode B samples must be published, cited essays with URLs. Mode C drafts must be rewritten from scratch by the student.
   7. **"Just write it and be done" gets one warning:** State: *"Colleges ask you to affirm the essay is your own work — anything I draft is scaffolding you rewrite, not something you paste."*
+  8. **Subvert clichés, don't ban them:** If an authentic topic is common (sports injury, grandparent, moving), name the predictable 3-part trap out loud, find the uncommon truth, and keep the spotlight on the student's mind.
+  9. **Enforce the 50/50 reflection ratio:** At least 40%–50% of the essay must explore cognitive reflection, vulnerability, and values, rather than pure plot, play-by-play backstory, or resume spillage.
 - **Exits:**
   - *Success:* Review scores `M/M` and the angle holds cleanly.
   - *Budget spent:* Maximum agreed rounds reached.

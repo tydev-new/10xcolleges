@@ -68,11 +68,44 @@ def check_dossier(filepath):
     if not has_friction:
         findings.append(("WARN", f"{os.path.basename(filepath)}: no friction points or watch-outs noted — every real school has trade-offs"))
 
-    # Count citations
+    # Dimension 6: Distinctive Essay Hooks (for essay-coach)
+    has_hooks = any(k in lower_text for k in ("essay hook", "maker space", "makerspace", "design project", "student-run", "co-op", "clinic", "bechtel", "wilson", "oedk", "green bikes"))
+    if not has_hooks:
+        findings.append(("WARN", f"{os.path.basename(filepath)}: missing distinctive undergraduate resources or essay hooks for 'Why Us' supplements"))
+
+    # Check for budget ceiling evaluation if student criteria.md is accessible
+    parent_dir = os.path.dirname(filepath)
+    student_dir = os.path.dirname(parent_dir) if os.path.basename(parent_dir) == "research" else parent_dir
+    crit_file = os.path.join(student_dir, "criteria.md")
+    if os.path.isfile(crit_file):
+        crit_text = open(crit_file, encoding="utf-8").read()
+        bm = re.search(r"\|\s*H\d+\s*\|\s*Budget\s*\|\s*[^|]*?\$([\d,]+)", crit_text, re.IGNORECASE)
+        if bm:
+            budget_str = bm.group(1)
+            # Dossier should acknowledge the budget figure or calculate gap/surplus
+            if budget_str.replace(",", "") not in text and f"${budget_str}" not in text and "budget" not in lower_text:
+                findings.append(("WARN", f"{os.path.basename(filepath)}: does not explicitly compare estimated net price to the student's ${budget_str} budget ceiling"))
+
+    # Count citations and enforce primary sources
     citations = SOURCE_TAG.findall(text)
     citation_count = len(citations)
     if citation_count == 0:
         findings.append(("WARN", f"{os.path.basename(filepath)}: no inline source or year tags ([CDS ...], [Scorecard ...], etc.) found"))
+
+    # Ensure primary sources (CDS, Scorecard, or .edu) are used
+    has_primary = bool(re.search(r"\[(?:CDS|Scorecard|Common Data Set|[a-z0-9-]+\.edu)[^\]]*\]|\((?:CDS|Scorecard|[a-z0-9-]+\.edu)[^\)]*\)", text, re.IGNORECASE))
+    if not has_primary:
+        findings.append(("FAIL", f"{os.path.basename(filepath)}: missing primary source citations ([CDS ...], [Scorecard ...], or [.edu]) — admissions numbers cannot come from third-party blogs"))
+
+    # Forbid third-party admissions marketing blogs/aggregators
+    forbidden_sources = (
+        "empowerly", "collegeshortcuts", "prepscholar", "collegesimply",
+        "collegexpress", "cappex", "road2college", "bachelorsportal",
+        "scholarships.com", "meritplaybook", "collegereadyparent"
+    )
+    found_forbidden = [b for b in forbidden_sources if b in lower_text]
+    if found_forbidden:
+        findings.append(("FAIL", f"{os.path.basename(filepath)}: contains third-party commercial aggregator blog citation ({', '.join(found_forbidden)}) — use official CDS, Scorecard, or .edu pages directly"))
 
     friction_count = len(friction_matches)
     return findings, citation_count, friction_count

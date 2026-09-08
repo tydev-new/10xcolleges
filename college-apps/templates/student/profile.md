@@ -15,7 +15,7 @@ skills scan for these to know what to ask next. Never fill a `TODO:` with a gues
 - **Class rank / decile (if reported):**
 - **Test scores:** TODO:
 - **Testing plan:** TODO: submitting scores, or applying test-optional?
-- **State of residence:**
+- **State of residence:** TODO:
 - **Citizenship / residency status** (only if it affects aid eligibility):
 
 ## Senior year classes
@@ -23,6 +23,15 @@ skills scan for these to know what to ask next. Never fill a `TODO:` with a gues
 | First semester | Second semester |
 |---|---|
 | | |
+
+## Academic history & course rigor
+
+- **High school course context (School Profile):**
+- **Cumulative advanced courses taken:**
+
+| Grade | Subject | Exact Course Name | Level (AP/IB/DE/Honors) | Grade | Source |
+|---|---|---|---|---|---|
+| | | | | | |
 
 ## Teachers who know you well
 

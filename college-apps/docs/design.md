@@ -43,18 +43,18 @@ to lose:
                         │   locate → diagnose → route   │   finds the student,
                         └───────────────┬───────────────┘   sees what's missing
                                         │
-      ┌────────────┬────────────┬───────┴────┬────────────┬──────────────┬──────────────┬──────────────┐
-      ▼            ▼            ▼            ▼            ▼              ▼              ▼              ▼
- student-     college-     college-     financial-     essay-         rec-         app-tracker    counselor-package
-  intake        list       research        aid         coach        request
-      │            │            │            │            │              │              │              │
-      └────────────┴────────────┴─────┬──────┴────────────┴──────────────┴──────────────┴──────────────┘
-                                      │ read / write
-   ┌──────────────────────────────────▼──────────────────────────────────┐
-   │  students/<slug>/          ← in the USER's working directory        │
-   │  documents/ · profile · criteria · conversations · colleges ·       │
-   │  financial-aid · feedback · research/ · essays/ · recs/ · meta.json │
-   └──────────────────────────────────┬──────────────────────────────────┘
+      ┌────────────┬────────────┬────────────┬───────────────┴┬────────────┬────────────┬──────────────┬──────────────┬──────────────┐
+      ▼            ▼            ▼            ▼                ▼            ▼            ▼              ▼              ▼              ▼
+  student-      major-fit    college-     college-        financial-     essay-       rec-         app-tracker    counselor-package
+   intake                      list       research           aid         coach      request
+      │            │            │            │                │            │            │              │              │
+      └────────────┴────────────┴────────────┴───────┬────────┴────────────┴────────────┴──────────────┴──────────────┴──────────────┘
+                                                     │ read / write
+   ┌─────────────────────────────────────────────────▼─────────────────────────────────────────────────┐
+   │  students/<slug>/          ← in the USER's working directory                                      │
+   │  documents/ · profile · academic-direction · criteria · conversations · colleges ·                │
+   │  financial-aid · feedback · research/ · essays/ · recs/ · meta.json                               │
+   └─────────────────────────────────────────────────┬─────────────────────────────────────────────────┘
                                       │ consumed by
    ┌──────────────────────────────────▼──────────────────────────────────┐
    │  scripts/            deterministic, no judgment                     │

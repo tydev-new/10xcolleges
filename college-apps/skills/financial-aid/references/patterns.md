@@ -59,17 +59,20 @@ To prevent student burnout from writing dozens of futile essays, follow the 4-ti
 
 ---
 
-## 4. FAFSA vs. CSS Profile Nuances
+## 4. FAFSA vs. CSS Profile Nuances & The Divorced Parent (NCP) Protocol
 
 Explain the difference to families without probing for their private numbers:
 - **FAFSA (Free Application for Federal Student Aid):**
   - Universal for all US citizens and permanent residents.
   - Excludes primary home equity and retirement accounts.
-  - Required for federal direct loans and many state/institutional merit awards.
+  - Required for federal direct loans, Pell Grants, and state merit awards.
+  - *Divorce/Separation Rule:* Under FAFSA simplification, only the parent who provides the **greatest financial support** completes the form (not necessarily the custodial parent).
 - **CSS Profile (College Scholarship Service):**
   - Required by ~250 selective private colleges.
-  - Assesses primary home equity, small businesses, and non-custodial parent financial info (in cases of divorce/separation).
-  - Flags non-custodial parent waiver petitions when contact is broken.
+  - Assesses primary home equity, small business value, and non-custodial parent financials.
+  - *The Non-Custodial Parent (NCP) Trap:* Over 200 CSS Profile colleges require the **CSS Non-Custodial Parent Profile** from the other biological parent, regardless of divorce decrees, custody agreements, or court child support orders.
+  - *The NCP Waiver Petition:* If the non-custodial parent is estranged, absent, or refuses contact, institutional aid will be frozen unless the family files a **CSS Non-Custodial Parent Waiver Petition**.
+  - *Waiver Requirements:* Must provide 2 third-party supporting letters from neutral professionals (high school counselor, physician, therapist, clergy, or family attorney) confirming complete lack of contact and financial support.
 
 ---
 
@@ -84,7 +87,23 @@ $$\text{True Net Price} = \text{Total Cost of Attendance (COA)} - (\text{Grants}
 
 ---
 
-## 6. Professional Judgment (PJ) Appeal Blueprint
+## 6. Outside Scholarship Displacement (The Over-Award Penalty)
+
+Before a student spends weeks applying for 30 private outside scholarships, audit the target college's **Outside Scholarship Displacement Policy**:
+
+### The Trap:
+At many private colleges that meet 100% of demonstrated need, if a student wins a $3,000 local Rotary scholarship, the college's financial aid office **reduces its own need-based institutional grant by $3,000**. The family pays the exact same out-of-pocket net price, rendering the scholarship effort meaningless to the family budget.
+
+### The Good Policy ("Self-Help Reduction First"):
+Favorable institutions apply outside scholarships to replace **student self-help** (federal direct student loans and work-study) before reducing any grant aid. A $5,500 outside award eliminates the student loan without touching free grant dollars.
+
+### Counselor Action:
+1. Check the financial aid page: *"Does [College] reduce loans first or institutional grant aid when outside scholarships are awarded?"*
+2. Note that several states (California, Maryland, Washington) have enacted anti-displacement laws protecting state and institutional aid from displacement for qualifying low- and middle-income students.
+
+---
+
+## 7. Professional Judgment (PJ) Appeal Blueprint
 
 When family financial circumstances change or an academic peer offers a better package:
 - **Valid Triggers for Appeals:**
@@ -96,3 +115,33 @@ When family financial circumstances change or an academic peer offers a better p
   - Written respectfully by the parent/student to the Director of Financial Aid.
   - Expresses genuine enthusiasm for attending if the gap can be closed.
   - Attaches verifiable documentation (tax returns, termination notices, medical bills, competing award letter).
+
+---
+
+## 8. Scholarship Renewal GPA Traps (The 2.5 vs. 3.5 Cliff)
+
+When evaluating large merit scholarship offers (e.g. \$15,000–\$25,000/year), counselors audit the **Renewal GPA Requirement**:
+
+### The Low-Risk Standard:
+- Requires maintaining **Satisfactory Academic Progress (SAP)**, typically a **2.0 to 2.5 college GPA**.
+- Nearly all diligent students retain these scholarships over four years.
+
+### The High-Risk Trap:
+- Requires maintaining a **3.5 or 3.75 college cumulative GPA**.
+- *The Danger:* In competitive STEM, computer science, or pre-med majors where introductory weed-out courses are graded on a 2.7–2.9 class curve, **over 35%–50% of scholarship recipients lose their funding by sophomore year**.
+- *Counselor Action:* When a student relies on a merit award with a 3.5+ renewal requirement to afford a college, flag it in `colleges.md`:
+  `- **Watch out for:** Merit award requires maintaining a 3.5 college GPA; in engineering/pre-med weed-out curves, renewal risk is high.`
+
+---
+
+## 9. 529 College Savings Plan Rules (FAFSA vs. CSS Profile)
+
+Guide families on how 529 savings plans are treated under post-2024 FAFSA simplification:
+
+### Parent-Owned 529 Plans:
+- Treated as a **parent asset** on FAFSA and CSS Profile.
+- Assessed at a maximum rate of **5.64%** of asset value (far lower than student assets, which are assessed at 20%). A \$50,000 529 plan reduces aid eligibility by at most \$2,820/year.
+
+### Grandparent-Owned 529 Plans (The Major FAFSA Change):
+- **100% Exempt on FAFSA:** Under FAFSA simplification, distributions from grandparent-owned (or aunt/uncle-owned) 529 plans are **no longer reported as untaxed student income** on the FAFSA. Grandparents can now pay tuition directly without destroying the student's federal aid eligibility for the following year.
+- **CSS Profile Exception:** Some private colleges using the CSS Profile still ask about expected outside family support, including grandparent 529 contributions.

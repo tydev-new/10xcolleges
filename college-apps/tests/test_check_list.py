@@ -154,6 +154,23 @@ class TestCheckList(unittest.TestCase):
         self.assertEqual(code, 1)
         self.assertIn("exceeds budget ceiling", out)
 
+    def test_sub_15_percent_admit_rate_must_be_reach(self):
+        colleges_content = """# College list
+
+## Vanderbilt University — Target
+- **Why it's here:** World-class academic reputation and vibrant campus community.
+- **The numbers:** Admit rate 5.6% [CDS 2024], SAT middle 50%: 1510–1560.
+- **The money:** Net price estimate ~$22,000/yr [NPC].
+- **Watch out for:** Ultra-selective admissions.
+- **Deadline:** 2026-11-01 (ED).
+"""
+        with open(os.path.join(self.tmp, "colleges.md"), "w", encoding="utf-8") as f:
+            f.write(colleges_content)
+
+        code, out, _ = run_check(self.tmp)
+        self.assertEqual(code, 1)
+        self.assertIn("Automatic Reach", out)
+
 
 if __name__ == "__main__":
     unittest.main()

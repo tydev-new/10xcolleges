@@ -12,7 +12,7 @@ Build `profile.md` (who they are) and `criteria.md` (what they want) — **every
 | Must be true | Where |
 |---|---|
 | **The essay gate** (default) — `check_record.py` reports `material N/3`: documents read (or "none"), ≥1 activity with hours and real details, target major + confidence level | `profile.md` |
-| **The list gate** (when `college-list` is next) — `check_record.py` reports `gate N/4`: budget + who set it, unweighted GPA / test plan, academic direction, hard filters & deal-breakers | `criteria.md`, `profile.md` |
+| **The list gate** (when `college-list` is next) — `check_record.py` reports `gate N/4`: budget + who set it, unweighted GPA / test plan / state of residence, academic direction, hard filters & deal-breakers | `criteria.md`, `profile.md` |
 | **Verbatim conversation log:** What the student said, dated and quoted word-for-word in quotes — the raw material essays are built from | `conversations.md` |
 | **Source attribution:** Every profile claim and criteria row tagged with provenance (`[packet]`, `[transcript]`, `[student YYYY-MM-DD]`) | `profile.md`, `criteria.md` |
 | **Audit trail:** Changed criteria moved to `## Retired criteria` with reasons; never overwritten | `criteria.md` |
@@ -23,7 +23,7 @@ Build `profile.md` (who they are) and `criteria.md` (what they want) — **every
 - **Required:**
   - A working folder with a `CLAUDE.md` — none → run Setup first before any write.
   - A student folder `students/<slug>/` created from `${CLAUDE_PLUGIN_ROOT}/templates/student/`.
-  - Read `${CLAUDE_PLUGIN_ROOT}/schemas/profile.md`, `${CLAUDE_PLUGIN_ROOT}/schemas/criteria.md`, and `${CLAUDE_PLUGIN_ROOT}/docs/data-model.md § Provenance` before the first write.
+  - Read `${CLAUDE_PLUGIN_ROOT}/schemas/requirements.md`, `${CLAUDE_PLUGIN_ROOT}/schemas/profile.md`, `${CLAUDE_PLUGIN_ROOT}/schemas/criteria.md`, and `${CLAUDE_PLUGIN_ROOT}/docs/data-model.md § Provenance` before the first write.
 - **Optional:**
   - A school packet, transcript, resume, activities list, or Common App export (PDF and DOCX supported).
   - A completed `${CLAUDE_PLUGIN_ROOT}/templates/criteria-worksheet.md` or school questionnaire. Without documents, start directly with the interview.
@@ -68,7 +68,7 @@ Setup runs once per folder. Documents are processed in sequence. The interview i
 - **Standard:** The gate for the next stage (the essay gate by default) and open `TODO:` items in `profile.md`.
 - **Budget:** As many turns as needed. **At most two questions per turn.** Keep replies short and strictly student-facing: state what was recorded, the gate line, the questions, and one next step. Never output internal planning thoughts or process narration in chat.
 - **Each round:**
-  1. *Ask gate items first:* For the essay gate, focus on documents, target major, and concrete activity details. For the list gate, focus on unweighted GPA, test plans, and budget.
+  1. *Ask gate items first:* For the essay gate, focus on documents, target major, and concrete activity details. For the list gate, focus on state of residence (for in-state tuition), unweighted GPA, test plans, and budget.
   2. *Write rows immediately:* Record rows in the student's exact words the moment they arise. Tag and date every row.
   3. *Log conversation:* Append student statements to `conversations.md` verbatim in quotes with date headers.
   4. *Run verification script:* Execute `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_record.py students/<slug>` and copy its gate line into the reply as printed (`material N/3 — missing: ...`).
