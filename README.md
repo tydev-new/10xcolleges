@@ -6,6 +6,15 @@ Plain-spoken, encouraging, honest about admissions odds, and rigorously grounded
 
 ---
 
+## Part of the 10xJobs family
+
+10xcolleges is a project of [10xjobs.co](https://10xjobs.co), built by the same team.
+
+10xjobs.co helps job seekers navigate an application process that's opaque, high-stakes, and full of jargon nobody explains to you. 10xcolleges applies that same thinking (plain language, honest feedback, no ghostwriting or shortcuts) to a different high-stakes, opaque process: getting into college. Same product philosophy, different audience and problem.
+
+---
+
+## What's ready now — Essay Coaching
 ## The 8-Stage Counseling Ecosystem
 
 Every stage of the college admissions campaign is powered by a dedicated, canonical skill adhering to the **3-file architecture** (`SKILL.md`, `references/eval.md`, `references/patterns.md`), backed by deterministic validator scripts, formal schema contracts, and multi-turn conduct harness tests:
