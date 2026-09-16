@@ -13,10 +13,11 @@ Usage:
     scorecard.py get --unitid 170976 --json           # machine-readable
     scorecard.py quota                                # requests left this hour
 
-API key:
-    Falls back to DEMO_KEY: ~10 requests/hour, shared per-IP. Workable, but batch your
-    lookups — `get --unitid a,b,c` costs one request no matter how many schools.
-    export SCORECARD_API_KEY=...   # free, 2 min, 1,000/hr: https://api.data.gov/signup/
+Where the data comes from:
+    By default, lookups go through the 10xcolleges proxy, which holds a shared API key
+    and caches results, so nobody needs a key. Set SCORECARD_API_KEY to use your own
+    key directly against api.data.gov, or SCORECARD_API_URL to point at another proxy.
+    If the proxy can't be reached, the script quietly tries api.data.gov's demo key.
 
 Responses are cached under .cache/scorecard/ for 30 days so repeated dossier builds
 don't burn the rate limit.
@@ -28,6 +29,7 @@ import json
 import os
 import sys
 import time
+import uuid
 from datetime import date
 from pathlib import Path
 
@@ -36,7 +38,8 @@ try:
 except ImportError:
     sys.exit("requests not installed. Run: .venv/bin/pip install requests")
 
-API = "https://api.data.gov/ed/collegescorecard/v1/schools"
+API_UPSTREAM = "https://api.data.gov/ed/collegescorecard/v1/schools"
+PROXY = "https://10xcolleges-scorecard.fly.dev/v1/schools"   # holds the shared key
 # Under the user's home, never inside the plugin: an installed plugin directory may be
 # read-only, and Cowork warns when plugin files change beneath it.
 CACHE_DIR = Path(
@@ -107,24 +110,65 @@ LOCALE = {
 }
 
 
-_warned = False
 QUOTA_FILE = CACHE_DIR / "quota.json"
 
 
+def own_key():
+    return os.environ.get("SCORECARD_API_KEY", "").strip()
+
+
+def endpoint():
+    """Own key → api.data.gov directly (their quota). Otherwise the shared proxy."""
+    url = os.environ.get("SCORECARD_API_URL", "").strip()
+    if url:
+        return url
+    return API_UPSTREAM if own_key() else PROXY
+
+
+def proxied():
+    return endpoint() != API_UPSTREAM
+
+
+def client_id():
+    """A random id, made once and kept locally, so the proxy can be fair between users.
+
+    It identifies an installation, not a person: no account, no email, nothing derived
+    from the machine. It's sent only to the proxy, only with school lookups.
+    """
+    f = CACHE_DIR / "client-id"
+    try:
+        cid = f.read_text().strip()
+        if cid.isalnum():
+            return cid
+    except OSError:
+        pass
+    cid = uuid.uuid4().hex
+    try:
+        CACHE_DIR.mkdir(parents=True, exist_ok=True)
+        f.write_text(cid)
+    except OSError:
+        pass
+    return cid
+
+
 def api_key():
-    global _warned
-    key = os.environ.get("SCORECARD_API_KEY", "").strip()
-    if key:
-        return key
-    if not _warned:
-        print(
-            "note: using DEMO_KEY (~10 requests/hour, shared per-IP). Cached responses "
-            "are free. Batch lookups with: get --unitid 1,2,3\n"
-            "      A free key raises this to 1,000/hour: https://api.data.gov/signup/",
-            file=sys.stderr,
-        )
-        _warned = True
-    return "DEMO_KEY"
+    return own_key() or ("" if proxied() else "DEMO_KEY")
+
+
+BUSY = (
+    "College data lookups are busy right now, so this school couldn't be fetched.\n\n"
+    "  • Schools you've already researched still work — they're saved for 30 days.\n"
+    "  • Try this school again in a little while.\n"
+    "  • Meanwhile, the college's own admissions pages and Common Data Set have\n"
+    "    everything needed, and they never wait.\n"
+)
+UNAVAILABLE = (
+    "The college data service couldn't be reached, so this school couldn't be fetched.\n\n"
+    "  • Schools you've already researched still work — they're saved for 30 days.\n"
+    "  • Check the connection and try again in a little while.\n"
+    "  • Meanwhile, the college's own admissions pages and Common Data Set have\n"
+    "    everything needed.\n"
+)
 
 
 def record_quota(resp):
@@ -140,7 +184,7 @@ def record_quota(resp):
         }))
     except OSError:
         return
-    if remaining.isdigit() and int(remaining) <= 3:
+    if own_key() and remaining.isdigit() and int(remaining) <= 3:
         print(f"warning: {remaining} of {limit} Scorecard requests left this hour. "
               "Cached schools still work; new ones will fail until the window resets.",
               file=sys.stderr)
@@ -164,6 +208,26 @@ def quota_status():
             f"as of {mins} min ago. Resets ~{60 - mins} min from now.")
 
 
+def _request(params):
+    """One GET to the chosen endpoint. If the proxy can't be reached, quietly try
+    api.data.gov's demo key once — a few lookups usually still work — and only
+    then give up, in plain words."""
+    url = endpoint()
+    key = api_key()
+    query = {**params, "api_key": key} if key else params
+    headers = {"X-Client-Id": client_id()} if proxied() else {}
+    try:
+        return requests.get(url, params=query, headers=headers, timeout=30)
+    except requests.RequestException:
+        if not proxied():
+            sys.exit(UNAVAILABLE)
+    try:
+        return requests.get(API_UPSTREAM, params={**params, "api_key": "DEMO_KEY"},
+                            timeout=30)
+    except requests.RequestException:
+        sys.exit(UNAVAILABLE)
+
+
 def fetch(params):
     """GET with a 30-day disk cache keyed on the request params."""
     cache_key = hashlib.sha256(
@@ -174,33 +238,31 @@ def fetch(params):
     if cache_file.exists() and time.time() - cache_file.stat().st_mtime < CACHE_TTL:
         return json.loads(cache_file.read_text())
 
-    resp = requests.get(API, params={**params, "api_key": api_key()}, timeout=30)
+    resp = _request(params)
     record_quota(resp)
 
-    # api.data.gov returns 403 for BOTH an exhausted quota and a bad API key. Reporting
-    # a key problem as a rate limit sends the user off to wait an hour, repeatedly, for
-    # a condition that will never clear on its own. Disambiguate from the body.
     if resp.status_code in (429, 403):
         body = resp.text[:500]
-        if "API_KEY_INVALID" in body or "API_KEY_MISSING" in body:
+        # api.data.gov returns 403 for BOTH an exhausted quota and a bad key. Only someone
+        # who set their own key can have a key problem — and only they hear about keys.
+        if own_key() and ("API_KEY_INVALID" in body or "API_KEY_MISSING" in body):
             sys.exit(
                 "Scorecard rejected the API key in SCORECARD_API_KEY.\n\n"
                 "  • Check for a typo or stray whitespace in the exported value.\n"
                 "  • Get a fresh key (2 min): https://api.data.gov/signup/\n"
-                "  • Or unset it to fall back to DEMO_KEY: unset SCORECARD_API_KEY\n\n"
+                "  • Or unset it to use the shared 10xcolleges proxy instead.\n\n"
                 "This is not a rate limit — waiting will not fix it."
             )
-        using_demo = not os.environ.get("SCORECARD_API_KEY", "").strip()
-        sys.exit(
-            "Scorecard rate limit reached"
-            + (" on the shared DEMO_KEY." if using_demo else ".")
-            + "\n\nOptions:\n"
-            "  1. Wait — the window rolls hourly.\n"
-            "  2. Get a free key (2 min, no approval): https://api.data.gov/signup/\n"
-            "     then: export SCORECARD_API_KEY=...\n"
-            "  3. Keep working — schools already researched are cached for 30 days,\n"
-            "     and Common Data Sets on the colleges' own sites cost no quota.\n"
-        )
+        if own_key():
+            sys.exit(
+                "Scorecard rate limit reached on your key.\n\n"
+                "  1. Wait — the window rolls hourly.\n"
+                "  2. Keep working — researched schools are cached for 30 days, and\n"
+                "     Common Data Sets on the colleges' own sites cost no quota.\n"
+            )
+        sys.exit(BUSY)
+    if resp.status_code >= 500:
+        sys.exit(BUSY if proxied() else UNAVAILABLE)
     resp.raise_for_status()
     data = resp.json()
 
@@ -244,8 +306,8 @@ def newest(row, suffix, depth):
 def get_many(unitids):
     """Fetch several schools in ONE request.
 
-    This is the difference between researching a 10-school list and burning an entire
-    hour of DEMO_KEY quota doing it one school at a time.
+    This is the difference between researching a 10-school list in one lookup and
+    spending ten of the hour's lookups doing it one school at a time.
     """
     wanted = [str(u).strip() for u in unitids if str(u).strip()]
     if len(wanted) > 100:

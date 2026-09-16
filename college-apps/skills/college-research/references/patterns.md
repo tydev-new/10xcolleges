@@ -23,7 +23,7 @@ Step 4: Friction & Culture Probe         (CDS B22 retention + Student forums lab
   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/scorecard.py" search "Purdue"
   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/scorecard.py" get --unitid 243780,147767
   ```
-- **Fallback:** If API quota is exhausted, note it honestly and proceed immediately to the school's Common Data Set and official aid pages.
+- **Fallback:** If a Scorecard lookup can't be served right now, say so in one plain sentence (no talk of keys or quotas) and proceed immediately to the school's Common Data Set and official aid pages.
 
 ### B. Common Data Set (CDS)
 Search `"common data set" site:<college>.edu` or check the university's Institutional Research page:

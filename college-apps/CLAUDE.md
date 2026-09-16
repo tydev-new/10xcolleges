@@ -71,16 +71,17 @@ python3 -m pip install openpyxl python-docx requests markdown
 
 If a library is missing, the script names it and the install command.
 
-No API key is set — Scorecard runs on the shared **DEMO_KEY at ~10 requests/hour**.
-That's workable but tight, so:
+College Scorecard lookups go through the shared 10xcolleges proxy, which holds the key
+and caches results for everyone. Nothing to set up, and nothing to say to the user about
+keys or quotas — if a lookup can't be served, the script prints one plain message and
+the research continues from the college's own pages.
 
 - **Batch schools into one request**: `get --unitid 1,2,3` costs the same as one school.
-- **Check `scorecard.py quota`** before a long research session.
-- **Responses cache 30 days** — never re-fetch to double-check.
-- **Common Data Sets and college sites cost no quota.** When you run out, keep working
-  there; that's where current-year admissions detail lives anyway.
-- A free key (https://api.data.gov/signup/, 2 min) raises it to 1,000/hour:
-  `export SCORECARD_API_KEY=...`
+- **Responses cache 30 days** locally — never re-fetch to double-check.
+- **Common Data Sets and college sites never wait.** That's where current-year
+  admissions detail lives anyway.
+- Optional, for heavy use: your own free key (https://api.data.gov/signup/) sends
+  lookups straight to api.data.gov on your own quota: `export SCORECARD_API_KEY=...`
 
 ## Scripts
 

@@ -46,7 +46,7 @@ class ProbeYears(unittest.TestCase):
         import urllib.parse
         q = urllib.parse.urlencode({
             "id": "170976", "fields": ",".join(sc.build_fields()),
-            "per_page": 100, "api_key": "DEMO_KEY",
+            "per_page": 100,
         })
         self.assertLess(len(q), 8000, f"query string is {len(q)} chars")
 
@@ -116,6 +116,91 @@ class QuotaReporting(unittest.TestCase):
         sc.QUOTA_FILE.parent.mkdir(parents=True, exist_ok=True)
         sc.QUOTA_FILE.write_text("{ truncated wri")
         self.assertIn("presumed available", sc.quota_status())
+
+
+class Routing(unittest.TestCase):
+    """No key → the shared proxy, quietly. Own key → api.data.gov on their quota."""
+
+    def setUp(self):
+        self.tmp = Path(__file__).parent / ".tmp-cache"
+        self._cache = sc.CACHE_DIR
+        sc.CACHE_DIR = self.tmp
+
+    def tearDown(self):
+        sc.CACHE_DIR = self._cache
+        import shutil
+        shutil.rmtree(self.tmp, ignore_errors=True)
+
+    def test_default_is_the_proxy(self):
+        with mock.patch.dict("os.environ", {}, clear=True):
+            self.assertEqual(sc.endpoint(), sc.PROXY)
+            self.assertTrue(sc.proxied())
+            self.assertEqual(sc.api_key(), "")
+
+    def test_own_key_goes_direct(self):
+        with mock.patch.dict("os.environ", {"SCORECARD_API_KEY": "abc"}, clear=True):
+            self.assertEqual(sc.endpoint(), sc.API_UPSTREAM)
+            self.assertFalse(sc.proxied())
+            self.assertEqual(sc.api_key(), "abc")
+
+    def test_explicit_url_wins(self):
+        with mock.patch.dict("os.environ", {"SCORECARD_API_URL": "https://x.test/v1/schools"}, clear=True):
+            self.assertEqual(sc.endpoint(), "https://x.test/v1/schools")
+
+    def test_client_id_is_stable_and_opaque(self):
+        with mock.patch.dict("os.environ", {}, clear=True):
+            a, b = sc.client_id(), sc.client_id()
+        self.assertEqual(a, b)
+        self.assertEqual(len(a), 32)
+        self.assertTrue(a.isalnum())
+
+    def _resp(self, status=200, body='{"results": []}', headers=None):
+        r = mock.Mock()
+        r.status_code = status; r.text = body; r.json.return_value = json.loads(body)
+        r.headers = headers or {}; r.raise_for_status = mock.Mock()
+        return r
+
+    def test_proxied_request_sends_client_id_and_no_key(self):
+        with mock.patch.dict("os.environ", {}, clear=True), \
+             mock.patch.object(sc.requests, "get", return_value=self._resp()) as get:
+            sc.fetch({"id": "1"})
+        url = get.call_args.args[0]; kw = get.call_args.kwargs
+        self.assertEqual(url, sc.PROXY)
+        self.assertNotIn("api_key", kw["params"])
+        self.assertEqual(kw["headers"]["X-Client-Id"], sc.client_id())
+
+    def test_busy_proxy_speaks_plainly(self):
+        """A user without a key must never be told about keys, quotas, or APIs."""
+        with mock.patch.dict("os.environ", {}, clear=True), \
+             mock.patch.object(sc.requests, "get", return_value=self._resp(429, '{"error":"rate limit"}')):
+            with self.assertRaises(SystemExit) as cm:
+                sc.fetch({"id": "2"})
+        msg = str(cm.exception).lower()
+        for word in ("api", "key", "quota", "demo", "data.gov", "rate limit"):
+            self.assertNotIn(word, msg, f"leaked {word!r}: {msg}")
+        self.assertIn("busy", msg)
+        self.assertIn("already researched", msg)
+
+    def test_unreachable_proxy_falls_back_quietly(self):
+        import requests as rq
+        ok = self._resp()
+        with mock.patch.dict("os.environ", {}, clear=True), \
+             mock.patch.object(sc.requests, "get", side_effect=[rq.ConnectionError(), ok]) as get, \
+             mock.patch("sys.stderr") as err:
+            data = sc.fetch({"id": "3"})
+        self.assertEqual(data, {"results": []})
+        self.assertEqual(get.call_count, 2)
+        second = get.call_args_list[1]
+        self.assertEqual(second.args[0], sc.API_UPSTREAM)
+        self.assertEqual(second.kwargs["params"]["api_key"], "DEMO_KEY")
+        self.assertEqual(err.write.call_count, 0, "fallback must be silent")
+
+    def test_own_key_users_keep_the_technical_diagnosis(self):
+        with mock.patch.dict("os.environ", {"SCORECARD_API_KEY": "bad"}, clear=True), \
+             mock.patch.object(sc.requests, "get", return_value=self._resp(403, '{"error":{"code":"API_KEY_INVALID"}}')):
+            with self.assertRaises(SystemExit) as cm:
+                sc.fetch({"id": "4"})
+        self.assertIn("rejected the API key", str(cm.exception))
 
 
 class BatchReconciliation(unittest.TestCase):
