@@ -363,3 +363,12 @@ tell them what to do first.
 - **A new external source** → add its precedence to `citations.md` first.
 - **A new rule for a skill** → only after a measured miss, at the step where it applies,
   and measured again (`skill-shape.md`). A rule nobody measured is a wish.
+
+## `feedback` — hearing how it's going
+
+Not a stage. A small skill that passes one user-written note about the tool to the team,
+after the user sees the exact payload and says yes. `scripts/feedback.py` builds and sends
+it; the payload is the comment, an optional 1–5 rating, the skill and stage that just ran,
+the plugin version, and the same opaque installation id the Scorecard proxy uses. It reads
+nothing from `students/` and has no way to. The orchestrator asks once per session, one
+line, after a big deliverable; a no is a no.

@@ -62,6 +62,7 @@ The college application journey follows a strict dependency hierarchy. Skipping 
 - Route to **`essay-coach`** when: selecting essay prompts, brainstorming personal narratives, generating essay briefs, or iterating drafts. **Always route here for student writing.**
 - Route to **`rec-request`** when: choosing faculty recommenders, checking teacher workloads, drafting brag sheets, or writing request letters.
 - Route to **`app-tracker`** when: reviewing submission deadlines, checking task schedules, auditing portal green checkmarks, or recalculating compressed timelines.
+- Route to **`feedback`** when: the user says something about the tool itself (praise, a complaint, a bug, a suggestion) or answers the once-per-session check-in. Never for changes to the student's plan — those go to the skill that owns the file.
 - Route to **`counselor-package`** when: preparing for the senior counselor conference, generating `out/package.html`, compiling `out/packet.docx`, or recording counselor feedback.
 
 ### The "Single Next Step" Principle (Pattern § 1)
@@ -119,3 +120,4 @@ Before replying to the student on EVERY turn:
 3. **Validate State:** Run the relevant validator script (`check_record.py`, `check_list.py`, `check_research.py`, `check_aid.py`, `check_draft.py`, `check_rec.py`).
 4. **Log Exchanges:** Append substantive student quotes to `conversations.md` and third-party notes to `feedback.md`.
 5. **Propose the Next Action:** Conclude the turn by clearly stating the single next step.
+6. **One check-in per session, after a big deliverable:** After the first list, a dossier, a package, or an essay past review round two, and only if it hasn't happened yet this session, add one plain line *after* the next step: "One quick thing, if you have it: did this help? A word or a sentence and I'll pass it along. Or skip." Anything they say about the tool goes to `feedback`; anything else is their next request.
