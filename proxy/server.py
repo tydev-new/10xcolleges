@@ -15,6 +15,7 @@ from collections import OrderedDict, defaultdict
 
 import httpx
 from starlette.applications import Starlette
+from starlette.background import BackgroundTask
 from starlette.responses import JSONResponse, Response
 from starlette.routing import Route
 
@@ -30,6 +31,13 @@ FEEDBACK_PATH = os.environ.get("FEEDBACK_PATH", "/data/feedback.jsonl")
 FEEDBACK_PER_CLIENT_HOUR = 10
 FEEDBACK_MAX = {"comment": 2000, "skill": 40, "stage": 40, "version": 20, "client_id": 64}
 ADMIN_TOKEN = os.environ.get("ADMIN_TOKEN", "")
+# Supabase (optional). When both are set, feedback and usage go to Postgres via the
+# REST API with the service key; otherwise feedback falls back to the JSONL file and
+# usage isn't recorded.
+SUPABASE_URL = os.environ.get("SUPABASE_URL", "").rstrip("/")
+SUPABASE_SERVICE_KEY = os.environ.get("SUPABASE_SERVICE_KEY", "")
+FEEDBACK_TABLE = os.environ.get("SUPABASE_FEEDBACK_TABLE", "tenx_feedback")
+USAGE_TABLE = os.environ.get("SUPABASE_USAGE_TABLE", "tenx_usage_events")
 
 _cache: "OrderedDict[str, tuple]" = OrderedDict()   # key -> (expires, status, body, headers)
 _hits: "dict[str, list[float]]" = defaultdict(list)  # client -> upstream-call timestamps
@@ -52,6 +60,49 @@ def spent(bucket: list, limit: int, now: float) -> bool:
 def remaining(client: str, now: float) -> int:
     spent(_hits[client], PER_CLIENT_HOUR, now)
     return max(0, PER_CLIENT_HOUR - len(_hits[client]))
+
+
+def supabase_on() -> bool:
+    return bool(SUPABASE_URL and SUPABASE_SERVICE_KEY)
+
+
+def _sb_headers(prefer: str = "return=minimal") -> dict:
+    return {"apikey": SUPABASE_SERVICE_KEY, "Authorization": f"Bearer {SUPABASE_SERVICE_KEY}",
+            "Content-Type": "application/json", "Prefer": prefer}
+
+
+async def sb_insert(table: str, row: dict) -> bool:
+    """Insert one row; True on success. Never raises — callers decide what a miss means."""
+    try:
+        async with httpx.AsyncClient(timeout=10) as c:
+            r = await c.post(f"{SUPABASE_URL}/rest/v1/{table}", json=row, headers=_sb_headers())
+        return r.status_code in (200, 201)
+    except httpx.HTTPError:
+        return False
+
+
+async def sb_select(table: str, query: str) -> list | None:
+    try:
+        async with httpx.AsyncClient(timeout=10) as c:
+            r = await c.get(f"{SUPABASE_URL}/rest/v1/{table}?{query}", headers=_sb_headers())
+        return r.json() if r.status_code == 200 else None
+    except (httpx.HTTPError, ValueError):
+        return None
+
+
+async def record_usage(client: str, q: dict, cache: str, status: int) -> None:
+    """One row per lookup. Runs in the background; a failure is dropped, never surfaced."""
+    if not supabase_on():
+        return
+    ids = [i for i in q.get("id", "").split(",") if i.strip()]
+    await sb_insert(USAGE_TABLE, {
+        "client_id": client.split(":", 1)[1] if client.startswith("id:") else None,
+        "kind": "get" if ids else "search",
+        "unitids": ids or None,
+        "search_name": (q.get("school.name") or None) if not ids else None,
+        "cache": cache,
+        "status": status,
+    })
 
 
 async def upstream_get(params: dict) -> httpx.Response:
@@ -79,7 +130,8 @@ async def schools(request):
         _, status, body, hdrs = hit
         return Response(body, status, {**hdrs, "X-Cache": "hit",
                         "X-Ratelimit-Remaining": str(remaining(client, now))},
-                        media_type="application/json")
+                        media_type="application/json",
+                        background=BackgroundTask(record_usage, client, q, "hit", status))
 
     if spent(_hits[client], PER_CLIENT_HOUR, now) or spent(_hits["*"], GLOBAL_HOUR, now):
         return JSONResponse({"error": "rate limit"}, 429, {
@@ -101,7 +153,8 @@ async def schools(request):
             _cache.popitem(last=False)
     return Response(r.content, r.status_code, {**hdrs, "X-Cache": "miss",
                     "X-Ratelimit-Remaining": str(remaining(client, now))},
-                    media_type="application/json")
+                    media_type="application/json",
+                    background=BackgroundTask(record_usage, client, q, "miss", r.status_code))
 
 
 _fb_hits: "dict[str, list[float]]" = defaultdict(list)
@@ -129,7 +182,6 @@ async def feedback_post(request):
     if not rec["comment"] and rating is None:
         return JSONResponse({"error": "nothing to record"}, 400)
     rec["rating"] = rating
-    rec["at"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
 
     now = time.time()
     client = client_of(request)
@@ -137,6 +189,11 @@ async def feedback_post(request):
         return JSONResponse({"error": "rate limit"}, 429, {"Retry-After": "600"})
     _fb_hits[client].append(now)
 
+    if supabase_on():
+        if not await sb_insert(FEEDBACK_TABLE, rec):
+            return JSONResponse({"error": "could not store"}, 500)
+        return JSONResponse({"ok": True}, 201)
+    rec["at"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
     try:
         os.makedirs(os.path.dirname(FEEDBACK_PATH) or ".", exist_ok=True)
         with open(FEEDBACK_PATH, "a", encoding="utf-8") as f:
@@ -155,6 +212,11 @@ async def feedback_get(request):
         n = min(int(request.query_params.get("n", "200")), 5000)
     except ValueError:
         n = 200
+    if supabase_on():
+        rows = await sb_select(FEEDBACK_TABLE, f"select=*&order=at.desc&limit={n}")
+        if rows is None:
+            return JSONResponse({"error": "could not read"}, 502)
+        return JSONResponse({"count": len(rows), "items": rows})
     try:
         with open(FEEDBACK_PATH, encoding="utf-8") as f:
             lines = f.readlines()[-n:]
@@ -164,7 +226,8 @@ async def feedback_get(request):
 
 
 async def healthz(request):
-    return JSONResponse({"ok": True, "key_set": bool(KEY), "cached": len(_cache)})
+    return JSONResponse({"ok": True, "key_set": bool(KEY), "cached": len(_cache),
+                         "store": "supabase" if supabase_on() else "file"})
 
 
 app = Starlette(routes=[

@@ -36,6 +36,7 @@ fly auth login
 fly volumes create feedback --size 1 --region iad --yes
 fly secrets set SCORECARD_API_KEY=<your key from https://api.data.gov/signup/>
 fly secrets set ADMIN_TOKEN=<any long random string, for reading feedback back>
+fly secrets set SUPABASE_SERVICE_KEY=<service_role key from the Supabase project's API settings>
 fly deploy -a 10xcolleges-scorecard --ha=false
 curl https://10xcolleges-scorecard.fly.dev/healthz
 ```
@@ -51,14 +52,28 @@ curl -s -H "Authorization: Bearer $ADMIN_TOKEN" https://10xcolleges-scorecard.fl
 
 ## What it stores
 
-| Data | Where | How long | Contains |
-|---|---|---|---|
-| Feedback users chose to send | `/data/feedback.jsonl` on the fly volume | until you delete it | comment, rating, skill, stage, plugin version, installation id, timestamp |
-| Throttle counters | memory | rolling hour; gone on restart | installation id or IP → timestamps of upstream calls |
-| Response cache | memory | 30 days; gone on restart | Scorecard responses keyed by query hash — school data only, no caller info |
-| Request logs | fly.io platform logs | fly's short retention | method, path, status, client IP (fly's own access log; nothing written by this code) |
+With `SUPABASE_URL` and `SUPABASE_SERVICE_KEY` set (the normal deployment), two tables
+in Supabase, both with row-level security on and no policies, so only the service key
+can read or write them:
 
-No per-user history of which schools were looked up is kept anywhere.
+| Table | One row per | Columns |
+|---|---|---|
+| `tenx_feedback` | note a user chose to send | `at`, `client_id`, `skill`, `stage`, `rating`, `comment`, `version` |
+| `tenx_usage_events` | Scorecard lookup | `at`, `client_id` (null for callers without one), `kind` (`get` / `search`), `unitids`, `search_name`, `cache` (`hit` / `miss`), `status` |
+
+Views for the dashboard: `tenx_daily_usage` (lookups, hits, distinct installations per day)
+and `tenx_top_schools` (lookups per UNITID, last 30 days). The `tenx_` prefix is because the
+tables share the careercoach-v3-staging Supabase project (the one the 10xjobs v3 code uses).
+
+`client_id` is the plugin's random per-installation id — it identifies an installation,
+not a person. There is no student data in either table and no way for the proxy to
+receive any.
+
+Still in memory, gone on restart: throttle counters (installation id → timestamps) and
+the 30-day response cache (school data only). Fly keeps its own short-lived access log.
+
+Without Supabase configured, feedback falls back to `/data/feedback.jsonl` on the volume
+and usage isn't recorded.
 
 ## Local
 
