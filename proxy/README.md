@@ -24,7 +24,7 @@ Only school names and UNITIDs cross the wire. No student data is ever sent here.
 - `POST /v1/feedback` — one piece of user-written feedback from the plugin's
   `feedback` skill: `comment` (≤2000 chars), optional `rating` 1–5, `skill`, `stage`,
   `version`, `client_id`. Anything else in the body is dropped. 10 per client per hour.
-  Appended as JSON lines to `/data/feedback.jsonl` on the volume.
+
 - `GET /v1/feedback?n=200` — read the newest entries; needs
   `Authorization: Bearer <ADMIN_TOKEN>`.
 - `GET /healthz` — liveness, whether the key is set, cache size.
@@ -33,7 +33,6 @@ Only school names and UNITIDs cross the wire. No student data is ever sent here.
 
 ```bash
 fly auth login
-fly volumes create feedback --size 1 --region iad --yes
 fly secrets set SCORECARD_API_KEY=<your key from https://api.data.gov/signup/>
 fly secrets set ADMIN_TOKEN=<any long random string, for reading feedback back>
 fly secrets set SUPABASE_SERVICE_KEY=<service_role key from the Supabase project's API settings>
@@ -42,7 +41,8 @@ curl https://10xcolleges-scorecard.fly.dev/healthz
 ```
 
 The machine stops when idle and wakes on the first request. The cache is in memory
-and resets on restart; that's fine for this traffic. Feedback persists on the volume.
+and resets on restart; that's fine for this traffic. Nothing is stored on the machine;
+feedback and usage live in Supabase.
 
 Read feedback:
 
@@ -72,8 +72,8 @@ receive any.
 Still in memory, gone on restart: throttle counters (installation id → timestamps) and
 the 30-day response cache (school data only). Fly keeps its own short-lived access log.
 
-Without Supabase configured, feedback falls back to `/data/feedback.jsonl` on the volume
-and usage isn't recorded.
+Without Supabase configured (local development), feedback falls back to a `feedback.jsonl`
+file in the working directory and usage isn't recorded. The deployed app has no volume.
 
 ## Local
 
