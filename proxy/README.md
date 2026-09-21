@@ -63,7 +63,7 @@ can read or write them:
 
 Views for the dashboard: `tenx_daily_usage` (lookups, hits, distinct installations per day)
 and `tenx_top_schools` (lookups per UNITID, last 30 days). The `tenx_` prefix is because the
-tables share the CareerCoach-staging Supabase project.
+tables share the careercoach-v3-staging Supabase project (the one the 10xjobs v3 code uses).
 
 `client_id` is the plugin's random per-installation id — it identifies an installation,
 not a person. There is no student data in either table and no way for the proxy to
