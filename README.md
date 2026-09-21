@@ -6,14 +6,6 @@ Plain-spoken, encouraging, honest about admissions odds, and rigorously grounded
 
 ---
 
-## Part of the 10xJobs family
-
-10xcolleges is a project of [10xjobs.co](https://10xjobs.co), built by the same team.
-
-10xjobs.co helps job seekers navigate an application process that's opaque, high-stakes, and full of jargon nobody explains to you. 10xcolleges applies that same thinking (plain language, honest feedback, no ghostwriting or shortcuts) to a different high-stakes, opaque process: getting into college. Same product philosophy, different audience and problem.
-
----
-
 ## What's ready now — Essay Coaching
 ## The 8-Stage Counseling Ecosystem
 
@@ -148,7 +140,67 @@ The skills load automatically and activate whenever you discuss college planning
 
 ## Scorecard proxy
 
-College Scorecard lookups go through a small proxy in [`proxy/`](proxy/) that holds one shared api.data.gov key, so users never set up a key and never see quota messages. It caches responses, throttles per installation, and receives the feedback users choose to send through the `feedback` skill. Deploy notes and what it stores: [`proxy/README.md`](proxy/README.md).
+College Scorecard lookups go through a small service in [`proxy/`](proxy/) that holds one
+shared api.data.gov key, so users never set up a key and never see quota messages. The same
+service receives the feedback users choose to send and records anonymous usage.
+
+```mermaid
+flowchart LR
+    classDef local fill:#e8f0fe,stroke:#1a73e8,stroke-width:2px;
+    classDef proxy fill:#e6f4ea,stroke:#137333,stroke-width:2px;
+    classDef ext fill:#fef7e0,stroke:#b06000,stroke-width:2px;
+
+    subgraph User["User's machine (Claude Code / Cowork)"]
+        R["college-research skill"]:::local
+        S["scripts/scorecard.py<br/>30-day local cache<br/>random installation id"]:::local
+        F["feedback skill<br/>scripts/feedback.py"]:::local
+        W["students/ workspace<br/>(never leaves the machine)"]:::local
+        R --> S
+        R -.-> W
+    end
+
+    subgraph Proxy["proxy/ on fly.io — 10xcolleges-scorecard"]
+        P["server.py<br/>adds the shared key<br/>30-day cache · 60/hr per installation · 900/hr total"]:::proxy
+    end
+
+    API["api.data.gov<br/>College Scorecard"]:::ext
+    DB[("Supabase<br/>tenx_usage_events<br/>tenx_feedback")]:::ext
+    CDS["College websites<br/>Common Data Set, admissions pages"]:::ext
+
+    S -- "GET /v1/schools<br/>school name or UNITIDs" --> P
+    P -- "+ api_key" --> API
+    P -. "usage row (background)" .-> DB
+    F -- "POST /v1/feedback<br/>user's words, rating, skill, stage" --> P
+    P --> DB
+    R -- "no key, no quota" --> CDS
+```
+
+Only school names, UNITIDs, and feedback the user chose to send cross the wire. The proxy
+has no way to receive anything from `students/`.
+
+### Deploying the proxy
+
+Prerequisites: [`flyctl`](https://fly.io/docs/flyctl/install/) and `fly auth login`. Secrets are
+set once and survive every deploy.
+
+```bash
+cd proxy
+fly apps create 10xcolleges-scorecard --org personal          # first time only
+fly secrets set SCORECARD_API_KEY=... -a 10xcolleges-scorecard # from https://api.data.gov/signup/
+fly secrets set ADMIN_TOKEN=... -a 10xcolleges-scorecard       # any long random string; reads feedback back
+fly secrets set SUPABASE_SERVICE_KEY=... -a 10xcolleges-scorecard
+fly deploy -a 10xcolleges-scorecard --ha=false
+curl https://10xcolleges-scorecard.fly.dev/healthz            # {"ok":true,"key_set":true,...,"store":"supabase"}
+```
+
+`SUPABASE_URL` lives in `proxy/fly.toml`. Every later change is: merge to `main`, then
+`cd proxy && fly deploy -a 10xcolleges-scorecard --ha=false`. The machine is stateless
+(one shared-cpu machine in `iad`, stops when idle); the response cache is in memory and
+refills on use.
+
+Tests: `cd proxy && python3 -m venv .venv && .venv/bin/pip install -r requirements.txt &&
+.venv/bin/python -m unittest discover -s tests`. Details of what is stored and for how long:
+[`proxy/README.md`](proxy/README.md).
 
 ## Testing & Verification
 

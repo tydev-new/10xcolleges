@@ -9,6 +9,39 @@ upstream status, body, and rate-limit headers unchanged.
 
 Only school names and UNITIDs cross the wire. No student data is ever sent here.
 
+## Architecture
+
+```mermaid
+flowchart LR
+    classDef local fill:#e8f0fe,stroke:#1a73e8,stroke-width:2px;
+    classDef proxy fill:#e6f4ea,stroke:#137333,stroke-width:2px;
+    classDef ext fill:#fef7e0,stroke:#b06000,stroke-width:2px;
+
+    subgraph User["User's machine (Claude Code / Cowork)"]
+        R["college-research skill"]:::local
+        S["scripts/scorecard.py<br/>30-day local cache<br/>random installation id"]:::local
+        F["feedback skill<br/>scripts/feedback.py"]:::local
+        W["students/ workspace<br/>(never leaves the machine)"]:::local
+        R --> S
+        R -.-> W
+    end
+
+    subgraph Proxy["proxy/ on fly.io — 10xcolleges-scorecard"]
+        P["server.py<br/>adds the shared key<br/>30-day cache · 60/hr per installation · 900/hr total"]:::proxy
+    end
+
+    API["api.data.gov<br/>College Scorecard"]:::ext
+    DB[("Supabase<br/>tenx_usage_events<br/>tenx_feedback")]:::ext
+    CDS["College websites<br/>Common Data Set, admissions pages"]:::ext
+
+    S -- "GET /v1/schools<br/>school name or UNITIDs" --> P
+    P -- "+ api_key" --> API
+    P -. "usage row (background)" .-> DB
+    F -- "POST /v1/feedback<br/>user's words, rating, skill, stage" --> P
+    P --> DB
+    R -- "no key, no quota" --> CDS
+```
+
 ## Behaviour
 
 - `GET /v1/schools?…` — same query string `api.data.gov/ed/collegescorecard/v1/schools`
