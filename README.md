@@ -146,6 +146,10 @@ The skills load automatically and activate whenever you discuss college planning
 
 ---
 
+## Scorecard proxy
+
+College Scorecard lookups go through a small proxy in [`proxy/`](proxy/) that holds one shared api.data.gov key, so users never set up a key and never see quota messages. It caches responses, throttles per installation, and receives the feedback users choose to send through the `feedback` skill. Deploy notes and what it stores: [`proxy/README.md`](proxy/README.md).
+
 ## Testing & Verification
 
 The repository enforces a two-tier verification harness:
