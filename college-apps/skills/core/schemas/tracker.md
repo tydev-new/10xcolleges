@@ -131,7 +131,7 @@ tracker.xlsx
 
 1. **Unidirectional Data Flow:** Never modify `tracker.xlsx` directly. Always update `meta.json` and execute:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/make_tracker.py" students/<slug>
+   python3 "${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/make_tracker.py" students/<slug>
    ```
 2. **Strict Date Parsing:** All dates in `meta.json` must be valid ISO `YYYY-MM-DD`. Malformed dates abort the build immediately to prevent missing tasks.
 3. **Graceful Compression:** For runways shorter than 10 weeks, tasks are compressed proportionally without dropping essential review steps.

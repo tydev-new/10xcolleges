@@ -5,6 +5,9 @@ description: Research a specific college and write a cited dossier — admit rat
 
 # Research a college
 
+> **Shared kit.** Scripts, schemas, templates, and reference docs live in the `core` skill: `${CLAUDE_PLUGIN_ROOT}/skills/core` in Claude Code, or the `core` folder installed next to this skill in any other agent. Read every `${CLAUDE_PLUGIN_ROOT}/skills/core/...` path below as that folder. Scripts need `pip install -r core/requirements.txt`.
+
+
 Build an investigative, cited research dossier on a single college, evaluating its academic programs, true costs, admissions policies, and friction points against this student's profile.
 
 | Must be true | Where |
@@ -15,13 +18,13 @@ Build an investigative, cited research dossier on a single college, evaluating i
 | Net price compared to family budget ceiling with gap/surplus calculated | `students/<slug>/research/<college-slug>.md` |
 | Cites at least 2 distinctive academic resources for essays | `students/<slug>/research/<college-slug>.md` |
 | Names at least 2 genuine friction points / watch-outs | `students/<slug>/research/<college-slug>.md` |
-| `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_research.py ...` passes | Terminal |
+| `python3 ${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/check_research.py ...` passes | Terminal |
 
 ---
 
 ## Prerequisites
 
-- **Required Student Context:** Inspect `students/` to locate the existing student folder (e.g. `students/<slug>/`). Always read `students/<slug>/profile.md` (unweighted GPA, test scores, intended major, state of residency) and `students/<slug>/criteria.md` (budget ceiling, hard filters, deal-breakers like D1 cold weather). If state of residence or intended major is `TODO:`, ask the student in-stride or apply graceful degradation per `schemas/requirements.md` (e.g. evaluate out-of-state COA if state unknown). Never invent a new student identity when an existing student folder is present.
+- **Required Student Context:** Inspect `students/` to locate the existing student folder (e.g. `students/<slug>/`). Always read `students/<slug>/profile.md` (unweighted GPA, test scores, intended major, state of residency) and `students/<slug>/criteria.md` (budget ceiling, hard filters, deal-breakers like D1 cold weather). If state of residence or intended major is `TODO:`, ask the student in-stride or apply graceful degradation per `skills/core/schemas/requirements.md` (e.g. evaluate out-of-state COA if state unknown). Never invent a new student identity when an existing student folder is present.
 - Dossier destination: `students/<slug>/research/<college-slug>.md`.
 
 ---
@@ -46,10 +49,10 @@ Build an investigative, cited research dossier on a single college, evaluating i
    - Compute the true cost gap against the student's family budget ceiling (e.g. ~$11k–$14k gap vs $30k budget).
 5. **Friction & Campus Texture:** Check student forums and reviews (Reddit, Niche) for class sizes, housing shortages, and culture:
    - Cross-check against the student's deal-breakers in `criteria.md` (e.g. flagging freezing/grey Midwestern winter if student has a warm-weather deal-breaker).
-6. **Write the Dossier:** Write `students/<slug>/research/<college-slug>.md` following the schema (`schemas/research.md`).
+6. **Write the Dossier:** Write `students/<slug>/research/<college-slug>.md` following the schema (`skills/core/schemas/research.md`).
 7. **Sync:** Update `colleges.md` and `meta.json` if the research alters the school's tier, deadline, or status.
 
-**Exits** when `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_research.py students/<slug>/research/<college-slug>.md` passes clean.
+**Exits** when `python3 ${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/check_research.py students/<slug>/research/<college-slug>.md` passes clean.
 
 ---
 
@@ -74,5 +77,5 @@ Build an investigative, cited research dossier on a single college, evaluating i
 
 Before replying to the student on EVERY turn:
 1. Sync `colleges.md` and `meta.json` if list tiering or deadlines changed.
-2. Run `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_research.py students/<slug>/research/<college-slug>.md` as the absolute final tool call on EVERY turn. If you edit any file, re-run `check_research.py` before speaking. Never reply without running `check_research.py` last.
+2. Run `python3 ${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/check_research.py students/<slug>/research/<college-slug>.md` as the absolute final tool call on EVERY turn. If you edit any file, re-run `check_research.py` before speaking. Never reply without running `check_research.py` last.
 3. Every reply ends with ONE next step and its reason.

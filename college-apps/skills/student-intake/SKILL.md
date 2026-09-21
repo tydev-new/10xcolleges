@@ -5,9 +5,12 @@ description: Use this skill when starting with a new student, when a school pack
 
 # Intake — learn the student
 
+> **Shared kit.** Scripts, schemas, templates, and reference docs live in the `core` skill: `${CLAUDE_PLUGIN_ROOT}/skills/core` in Claude Code, or the `core` folder installed next to this skill in any other agent. Read every `${CLAUDE_PLUGIN_ROOT}/skills/core/...` path below as that folder. Scripts need `pip install -r core/requirements.txt`.
+
+
 ## Goal
 
-Build `profile.md` (who they are) and `criteria.md` (what they want) — **every line in the student's words, every line marked with its source tag, every blank an explicit `TODO:` without guessing** — up to the gate required by the next stage. Scored by `references/eval.md`; file schemas in `${CLAUDE_PLUGIN_ROOT}/schemas/`.
+Build `profile.md` (who they are) and `criteria.md` (what they want) — **every line in the student's words, every line marked with its source tag, every blank an explicit `TODO:` without guessing** — up to the gate required by the next stage. Scored by `references/eval.md`; file schemas in `${CLAUDE_PLUGIN_ROOT}/skills/core/schemas/`.
 
 | Must be true | Where |
 |---|---|
@@ -22,11 +25,11 @@ Build `profile.md` (who they are) and `criteria.md` (what they want) — **every
 
 - **Required:**
   - A working folder with a `CLAUDE.md` — none → run Setup first before any write.
-  - A student folder `students/<slug>/` created from `${CLAUDE_PLUGIN_ROOT}/templates/student/`.
-  - Read `${CLAUDE_PLUGIN_ROOT}/schemas/requirements.md`, `${CLAUDE_PLUGIN_ROOT}/schemas/profile.md`, `${CLAUDE_PLUGIN_ROOT}/schemas/criteria.md`, and `${CLAUDE_PLUGIN_ROOT}/docs/data-model.md § Provenance` before the first write.
+  - A student folder `students/<slug>/` created from `${CLAUDE_PLUGIN_ROOT}/skills/core/templates/student/`.
+  - Read `${CLAUDE_PLUGIN_ROOT}/skills/core/schemas/requirements.md`, `${CLAUDE_PLUGIN_ROOT}/skills/core/schemas/profile.md`, `${CLAUDE_PLUGIN_ROOT}/skills/core/schemas/criteria.md`, and `${CLAUDE_PLUGIN_ROOT}/skills/core/references/data-model.md § Provenance` before the first write.
 - **Optional:**
   - A school packet, transcript, resume, activities list, or Common App export (PDF and DOCX supported).
-  - A completed `${CLAUDE_PLUGIN_ROOT}/templates/criteria-worksheet.md` or school questionnaire. Without documents, start directly with the interview.
+  - A completed `${CLAUDE_PLUGIN_ROOT}/skills/core/templates/criteria-worksheet.md` or school questionnaire. Without documents, start directly with the interview.
 
 ## Loops and sequences
 
@@ -42,8 +45,8 @@ Setup runs once per folder. Documents are processed in sequence. The interview i
 2. **Check existence safely:**
    - Only perform a bare existence test (`[ -e <path> ]`). Never run `find`, `ls`, or recursive searches outside the session folder. The plugin directory at `${CLAUDE_PLUGIN_ROOT}` is always safe to read.
 3. **Initialize rules & student scaffold:**
-   - Copy `${CLAUDE_PLUGIN_ROOT}/templates/workspace-CLAUDE.md` to `CLAUDE.md` (rules before facts).
-   - Create `students/<slug>/` from `${CLAUDE_PLUGIN_ROOT}/templates/student/` (`<slug>` is first name and last initial, e.g. `jordan-k`, or `jordan` if surname is unknown; rename when provided).
+   - Copy `${CLAUDE_PLUGIN_ROOT}/skills/core/templates/workspace-CLAUDE.md` to `CLAUDE.md` (rules before facts).
+   - Create `students/<slug>/` from `${CLAUDE_PLUGIN_ROOT}/skills/core/templates/student/` (`<slug>` is first name and last initial, e.g. `jordan-k`, or `jordan` if surname is unknown; rename when provided).
 4. **Provide document drop path:**
    - Tell the student `<path>/students/<slug>/documents/` and ask for their transcript and packet in the same reply.
 
@@ -59,7 +62,7 @@ Setup runs once per folder. Documents are processed in sequence. The interview i
 4. Mark every missing detail or unstated column (like hours/weeks) as a standalone `TODO:` line; never infer or guess "one-time" or "not recurring".
 5. Put concrete numbers on activities (hours/week, weeks/year, years); ask rather than estimate.
 
-**Exits** when `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_record.py students/<slug>` passes and open `TODO:` items are named in the reply.
+**Exits** when `python3 ${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/check_record.py students/<slug>` passes and open `TODO:` items are named in the reply.
 
 ### The interview (the loop)
 
@@ -71,7 +74,7 @@ Setup runs once per folder. Documents are processed in sequence. The interview i
   1. *Ask gate items first:* For the essay gate, focus on documents, target major, and concrete activity details. For the list gate, focus on state of residence (for in-state tuition), unweighted GPA, test plans, and budget.
   2. *Write rows immediately:* Record rows in the student's exact words the moment they arise. Tag and date every row.
   3. *Log conversation:* Append student statements to `conversations.md` verbatim in quotes with date headers.
-  4. *Run verification script:* Execute `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_record.py students/<slug>` and copy its gate line into the reply as printed (`material N/3 — missing: ...`).
+  4. *Run verification script:* Execute `python3 ${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/check_record.py students/<slug>` and copy its gate line into the reply as printed (`material N/3 — missing: ...`).
   5. *Follow the alive thread:* Pursue what the student showed genuine interest in, rather than reading a static list.
 - **Seven moment rules:**
   1. **Your paraphrase is not their criterion:** Write their exact words while on screen; never substitute interpretive summaries (e.g. write "I don't want to be the least prepared person in the room", not "prefers supportive environment"). When putting text in quotation marks or logging a student reason, copy their exact words without any alteration.
@@ -97,7 +100,7 @@ Setup runs once per folder. Documents are processed in sequence. The interview i
 
 ## State
 
-Owns `profile.md`, `criteria.md`, `conversations.md` (append-only) — schemas in `${CLAUDE_PLUGIN_ROOT}/schemas/`. Reads other workspace files via `${CLAUDE_PLUGIN_ROOT}/docs/data-model.md § Every file`.
+Owns `profile.md`, `criteria.md`, `conversations.md` (append-only) — schemas in `${CLAUDE_PLUGIN_ROOT}/skills/core/schemas/`. Reads other workspace files via `${CLAUDE_PLUGIN_ROOT}/skills/core/references/data-model.md § Every file`.
 
 **Passes to:**
 - Essay gate met → `essay-coach`
@@ -105,7 +108,7 @@ Owns `profile.md`, `criteria.md`, `conversations.md` (append-only) — schemas i
 - Named college → criteria row for `college-list`
 
 **Session close:**
-Run `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_record.py students/<slug>`. Fix any script FAILs before replying; explain why any WARN is acceptable. No checker-subagent runs because words belong to the student. State what the folder now holds, the script's gate line, open `TODO:` items, and the single next step.
+Run `python3 ${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/check_record.py students/<slug>`. Fix any script FAILs before replying; explain why any WARN is acceptable. No checker-subagent runs because words belong to the student. State what the folder now holds, the script's gate line, open `TODO:` items, and the single next step.
 
 ## Guardrails
 

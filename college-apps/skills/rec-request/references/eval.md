@@ -37,11 +37,11 @@ Every recommendation plan, brag sheet (`recs/brag-sheet--<teacher>.md`), and req
 
 | Requirement | Checked By | Method |
 |---|---|---|
-| All 5 H2 sections present in brag sheet | `scripts/check_rec.py` | Deterministic header check |
-| At least 3 classroom moments present | `scripts/check_rec.py` | Bullet count check ($\ge 3$) |
-| Minimum substance / word density per moment | `scripts/check_rec.py` | Word count threshold ($\ge 15$ words) |
-| Declared intended major & earliest deadline date | `scripts/check_rec.py` | Regex pattern matching |
-| `request--*.md` has Subject & in-person acknowledgment | `scripts/check_rec.py` | Keyword & regex matching |
+| All 5 H2 sections present in brag sheet | `skills/core/scripts/check_rec.py` | Deterministic header check |
+| At least 3 classroom moments present | `skills/core/scripts/check_rec.py` | Bullet count check ($\ge 3$) |
+| Minimum substance / word density per moment | `skills/core/scripts/check_rec.py` | Word count threshold ($\ge 15$ words) |
+| Declared intended major & earliest deadline date | `skills/core/scripts/check_rec.py` | Regex pattern matching |
+| `request--*.md` has Subject & in-person acknowledgment | `skills/core/scripts/check_rec.py` | Keyword & regex matching |
 | Recommender cross-disciplinary balance (1 STEM + 1 Hum) | Agent / Counselor | Qualitative audit against college list |
 | Genuine intellectual friction vs. empty bragging | Agent / Counselor | Rubric Dimension 3 |
 | Authentic 17-year-old voice (no corporate jargon) | Agent / Counselor | Rubric Dimension 5 |

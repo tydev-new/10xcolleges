@@ -25,7 +25,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 
 def template_lines(fname):
     """Lines of the shipped template — a line the agent left as it was is not a claim."""
-    for root in (os.environ.get("CLAUDE_PLUGIN_ROOT"), os.path.join(HERE, "..")):
+    plugin = os.environ.get("CLAUDE_PLUGIN_ROOT")
+    for root in ((os.path.join(plugin, "skills", "core") if plugin else None),
+                 os.path.join(HERE, "..")):
         if not root:
             continue
         p = os.path.join(root, "templates", "student", fname)

@@ -7,7 +7,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-SCRIPT = Path(__file__).resolve().parent.parent / "scripts" / "check_list.py"
+SCRIPT = Path(__file__).resolve().parent.parent / "skills" / "core" / "scripts" / "check_list.py"
 
 VALID_COLLEGES_MD = """# College list
 

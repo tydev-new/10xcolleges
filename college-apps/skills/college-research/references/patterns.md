@@ -20,8 +20,8 @@ Step 4: Friction & Culture Probe         (CDS B22 retention + Student forums lab
 - **Out-of-state public Cost of Attendance:** `scorecard.py` calculates and reports the non-resident Cost of Attendance (e.g. *Out-of-state students at this public pay roughly $43,393 [Scorecard]*). Use this verified federal figure as the canonical non-resident COA benchmark if university web pages return 404 or provide unverified room/board estimates. Against a $30k budget, ~$41k–$44k (~$43.4k) yields the true ~$11k–$14k gap.
 - **Batching rule:** To respect API limits, resolve UNITIDs first and batch them:
   ```bash
-  python3 "${CLAUDE_PLUGIN_ROOT}/scripts/scorecard.py" search "Purdue"
-  python3 "${CLAUDE_PLUGIN_ROOT}/scripts/scorecard.py" get --unitid 243780,147767
+  python3 "${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/scorecard.py" search "Purdue"
+  python3 "${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/scorecard.py" get --unitid 243780,147767
   ```
 - **Fallback:** If a Scorecard lookup can't be served right now, say so in one plain sentence (no talk of keys or quotas) and proceed immediately to the school's Common Data Set and official aid pages.
 

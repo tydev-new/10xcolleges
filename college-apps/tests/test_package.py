@@ -14,7 +14,7 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(ROOT / "scripts"))
+sys.path.insert(0, str(ROOT / "skills" / "core" / "scripts"))
 
 import build_package as bp  # noqa: E402
 
@@ -157,7 +157,7 @@ class CheckFlag(unittest.TestCase):
         from pathlib import Path
         sd = Path(tempfile.mkdtemp()); (sd / "essays" / "x").mkdir(parents=True)
         (sd / "essays" / "x" / "draft-01.md").write_text("> **STUDENT DRAFT**\n\nhello\n")
-        r = subprocess.run([_sys.executable, str(Path(__file__).parent.parent / "scripts" / "build_package.py"), str(sd), "--check"],
+        r = subprocess.run([_sys.executable, str(Path(__file__).parent.parent / "skills" / "core" / "scripts" / "build_package.py"), str(sd), "--check"],
                            capture_output=True, text=True)
         self.assertEqual(r.returncode, 0, r.stderr)
         self.assertIn("clean", r.stdout)
@@ -168,7 +168,7 @@ class CheckFlag(unittest.TestCase):
         from pathlib import Path
         sd = Path(tempfile.mkdtemp()); (sd / "essays" / "x").mkdir(parents=True)
         (sd / "essays" / "x" / "draft-01.md").write_text("hello\n")
-        r = subprocess.run([_sys.executable, str(Path(__file__).parent.parent / "scripts" / "build_package.py"), str(sd), "--check"],
+        r = subprocess.run([_sys.executable, str(Path(__file__).parent.parent / "skills" / "core" / "scripts" / "build_package.py"), str(sd), "--check"],
                            capture_output=True, text=True)
         self.assertNotEqual(r.returncode, 0)
 

@@ -15,7 +15,7 @@ some freeze at "so what are you looking for?" *"We can do this two ways
 — talk it through, or I give you a worksheet to fill in first and we
 start from your answers. About fifteen minutes, worth doing with a
 parent because the money questions go faster."* Copy
-`${CLAUDE_PLUGIN_ROOT}/templates/criteria-worksheet.md` into their
+`${CLAUDE_PLUGIN_ROOT}/skills/core/templates/criteria-worksheet.md` into their
 folder. If their school already gave them a form, read that — never make
 someone answer the same question twice because it arrived in the wrong
 format.

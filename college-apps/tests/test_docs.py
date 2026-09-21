@@ -14,9 +14,9 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(ROOT / "scripts"))
+sys.path.insert(0, str(ROOT / "skills" / "core" / "scripts"))
 
-DATA_MODEL = (ROOT / "docs" / "data-model.md").read_text()
+DATA_MODEL = (ROOT / "skills" / "core" / "references" / "data-model.md").read_text()
 DESIGN = (ROOT / "docs" / "design.md").read_text()
 
 # The region declaring per-file mutability: the two "Every file" tables. Other tables in
@@ -35,7 +35,7 @@ VALID_CLASSES = {"Append-only", "Immutable", "Fixed-source", "Living", "Index", 
 class ContractCoversWhatWeShip(unittest.TestCase):
     def test_every_template_file_is_in_the_contract(self):
         """A file students receive but the contract omits has undefined mutability."""
-        template = ROOT / "templates" / "student"
+        template = ROOT / "skills" / "core" / "templates" / "student"
         shipped = {
             p.name for p in template.iterdir()
             if p.is_file() and p.suffix in (".md", ".json")
@@ -71,20 +71,23 @@ class ContractMatchesCode(unittest.TestCase):
             ("fill_packet.py", "packet.docx"),
             ("build_package.py", "package.html"),
         ]:
-            src = (ROOT / "scripts" / script).read_text()
+            src = (ROOT / "skills" / "core" / "scripts" / script).read_text()
             self.assertIn(expected, src, f"{script} no longer writes {expected}")
             self.assertTrue(any(expected in p for p in TABLE_PATHS),
                             f"{expected} written by {script} but absent from the contract")
 
     def test_config_path_referenced_by_docs_exists(self):
-        self.assertTrue((ROOT / "config" / "calendar.json").exists())
+        self.assertTrue((ROOT / "skills" / "core" / "config" / "calendar.json").exists())
         self.assertIn("config/calendar.json", DATA_MODEL)
 
     def test_docs_referenced_by_design_all_exist(self):
         for name in re.findall(r"`((?:docs/)?[a-z-]+\.md)`", DESIGN):
             base = name.split("/")[-1]
-            if base in ("data-model.md", "citations.md", "voice.md", "design.md"):
+            if base == "design.md":
                 self.assertTrue((ROOT / "docs" / base).exists(), f"missing docs/{base}")
+            elif base in ("data-model.md", "citations.md", "voice.md"):
+                self.assertTrue((ROOT / "skills" / "core" / "references" / base).exists(),
+                                f"missing skills/core/references/{base}")
 
 
 class SkillsAndDocsAgree(unittest.TestCase):
@@ -105,9 +108,9 @@ class SkillsAndDocsAgree(unittest.TestCase):
 
     def test_enforced_invariants_table_matches_reality(self):
         """Anything the design doc claims is code-enforced must actually be in code."""
-        bp = (ROOT / "scripts" / "build_package.py").read_text()
-        mt = (ROOT / "scripts" / "make_tracker.py").read_text()
-        sc = (ROOT / "scripts" / "scorecard.py").read_text()
+        bp = (ROOT / "skills" / "core" / "scripts" / "build_package.py").read_text()
+        mt = (ROOT / "skills" / "core" / "scripts" / "make_tracker.py").read_text()
+        sc = (ROOT / "skills" / "core" / "scripts" / "scorecard.py").read_text()
         self.assertIn("check_draft_labels", bp, "draft-label enforcement claimed, absent")
         self.assertIn("Unparseable deadline", mt, "deadline enforcement claimed, absent")
         self.assertIn("no Scorecard match for UNITID", sc, "batch warning claimed, absent")

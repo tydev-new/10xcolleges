@@ -5,9 +5,12 @@ description: Coach a student through a college application essay — work out wh
 
 # Essay coaching
 
+> **Shared kit.** Scripts, schemas, templates, and reference docs live in the `core` skill: `${CLAUDE_PLUGIN_ROOT}/skills/core` in Claude Code, or the `core` folder installed next to this skill in any other agent. Read every `${CLAUDE_PLUGIN_ROOT}/skills/core/...` path below as that folder. Scripts need `pip install -r core/requirements.txt`.
+
+
 ## Goal
 
-Coach the student to produce an essay that answers the prompt, captures the authentic voice of a seventeen-year-old with something to say, and is demonstrably their own work. Scored by `references/eval.md`; file schemas in `${CLAUDE_PLUGIN_ROOT}/schemas/essay.md`.
+Coach the student to produce an essay that answers the prompt, captures the authentic voice of a seventeen-year-old with something to say, and is demonstrably their own work. Scored by `references/eval.md`; file schemas in `${CLAUDE_PLUGIN_ROOT}/skills/core/schemas/essay.md`.
 
 | Must be true | Where |
 |---|---|
@@ -23,7 +26,7 @@ Coach the student to produce an essay that answers the prompt, captures the auth
 - **Required:**
   - A working folder with `CLAUDE.md` — none → run `student-intake` Setup first.
   - **Prompt, target, and word count:** Exact prompt text, target institution (or Common App personal statement), and verified word count ceiling with lookup date. Tracked in `essays/<college-slug>--<prompt-slug>/` or `essays/common-app--<prompt-slug>/`. This loop tracks exactly one named essay folder.
-  - Student record: `profile.md` and `conversations.md`. If intended major or core activities are `TODO:`, ask in-stride or apply graceful degradation per `schemas/requirements.md` (e.g. use the 4 behavioral elicitation questions) before drafting.
+  - Student record: `profile.md` and `conversations.md`. If intended major or core activities are `TODO:`, ask in-stride or apply graceful degradation per `skills/core/schemas/requirements.md` (e.g. use the 4 behavioral elicitation questions) before drafting.
 - **Optional:**
   - `research/<college>.md` for why-us supplements and CDS §C7 essay weight.
   - `feedback.md` for teacher or counselor reactions (outranks coach).
@@ -58,7 +61,7 @@ The brief is a sequence (runs once per essay). The essay review is the loop (rep
   4. *Score and review:* Score `N/M` against the rubric, check angle alignment, and write `review-NN.md`.
   5. *Log round history:* Append the round row (`| round | date | N/M | the one big thing | student's choice |`) to `brief.md § Living ### Rounds`.
 - **Moment rules:**
-  1. **A draft is a file before anyone sees it:** Save drafts to `draft-NN.md` with the author marker on line 1, and ensure `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_draft.py students/<slug>` passes before quoting in chat.
+  1. **A draft is a file before anyone sees it:** Save drafts to `draft-NN.md` with the author marker on line 1, and ensure `python3 ${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/check_draft.py students/<slug>` passes before quoting in chat.
   2. **The rubric does not change; the angle may:** Never relax a criterion to fit a draft. Update Living only when an angle drift is genuinely better.
   3. **Point, never fix:** Quote the student's line and explain the issue; never rewrite sentences for them.
   4. **Make nothing up:** Use only facts present in `profile.md`, `conversations.md`, or cited in `research/<college>.md`. Never name colleges or consortium members from memory; illustrate the swap test with "another college's name". Count words accurately with tools.
@@ -74,7 +77,7 @@ The brief is a sequence (runs once per essay). The essay review is the loop (rep
 
 ## State
 
-Owns `students/<slug>/essays/<e>/` (`brief.md`, `draft-NN.md`, `review-NN.md`) — schemas in `${CLAUDE_PLUGIN_ROOT}/schemas/essay.md`. Appends new student material to `conversations.md`. Reads other workspace files via `${CLAUDE_PLUGIN_ROOT}/docs/data-model.md § Every file`.
+Owns `students/<slug>/essays/<e>/` (`brief.md`, `draft-NN.md`, `review-NN.md`) — schemas in `${CLAUDE_PLUGIN_ROOT}/skills/core/schemas/essay.md`. Appends new student material to `conversations.md`. Reads other workspace files via `${CLAUDE_PLUGIN_ROOT}/skills/core/references/data-model.md § Every file`.
 
 **Passes to:**
 - New prompt or deadline → `app-tracker`
@@ -83,7 +86,7 @@ Owns `students/<slug>/essays/<e>/` (`brief.md`, `draft-NN.md`, `review-NN.md`) �
 - Finished essays → `counselor-package`
 
 **Session close:**
-Run `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_draft.py students/<slug>` on EVERY turn before sending any reply. Fix any script FAILs before replying. The cold reader is the only subagent used (a reader, not a checker). Report folder outcomes: brief status, draft number, and review score.
+Run `python3 ${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/check_draft.py students/<slug>` on EVERY turn before sending any reply. Fix any script FAILs before replying. The cold reader is the only subagent used (a reader, not a checker). Report folder outcomes: brief status, draft number, and review score.
 
 ## Guardrails
 

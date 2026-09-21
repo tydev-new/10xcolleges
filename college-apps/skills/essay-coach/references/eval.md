@@ -5,7 +5,7 @@ it got there, and who checks what.
 
 ## Who checks what
 
-- **Structure → `${CLAUDE_PLUGIN_ROOT}/scripts/check_draft.py`** at
+- **Structure → `${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/check_draft.py`** at
   every draft and at close: the author header on the first line, and
   every name, number, and quoted phrase in an agent draft found in
   `profile.md`, `conversations.md`, or `research/`. That is the half of

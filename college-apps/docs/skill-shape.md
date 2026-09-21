@@ -16,8 +16,8 @@ four-item gate). Its **budget** is how many rounds it may take, said up
 front. Its **ceiling** is the sign it is stuck: two rounds with the same
 count. A **moment rule** binds at one step of a round and is stated at
 that step. **Tier 0** is the workspace `CLAUDE.md`, loaded before any
-skill fires (`templates/workspace-CLAUDE.md`). The **registry** is the
-table in `docs/data-model.md § Every file`. The **vault** is the lock on
+skill fires (`skills/core/templates/workspace-CLAUDE.md`). The **registry** is the
+table in `skills/core/references/data-model.md § Every file`. The **vault** is the lock on
 the real workspace during a harness run.
 
 ---
@@ -31,13 +31,13 @@ something goes, ask which question it answers.
 |---|---|---|
 | `SKILL.md` | what to reach, and when each thing runs | whenever the skill fires |
 | `references/eval.md` | how to tell whether you got there, and who checks | at a loop's exit and at session close |
-| `schemas/*.md` | what shape the shared and owned records take | before writing a record |
+| `skills/core/schemas/*.md` | what shape the shared and owned records take | before writing a record |
 | `references/patterns.md` | how to do a specific task well | before the task |
-| `scripts/*.py` | the checks with one right answer | executed, never read into context |
+| `skills/core/scripts/*.py` | the checks with one right answer | executed, never read into context |
 
 **Standard skill layout:** Each skill contains `SKILL.md`, `references/eval.md`,
 `references/patterns.md`, and deterministic scripts (shared or local). Shared
-and owned workspace record definitions live in the central `schemas/` directory.
+and owned workspace record definitions live in the central `skills/core/schemas/` directory.
 A uniform set is what makes drift loud: `kit/tests/test_invariants.py` FAILs a
 skill missing a required file or `eval.md § Who checks what`. **A file's name
 states its scope.** `eval.md` evaluates the whole skill. Narrower content
@@ -154,11 +154,11 @@ wearing the generic name with a hidden narrower scope.
    Omit the part entirely when no consumer bar exists — an empty section
    is noise, not conformance.
 
-## schemas/ — and the parser's three rules
+## skills/core/schemas/ — and the parser's three rules
 
-Holds every record shape in `schemas/*.md`: file templates, row formats, header markers,
+Holds every record shape in `skills/core/schemas/*.md`: file templates, row formats, header markers,
 history rows, lifecycle. `kit/shapecheck.py` (run by
-`kit/tests/test_invariants.py`) **parses schema declarations out of `schemas/*.md`**
+`kit/tests/test_invariants.py`) **parses schema declarations out of `skills/core/schemas/*.md`**
 (and out of `SKILL.md`), so the format is load-bearing:
 
 - A file is declared by `## `name.md` — owned by <skill>` (heading form) or
@@ -176,8 +176,8 @@ Every history file also states its **lifecycle**: created when, written
 by whom, **read by whom before scoring**, never pruned (essay-coach's
 `brief.md § Rounds`).
 
-**The data-model registry.** `docs/data-model.md § Every file` names one
-owner per student file and links the section of `schemas/<file>.md`
+**The data-model registry.** `skills/core/references/data-model.md § Every file` names one
+owner per student file and links the section of `skills/core/schemas/<file>.md`
 that holds its shape. Readers take the shape from that link, never from
 a copy. `tests/test_data_model.py` FAILs an owner's row without
 the link, a link that does not resolve, a schema with no section for
@@ -199,8 +199,8 @@ How-to guidance the loops reach for. Two sections are required:
 ## Shared references — the fourth kind
 
 Some references are **cross-skill contracts**, not one skill's
-technique. Here they live at the plugin root — `docs/voice.md`,
-`docs/citations.md`, `docs/data-model.md` — read by every skill. A
+technique. Here they live at the plugin root — `skills/core/references/voice.md`,
+`skills/core/references/citations.md`, `skills/core/references/data-model.md` — read by every skill. A
 hosted contract is labeled as such at the top; it never folds into a
 host's `patterns.md`, and it moves only with all its consumers rewired
 in the same commit.
@@ -209,7 +209,7 @@ in the same commit.
 work — the own-work sentence, college facts only from `research/`, a
 draft is a file before it is shown — goes in the workspace `CLAUDE.md`,
 not in one skill. Earned here: three rounds of 0/2 on e1 until the
-lines moved there. The template is `templates/workspace-CLAUDE.md`, v1;
+lines moved there. The template is `skills/core/templates/workspace-CLAUDE.md`, v1;
 nothing yet refreshes a copy already in a user's folder.
 
 ## Converting a skill — the procedure
@@ -229,7 +229,7 @@ they taught.
    `tests/always-on/results/`, superseded design docs, banner-marked):
    they describe what WAS and are never rewired. Then sweep **section
    names too**: `§` pointers and "below" references break without any
-   filename changing, and `docs/data-model.md` links to schema sections
+   filename changing, and `skills/core/references/data-model.md` links to schema sections
    by exact name.
 4. **Token-preservation check, mechanical**: every backticked token,
    ALL-CAPS word, and quoted phrase from the old files, grepped against
@@ -247,10 +247,10 @@ they taught.
    skill's script against a planted workspace; **compare the schema
    count against what you expect** (§ schema.md above). Growth into the
    loaded tier is the shape's known cost — reported, never discovered.
-7. Add or update the registry row in `docs/data-model.md § Every file`
+7. Add or update the registry row in `skills/core/references/data-model.md § Every file`
    for every file the skill owns — owner, schema link — and confirm
    `tests/test_data_model.py` is green.
-8. If the conversion touched `templates/workspace-CLAUDE.md`, say so in
+8. If the conversion touched `skills/core/templates/workspace-CLAUDE.md`, say so in
    the commit; copies already in users' folders do not refresh.
 9. **Measure before calling it done**: the skill's harness cases,
    TRIALS=2, against the recorded baseline. A restructure that scores

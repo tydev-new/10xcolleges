@@ -20,7 +20,7 @@ A college list is evaluated against five dimensions. Every round of list buildin
 
 ## Who checks what
 
-1. **`python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_list.py students/<slug>` (Deterministic Script):**
+1. **`python3 ${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/check_list.py students/<slug>` (Deterministic Script):**
    - Verifies `colleges.md` structure, headers, and standard fields (`Why it's here`, `The numbers`, `The money`, `Watch out for`, `Deadline`).
    - Verifies that "Why it's here" uses descriptive human words rather than cryptic codes alone.
    - Computes tier counts and warns if Safeties or Targets are zero, or if total count is outside 6–15.

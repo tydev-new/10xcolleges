@@ -1,0 +1,4 @@
+openpyxl
+python-docx
+requests
+markdown

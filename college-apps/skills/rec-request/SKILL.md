@@ -5,9 +5,12 @@ description: Plan recommendation letters — pick which teachers to ask, audit f
 
 # Recommendation Letters — Strategy, Brag Sheets & Requests
 
+> **Shared kit.** Scripts, schemas, templates, and reference docs live in the `core` skill: `${CLAUDE_PLUGIN_ROOT}/skills/core` in Claude Code, or the `core` folder installed next to this skill in any other agent. Read every `${CLAUDE_PLUGIN_ROOT}/skills/core/...` path below as that folder. Scripts need `pip install -r core/requirements.txt`.
+
+
 ## Goal
 
-Build `students/<slug>/recs/brag-sheet--<teacher-slug>.md` and `request--<teacher-slug>.md` for each recommender — **every brag sheet equipped with three concrete classroom moments from that teacher's room, every request grounded in an in-person conversation, every deadline verified, and FERPA access irrevocably waived** — validated deterministically by `scripts/check_rec.py`, evaluated qualitatively by `references/eval.md`, with schema in `${CLAUDE_PLUGIN_ROOT}/schemas/recs.md`.
+Build `students/<slug>/recs/brag-sheet--<teacher-slug>.md` and `request--<teacher-slug>.md` for each recommender — **every brag sheet equipped with three concrete classroom moments from that teacher's room, every request grounded in an in-person conversation, every deadline verified, and FERPA access irrevocably waived** — validated deterministically by `skills/core/scripts/check_rec.py`, evaluated qualitatively by `references/eval.md`, with schema in `${CLAUDE_PLUGIN_ROOT}/skills/core/schemas/recs.md`.
 
 | Must be true | Where |
 |---|---|
@@ -55,12 +58,12 @@ Build `students/<slug>/recs/brag-sheet--<teacher-slug>.md` and `request--<teache
      - *Moment 2 (Classroom Dialogue):* A seminar debate, provocative question, or intellectual risk.
      - *Moment 3 (Peer Generosity / Build):* Voluntary peer tutoring or lab apparatus iteration.
   2. *Draft the In-Person Script:* Write a natural, 3-sentence spoken script for the student to ask the teacher face-to-face at 3:15 PM, giving them a gracious out.
-  3. *Draft `brag-sheet--<teacher>.md`:* Format strictly according to `schemas/recs.md`.
+  3. *Draft `brag-sheet--<teacher>.md`:* Format strictly according to `skills/core/schemas/recs.md`.
   4. *Draft `request--<teacher>.md`:* Follow-up email sent within 2 hours of the in-person agreement, confirming deadlines, Common App invitation, and attachments.
   5. *Validate:* Run `check_rec.py`.
 
 ```bash
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/check_rec.py" students/<slug>/recs/
+python3 "${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/check_rec.py" students/<slug>/recs/
 ```
 
 ### Phase 3: Relational Lifecycle & Accountability (Sequence)
@@ -69,7 +72,7 @@ python3 "${CLAUDE_PLUGIN_ROOT}/scripts/check_rec.py" students/<slug>/recs/
 
 1. **Record in Meta:** Add recommenders to `meta.json` under `recommenders` (`asked`, `agreed`, `brag_sheet_sent`, `submitted`, `thanked`) and regenerate the tracker:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/make_tracker.py" students/<slug>
+   python3 "${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/make_tracker.py" students/<slug>
    ```
 2. **2 Weeks Before Deadline:** If unsubmitted, draft a gentle, appreciative check-in note (Pattern § 7). Never push or badger.
 3. **Post-Submission Gratitude:** Prompt the student to deliver a **handwritten thank-you card** to the teacher's classroom.
@@ -79,7 +82,7 @@ python3 "${CLAUDE_PLUGIN_ROOT}/scripts/check_rec.py" students/<slug>/recs/
 
 ## State
 
-Owns `students/<slug>/recs/brag-sheet--<t>.md` and `students/<slug>/recs/request--<t>.md` — schema in `${CLAUDE_PLUGIN_ROOT}/schemas/recs.md`. Appends to `conversations.md`.
+Owns `students/<slug>/recs/brag-sheet--<t>.md` and `students/<slug>/recs/request--<t>.md` — schema in `${CLAUDE_PLUGIN_ROOT}/skills/core/schemas/recs.md`. Appends to `conversations.md`.
 
 ---
 
@@ -95,7 +98,7 @@ Owns `students/<slug>/recs/brag-sheet--<t>.md` and `students/<slug>/recs/request
 ## Session Close
 
 Before replying to the student on EVERY turn:
-1. **Run `check_rec.py` Last:** Execute `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_rec.py students/<slug>/recs/` as the absolute final tool call after any edits. Fix any script FAILs before replying.
+1. **Run `check_rec.py` Last:** Execute `python3 ${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/check_rec.py students/<slug>/recs/` as the absolute final tool call after any edits. Fix any script FAILs before replying.
 2. **Synchronize FERPA Status:** When drafting the follow-up email asserting the waiver is done, confirm that `brag-sheet--<teacher>.md § Logistics & Submission` explicitly states `- **FERPA status:** Confirmed waived in Common App`.
 3. **Common App Portal Navigation:** Instruct the student to navigate to **My Colleges → [College Name] → Recommenders and FERPA** (not the general profile/education tab) to complete the electronic FERPA waiver and assign recommenders.
-4. **Tracker Sync:** When recommenders are recorded in `meta.json`, regenerate the tracker via `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/make_tracker.py students/<slug>`.
+4. **Tracker Sync:** When recommenders are recorded in `meta.json`, regenerate the tracker via `python3 ${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/make_tracker.py students/<slug>`.

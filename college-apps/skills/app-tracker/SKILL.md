@@ -5,17 +5,20 @@ description: Build and maintain the application tracker spreadsheet — deadline
 
 # Application Tracker
 
-Build and maintain the operational command center for a student's college application campaign. Read `${CLAUDE_PLUGIN_ROOT}/docs/voice.md`.
+> **Shared kit.** Scripts, schemas, templates, and reference docs live in the `core` skill: `${CLAUDE_PLUGIN_ROOT}/skills/core` in Claude Code, or the `core` folder installed next to this skill in any other agent. Read every `${CLAUDE_PLUGIN_ROOT}/skills/core/...` path below as that folder. Scripts need `pip install -r core/requirements.txt`.
 
-The tracker is `students/<slug>/out/tracker.xlsx`, compiled deterministically from `meta.json` and `${CLAUDE_PLUGIN_ROOT}/config/calendar.json`. It is strictly a **Derived** artifact — never hand-edit the `.xlsx` file directly; all updates are made to `meta.json` and regenerated.
+
+Build and maintain the operational command center for a student's college application campaign. Read `${CLAUDE_PLUGIN_ROOT}/skills/core/references/voice.md`.
+
+The tracker is `students/<slug>/out/tracker.xlsx`, compiled deterministically from `meta.json` and `${CLAUDE_PLUGIN_ROOT}/skills/core/config/calendar.json`. It is strictly a **Derived** artifact — never hand-edit the `.xlsx` file directly; all updates are made to `meta.json` and regenerated.
 
 ```bash
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/make_tracker.py" students/<slug>
+python3 "${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/make_tracker.py" students/<slug>
 ```
 
 - **Standards & Rubrics:** Read `${CLAUDE_PLUGIN_ROOT}/skills/app-tracker/references/eval.md`.
 - **Master Counseling Protocols:** Read `${CLAUDE_PLUGIN_ROOT}/skills/app-tracker/references/patterns.md`.
-- **Workbook Schema:** Read `${CLAUDE_PLUGIN_ROOT}/schemas/tracker.md`.
+- **Workbook Schema:** Read `${CLAUDE_PLUGIN_ROOT}/skills/core/schemas/tracker.md`.
 
 ---
 
@@ -27,7 +30,7 @@ Whenever `colleges.md` changes or a deadline is updated:
 2. Audit for earlier **Scholarship Priority Deadlines** (Pattern § 1) and note them in the college record.
 3. Regenerate the workbook:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/make_tracker.py" students/<slug>
+   python3 "${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/make_tracker.py" students/<slug>
    ```
 
 ### 2. Trigger: Status Progress ("What's due next?", "I submitted!")
@@ -52,7 +55,7 @@ Novices look only at the final application deadline. Master counselors track fou
 - Common App servers experience severe slowdowns and payment gateway failures on deadline nights. Time-zone misunderstandings (EST vs. local time) cause fatal rejections. The student finishes one week early; the final 7 days are purely for portal transmission, payment clearance, and peace of mind.
 
 ### 3. Backwards Scheduling & Compression Math
-- Backwards planning steps (recommenders at 9 weeks, supplements drafted at 6, revised at 4, counselor letter at 3, proofreading at 2, submit) live in `config/calendar.json`.
+- Backwards planning steps (recommenders at 9 weeks, supplements drafted at 6, revised at 4, counselor letter at 3, proofreading at 2, submit) live in `skills/core/config/calendar.json`.
 - **Compression:** If runway < 10 weeks, `make_tracker.py` compresses tasks proportionally into remaining days.
 - **Extreme Crunch (< 3 weeks):** Execute cognitive triage (Pattern § 5): pick 1 Safety + 1 Target for EA; move remaining schools to Regular Decision.
 
@@ -77,9 +80,9 @@ Don't narrate the spreadsheet rows. Present an actionable, high-clarity summary:
 
 ## State
 
-Owns `students/<slug>/out/tracker.xlsx` — schema in `${CLAUDE_PLUGIN_ROOT}/schemas/tracker.md`. Generated from the student metadata index and `${CLAUDE_PLUGIN_ROOT}/config/calendar.json`.
+Owns `students/<slug>/out/tracker.xlsx` — schema in `${CLAUDE_PLUGIN_ROOT}/skills/core/schemas/tracker.md`. Generated from the student metadata index and `${CLAUDE_PLUGIN_ROOT}/skills/core/config/calendar.json`.
 
-Appends to `conversations.md`. Maintains `meta.json` (`colleges[]`, `recommenders[]`, `key_dates[]`) — schema in `${CLAUDE_PLUGIN_ROOT}/schemas/meta.md`.
+Appends to `conversations.md`. Maintains `meta.json` (`colleges[]`, `recommenders[]`, `key_dates[]`) — schema in `${CLAUDE_PLUGIN_ROOT}/skills/core/schemas/meta.md`.
 
 ---
 
@@ -98,7 +101,7 @@ Appends to `conversations.md`. Maintains `meta.json` (`colleges[]`, `recommender
 Before replying to the student on EVERY turn:
 1. **Regenerate Tracker:** Execute:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/make_tracker.py" students/<slug>
+   python3 "${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/make_tracker.py" students/<slug>
    ```
 2. **Verify Output on Disk:** Confirm `students/<slug>/out/tracker.xlsx` was generated cleanly.
 3. **Render Inline Executive Dashboard:** Output a clean Markdown table in chat summarizing:

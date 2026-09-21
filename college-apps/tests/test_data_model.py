@@ -10,9 +10,9 @@ import re
 import unittest
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-DM = os.path.join(ROOT, "docs", "data-model.md")
+DM = os.path.join(ROOT, "skills", "core", "references", "data-model.md")
 SKILLS = os.path.join(ROOT, "skills")
-SCHEMAS = os.path.join(ROOT, "schemas")
+SCHEMAS = os.path.join(ROOT, "skills", "core", "schemas")
 
 
 def registry():
@@ -89,8 +89,8 @@ class Registry(unittest.TestCase):
                 self.assertTrue(used <= allowed, f"{sf} lists tags not in data-model § Provenance: {used - allowed}")
 
     def test_workspace_template_names_the_data_model(self):
-        t = open(os.path.join(ROOT, "templates", "workspace-CLAUDE.md"), encoding="utf-8").read()
-        self.assertIn("docs/data-model.md", t)
+        t = open(os.path.join(ROOT, "skills", "core", "templates", "workspace-CLAUDE.md"), encoding="utf-8").read()
+        self.assertIn("skills/core/references/data-model.md", t)
         self.assertIn("owns each file", t)
 
 

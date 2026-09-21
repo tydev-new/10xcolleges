@@ -13,7 +13,7 @@ riding on it.
 | shapev1 | 36641dc — skeleton, four moment rules | 2/2 | no — both asked for material; both offered uncited Pomona features (soft) | |
 | shapev2 | + the independent review's 16 fixes (six rules) | 0/2 | **yes** — t1 ran Mode C "properly" and invented a customer, a feeling, a Pomona lab by name | rules 5–6 described Mode C as a path; the agent took it |
 | shapev3 | + "no chosen angle → no draft", "no college feature from memory" | 0/3 | **yes** — t3 wrote an unlabeled draft, in the reply only, with a fake source link | more rules, less compliance |
-| codev1 | `scripts/check_draft.py` + rule 1 "a draft is a file before it is shown" + the Tier-0 line | 1/3 | **no** — two trials researched Pomona with sources instead; the script ran in all three | the stratum changed |
+| codev1 | `skills/core/scripts/check_draft.py` + rule 1 "a draft is a file before it is shown" + the Tier-0 line | 1/3 | **no** — two trials researched Pomona with sources instead; the script ran in all three | the stratum changed |
 
 **What the pilot settled**
 

@@ -5,6 +5,9 @@ description: Pass along what the user thinks of 10xcolleges — what worked, wha
 
 # Feedback — hearing how it's going
 
+> **Shared kit.** Scripts, schemas, templates, and reference docs live in the `core` skill: `${CLAUDE_PLUGIN_ROOT}/skills/core` in Claude Code, or the `core` folder installed next to this skill in any other agent. Read every `${CLAUDE_PLUGIN_ROOT}/skills/core/...` path below as that folder. Scripts need `pip install -r core/requirements.txt`.
+
+
 ## Goal
 
 Get one honest, user-written note about the tool to the team, with the user's explicit
@@ -23,7 +26,7 @@ yes, and nothing else attached — scored by `references/eval.md`.
 ## Prerequisites
 
 - None. Works without a student workspace; nothing is read from `students/`.
-- Script: `${CLAUDE_PLUGIN_ROOT}/scripts/feedback.py` (needs `requests`).
+- Script: `${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/feedback.py` (needs `requests`).
 
 ---
 
@@ -38,7 +41,7 @@ suggestion — or answers another skill's one-line check-in.
    not as a change to the student's plan.
 2. Build the payload with `--dry-run` and show it verbatim:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/feedback.py" --skill <skill> --stage <stage> [--rating N] --comment "<their words>" --dry-run
+   python3 "${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/feedback.py" --skill <skill> --stage <stage> [--rating N] --comment "<their words>" --dry-run
    ```
    `<skill>` and `<stage>` are whatever just ran (`college-list`, `2`); if nothing ran,
    leave them empty. Rating only if they gave one.

@@ -37,8 +37,10 @@ def redact(text):
 
 
 def version():
-    for cand in (Path(os.environ.get("CLAUDE_PLUGIN_ROOT", "")) / ".claude-plugin" / "plugin.json",
-                 Path(__file__).resolve().parent.parent / ".claude-plugin" / "plugin.json"):
+    here = Path(__file__).resolve()
+    cands = [Path(os.environ.get("CLAUDE_PLUGIN_ROOT", "")) / ".claude-plugin" / "plugin.json"]
+    cands += [p / ".claude-plugin" / "plugin.json" for p in here.parents[:5]]
+    for cand in cands:
         try:
             return str(json.loads(cand.read_text()).get("version", "unknown"))[:20]
         except (OSError, ValueError):

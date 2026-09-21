@@ -5,9 +5,12 @@ description: Discover, validate, and strategically select college majors and adj
 
 # Major Fit — intellectual direction & strategy
 
+> **Shared kit.** Scripts, schemas, templates, and reference docs live in the `core` skill: `${CLAUDE_PLUGIN_ROOT}/skills/core` in Claude Code, or the `core` folder installed next to this skill in any other agent. Read every `${CLAUDE_PLUGIN_ROOT}/skills/core/...` path below as that folder. Scripts need `pip install -r core/requirements.txt`.
+
+
 ## Goal
 
-Build `students/<slug>/academic-direction.md` and sync `profile.md § Goals and direction` — **every claim grounded in transcript coursework and student flow, every alternative evaluated against institutional transfer reality, every insight tagged with its source** — scored by `references/eval.md`; file schema in `${CLAUDE_PLUGIN_ROOT}/schemas/academic-direction.md`.
+Build `students/<slug>/academic-direction.md` and sync `profile.md § Goals and direction` — **every claim grounded in transcript coursework and student flow, every alternative evaluated against institutional transfer reality, every insight tagged with its source** — scored by `references/eval.md`; file schema in `${CLAUDE_PLUGIN_ROOT}/skills/core/schemas/academic-direction.md`.
 
 | Must be true | Where |
 |---|---|
@@ -23,7 +26,7 @@ Build `students/<slug>/academic-direction.md` and sync `profile.md § Goals and 
 ## Prerequisites
 
 - **Required:** `students/<slug>/profile.md` (coursework, grades, activities, reflections) and `conversations.md`.
-- Output: `students/<slug>/academic-direction.md` following `schemas/academic-direction.md`.
+- Output: `students/<slug>/academic-direction.md` following `skills/core/schemas/academic-direction.md`.
 - Synchronizes with: `profile.md § Goals and direction` (`Intended major`, `How sure are they?`).
 
 ---
@@ -50,7 +53,7 @@ Build `students/<slug>/academic-direction.md` and sync `profile.md § Goals and 
   1. *Identify Primary & Adjacent Majors:* Map the core flow to a primary major, plus at least two high-leverage adjacent majors (e.g. Cognitive Science or Informatics for CS; Operations Research or Applied Economics for Finance; Public Health or Neuroscience for Pre-Med).
   2. *Audit Institutional Realities:* Flag direct-admit pre-major gates (e.g. Purdue FYE) and transfer lockouts (e.g. UIUC/Washington CS/Engineering) where backdoor major transfers are impossible.
   3. *Capture the Essay Red Thread:* Elicit the student's authentic origin spark, a memorable friction moment, and an unresolved question for upcoming "Why Major" supplemental essays.
-  4. *Write/Update Dossier:* Write `students/<slug>/academic-direction.md` following `schemas/academic-direction.md`.
+  4. *Write/Update Dossier:* Write `students/<slug>/academic-direction.md` following `skills/core/schemas/academic-direction.md`.
   5. *Sync Profile:* Update `- **Intended major:**` and `- **How sure are they?**` in `profile.md § Goals and direction` with `[student YYYY-MM-DD]`.
 - **Seven moment rules:**
   1. **Never ask "What do you want to be when you grow up?":** Ask the Sunday night flow test instead — which subject absorbs them when no one is grading them?
@@ -59,14 +62,14 @@ Build `students/<slug>/academic-direction.md` and sync `profile.md § Goals and 
   4. **Always provide at least two adjacent majors:** Introduce high-value, lower-crowded alternatives that lead to identical career or graduate outcomes.
   5. **Respect genuine undecidedness:** If a student is undecided, focus on un-siloed liberal arts colleges and universities (where exploring is built-in) rather than siloed technical flagships.
   6. **Sync profile and conversations immediately:** Keep `profile.md` and `conversations.md` aligned with the student's latest stated direction.
-  7. **Run `check_major.py` last:** Execute `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_major.py students/<slug>/academic-direction.md` as the absolute final tool call before replying.
+  7. **Run `check_major.py` last:** Execute `python3 ${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/check_major.py students/<slug>/academic-direction.md` as the absolute final tool call before replying.
 - **Exits** when `academic-direction.md` passes `check_major.py`, primary and adjacent majors are agreed upon, and `profile.md` is updated. Ceiling: two rounds with unchanged adjacent recommendations.
 
 ---
 
 ## State
 
-Owns `students/<slug>/academic-direction.md` — schema in `${CLAUDE_PLUGIN_ROOT}/schemas/academic-direction.md`. Appends to `conversations.md` and updates `profile.md § Goals and direction`.
+Owns `students/<slug>/academic-direction.md` — schema in `${CLAUDE_PLUGIN_ROOT}/skills/core/schemas/academic-direction.md`. Appends to `conversations.md` and updates `profile.md § Goals and direction`.
 
 **Passes to:**
 - Primary and adjacent majors → `college-list` for departmental selectivity tiering
@@ -79,5 +82,5 @@ Owns `students/<slug>/academic-direction.md` — schema in `${CLAUDE_PLUGIN_ROOT
 
 Before replying to the student on EVERY turn:
 1. Sync `profile.md` and `conversations.md`.
-2. Run `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_major.py students/<slug>/academic-direction.md` as the absolute final tool call. Fix any script FAILs before replying. Never reply without running `check_major.py` last.
+2. Run `python3 ${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/check_major.py students/<slug>/academic-direction.md` as the absolute final tool call. Fix any script FAILs before replying. Never reply without running `check_major.py` last.
 3. Every reply ends with ONE next step and its why. No checker subagent runs because intellectual direction belongs to the student.
