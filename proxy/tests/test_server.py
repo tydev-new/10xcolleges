@@ -155,5 +155,78 @@ class Feedback(Base):
         server.FEEDBACK_PER_CLIENT_HOUR = 10
 
 
+class SupabaseStore(Base):
+    """With SUPABASE_URL + key set, feedback and usage go to Postgres via REST."""
+
+    def setUp(self):
+        super().setUp()
+        server.SUPABASE_URL = "https://x.supabase.co"; server.SUPABASE_SERVICE_KEY = "svc"
+        server._fb_hits.clear()
+
+    def tearDown(self):
+        server.SUPABASE_URL = ""; server.SUPABASE_SERVICE_KEY = ""
+
+    def test_feedback_inserts_row_and_never_touches_the_file(self):
+        with mock.patch.object(server, "sb_insert", mock.AsyncMock(return_value=True)) as ins, \
+             mock.patch("builtins.open", side_effect=AssertionError("file used")):
+            r = self.client.post("/v1/feedback", json={"comment": "hi", "rating": 4, "skill": "x",
+                                                       "student_name": "Maya"})
+        self.assertEqual(r.status_code, 201)
+        table, row = ins.call_args.args
+        self.assertEqual(table, server.FEEDBACK_TABLE)
+        self.assertEqual(row["comment"], "hi"); self.assertEqual(row["rating"], 4)
+        self.assertNotIn("student_name", row)
+
+    def test_feedback_store_failure_is_500_not_silent(self):
+        with mock.patch.object(server, "sb_insert", mock.AsyncMock(return_value=False)):
+            self.assertEqual(self.client.post("/v1/feedback", json={"comment": "hi"}).status_code, 500)
+
+    def test_readback_comes_from_supabase(self):
+        with mock.patch.object(server, "sb_select", mock.AsyncMock(return_value=[{"comment": "a"}])) as sel:
+            r = self.client.get("/v1/feedback?n=7", headers={"Authorization": "Bearer admin-secret"})
+        self.assertEqual(r.json()["count"], 1)
+        self.assertIn("limit=7", sel.call_args.args[1])
+
+    def test_usage_row_for_get_and_for_search(self):
+        with mock.patch.object(server, "upstream_get", mock.AsyncMock(return_value=fake_response())), \
+             mock.patch.object(server, "sb_insert", mock.AsyncMock(return_value=True)) as ins:
+            self.client.get("/v1/schools?id=170976,201645&fields=id", headers={"X-Client-Id": "abc"})
+            self.client.get("/v1/schools?school.name=Purdue&per_page=5")
+        rows = [c.args[1] for c in ins.call_args_list if c.args[0] == server.USAGE_TABLE]
+        self.assertEqual(len(rows), 2)
+        self.assertEqual(rows[0]["kind"], "get"); self.assertEqual(rows[0]["unitids"], ["170976", "201645"])
+        self.assertEqual(rows[0]["client_id"], "abc"); self.assertEqual(rows[0]["cache"], "miss")
+        self.assertEqual(rows[1]["kind"], "search"); self.assertEqual(rows[1]["search_name"], "Purdue")
+        self.assertIsNone(rows[1]["client_id"])          # IP callers are not recorded
+
+    def test_usage_failure_never_affects_the_lookup(self):
+        with mock.patch.object(server, "upstream_get", mock.AsyncMock(return_value=fake_response())), \
+             mock.patch.object(server, "sb_insert", mock.AsyncMock(return_value=False)):
+            r = self.client.get("/v1/schools?id=1")
+        self.assertEqual(r.status_code, 200)
+
+    def test_cache_hit_is_recorded_as_hit(self):
+        with mock.patch.object(server, "upstream_get", mock.AsyncMock(return_value=fake_response())), \
+             mock.patch.object(server, "sb_insert", mock.AsyncMock(return_value=True)) as ins:
+            self.client.get("/v1/schools?id=1"); self.client.get("/v1/schools?id=1")
+        self.assertEqual([c.args[1]["cache"] for c in ins.call_args_list], ["miss", "hit"])
+
+    def test_sb_insert_sends_service_key_headers(self):
+        sent = {}
+        class FakeClient:
+            def __init__(self, **kw): pass
+            async def __aenter__(self): return self
+            async def __aexit__(self, *a): pass
+            async def post(self, url, json=None, headers=None):
+                sent.update(url=url, headers=headers); return httpx.Response(201)
+        import asyncio
+        with mock.patch.object(server.httpx, "AsyncClient", FakeClient):
+            ok = asyncio.run(server.sb_insert("feedback", {"comment": "x"}))
+        self.assertTrue(ok)
+        self.assertEqual(sent["url"], "https://x.supabase.co/rest/v1/feedback")
+        self.assertEqual(sent["headers"]["apikey"], "svc")
+        self.assertEqual(sent["headers"]["Prefer"], "return=minimal")
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
