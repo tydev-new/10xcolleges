@@ -118,23 +118,35 @@ students/<name>/
 
 ## Installation
 
-### In Claude Cowork
-
-1. Open **Customize** in the sidebar, then **Plugins**.
-2. Select **Add marketplace** and enter:
-   ```
-   tydev-new/10xcolleges
-   ```
-3. **College Applications** appears in the list. Click **Install**.
-
-The skills load automatically and activate whenever you discuss college planning, essays, research, or deadlines.
-
-### In Claude Code
+**Claude Code** — one line in any terminal, then it's there in every session:
 
 ```bash
-/plugin marketplace add tydev-new/10xcolleges
-/plugin install college-apps@10xcolleges
+claude plugin marketplace add tydev-new/10xcolleges && claude plugin install college-apps@10xcolleges
 ```
+
+**Claude Cowork** — Customize → Plugins → Add marketplace → enter `tydev-new/10xcolleges` → Install.
+
+**Codex, Gemini CLI, Cursor and other agents that read Agent Skills** — one line installs all
+twelve skills, including the shared `core` kit with the checkers and generators:
+
+```bash
+npx skills add tydev-new/10xcolleges
+```
+
+**ChatGPT Work** — Skills → Create → Upload, one skill folder at a time from
+[`college-apps/skills/`](college-apps/skills/), `core` included.
+**Gemini Spark** — paste a skill's `SKILL.md` text into its skill setup; scripts don't run there.
+
+The Python scripts need `pip install -r college-apps/skills/core/requirements.txt`; in Claude Code
+the skills install what's missing the first time a script needs it. Scorecard lookups need no key —
+they go through the shared proxy below.
+
+### If you just pasted this link into an AI assistant
+
+Then the assistant is reading this page, not installing anything. Point it at
+[`BOOTSTRAP.md`](BOOTSTRAP.md) — one generated file with every skill's instructions and an honest
+note about what doesn't run in a chat window (the checkers, the Scorecard lookup). That gets a
+faithful one-conversation counselor; a real install above gets the verified one.
 
 ---
 

@@ -128,3 +128,13 @@ class FencesAreBalanced(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
+
+class BootstrapIsCurrent(unittest.TestCase):
+    """BOOTSTRAP.md is what an assistant reads from a pasted link; it must match the skills."""
+
+    def test_bootstrap_matches_skills(self):
+        import subprocess, sys as _sys
+        r = subprocess.run([_sys.executable, str(ROOT / "skills" / "core" / "scripts" / "make_bootstrap.py"), "--check"],
+                           capture_output=True, text=True)
+        self.assertEqual(r.returncode, 0, r.stderr)
