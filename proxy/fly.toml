@@ -20,10 +20,6 @@ primary_region = "iad"
     method = "GET"
     path = "/healthz"
 
-[mounts]
-  source = "feedback"
-  destination = "/data"
-
 [[vm]]
   size = "shared-cpu-1x"
   memory = "256mb"
