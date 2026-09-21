@@ -32,7 +32,7 @@ Build an investigative, cited research dossier on a single college, evaluating i
 
 **Runs when** asked to research a college or when list building/essay coaching requires factual grounding.
 
-1. **Federal Scorecard:** Query `scorecard.py search` and batch `scorecard.py get --unitid` for federal net price by income, student debt, and completion rates. (If quota exhausted, proceed to CDS/institutional pages).
+1. **Federal Scorecard:** Query `scorecard.py search` and batch `scorecard.py get --unitid` for federal net price by income, student debt, and completion rates. (If a lookup can't be served right now, proceed to CDS/institutional pages.)
 2. **Common Data Set (CDS):** Look up the school's latest CDS:
    - Section C1 (admit rate) and Section C9 (enrolled middle 50% SAT/ACT and % submitting scores).
    - Section C7 (what the school weighs: rigor, GPA, essays, demonstrated interest, and decision plan leverage).
