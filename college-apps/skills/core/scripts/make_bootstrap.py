@@ -38,6 +38,7 @@ What you can and cannot do here, said plainly to the person:
    - Claude Code, one line: `claude plugin marketplace add tydev-new/10xcolleges && claude plugin install college-apps@10xcolleges`
    - Claude Cowork: Customize → Plugins → Add marketplace → `tydev-new/10xcolleges` → Install
    - Codex, Gemini CLI and other agents that read Agent Skills: `npx skills add tydev-new/10xcolleges`
+   - Gemini Spark: upload each skill folder as a .zip on the Skills page (scripts can't reach the web there)
 4. Everything else in the skills applies unchanged: the student's essay is theirs, no
    made-up percentages, affordability is fit, plain language, one next step at a time.
 

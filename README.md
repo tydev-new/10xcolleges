@@ -127,15 +127,28 @@ claude plugin marketplace add tydev-new/10xcolleges && claude plugin install col
 **Claude Cowork** — Customize → Plugins → Add marketplace → enter `tydev-new/10xcolleges` → Install.
 
 **Codex, Gemini CLI, Cursor and other agents that read Agent Skills** — one line installs all
-twelve skills, including the shared `core` kit with the checkers and generators:
+twelve skills, including the shared `core` kit with the checkers and generators, into the
+agents it finds on your machine (`-a codex`, `-a gemini-cli`, … to choose):
 
 ```bash
 npx skills add tydev-new/10xcolleges
 ```
 
-**ChatGPT Work** — Skills → Create → Upload, one skill folder at a time from
-[`college-apps/skills/`](college-apps/skills/), `core` included.
-**Gemini Spark** — paste a skill's `SKILL.md` text into its skill setup; scripts don't run there.
+Codex reads `.agents/skills` in a repo and `~/.agents/skills`; Gemini CLI reads the same
+paths (also `~/.gemini/skills`), or install one skill at a time with
+`gemini skills install https://github.com/tydev-new/10xcolleges.git --path college-apps/skills/<name>`.
+
+**Gemini Spark** — on the Skills page choose *Upload a file* and upload a `.zip` of a skill
+folder with `SKILL.md` at its root, one skill per zip, `core` included. Needs Google AI Pro or
+Ultra. Scripts run but can't reach external websites, so the Scorecard lookup won't work there.
+
+**ChatGPT** — OpenAI's docs put standalone skills in the ChatGPT desktop app (Skills in the
+sidebar), Codex CLI, and the IDE extension; in ChatGPT Work, skills arrive bundled in plugins.
+We haven't verified a folder-upload path, so use Codex (above) or the desktop app's Skills page.
+
+*Verified 2026-09-21 against the vendors' docs: [Cowork plugins](https://claude.com/docs/cowork/guide/plugins),
+[OpenAI skills](https://learn.chatgpt.com/docs/build-skills), [Gemini CLI skills](https://geminicli.com/docs/cli/skills/),
+[Gemini Apps skills](https://support.google.com/gemini/answer/17094296), [skills CLI](https://github.com/vercel-labs/skills).*
 
 The Python scripts need `pip install -r college-apps/skills/core/requirements.txt`; in Claude Code
 the skills install what's missing the first time a script needs it. Scorecard lookups need no key —
