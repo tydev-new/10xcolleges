@@ -92,6 +92,7 @@ python3 "${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/scorecard.py" quota
 python3 "${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/make_tracker.py" students/<slug>
 python3 "${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/fill_packet.py" students/<slug>
 python3 "${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/build_package.py" students/<slug> --pdf
+python3 "${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/make_bootstrap.py"   # regenerate BOOTSTRAP.md after editing any SKILL.md
 python3 "${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/feedback.py" --skill <skill> --stage <n> --comment "..." --dry-run   # show; drop --dry-run to send
 ```
 
