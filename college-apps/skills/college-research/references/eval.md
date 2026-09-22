@@ -19,7 +19,7 @@ A research dossier in `students/<slug>/research/<college-slug>.md` is evaluated 
 
 ## Who Checks What
 
-1. **`python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_research.py students/<slug>/research/<college-slug>.md` (Deterministic Script):**
+1. **`python3 ${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/check_research.py students/<slug>/research/<college-slug>.md` (Deterministic Script):**
    - Verifies `# H1 College Name` title on line 1.
    - Verifies required sections/fields exist (Admissions, Academics, Cost/Aid, Deadlines).
    - Verifies deadlines cite a specific calendar date (`YYYY-MM-DD`) or `Rolling`.

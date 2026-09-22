@@ -8,8 +8,8 @@ Techniques for sourcing schools, classifying tiers honestly, matching criteria i
 
 - **Use the Scorecard script for verified data:**
   ```bash
-  python3 "${CLAUDE_PLUGIN_ROOT}/scripts/scorecard.py" search "<State/Name>"
-  python3 "${CLAUDE_PLUGIN_ROOT}/scripts/scorecard.py" get --unitid <id1,id2,...>
+  python3 "${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/scorecard.py" search "<State/Name>"
+  python3 "${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/scorecard.py" get --unitid <id1,id2,...>
   ```
   Batch queries together; responses are cached for 30 days.
 - **Section C7 of the Common Data Set:** When available in `research/<college>.md`, check how heavily the institution weighs GPA, rigor, test scores, and demonstrated interest.

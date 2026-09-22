@@ -18,7 +18,7 @@ A financial aid strategy in `students/<slug>/financial-aid.md` is evaluated agai
 
 ## Who Checks What
 
-1. **`python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_aid.py students/<slug>/financial-aid.md` (Deterministic Script):**
+1. **`python3 ${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/check_aid.py students/<slug>/financial-aid.md` (Deterministic Script):**
    - Verifies `# H1` header and required sections.
    - Verifies strategy archetype is explicitly stated.
    - Confirms annual budget ceiling is documented with a dollar figure.

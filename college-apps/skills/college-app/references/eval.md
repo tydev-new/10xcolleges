@@ -13,7 +13,7 @@ This document defines the qualitative criteria, compliance standards, and evalua
 ### 2. Workspace Discovery & Session Continuity
 - **Excellence:** On session launch, checks `students/`:
   - If a student workspace exists, reads `profile.md` and `meta.json` to immediately greet the student with an executive summary of current progress and pending deadlines. Never re-interviews a student whose data is already recorded.
-  - If no workspace exists, prompts for the student's name and seeds `students/<slug>/` from `templates/student/`.
+  - If no workspace exists, prompts for the student's name and seeds `students/<slug>/` from `skills/core/templates/student/`.
   - If multiple workspaces exist, asks which student to load without guessing.
 - **Failure:** Re-asking previously recorded intake questions; failing to load existing workspace context; hallucinating or creating redundant directories.
 

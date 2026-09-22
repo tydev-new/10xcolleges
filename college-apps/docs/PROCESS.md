@@ -29,7 +29,7 @@ winner case by case.
    discipline, not the propose-then-confirm write — design.md says rows
    land in the moment.)*
 4. **Build with the enforcement split** (`design.md § Enforcement`). A
-   check with one right answer goes in code (the schema in `schemas/`,
+   check with one right answer goes in code (the schema in `skills/core/schemas/`,
    a checker script, the registry test). A judgment goes in skill prose,
    bound to the step where it applies.
 5. **Independent drift review before closing.** A subagent that did NOT

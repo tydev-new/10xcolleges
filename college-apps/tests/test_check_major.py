@@ -4,7 +4,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-SCRIPT = Path(__file__).resolve().parent.parent / "scripts" / "check_major.py"
+SCRIPT = Path(__file__).resolve().parent.parent / "skills" / "core" / "scripts" / "check_major.py"
 
 VALID_DOSSIER = """# Academic Direction & Major Strategy — Jordan K
 

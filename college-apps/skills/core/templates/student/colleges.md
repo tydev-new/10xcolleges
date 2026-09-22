@@ -1,6 +1,6 @@
 # College list
 
-One section per school. Every number carries its source and vintage (see docs/citations.md).
+One section per school. Every number carries its source and vintage (see the core skill's references/citations.md).
 Mirror every entry into meta.json so the tracker and package stay in sync.
 
 <!-- ## School Name — Reach|Target|Safety

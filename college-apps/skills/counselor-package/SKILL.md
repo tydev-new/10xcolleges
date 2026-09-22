@@ -5,7 +5,10 @@ description: Build the interim package for a school counselor or parent to revie
 
 # Counselor & Review Package
 
-Build and maintain the formal review documents that bridge the student's independent preparation with the high school counseling office. Read `${CLAUDE_PLUGIN_ROOT}/docs/voice.md`.
+> **Shared kit.** Scripts, schemas, templates, and reference docs live in the `core` skill: `${CLAUDE_PLUGIN_ROOT}/skills/core` in Claude Code, or the `core` folder installed next to this skill in any other agent. Read every `${CLAUDE_PLUGIN_ROOT}/skills/core/...` path below as that folder. Scripts need `pip install -r core/requirements.txt`.
+
+
+Build and maintain the formal review documents that bridge the student's independent preparation with the high school counseling office. Read `${CLAUDE_PLUGIN_ROOT}/skills/core/references/voice.md`.
 
 Two distinct deliverables serve two distinct audiences:
 
@@ -14,15 +17,15 @@ Two distinct deliverables serve two distinct audiences:
 
 ```bash
 # Build the review package (self-contained HTML and optional PDF)
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/build_package.py" students/<slug> --pdf
+python3 "${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/build_package.py" students/<slug> --pdf
 
 # Fill the school's official questionnaire (.docx)
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/fill_packet.py" students/<slug>
+python3 "${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/fill_packet.py" students/<slug>
 ```
 
 - **Standards & Rubrics:** Read `${CLAUDE_PLUGIN_ROOT}/skills/counselor-package/references/eval.md`.
 - **Master Counseling Protocols:** Read `${CLAUDE_PLUGIN_ROOT}/skills/counselor-package/references/patterns.md`.
-- **Deliverable Schemas:** Read `${CLAUDE_PLUGIN_ROOT}/schemas/counselor.md` and `${CLAUDE_PLUGIN_ROOT}/schemas/meta.md`.
+- **Deliverable Schemas:** Read `${CLAUDE_PLUGIN_ROOT}/skills/core/schemas/counselor.md` and `${CLAUDE_PLUGIN_ROOT}/skills/core/schemas/meta.md`.
 
 ---
 
@@ -30,13 +33,13 @@ python3 "${CLAUDE_PLUGIN_ROOT}/scripts/fill_packet.py" students/<slug>
 
 ### 1. Trigger: Preparing for the Senior Counselor Conference
 Whenever the student schedules their senior conference:
-1. **Curate the Asks:** Draft `students/<slug>/counselor-questions.md` following `schemas/counselor.md`. Focus strictly on the **4 high-leverage institutional questions** (Pattern § 2): Naviance scattergram trends, SSR course rigor checkmark context, teacher recommendation queues, and school-nominated scholarships.
+1. **Curate the Asks:** Draft `students/<slug>/counselor-questions.md` following `skills/core/schemas/counselor.md`. Focus strictly on the **4 high-leverage institutional questions** (Pattern § 2): Naviance scattergram trends, SSR course rigor checkmark context, teacher recommendation queues, and school-nominated scholarships.
 2. **Compile the Dossier:** Run `build_package.py` to create `out/package.html` and `out/package.pdf`.
 3. **Pre-Meeting Delivery (48–72 Hours Ahead):** Instruct the student to email `package.pdf` to the counselor 2–3 days in advance with a polite 3-sentence note (Pattern § 6).
 
 ### 2. Trigger: Fulfilling the School's Senior Packet Requirement
 Whenever the high school counseling office requires its official questionnaire:
-1. **Extract to `packet.json`:** Extract academic data, activities, honors, reflections, and parent worksheet answers from `profile.md` into `students/<slug>/packet.json` (schema in `schemas/meta.md`).
+1. **Extract to `packet.json`:** Extract academic data, activities, honors, reflections, and parent worksheet answers from `profile.md` into `students/<slug>/packet.json` (schema in `skills/core/schemas/meta.md`).
 2. **Preserve Adolescent Phrasing:** Transcribe student reflection responses in verbatim adolescent voice. Never polish into consultant adult English (Pattern § 4).
 3. **Verify Adversity Consent:** Confirm `challenges_include` is `"Yes"` before including sensitive family, medical, or personal challenges (Pattern § 5).
 4. **Compile Word Document:** Run `fill_packet.py` to generate `out/packet.docx`. Missing fields render as grey `[to be completed]` placeholders.
@@ -74,11 +77,11 @@ The review package opens with **"Where we'd most value your input"** (pulled fro
 ## State
 
 Owns:
-- `students/<slug>/counselor-questions.md` — schema in `${CLAUDE_PLUGIN_ROOT}/schemas/counselor.md`
-- `students/<slug>/packet.json` — schema in `${CLAUDE_PLUGIN_ROOT}/schemas/meta.md`
-- `students/<slug>/out/package.html` — schema in `${CLAUDE_PLUGIN_ROOT}/schemas/counselor.md`
-- `students/<slug>/out/package.pdf` — schema in `${CLAUDE_PLUGIN_ROOT}/schemas/counselor.md`
-- `students/<slug>/out/packet.docx` — schema in `${CLAUDE_PLUGIN_ROOT}/schemas/counselor.md`
+- `students/<slug>/counselor-questions.md` — schema in `${CLAUDE_PLUGIN_ROOT}/skills/core/schemas/counselor.md`
+- `students/<slug>/packet.json` — schema in `${CLAUDE_PLUGIN_ROOT}/skills/core/schemas/meta.md`
+- `students/<slug>/out/package.html` — schema in `${CLAUDE_PLUGIN_ROOT}/skills/core/schemas/counselor.md`
+- `students/<slug>/out/package.pdf` — schema in `${CLAUDE_PLUGIN_ROOT}/skills/core/schemas/counselor.md`
+- `students/<slug>/out/packet.docx` — schema in `${CLAUDE_PLUGIN_ROOT}/skills/core/schemas/counselor.md`
 
 Appends to `conversations.md` and `feedback.md`.
 
@@ -91,7 +94,7 @@ Appends to `conversations.md` and `feedback.md`.
 3. **Adolescent Voice Integrity:** Student reflections in `packet.json` must remain authentic. Adult consultant rewrites destroy counselor credibility.
 4. **Binding Adversity Consent:** If `challenges_include` is `"No"`, sensitive medical or personal adversity must never appear in `packet.docx` or `package.html`.
 5. **Counselor Authority Override:** Local counselor feedback on school admissions history always overrides AI model suggestions.
-6. **Mandatory `meta.json` Synchronization:** Whenever a college is re-tiered or a recommender note is added, you MUST edit BOTH `colleges.md` AND `meta.json` (updating the `"tier"` field in `colleges[]` and `"recommenders[]"`). Remember: `scripts/make_tracker.py` and `scripts/build_package.py` read `meta.json`, NOT `colleges.md`!
+6. **Mandatory `meta.json` Synchronization:** Whenever a college is re-tiered or a recommender note is added, you MUST edit BOTH `colleges.md` AND `meta.json` (updating the `"tier"` field in `colleges[]` and `"recommenders[]"`). Remember: `skills/core/scripts/make_tracker.py` and `skills/core/scripts/build_package.py` read `meta.json`, NOT `colleges.md`!
 
 ---
 
@@ -101,12 +104,12 @@ Before replying to the student on EVERY turn:
 1. **Sync Meta on List / Recommender Changes:** If any tier, decision plan, or recommender status changed, update `meta.json` to mirror `colleges.md` BEFORE running scripts.
 2. **Regenerate Tracker:** If the college list or recommenders changed, run:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/make_tracker.py" students/<slug>
+   python3 "${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/make_tracker.py" students/<slug>
    ```
 3. **Compile Deliverables:** Execute:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/build_package.py" students/<slug>
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/fill_packet.py" students/<slug>
+   python3 "${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/build_package.py" students/<slug>
+   python3 "${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/fill_packet.py" students/<slug>
    ```
 4. **Verify Disk Output:** Confirm `out/package.html`, `out/packet.docx`, and `out/tracker.xlsx` exist and are current.
 5. **Audit Provenance Headers:** Confirm no draft provenance errors were raised during compilation.

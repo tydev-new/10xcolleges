@@ -1,7 +1,7 @@
 import subprocess, sys, tempfile, unittest
 from pathlib import Path
 
-S = Path(__file__).resolve().parent.parent / "scripts" / "check_record.py"
+S = Path(__file__).resolve().parent.parent / "skills" / "core" / "scripts" / "check_record.py"
 PROFILE = "# Profile\n## Basics\n- **Name:** Maya R. [packet]\n- **GPA (unweighted):** 3.7 [transcript]\n- **Test scores:** none yet; SAT in October [student 2026-08-22]\n- **State of residence:** California [packet]\n## Goals and direction\n- **Intended major:** \"biology maybe, something with plants\" — not sure [student 2026-08-22]\n"
 CRITERIA = "# List criteria\n## Hard filters\n| # | Criterion | Value | Source | Added |\n|---|---|---|---|---|\n| H1 | budget | $25k/yr · set by: parent | [parent 2026-08-22] | 2026-08-22 |\n## Deal-breakers\n| # | \"In their words\" | What it rules out | Source | Added |\n|---|---|---|---|---|\n| D1 | \"I don't want to be somewhere cold\" | cold climates | [student 2026-08-22] | 2026-08-22 |\n## Retired criteria\n| # | Criterion | Why it changed | When |\n|---|---|---|---|\n"
 

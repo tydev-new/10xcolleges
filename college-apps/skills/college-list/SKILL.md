@@ -5,6 +5,9 @@ description: Build or rebalance a student's college list into safety, target, an
 
 # Build and balance the college list
 
+> **Shared kit.** Scripts, schemas, templates, and reference docs live in the `core` skill: `${CLAUDE_PLUGIN_ROOT}/skills/core` in Claude Code, or the `core` folder installed next to this skill in any other agent. Read every `${CLAUDE_PLUGIN_ROOT}/skills/core/...` path below as that folder. Scripts need `pip install -r core/requirements.txt`.
+
+
 Build or rebalance an 8–12 school college list across Safety, Target, and Reach tiers, grounded in the student's factual record and personal criteria.
 
 | Must be true | Where |
@@ -14,13 +17,13 @@ Build or rebalance an 8–12 school college list across Safety, Target, and Reac
 | Safeties are affordable within verified family budget ceiling | `students/<slug>/colleges.md` |
 | Hard filters and deal-breakers are strictly respected | `students/<slug>/colleges.md` |
 | Derivation explanation and walkthrough offered in chat | Conversation |
-| `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_list.py students/<slug>` passes | Terminal |
+| `python3 ${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/check_list.py students/<slug>` passes | Terminal |
 
 ---
 
 ## Prerequisites
 
-- **Required:** `students/<slug>/profile.md` (unweighted GPA, test plans, state of residence) and `students/<slug>/criteria.md` (budget ceiling, hard filters, deal-breakers). See `schemas/requirements.md` for the core requirements and graceful degradation contract.
+- **Required:** `students/<slug>/profile.md` (unweighted GPA, test plans, state of residence) and `students/<slug>/criteria.md` (budget ceiling, hard filters, deal-breakers). See `skills/core/schemas/requirements.md` for the core requirements and graceful degradation contract.
 - **Optional:** `documents/` (counselor packet, school questionnaires).
 
 ---
@@ -31,13 +34,13 @@ Build or rebalance an 8–12 school college list across Safety, Target, and Reac
 
 **Runs when** asked to build or rebalance a list.
 
-1. Run `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_record.py students/<slug>`.
-2. Inspect `gate N/4` and open `TODO:` items against `schemas/requirements.md`:
+1. Run `python3 ${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/check_record.py students/<slug>`.
+2. Inspect `gate N/4` and open `TODO:` items against `skills/core/schemas/requirements.md`:
    - If `gate 4/4`: proceed to list building.
    - If `gate < 4`: do NOT abruptly halt or bounce the student. Apply the 3-beat protocol:
-     a. **Prompt In-Stride:** Ask the student directly in chat for the missing item(s) (at most 2 questions, using the canonical prompts from `schemas/requirements.md`).
+     a. **Prompt In-Stride:** Ask the student directly in chat for the missing item(s) (at most 2 questions, using the canonical prompts from `skills/core/schemas/requirements.md`).
      b. **Record if answered:** Write the response to `profile.md` or `criteria.md` with `[student YYYY-MM-DD]`, append to `conversations.md`, and proceed.
-     c. **Degrade Gracefully if skipped/deferred:** If the student defers (e.g. budget unknown, state not given), record the deferral tag (`TODO: deferred by student on YYYY-MM-DD [student YYYY-MM-DD]`) and apply the graceful degradation rule from `schemas/requirements.md` (e.g. tier by academic match, display estimated Net Price, and label: `Affordability unverified — family budget ceiling not yet set`).
+     c. **Degrade Gracefully if skipped/deferred:** If the student defers (e.g. budget unknown, state not given), record the deferral tag (`TODO: deferred by student on YYYY-MM-DD [student YYYY-MM-DD]`) and apply the graceful degradation rule from `skills/core/schemas/requirements.md` (e.g. tier by academic match, display estimated Net Price, and label: `Affordability unverified — family budget ceiling not yet set`).
 
 **Exits** when requirements are resolved or degraded gracefully, ready to build.
 
@@ -52,10 +55,10 @@ Build or rebalance an 8–12 school college list across Safety, Target, and Reac
    - **Safety (2–3):** GPA/test above 75th percentile for this major, net price strictly within family budget ceiling without unearned aid, AND matches at least 1–2 key student preferences ("Love Your Safeties"). A school over budget is NEVER a safety.
    - **Target (3–5):** GPA/test in middle 50% for this major AND strictly within budget.
    - **Reach (2–4):** Any school with an overall acceptance rate $< 15\%$ (or major-specific admit gate $< 15\%$) is an **Automatic Reach for all applicants regardless of 4.0/1600 stats**. Also includes schools where GPA/test is below the 25th percentile, with a plausible aid pathway.
-5. Write `students/<slug>/colleges.md` following `schemas/colleges.md` with an upfront derivation summary and plain-English criteria descriptions. When `research/<college>.md` exists, pull numbers, net prices, and watch-outs directly from the dossier.
+5. Write `students/<slug>/colleges.md` following `skills/core/schemas/colleges.md` with an upfront derivation summary and plain-English criteria descriptions. When `research/<college>.md` exists, pull numbers, net prices, and watch-outs directly from the dossier.
 6. Synchronize `meta.json`.
 
-**Exits** when `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_list.py students/<slug>` passes.
+**Exits** when `python3 ${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/check_list.py students/<slug>` passes.
 
 ### Rebalance and adjust (the loop)
 
@@ -95,7 +98,7 @@ Build or rebalance an 8–12 school college list across Safety, Target, and Reac
 Before replying to the student on EVERY turn:
 1. Sync `meta.json` if schools were added or removed, and regenerate the tracker:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/make_tracker.py" students/<slug>
+   python3 "${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/make_tracker.py" students/<slug>
    ```
-2. Run `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_list.py students/<slug>` as the final tool call on EVERY turn — whether files were edited or you are merely answering questions, explaining tiers, or discussing colleges. Never reply without running `check_list.py` first.
+2. Run `python3 ${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/check_list.py students/<slug>` as the final tool call on EVERY turn — whether files were edited or you are merely answering questions, explaining tiers, or discussing colleges. Never reply without running `check_list.py` first.
 3. Every reply offers the derivation walkthrough and ends with ONE next step and its reason.

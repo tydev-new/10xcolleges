@@ -5,6 +5,9 @@ description: Develop a financial aid and scholarship strategy — classify strat
 
 # Financial aid and scholarships
 
+> **Shared kit.** Scripts, schemas, templates, and reference docs live in the `core` skill: `${CLAUDE_PLUGIN_ROOT}/skills/core` in Claude Code, or the `core` folder installed next to this skill in any other agent. Read every `${CLAUDE_PLUGIN_ROOT}/skills/core/...` path below as that folder. Scripts need `pip install -r core/requirements.txt`.
+
+
 Build and execute an actionable financial aid and scholarship plan that bridges the family's annual budget ceiling with institutional merit, need-based aid, and local awards.
 
 | Must be true | Where |
@@ -14,14 +17,14 @@ Build and execute an actionable financial aid and scholarship plan that bridges 
 | Institutional merit awards distinguish automatic from competitive | `students/<slug>/financial-aid.md` |
 | Outside scholarships prioritize local/school awards over lotteries | `students/<slug>/financial-aid.md` |
 | Loans strictly categorized as debt, never subtracted from net price | `students/<slug>/financial-aid.md` |
-| `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_aid.py ...` passes | Terminal |
+| `python3 ${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/check_aid.py ...` passes | Terminal |
 
 ---
 
 ## Prerequisites
 
-- **Required:** `students/<slug>/profile.md` (unweighted GPA, test scores, state residency) and `students/<slug>/criteria.md` (H1 annual net price budget ceiling). If state or budget is `TODO:`, ask the student in-stride or apply graceful degradation per `schemas/requirements.md`.
-- Output file: `students/<slug>/financial-aid.md` following `schemas/financial-aid.md`.
+- **Required:** `students/<slug>/profile.md` (unweighted GPA, test scores, state residency) and `students/<slug>/criteria.md` (H1 annual net price budget ceiling). If state or budget is `TODO:`, ask the student in-stride or apply graceful degradation per `skills/core/schemas/requirements.md`.
+- Output file: `students/<slug>/financial-aid.md` following `skills/core/schemas/financial-aid.md`.
 
 ---
 
@@ -41,7 +44,7 @@ Build and execute an actionable financial aid and scholarship plan that bridges 
 5. **Write `financial-aid.md`:** Populate the living plan following the schema.
 6. **Award Audit (Spring):** When offers arrive, translate letters into True Net Price (Sticker COA minus Grants/Scholarships). Categorize loans as debt and work-study as wages. Draft appeal letters if valid triggers exist.
 
-**Exits** when `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_aid.py students/<slug>/financial-aid.md` passes clean.
+**Exits** when `python3 ${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/check_aid.py students/<slug>/financial-aid.md` passes clean.
 
 ---
 
@@ -58,5 +61,5 @@ Build and execute an actionable financial aid and scholarship plan that bridges 
 ## Session close
 
 Before replying to the student on EVERY turn:
-1. Run `python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_aid.py students/<slug>/financial-aid.md` as the absolute final tool call on EVERY turn — whether files were edited or you are merely answering questions, explaining forms, or discussing scholarships. Never reply without running `check_aid.py` first.
+1. Run `python3 ${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/check_aid.py students/<slug>/financial-aid.md` as the absolute final tool call on EVERY turn — whether files were edited or you are merely answering questions, explaining forms, or discussing scholarships. Never reply without running `check_aid.py` first.
 2. Every reply ends with ONE next step and its reason.

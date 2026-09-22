@@ -5,7 +5,7 @@ import tempfile
 import unittest
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-SCRIPT = os.path.join(HERE, "..", "scripts", "check_rec.py")
+SCRIPT = os.path.join(HERE, "..", "skills", "core", "scripts", "check_rec.py")
 
 VALID_BRAG_SHEET = """# For Ms. Alvarez — AP Physics, Junior Year
 

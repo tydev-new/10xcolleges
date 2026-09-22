@@ -33,7 +33,7 @@ No scale. No "1 to 5". No "how would you rate". If they say "4 out of 5", keep t
 ## 4. The show-then-send exchange
 
 ```
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/feedback.py" --skill college-list --stage 2 --rating 4 --comment "the safeties felt like a stretch" --dry-run
+python3 "${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/feedback.py" --skill college-list --stage 2 --rating 4 --comment "the safeties felt like a stretch" --dry-run
 ```
 ```json
 {

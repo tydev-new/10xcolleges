@@ -1,7 +1,7 @@
 """scripts/check_draft.py — the essay law's checkable half."""
 import os, subprocess, sys, tempfile, unittest
 from pathlib import Path
-S = Path(__file__).resolve().parent.parent / "scripts" / "check_draft.py"
+S = Path(__file__).resolve().parent.parent / "skills" / "core" / "scripts" / "check_draft.py"
 HDR = "> **AGENT FIRST DRAFT — built from your intake and our conversations. This is scaffolding, not your essay. Rewrite it in your own words before it goes anywhere near an application. Check every fact: if I got something wrong or put words in your mouth, say so and I'll cut it.**\n\n"
 
 def ws(drafts, profile="- Robotics team; drivetrain lead [packet]\n- Bike shop summers [student]\n", research=None, rounds=True):

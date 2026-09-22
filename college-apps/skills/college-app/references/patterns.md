@@ -119,7 +119,7 @@ In the 10xColleges architecture:
 Whenever a college is added, removed, re-tiered, or rescheduled:
 1. Update `colleges.md` with detailed reasoning and citation vintage.
 2. Concurrently update `meta.json` (updating `colleges[]`, `tier`, `decision_plan`, `deadline`, and `app_type`).
-3. Re-run `python3 scripts/make_tracker.py students/<slug>` to keep the live spreadsheet in lockstep.
+3. Re-run `python3 skills/core/scripts/make_tracker.py students/<slug>` to keep the live spreadsheet in lockstep.
 
 Never permit `meta.json` to drift from `colleges.md`.
 

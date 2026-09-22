@@ -2,7 +2,7 @@
 
 Issue #2. `student-intake` to the shape: Documents (sequence) · the
 interview (the loop, scored `gate N/4`) · Update (sequence); the law in
-`scripts/check_record.py` (source tags, dated for people; a `TODO:` never
+`skills/core/scripts/check_record.py` (source tags, dated for people; a `TODO:` never
 carries a value or a hedge; GPA kind; `set by`; append-only log; and the
 gate count). Case: `tests/always-on/cases/i1-intake-rounds` — Jordan K.,
 half-blank packet; a simulated student mentions a job not in the packet,

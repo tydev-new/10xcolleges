@@ -5,7 +5,7 @@ tell it got there, and who checks what.
 
 ## Who checks what
 
-- **Structure → `${CLAUDE_PLUGIN_ROOT}/scripts/check_record.py students/<slug>`**
+- **Structure → `${CLAUDE_PLUGIN_ROOT}/skills/core/scripts/check_record.py students/<slug>`**
   every round and at close: every content line in `profile.md` and
   `criteria.md` carries a source tag (dated, for people); no `TODO:`
   carries a value (a number, a dollar amount, a hedge like "probably");

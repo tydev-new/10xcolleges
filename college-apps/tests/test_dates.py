@@ -15,7 +15,7 @@ from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(ROOT / "scripts"))
+sys.path.insert(0, str(ROOT / "skills" / "core" / "scripts"))
 
 import make_tracker as mt  # noqa: E402
 

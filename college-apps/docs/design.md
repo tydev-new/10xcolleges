@@ -19,7 +19,7 @@ skill is built to. They top the precedence chain (`PRINCIPLES.md` → `design.md
 to lose:
 
 - **Facts that drift live in config; rules that compute live in code.** FAFSA's opening
-  date is a fact and belongs in `config/calendar.json`. "A January deadline belongs to
+  date is a fact and belongs in `skills/core/config/calendar.json`. "A January deadline belongs to
   the aid year that opened the previous October" is a rule and belongs in Python, under
   test. A rule in prose is re-derived on every run, and re-derived date arithmetic is
   how a nine-month error hides in plain sight.
@@ -57,7 +57,7 @@ to lose:
    └─────────────────────────────────────────────────┬─────────────────────────────────────────────────┘
                                       │ consumed by
    ┌──────────────────────────────────▼──────────────────────────────────┐
-   │  scripts/            deterministic, no judgment                     │
+   │  skills/core/scripts/            deterministic, no judgment                     │
    │  check_record · check_draft  (the laws, run every round)            │
    │  scorecard · make_tracker · fill_packet · build_package             │
    └──────────────────────────────────┬──────────────────────────────────┘
@@ -67,12 +67,12 @@ to lose:
 
     Read-only, shipped with the plugin          External sources
     ┌────────────────────────────────┐          ┌──────────────────────────┐
-    │ schemas/ profile · criteria ·  │          │ College Scorecard API    │
+    │ skills/core/schemas/ profile · criteria ·  │          │ College Scorecard API    │
     │          conversations · essay │          │ Common Data Sets (§C7)   │
     │ docs/    voice · citations ·   │          │ College admissions pages │
     │          data-model · design   │          │ (deadlines — sole source)│
-    │ config/  calendar.json         │          │                          │
-    │ templates/ student · worksheet │          │                          │
+    │ skills/core/config/  calendar.json         │          │                          │
+    │ skills/core/templates/ student · worksheet │          │                          │
     └────────────────────────────────┘          └──────────────────────────┘
 ```
 
@@ -355,10 +355,10 @@ tell them what to do first.
   and `docs/PROCESS.md` for the ritual: design gate in an issue, build, independent
   review, harness measurement with receipts in `docs/evals/`.
 - **A new student file** → a row in `data-model.md § Every file` naming its owner and
-  change class, the shape in `schemas/<file>.md` (linked from the row),
+  change class, the shape in `skills/core/schemas/<file>.md` (linked from the row),
   and `build_package.py` if a counselor should see it. `tests/test_data_model.py` fails
   until the row, the section, and the claim agree.
-- **A new calendar fact** → `config/calendar.json`, with a `_note` saying why.
+- **A new calendar fact** → `skills/core/config/calendar.json`, with a `_note` saying why.
 - **A new date rule** → Python plus a test in `tests/test_dates.py`. Never prose.
 - **A new external source** → add its precedence to `citations.md` first.
 - **A new rule for a skill** → only after a measured miss, at the step where it applies,
@@ -367,7 +367,7 @@ tell them what to do first.
 ## `feedback` — hearing how it's going
 
 Not a stage. A small skill that passes one user-written note about the tool to the team,
-after the user sees the exact payload and says yes. `scripts/feedback.py` builds and sends
+after the user sees the exact payload and says yes. `skills/core/scripts/feedback.py` builds and sends
 it; the payload is the comment, an optional 1–5 rating, the skill and stage that just ran,
 the plugin version, and the same opaque installation id the Scorecard proxy uses. It reads
 nothing from `students/` and has no way to. The orchestrator asks once per session, one
